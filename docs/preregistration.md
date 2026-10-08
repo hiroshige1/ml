@@ -62,6 +62,16 @@ least squares on medians over the declared `d` grid; `T_0.5` as the emergence ti
 `T_0.5·η` within 30% as the admissibility criterion for a config (configs failing it are reported, not
 dropped). No metric, grid, or seed count will be changed after seeing results without a changelog entry.
 
+## Transfer test (exp 4, small softmax transformer) — pre-registered 2026-10-08 before any run; spec in `docs/spec_exp4.md`
+
+| ID | setting | default predicts | rival (ours) predicts |
+|---|---|---|---|
+| P8 | 2-layer softmax transformer, in-context regression with a `k*=2` skill, `d=32`, tokens/step fixed (`N·B = 8192`), `N ∈ {16, 64, 256}` | emergence step `T_e` ≈ independent of `N` (Oko Remark 3: only `N_1T_1` matters) or increasing with `N` | `T_e` decreases ≥ ×3 from `N=16` to `N=256`; some `N=16` seeds never emerge in 30k steps |
+| P9 | same, `k*=1`; and in-weight control (`c≡1`, labels zeroed) for `k*=2` | — | `k*=1`: `N`-dependence < ×1.5; in-weight control emerges faster than every in-context cell |
+| P10 | linear-attention variant, `k*=2`, `N ∈ {16, 256}` | softmax label nonlinearity removes the `N`-dependence (Nishikawa-style reading) | `N`-dependence present in both; recorded either way |
+
+Kill: P8 fails ⇒ the toy phenomenon does not transfer at this scale; that becomes the headline of exp 4.
+
 ## Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
@@ -114,6 +124,7 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-08 v0.5: P8–P10 (transformer transfer test) pre-registered before exp 4 runs.
 - 2026-10-08 v0.4: exp 1b outcome recorded; hard-threshold wording withdrawn (soft, noise-activated); post-hoc parameter-free ODE check declared as such.
 - 2026-10-08 v0.3: exp 1 outcome recorded; κ=1 prediction corrected (error acknowledged, not reinterpreted).
 - 2026-10-08 v0.2: added P4′ after the Ren et al. full-text check revealed their 2-homogeneous parameterisation; the
