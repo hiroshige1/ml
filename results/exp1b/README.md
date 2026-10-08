@@ -219,3 +219,10 @@ Per-run CPU time is `time.process_time()` inside the worker (column `cpu_s`). 4 
 - Fixed Gamma: the context-length threshold is qualitatively present (escape fraction decreases with gamma, d and with decreasing N) and quantitatively right within ~1 grid step at N = 128, 512; but 4 of the 7 cells where the formula says stuck (d >= d*) had at least one escaping seed (gamma = 1: N = 32 d = 16 2/3, N = 128 d = 32 1/3, and the two boundary cells d = d*: N = 128 d = 16 3/3, N = 512 d = 64 3/3), so it is not a hard threshold. P3 and P7 are met; P2 is met at d = 16 and 64 and failed at d = 32 (1/3 escaped).
 - Tied readout: kappa_eff ~ 4.1-4.4 at all N (P4' met); tied with rho_0 = 1 does not behave like fixed gamma = 1 at d = 32 (escapes).
 - Free readout: kappa_eff = 4.8-5.2 for N >= 512 and 5.4-6.6 for N <= 128; the pre-registered ~4 -> ~8 span is not reproduced; the d-scan at N = 128 vs 2048 shows no N-dependence of slope (3.5 vs 3.7).
+
+## Correction (2026-10-08, after the run)
+The predicted threshold `d* = N(4−2γ)/(16γ)` used above came from a factor-2 slip in the hand derivative of the closed-form
+loss (the loss itself, verified by the drift check, is right). Corrected: `d* = N(8 − 4γ(1−1/N) − 24γ/N)/(16γ)`
+(`γ=1`: `d* ≈ 31` at `N=128`, `≈ 7` at `N=32`, `≈ 125` at `N=512`; `γ=0.1`: `≈ 152 / 608 / 2432`). Column
+`pred_threshold_d_corrected` was added to `threshold_table.csv` and `figs/threshold_grid.png` was regenerated with the corrected
+curve. Under the corrected formula the `γ=1, N=128, d=32` cell sits on the boundary (1/3 escaped) and `d=16` is below it (3/3).
