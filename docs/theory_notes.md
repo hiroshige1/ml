@@ -145,6 +145,17 @@ emergence is selected by the parameterisation of the readout and by the context 
 This connects to Nam et al. 2025's "dynamical feedback principle" (which factor's magnitude gates which
 factor's speed).
 
+### 2.5 The threshold is soft under SGD: noise-activated escape (exp 1b)
+
+With a fixed readout the population landscape for `σ_2` is `L(m) = 1 − 2γm⁴ + γ²((1−1/N)m⁴ + (1+8m²+6m⁴)/N)`, which has a
+local *minimum* at `m=0` and a barrier top at `m* = 2√(γ/N)/√(1−γ(1−1/N)/2)` (`γ=1, N=128`: `m* = 0.250`). SGD is a diffusion
+on the sphere, so a run started below `m*` escapes with a Kramers-type probability `∼ exp(−ΔL/D_eff)`, `ΔL = L(m*) − L(m_0)`,
+`D_eff ∝ η·Var(∂_m-gradient)/B`. Barrier heights at `γ=1, N=128`: `d=16` (`m_0 = 0.25 = m*`): `ΔL ≈ 0` → escapes (3/3 observed);
+`d=32` (`m_0=0.177`): `ΔL ≈ 1.6·10⁻⁴` → rare escapes (1/3); `d=64` (`m_0=0.125`): `ΔL ≈ 4.5·10⁻⁴` → none (0/3). The ordering and
+the softness are what exp 1b shows; the quantitative Kramers rate needs the gradient-noise variance at `m_0` (to be measured;
+`drift.py` can return it). Increasing `B` lowers `D_eff` and makes the trap *deeper* in SGD terms — the mechanism behind P7
+(more tasks per step do not help; they hurt).
+
 **Consequence in SGD sample-complexity terms** (heuristic, `κ_eff = 4k*`, free readout only): escape needs
 `η ≲ d^{−κ/2}` and `n ≍ d^{κ−1} = d^{4k*−1}` — for `k* = 2` that is `d^7`: a linear-attention ICL model
 with a trainable readout and context `N ≪ d²` essentially **cannot acquire an even (k*=2) skill from
