@@ -88,8 +88,33 @@ are confirmed.
 - **Budget:** 6.4 CPU-h vs ~2 planned (censored A `k=2` runs at `d ≥ 48`). Exp 1b uses a fixed `m_0 = d^{−1/2}` initialisation
   to remove the `m_0` scatter and caps `d` at 48 for trained-readout runs.
 
+## Exp 1b outcome (recorded 2026-10-08 after the run; `results/exp1b/README.md`)
+
+- **P2 (fixed `Γ=1, N=128`): partially met.** `d=16` escapes 3/3, `d=64` stuck 0/3 (K2 not triggered), but `d=32` escaped 1/3
+  (pre-registered: none). Across the grid, 4 of the 7 cells the population formula calls "stuck" had ≥1 late escape, two of them on
+  the boundary `d = d*`. **Correction:** the drift-stable origin is a *soft* threshold under SGD — escape by noise activation over the
+  unstable point `m* ≈ 2√(γ/N)`, with escape probability falling with `d`. The hard-threshold wording is withdrawn.
+- **P3 (`γ=0.1`): met**, 27/27.
+- **P7 (N–T tradeoff vs Oko et al. Remark 3): met.** `γ=1, N=128, d=64`: 0/9 escapes at `B ∈ {32, 256, 1024}` (total samples ×1, ×2.7,
+  ×3.2; the ×10 leg not run), and the final `|m|` (0.005–0.015 at `B ≤ 256`) is *below* `m_0 = 0.125`: more tasks per step do not
+  substitute for context length; the model is driven toward `m=0`.
+- **P4 / P4′ (`κ_eff` from the `m_0` regression at `d=32`): direction met, magnitudes match the population ODE, not the asymptotic
+  4→8.** Measured: free `η_Γ=η` 5.45 / 5.59 / 4.81 / 4.92 at `N = 32/128/512/4096` (N=32 biased low by censoring, ~5.9 if censored runs
+  set to cap); free `10η` 6.61 / 5.78 / 4.92 / 5.17; **tied 4.10 / 4.26 / 4.30 / 4.44** (no `N` trend, as pre-registered).
+  **Post-hoc but parameter-free check** (`scripts/ode_kappa_exp1b.py`, same equations committed before the run): the population ODE at
+  the *exact* experimental `d`, `m_0` grid, `Γ_0`, `η_Γ/η` gives free `η` 6.47 / 5.46 / 4.99 / 4.85, free `10η` 7.02 / 6.18 / 5.32 / 4.92,
+  tied 4.18 / 4.15 / 4.15 / 4.15 — within ≈0.2–0.5 of every measured cell (N=32 cells within the censoring bias). The pre-registered
+  "4 → 8" is the `d → ∞` asymptote; at `d=32` the same theory predicts 4.85 → 6.5–7.0, which is what SGD shows.
+- **P5 (learned `Γ ≈ Γ*(0.5;N)`): not met in magnitude** — `Γ` at `T_0.5` is 0.18–0.25 (`η_Γ=η`), below `Γ*` = 0.38–0.99; the
+  fast-equilibration assumption behind P5 does not hold at these learning rates. The exponent predictions do not depend on it.
+- **Priority 3 (`d`-slope bend between `N=128` and `N=2048`): not seen at `d ≤ 48`** (3.49 vs 3.70). The population ODE predicts the two
+  `N` to differ by <15% in `T` for `d ≤ 48` and to separate only for `d ≳ 64–128`; the test was under-powered in the accessible range.
+  Honest status: the `N`-dependence of the exponent is established via `κ_eff(N)` at fixed `d`, not via the `d`-slope.
+- Budget 2.8 CPU-h (cap 3).
+
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-08 v0.4: exp 1b outcome recorded; hard-threshold wording withdrawn (soft, noise-activated); post-hoc parameter-free ODE check declared as such.
 - 2026-10-08 v0.3: exp 1 outcome recorded; κ=1 prediction corrected (error acknowledged, not reinterpreted).
 - 2026-10-08 v0.2: added P4′ after the Ren et al. full-text check revealed their 2-homogeneous parameterisation; the
   tied-readout population ODE (`scripts/ode_tied.py`) was run *before* writing P4′ and gave slope 1.03–1.05 (flow time)
