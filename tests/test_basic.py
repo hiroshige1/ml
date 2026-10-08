@@ -10,8 +10,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from icl_additive.data import sample_iw, sample_iw_proj, sample_prompts, sample_prompts_proj  # noqa: E402
 from icl_additive.drift import V_fn, g_fn, loss_formula  # noqa: E402
 from icl_additive.hermite import dsigma, hermite_norm, sigma  # noqa: E402
-from icl_additive.models import ModelA, ModelB  # noqa: E402
-from icl_additive.train import init_sphere, train  # noqa: E402
+from icl_additive.models import ModelA, ModelATied, ModelB  # noqa: E402
+from icl_additive.train import init_fixed, init_sphere, train  # noqa: E402
 
 KS = [1, 2, 3, "relu"]
 
@@ -106,6 +106,53 @@ def test_gradients_finite_difference():
         assert _fd_check(lambda ww: ModelB(ww, k, 0.7).loss(x, y), w.copy(), gw) < 1e-4
         num = (ModelB(w, k, 0.7 + eps).loss(x, y) - ModelB(w, k, 0.7 - eps).loss(x, y)) / (2 * eps)
         assert abs(num - ga) / abs(num) < 1e-4
+
+
+def test_tied_gradient_finite_difference():
+    """Model A-tied: analytic gradient wrt the UNNORMALISED w (directional projection + 2 w dL/dGamma) vs central
+    differences, relative error < 1e-4, for every activation and for |w| != 1."""
+    rng = np.random.default_rng(5)
+    d, N, B = 6, 10, 7
+    v, w = init_sphere(d, rng)
+    for k in KS:
+        batch = sample_prompts(d, N, B, v, k, 1.0, rng)
+        for rho in (0.01, 0.7, 2.5):
+            wu = math.sqrt(rho) * w + 0.0
+            mdl = ModelATied(wu, k)
+            assert abs(mdl.rho - rho) < 1e-12
+            _, gw, _ = mdl.loss_grad(*batch)
+            err = _fd_check(lambda ww: ModelATied(ww, k).loss(*batch), wu.copy(), gw)
+            assert err < 1e-4, ("At", k, rho, err)
+            # consistency with the free-Gamma model at (w_hat, Gamma=rho): same loss
+            assert abs(mdl.loss(*batch) - ModelA(w, k, rho).loss(*batch)) < 1e-12
+
+
+def test_init_fixed_and_tied_proj_matches_full():
+    rng = np.random.default_rng(6)
+    d = 20
+    v, w = init_fixed(d, rng, 0.3)
+    assert abs(v @ w - 0.3) < 1e-12 and abs(np.linalg.norm(w) - 1) < 1e-12
+    # projected sampler + tied chain rule has the same mean/spread of dL/dw (unnormalised) as full sampling
+    d, N, B, nb, m, rho = 6, 8, 4, 6000, 0.35, 0.8
+    v, _ = init_sphere(d, rng)
+    u = rng.standard_normal(d); u -= (u @ v) * v; u /= np.linalg.norm(u)
+    s = math.sqrt(1 - m * m)
+    wu = math.sqrt(rho) * (m * v + s * u)
+    mdl = ModelATied(wu, 2)
+    full = np.empty((nb, 3)); proj = np.empty((nb, 3))
+    r2 = np.random.default_rng(7)
+    for i in range(nb):
+        _, gw, _ = mdl.loss_grad(*sample_prompts(d, N, B, v, 2, 1.0, rng))
+        p, uu, pq, uq, c = sample_prompts_proj(N, B, 2, 1.0, r2)
+        _, Cc, Cq, gG = mdl.coefs(m * p + s * uu, c[:, None] * sigma(2, p), m * pq + s * uq, c * sigma(2, pq))
+        Gv, Ge, S2 = (Cc * p).sum() + Cq @ pq, (Cc * uu).sum() + Cq @ uq, (Cc ** 2).sum() + Cq @ Cq
+        xi = r2.standard_normal(d); xi -= (xi @ v) * v; xi -= (xi @ u) * u
+        gp = mdl.w_grad(Gv * v + Ge * u + math.sqrt(S2) * xi, gG)
+        full[i] = [gw @ v, gw @ u, gw @ gw]
+        proj[i] = [gp @ v, gp @ u, gp @ gp]
+    for j in range(3):
+        se = math.sqrt(full[:, j].var() / nb + proj[:, j].var() / nb)
+        assert abs(full[:, j].mean() - proj[:, j].mean()) < 5 * se, j
 
 
 def test_closed_form_g_V():

@@ -35,7 +35,8 @@ def _key(row):
 def _run(job):
     cfg, traj_dir = job
     r = train(cfg["model"], cfg["d"], cfg["k"], cfg["eta0"] / cfg["d"] ** 2, cfg["seed"], N=cfg["N"], B=cfg["B"],
-              gamma=cfg["gamma"], max_steps=cfg["max_steps"], log_every=cfg["log_every"], sampler=cfg["sampler"])
+              gamma=cfg["gamma"], max_steps=cfg["max_steps"], log_every=cfg["log_every"], sampler=cfg["sampler"],
+              init=cfg.get("init", "uniform"), m0_scale=cfg.get("m0_scale", 1.0))
     r["eta0"] = cfg["eta0"]
     name = f"{r['model']}_k{r['k']}_d{r['d']}_eta{cfg['eta0']:g}_s{r['seed']}.npz"
     np.savez_compressed(os.path.join(traj_dir, name), **r.pop("traj"))
@@ -58,6 +59,9 @@ def main(argv=None):
     ap.add_argument("--log-every", type=int, default=500)
     ap.add_argument("--sampler", choices=["proj", "full"], default="proj")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--init", choices=["uniform", "fixed"], default="uniform",
+                    help="uniform: w uniform on the sphere (exp 1); fixed: <w,v> = m0_scale*d^-1/2 exactly (exp 1b)")
+    ap.add_argument("--m0-scale", type=float, default=1.0)
     args = ap.parse_args(argv)
     if args.quick:
         args.ds, args.seeds, args.max_steps = [8, 16], 1, 20000
@@ -78,7 +82,7 @@ def main(argv=None):
                     for seed in range(args.seeds):
                         cfg = dict(model=model, k=k, d=d, eta0=eta0, seed=seed, N=args.N, B=args.B,
                                    gamma=args.gamma, max_steps=args.max_steps, log_every=args.log_every,
-                                   sampler=args.sampler)
+                                   sampler=args.sampler, init=args.init, m0_scale=args.m0_scale)
                         if _key(cfg) not in done:
                             jobs.append((cfg, traj_dir))
     jobs.sort(key=lambda j: -(j[0]["d"] ** (KAPPA[(j[0]["model"], j[0]["k"])] / 2 + 1) / j[0]["eta0"]))
