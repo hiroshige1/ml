@@ -71,8 +71,26 @@ readout, and the "multiplicative emergence" observed empirically is the additive
 a thresholded metric. Predictions and kill criteria to be written once the single-skill dynamics (exp 1)
 are confirmed.
 
+## Exp 1 outcome (recorded 2026-10-08 after the run; full tables in `results/exp1/README.md`)
+
+- **K1 passed.** Monte-Carlo drift vs closed form (2.1) incl. the `V'/N` term: all 24 points within 2.3 SE, within ~3% at
+  `m = 0.2, 0.4` for A/B, `k = 1,2,3`. For A `k=3`, `γ=0.1`, `N=128` the drift is *negative* below `m ≈ 0.25`
+  (population-level confirmation of the repulsion, C2).
+- **P1 met.** A `k=2` MC drift slope `3.14 ± 0.07` (pred. 3; formula's own slope 3.48 because of the repulsion at small `m`).
+- **P6 met, with a sharper statistic than pre-registered.** Regressing `log(T_0.5·η)` on `log|m_0|` (escape from
+  `m_0` scales as `m_0^{−(κ−2)}` for `κ>2`, `log(1/m_0)` for `κ=2`): A `k=2`: slope `−2.19 ± 0.08` ⇒ `κ_eff ≈ 4.2`
+  (lower bound: 20 censored runs bias it toward 0); B `k=2`: `−0.57 ± 0.06` (log-like, `κ=2`); A `k=1`: `−0.50 ± 0.06`
+  (log-like, `κ=2`); B `k=1`: `−0.13 ± 0.02` (`κ=1`). The pre-registered `d`-slopes: A `k=2` `3.1–3.5` vs B `k=2` `2.3–2.5`
+  (difference `0.9 ± 0.5` on medians). Almost all `d`-dependence is through `m_0 = d^{−1/2}` (conditional `d` slope `0.27 ± 0.09`).
+- **One pre-registered prediction was wrong, by my error:** B `k=1` was predicted `d^{1.5}`; measured `d^2` for `d ≥ 16`.
+  The formula `T ~ m_0^{−(κ−2)}/η` does not apply for `κ < 2` (drift is `O(1)`, so `T ~ 1/η = d²/η_0`). Corrected table:
+  κ=1 → `d²`, κ=2 → `d² log d`, κ=4 → `d³`. The A-vs-B comparison is unaffected.
+- **Budget:** 6.4 CPU-h vs ~2 planned (censored A `k=2` runs at `d ≥ 48`). Exp 1b uses a fixed `m_0 = d^{−1/2}` initialisation
+  to remove the `m_0` scatter and caps `d` at 48 for trained-readout runs.
+
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-08 v0.3: exp 1 outcome recorded; κ=1 prediction corrected (error acknowledged, not reinterpreted).
 - 2026-10-08 v0.2: added P4′ after the Ren et al. full-text check revealed their 2-homogeneous parameterisation; the
   tied-readout population ODE (`scripts/ode_tied.py`) was run *before* writing P4′ and gave slope 1.03–1.05 (flow time)
   at all `N` — so P4′ is a population-level prediction awaiting the SGD test, not a blind one. Scope of C3 narrowed to
