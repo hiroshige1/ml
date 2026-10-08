@@ -1,0 +1,2 @@
+model,k,d,N,B,gamma,eta0,eta,seed,m0,T05,T09,reached,reached05,steps,final_m,max_steps,sampler,wall_s
+A,2,128,128,32,0.1,1.0,6.103515625e-05,3,0.09624210064606069,1307314.0,1365108.0,True,True,1365108,0.9000039387602177,3000000,proj,372.94994473457336

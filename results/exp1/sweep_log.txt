@@ -1,1 +1,2 @@
 0 runs already done, 230 to run -> results/exp1/summary.csv
+[1/230     373s] A k=2 d=128 eta0=1 seed=3 T05=1307314.0 T09=1365108.0 reached=True steps=1365108 run=372.9s
