@@ -120,6 +120,34 @@ prompts only.
 
 Kill: P12 or P13 fails ⇒ §4 is wrong as stated (the exact additivity argument has an error); stop and recompute.
 
+### Exp 3 outcome (recorded 2026-10-08 after the run; `results/exp3/README.md`)
+
+- **Two design errors of mine made the pre-registered estimators unusable, and I record them as such:** (i) with fixed `Γ=0.1` and
+  `M=4` a skill's MSE floor is `(1−0.1n)²` (0.36 with all four neurons), so the stop rule (`MSE<0.1`) and `T_12` (`E12<0.5`) can never
+  fire; (ii) the additivity residual `R` was defined on *independent* eval sets, whose sampling noise (0.04–0.35) dwarfs the 0.02 bound.
+  **P12 as pre-registered therefore fails** (13/13 runs exceed 0.02). The kill clause says "§4 wrong; recompute": recomputed — the
+  additivity `ŷ(c_1,c_2) = ŷ(c_1,0) + ŷ(0,c_2)` is an *identity* of a label-linear model (unit-tested to 1e-13), and the loss
+  additivity needs only `E[c_1c_2]=0`. A **post-hoc paired estimator** (same inputs and `c`, 17 queries/context) gives
+  `max|R| ≤ 0.0086` over all 13 runs. Verdict: estimator failure, not theory failure — but P12 is not a confirmation either, since
+  the statement is an identity; it should not have been pre-registered as an empirical test.
+- **P13 (no extra compositional delay): supported with substitute definitions, untested as written.** E12 reaches 90% of its total
+  drop 1,000–4,500 steps *before or at* the later skill's own 90% point, never after. Against Arora–Goyal's extra delay for tuples.
+- **P14 (multiplicative accuracy): partly.** Observed `acc_12 ≈ 0.85·acc_1·acc_2 + 0.09`, RMS from `y=x` 0.008 — approximately
+  multiplicative — but the **Gaussian-error derivation is wrong in level** (predicts 0.52 at `t=0`, observed 0.77; errors are
+  heavy-tailed). The "derived from additive structure" wording must be weakened to "additivity of the loss + any threshold metric
+  gives approximate multiplicativity; the Gaussian closed form does not fit".
+- **P15 (product composition not free): met** (E× MSE 0.91–1.05 throughout).
+- **Unplanned (exploratory) findings:** neurons arrive independently with `T ≈ K/(η π_p m_0²)`, `K = 0.60` (0.54–0.78) vs the
+  single-neuron exp 1b value 0.64 — multi-neuron dynamics decouple into the single-neuron one with rate `∝ π_p` (supports §3's
+  per-skill timescale picture; the factor-3 frequency delay is clean but hidden behind random `m_0`). Decoupling failures: skill 2
+  never acquired in 2/10 seeds (all neurons → skill 1), a neuron trapped near the origin in 3/13 runs (the F2 repulsion at `Γ=0.1`,
+  `N=128` is weak but real for unlucky `m_0`).
+- Budget 2.3 CPU-h (cap 3).
+
+**Scope consequence:** C4's defensible content is "label-linear ICL ⇒ additive composition costs nothing (identity), arrives with
+the slower skill (observed), is approximately multiplicative in thresholded accuracy (observed), and non-additive composition is
+not free (observed)"; the quantitative multiplicative law is *not* derived.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
@@ -172,6 +200,7 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-08 v0.9: exp 3 outcome recorded; two pre-registration design errors acknowledged (floor, estimator); C4 scope narrowed.
 - 2026-10-08 v0.8: **algebra correction** — the stability threshold used in P2/P3 (`m² < 16γ/(N(4−2γ))`, `d* = N(4−2γ)/(16γ)`) had a
   factor-2 slip in the hand derivative of (2.1); correct: `m*² = 16γ/(N(8−4γ(1−1/N)−24γ/N))`, `d* ≈ 31` for `γ=1, N=128` (was 16),
   `d* ≈ 7` for `γ=1, N=32` (was 4), `d* ≈ 150–2400` for `γ=0.1`. The exp 1b data were not changed; the corrected threshold places the

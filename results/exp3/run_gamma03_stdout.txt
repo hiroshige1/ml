@@ -1,0 +1,4 @@
+[gamma0.3] 0 done, 3 to run; CPU spent so far 1.712 h (cap 2.8 h)
+[gamma0.3    126s wall] seed 0 steps=131500 stop=settled cpu=125s total 1.747 h
+[gamma0.3    192s wall] seed 1 steps=196500 stop=settled cpu=190s total 1.800 h
+[gamma0.3   1543s wall] seed 2 steps=1500000 stop=max_steps cpu=1415s total 2.193 h

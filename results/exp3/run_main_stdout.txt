@@ -1,0 +1,6 @@
+[main] 0 done, 5 to run; CPU spent so far 0.000 h (cap 2.4 h)
+[main    120s wall] seed 0 steps=123000 stop=settled cpu=119s total 0.033 h
+[main    273s wall] seed 1 steps=281500 stop=settled cpu=271s total 0.108 h
+[main    808s wall] seed 2 steps=716000 stop=settled cpu=684s total 0.298 h
+[main   1034s wall] seed 4 steps=243500 stop=settled cpu=225s total 0.361 h
+[main   1711s wall] seed 3 steps=1500000 stop=max_steps cpu=1430s total 0.758 h

@@ -214,6 +214,107 @@ def test_train_smoke_escape():
     assert len(r["traj"]["t"]) == len(r["traj"]["m"])
 
 
+# ----------------------------------------------------------------------------- experiment 3 (multi-neuron, multi-teacher)
+from icl_additive.multi import (MultiModelA, EvalSets, init_multi, proj_basis, proj_step_stats,  # noqa: E402
+                                sample_noise, sample_prompts_multi, teacher_labels)
+
+
+def test_multi_gradient_finite_difference():
+    """MultiModelA (M=4, P=2) analytic gradient vs central differences, relative error < 1e-4, all activations."""
+    rng = np.random.default_rng(11)
+    d, N, B, M, P = 7, 9, 6, 4, 2
+    V, W = init_multi(d, P, M, rng)
+    for k in KS:
+        batch = sample_prompts_multi(d, N, B, V, (0.6, 0.4), rng, k=k)[:4]
+        gam = np.array([0.1, 0.3, 0.2, 0.5])
+        mdl = MultiModelA(W, k, gam)
+        _, gW = mdl.loss_grad(*batch)
+        err = _fd_check(lambda wf: MultiModelA(wf.reshape(M, d), k, gam).loss(*batch), W.ravel().copy(), gW.ravel())
+        assert err < 1e-4, (k, err)
+
+
+def test_multi_reduces_to_modelA():
+    """M=1, P=1: loss and gradient equal the existing ModelA (same data)."""
+    rng = np.random.default_rng(12)
+    d, N, B = 8, 12, 5
+    V, W = init_multi(d, 1, 1, rng)
+    for k in KS:
+        x_ctx, y_ctx, x_q, y_q = sample_prompts(d, N, B, V[0], k, 1.0, rng)
+        old = ModelA(W[0], k, gamma=0.37)
+        new = MultiModelA(W, k, 0.37)
+        l0, g0, _ = old.loss_grad(x_ctx, y_ctx, x_q, y_q)
+        l1, g1 = new.loss_grad(x_ctx, y_ctx, x_q, y_q)
+        assert abs(l0 - l1) < 1e-13 and np.allclose(g0, g1[0], rtol=1e-12, atol=1e-14), k
+        assert np.allclose(old.forward(x_ctx, y_ctx, x_q), new.forward(x_ctx, y_ctx, x_q), rtol=1e-12)
+
+
+def test_multi_additive_in_labels():
+    """The prediction is exactly linear in the context labels and the pair target is the sum (E12 = E1 + E2 per prompt)."""
+    rng = np.random.default_rng(13)
+    d, N, B, M = 10, 20, 8, 4
+    V, W = init_multi(d, 2, M, rng)
+    mdl = MultiModelA(W, 2, 0.1)
+    x_ctx, x_q = rng.standard_normal((B, N, d)), rng.standard_normal((B, d))
+    c = rng.standard_normal((B, 2))
+    e = {}
+    for name, cc in (("1", c * [1, 0]), ("2", c * [0, 1]), ("12", c)):
+        y_ctx, y_q = teacher_labels(2, x_ctx, V, cc[:, None, :]), teacher_labels(2, x_q, V, cc)
+        e[name] = mdl.forward(x_ctx, y_ctx, x_q) - y_q
+    assert np.allclose(e["12"], e["1"] + e["2"], atol=1e-13)
+
+
+def test_multi_projected_matches_full():
+    """Projected sampler (span coordinates + sampled orthogonal noise) vs full d-dimensional sampling: mean and second
+    moments of the gradient of every neuron, including cross-neuron products, within 5 SE."""
+    d, N, B, nb, M, P = 8, 6, 3, 8000, 3, 2
+    rng = np.random.default_rng(14)
+    V, _ = init_multi(d, P, M, rng)
+    Wm = np.array([0.6 * V[0] + 0.3 * V[1], 0.2 * V[0] + 0.8 * V[1], 0.9 * V[0] + 0.1 * V[1]])
+    Wm = Wm + 0.5 * rng.standard_normal((M, d)) * 0.4
+    Wm /= np.linalg.norm(Wm, axis=1, keepdims=True)
+    mdl = MultiModelA(Wm, 2, 0.4)
+    pi = np.array([0.7, 0.3])
+    Q, R = proj_basis(V, mdl.W)
+    D = P + M
+    r2 = np.random.default_rng(15)
+    feats = lambda g: np.concatenate([g @ V[0], g @ V[1], (g * g).sum(1), [g[0] @ g[1], g[0] @ g[2], g[1] @ g[2]]])  # noqa: E731
+    full, proj = [], []
+    for _ in range(nb):
+        x_ctx, y_ctx, x_q, y_q, _s = sample_prompts_multi(d, N, B, V, pi, rng)
+        full.append(feats(mdl.loss_grad(x_ctx, y_ctx, x_q, y_q)[1]))
+        skill = (r2.random(B) < pi[1]).astype(int)
+        c = r2.standard_normal(B)
+        Y = r2.standard_normal((B, N + 1, D))
+        _, Gy, S = proj_step_stats(mdl, R, P, Y, skill, c)
+        proj.append(feats(Gy @ Q.T + sample_noise(S, Q, r2, d)))
+    full, proj = np.array(full), np.array(proj)
+    for j in range(full.shape[1]):
+        se = math.sqrt(full[:, j].var() / nb + proj[:, j].var() / nb)
+        assert abs(full[:, j].mean() - proj[:, j].mean()) < 5 * se, (j, full[:, j].mean(), proj[:, j].mean(), se)
+
+
+def test_multi_proj_basis_rank_deficient():
+    """Two neurons almost equal to a teacher: Q stays orthonormal and [V;W]^T = Q R to machine precision."""
+    rng = np.random.default_rng(16)
+    d = 12
+    V, W = init_multi(d, 2, 4, rng)
+    W[1] = V[0] + 1e-9 * rng.standard_normal(d); W[1] /= np.linalg.norm(W[1])
+    W[2] = V[0]
+    Q, R = proj_basis(V, W)
+    assert np.allclose(Q.T @ Q, np.eye(6), atol=1e-12)
+    assert np.allclose(Q @ R, np.concatenate([V, W]).T, atol=1e-12)
+
+
+def test_eval_sets_additivity_and_xskill():
+    rng = np.random.default_rng(17)
+    d, N = 8, 16
+    V, W = init_multi(d, 2, 4, rng)
+    ev = EvalSets(V, d, N, n=256)
+    r = ev.evaluate(MultiModelA(W, 2, 0.1))
+    # paired E12A error = e1 + e2 with uncorrelated c's  =>  mse12A ~ mse1 + mse2 up to the (small) cross term
+    assert abs(r["hmse_E12A"] - r["hmse_E1"] - r["hmse_E2"]) < 0.5
+
+
 if __name__ == "__main__":
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

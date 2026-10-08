@@ -34,7 +34,7 @@ class MultiModelA:
 
     def _yhat(self, Z_ctx, y_ctx, Z_q):
         """Z_ctx (B,N,M), y_ctx (B,N), Z_q (B,M) -> yhat (B,), A (B,M)."""
-        A = np.einsum("bn,bnm->bm", y_ctx, sigma(self.k, Z_ctx)) / Z_ctx.shape[1]
+        A = np.matmul(y_ctx[:, None, :], sigma(self.k, Z_ctx))[:, 0, :] / Z_ctx.shape[1]
         return (sigma(self.k, Z_q) * A) @ self.gamma, A
 
     def coefs(self, Z_ctx, y_ctx, Z_q, y_q):
@@ -102,10 +102,9 @@ def proj_step_stats(model, R, P, Y, skill, c, k=2):
     lab = np.take_along_axis(pt, skill[:, None, None], axis=2)[:, :, 0] * c[:, None]
     Z = T[:, :, P:]
     loss, C_ctx, C_q = model.coefs(Z[:, :N], lab[:, :N], Z[:, N], lab[:, N])
-    Gy = np.einsum("bnm,bnd->md", C_ctx, Y[:, :N]) + C_q.T @ Y[:, N]
-    C = C_ctx.reshape(-1, C_ctx.shape[2])
-    S = C.T @ C + C_q.T @ C_q
-    return loss, Gy, S
+    C = np.concatenate([C_ctx, C_q[:, None, :]], axis=1).reshape(B * N1, -1)  # all N+1 points, (B(N+1), M)
+    Gy = C.T @ Y.reshape(B * N1, D)
+    return loss, Gy, C.T @ C
 
 
 def sample_noise(S, Q, rng, d):
@@ -119,58 +118,73 @@ def sample_noise(S, Q, rng, d):
 
 # ----------------------------------------------------------------------------- evaluation
 class EvalSets:
-    """Fixed evaluation prompts (n each).  Set A holds the inputs x_A shared by E1, E2, Ex and the paired E12A
-    (independent task scalars c_1, c_2, c_x; E12A uses E1's c_1 and E2's c_2, so its error is e_1 + e_2 prompt by prompt);
-    set B (own inputs and own c_1, c_2) is the independent additive-pair set E12 of the spec.  Input draws use a fixed
-    evaluation seed, so they are identical for every training seed; only the teachers differ."""
+    """Fixed evaluation prompts (n contexts of N points each; query 0 of each context is THE spec query, so the `mse_*`,
+    `acc*_*` statistics are exactly 'n prompts').  Queries 1..H are extra independent queries on the same contexts,
+    used only for the lower-variance `hmse_*`/`hacc05_*` statistics (a prompt has one query, so the spec statistics have
+    sampling SE ~ 0.1 on a MSE; the extra queries are cheap because A_j is computed once per context).
 
-    def __init__(self, V, d, N, n=4096, eval_seed=20261008, k=2):
-        self.V, self.N, self.n, self.k = V, N, n, k
+    Set A holds the inputs shared by E1, E2, Ex and the paired E12A (independent task scalars c_1, c_2, c_x; E12A uses
+    E1's c_1 and E2's c_2, so its error is e_1 + e_2 prompt by prompt); set B (own inputs, own c_1, c_2) is the
+    independent additive-pair set E12 of the spec.  Input draws use a fixed evaluation seed, identical for every
+    training seed; only the teachers differ."""
+
+    def __init__(self, V, d, N, n=4096, eval_seed=20261008, k=2, H=16):
+        self.V, self.N, self.n, self.k, self.H = V, N, n, k, H
         rng = np.random.default_rng(eval_seed)
-        self.XA = rng.standard_normal((n, N + 1, d))
-        self.XB = rng.standard_normal((n, N + 1, d))
+        self.XA = rng.standard_normal((n, N, d))
+        self.QA = rng.standard_normal((n, 1 + H, d))
+        self.XB = rng.standard_normal((n, N, d))
+        self.QB = rng.standard_normal((n, 1 + H, d))
         cA = rng.standard_normal((n, 3))
         cB = rng.standard_normal((n, 2))
-        zA = self.XA @ V.T
-        SA, SB = sigma(k, zA), sigma(k, self.XB @ V.T)
-        self.lab = {
-            "E1": cA[:, 0, None] * SA[:, :, 0],
-            "E2": cA[:, 1, None] * SA[:, :, 1],
-            "E12A": cA[:, 0, None] * SA[:, :, 0] + cA[:, 1, None] * SA[:, :, 1],
-            "Ex": cA[:, 2, None] * zA[:, :, 0] * zA[:, :, 1],  # c sigma_1(v1.x) sigma_1(v2.x), E[y^2] = 1
+        zA, zQA = self.XA @ V.T, self.QA @ V.T
+        SA, SQA = sigma(k, zA), sigma(k, zQA)
+        SB, SQB = sigma(k, self.XB @ V.T), sigma(k, self.QB @ V.T)
+        c1, c2, cx = cA[:, 0, None], cA[:, 1, None], cA[:, 2, None]
+        self.A = {  # name -> (ctx labels (n,N), query labels (n,1+H))
+            "E1": (c1 * SA[:, :, 0], c1 * SQA[:, :, 0]),
+            "E2": (c2 * SA[:, :, 1], c2 * SQA[:, :, 1]),
+            "E12A": (c1 * SA[:, :, 0] + c2 * SA[:, :, 1], c1 * SQA[:, :, 0] + c2 * SQA[:, :, 1]),
+            "Ex": (cx * zA[:, :, 0] * zA[:, :, 1], cx * zQA[:, :, 0] * zQA[:, :, 1]),  # c s1(v1.x) s1(v2.x), E[y^2]=1
         }
-        self.labB = cB[:, 0, None] * SB[:, :, 0] + cB[:, 1, None] * SB[:, :, 1]
+        b1, b2 = cB[:, 0, None], cB[:, 1, None]
+        self.B = {"E12": (b1 * SB[:, :, 0] + b2 * SB[:, :, 1], b1 * SQB[:, :, 0] + b2 * SQB[:, :, 1])}
         self.Ey2 = {"E1": 1.0, "E2": 1.0, "E12": 2.0, "E12A": 2.0, "Ex": 1.0}
 
-    def _resid(self, Xs, labs, model):
-        Z = Xs @ model.W.T
-        Zc, Zq = Z[:, :self.N], Z[:, self.N]
+    def _resid(self, Xc, Xq, labs, model):
+        Zc, Zq = sigma(self.k, Xc @ model.W.T), sigma(self.k, Xq @ model.W.T)
         out = {}
-        for key, lab in labs.items():
-            yhat, _ = model._yhat(Zc, lab[:, :self.N], Zq)
-            out[key] = yhat - lab[:, self.N]
+        for key, (lc, lq) in labs.items():
+            A = np.matmul(lc[:, None, :], Zc)[:, 0, :] / self.N  # (n,M)
+            out[key] = (Zq * A[:, None, :]) @ model.gamma - lq  # (n,1+H)
         return out
 
     def evaluate(self, model):
-        """dict: mse_<set> (absolute), acc05_<set> (|err|^2 < 0.5), accrel_<set> (|err|^2 < 0.5 E[y^2])."""
-        res = self._resid(self.XA, self.lab, model)
-        res["E12"] = self._resid(self.XB, {"E12": self.labB}, model)["E12"]
+        """dict: mse_<set> / acc05_<set> (|err|^2 < 0.5) / accrel_<set> (< 0.5 E[y^2]) from the spec query (n prompts);
+        hmse_<set>, hacc05_<set>, haccrel_<set> from all 1+H queries per context."""
+        res = self._resid(self.XA, self.QA, self.A, model)
+        res.update(self._resid(self.XB, self.QB, self.B, model))
         out = {}
         for key, r in res.items():
             r2 = r * r
-            out["mse_" + key] = float(r2.mean())
-            out["acc05_" + key] = float((r2 < 0.5).mean())
-            out["accrel_" + key] = float((r2 < 0.5 * self.Ey2[key]).mean())
+            out["mse_" + key] = float(r2[:, 0].mean())
+            out["acc05_" + key] = float((r2[:, 0] < 0.5).mean())
+            out["accrel_" + key] = float((r2[:, 0] < 0.5 * self.Ey2[key]).mean())
+            out["hmse_" + key] = float(r2.mean())
+            out["hacc05_" + key] = float((r2 < 0.5).mean())
+            out["haccrel_" + key] = float((r2 < 0.5 * self.Ey2[key]).mean())
         return out
 
 
 EVAL_KEYS = ["E1", "E2", "E12", "E12A", "Ex"]
+STATS = ["mse", "acc05", "accrel", "hmse", "hacc05", "haccrel"]
 
 
 def train_multi(seed, d=32, P=2, M=4, N=128, B=32, gamma=0.1, pi=(0.75, 0.25), k=2, eta=None, max_steps=1_500_000,
                 log_every=500, stop_mse=0.1, stop_align=None, align_hold=0, n_eval=4096, verbose=False):
     """One run.  Stops early when MSE_E1 and MSE_E2 < stop_mse (spec rule; unreachable when M*gamma is small, see README)
-    or, if stop_align is given, once every teacher has a neuron with |m| >= stop_align for `align_hold` further steps.
+    or, if stop_align is given, once every neuron has |m_jp| >= stop_align for some p, continuously for `align_hold` steps
+    (the state is then settled: sign-symmetric spherical dynamics with all neurons at a teacher).
     Returns dict with scalars and 'traj' arrays."""
     t0c, t0w = time.process_time(), time.time()
     eta = 1.0 / d ** 2 if eta is None else eta
@@ -180,7 +194,7 @@ def train_multi(seed, d=32, P=2, M=4, N=128, B=32, gamma=0.1, pi=(0.75, 0.25), k
     model = MultiModelA(W0, k, gamma)
     ev = EvalSets(V, d, N, n_eval, k=k)
     D = P + M
-    log = {key: [] for key in ["t", "m", "train_loss"] + [f"{a}_{e}" for e in EVAL_KEYS for a in ("mse", "acc05", "accrel")]}
+    log = {key: [] for key in ["t", "m", "train_loss"] + [f"{a}_{e}" for e in EVAL_KEYS for a in STATS]}
     acc_loss, n_acc = 0.0, 0
 
     def do_log(t):
@@ -189,7 +203,7 @@ def train_multi(seed, d=32, P=2, M=4, N=128, B=32, gamma=0.1, pi=(0.75, 0.25), k
         log["m"].append(model.W @ V.T)
         log["train_loss"].append(acc_loss / n_acc if n_acc else float("nan"))
         for e in EVAL_KEYS:
-            for a in ("mse", "acc05", "accrel"):
+            for a in STATS:
                 log[f"{a}_{e}"].append(r[f"{a}_{e}"])
         return r
 
@@ -217,13 +231,15 @@ def train_multi(seed, d=32, P=2, M=4, N=128, B=32, gamma=0.1, pi=(0.75, 0.25), k
             if r["mse_E1"] < stop_mse and r["mse_E2"] < stop_mse:
                 stop_reason = "mse"
                 break
-            if stop_align is not None:
-                if np.all(np.abs(model.W @ V.T).max(axis=0) >= stop_align):
+            if stop_align is not None:  # "settled": every neuron has some teacher with |m| >= stop_align, for align_hold steps
+                if np.all(np.abs(model.W @ V.T).max(axis=1) >= stop_align):
                     if align_reached_at is None:
                         align_reached_at = t
                     if t - align_reached_at >= align_hold:
-                        stop_reason = "align"
+                        stop_reason = "settled"
                         break
+                else:
+                    align_reached_at = None
     traj = {key: np.array(val) for key, val in log.items()}
     return dict(seed=seed, d=d, P=P, M=M, N=N, B=B, gamma=gamma, eta=eta, pi=list(pi), steps=t, stop_reason=stop_reason,
                 max_steps=max_steps, cpu_s=time.process_time() - t0c, wall_s=time.time() - t0w, traj=traj)

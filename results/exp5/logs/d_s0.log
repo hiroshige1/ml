@@ -1,0 +1,18 @@
+[d_s0] INIT align 0.1261 mse 1.5266
+[d_s0] step 0 mse 1.5266 align 0.126 t=0s
+[d_s0] step 1000 mse 0.8353 align 0.176 t=197s
+[d_s0] step 2000 mse 0.8317 align 0.134 t=397s
+[d_s0] step 3000 mse 0.8329 align 0.131 t=593s
+[d_s0] step 4000 mse 0.8310 align 0.111 t=790s
+[d_s0] step 5000 mse 0.8315 align 0.182 t=988s
+[d_s0] step 6000 mse 0.8314 align 0.183 t=1186s
+[d_s0] step 7000 mse 0.8314 align 0.238 t=1386s
+[d_s0] step 8000 mse 0.8311 align 0.227 t=1582s
+[d_s0] step 9000 mse 0.8313 align 0.269 t=1780s
+[d_s0] step 10000 mse 0.8315 align 0.265 t=1981s
+[d_s0] step 11000 mse 0.8315 align 0.254 t=2185s
+[d_s0] step 12000 mse 0.8313 align 0.280 t=2384s
+[d_s0] step 13000 mse 0.8310 align 0.217 t=2584s
+[d_s0] step 14000 mse 0.8313 align 0.259 t=2783s
+[d_s0] step 15000 mse 0.0527 align 0.964 t=2983s
+DONE {'cell': 'd', 'B': 1024, 'seed': 0, 'steps_run': 15000, 'Te05': 14800, 'Te01': 15000, 'final_mse': 0.05265739047899842, 'init_align': 0.12613952159881592, 'wall_s': 2982.7, 'cpu_s': 2971.0}

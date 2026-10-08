@@ -1,0 +1,130 @@
+# analysis of results/exp3/extra_seeds5to9  (gamma=0.1, M=4, seeds [5, 6, 7, 8, 9])
+
+## Times (steps). T_p: first log with max_j |m_jp| >= 0.5.  T12_spec: first log with MSE_E12 < 0.5 (spec; 1-query set / 17-query).
+ seed   steps      stop       T1       T2  T12_spec  T12_spec_h
+    5  861500   settled  10000.0 794000.0       NaN         NaN
+    6 1500000 max_steps 102000.0  30000.0       NaN         NaN
+    7  697000   settled  12500.0      NaN       NaN         NaN
+    8  132500   settled  15500.0   9000.0       NaN         NaN
+    9  470000   settled  21000.0   7000.0       NaN         NaN
+
+## MSE-progress times: Tm_p^phi = first log where hMSE_p has covered fraction phi of the way from its t=0 value to its final plateau (mean of last 10 logs); the pair uses the same rule on E12 (independent set). NaN = nothing learned (plateau within 0.1 of the t=0 value).
+ seed   Tm1_50   Tm2_50  Tm12_50  max_Tm_50   Tm1_90   Tm2_90  Tm12_90  max_Tm_90
+    5  27000.0 807500.0  31000.0   807500.0  39500.0 814000.0 809500.0   814000.0
+    6 106000.0  48500.0  63500.0   106000.0 108500.0  68500.0 107000.0   108500.0
+    7  32000.0      NaN  32000.0        NaN 644500.0      NaN 644500.0        NaN
+    8  63500.0  21500.0  26000.0    63500.0  81500.0  28000.0  80500.0    81500.0
+    9  28000.0  28500.0  28000.0    28500.0 256000.0 419500.0 416000.0   419500.0
+
+## Fixed reachable thresholds on the 17-query MSE: T_p = first log with MSE_p < 0.9; T12_sum18 = first log with MSE_E12 < 1.8 (= 0.9+0.9); T12_both = max(T_1, T_2) (both single-skill MSEs < 0.9)
+ seed  T1_mse09  T2_mse09  T12_sum18  T12_both
+    5   14500.0  810500.0    27000.0  810500.0
+    6  106500.0   43500.0    57500.0  106500.0
+    7   17000.0       NaN    19000.0       NaN
+    8   19500.0   23500.0    21500.0   23500.0
+    9   26000.0   22000.0    25500.0   26000.0
+
+plateau hMSE (mean last 10 logs):
+ seed     F1     F2    F12  min_E1  min_E2  min_E12
+    5 0.5103 0.8434 1.3621  0.5099  0.8433   1.3620
+    6 0.8086 0.6581 1.4712  0.8081  0.6577   1.4701
+    7 0.3871 1.0481 1.3772  0.3866  1.0469   1.3766
+    8 0.4978 0.8346 1.3795  0.4975  0.8338   1.3790
+    9 0.6593 0.6808 1.3390  0.6588  0.6801   1.3380
+
+## Additivity residual R(t) = MSE_E12 - MSE_E1 - MSE_E2 over all logs (absolute MSE; E[y^2]=2 for E12)
+variants: spec = 4096 prompts, 1 query, E12 on an independent set;  h = 17 queries/context;  pair = E12A on the same inputs/c as E1,E2 (error = e1+e2 prompt by prompt)
+                         0       1       2       3       4
+seed                5.0000  6.0000  7.0000  8.0000  9.0000
+max|R|_spec         0.3758  0.0510  0.0593  0.1701  0.3823
+mean_R_spec        -0.3596 -0.0361 -0.0340  0.1370  0.2833
+sd_R_spec           0.0209  0.0029  0.0052  0.0170  0.0361
+frac|R|<.02_spec    0.0000  0.0000  0.0000  0.0000  0.0000
+max|R-R0|_spec      0.0975  0.0272  0.0324  0.0539  0.1503
+max|R|_h            0.0104  0.0100  0.0959  0.0545  0.0199
+mean_R_h            0.0090  0.0045 -0.0685  0.0472  0.0073
+sd_R_h              0.0007  0.0010  0.0066  0.0033  0.0038
+frac|R|<.02_h       1.0000  1.0000  0.0000  0.0000  1.0000
+max|R-R0|_h         0.0051  0.0043  0.0383  0.0114  0.0224
+max|R|_pair         0.0172  0.0491  0.0136  0.0293  0.0039
+mean_R_pair         0.0141 -0.0388 -0.0095 -0.0221 -0.0021
+sd_R_pair           0.0008  0.0021  0.0006  0.0037  0.0009
+frac|R|<.02_pair    1.0000  0.0000  1.0000  0.4474  1.0000
+max|R-R0|_pair      0.0063  0.0115  0.0046  0.0108  0.0036
+max|R|_pair_h       0.0024  0.0085  0.0086  0.0014  0.0030
+mean_R_pair_h      -0.0021 -0.0059  0.0066  0.0004  0.0018
+sd_R_pair_h         0.0001  0.0005  0.0005  0.0008  0.0004
+frac|R|<.02_pair_h  1.0000  1.0000  1.0000  1.0000  1.0000
+max|R-R0|_pair_h    0.0009  0.0028  0.0030  0.0027  0.0013
+pooled over seeds and logs: spec: mean -0.0645 sd 0.1957 max|R| 0.3823; h: mean -0.0064 sd 0.0313 max|R| 0.0959; pair: mean -0.0155 sd 0.0215 max|R| 0.0491; pair_h: mean -0.0014 sd 0.0047 max|R| 0.0086
+
+## Accuracy multiplicativity: acc_E12 vs acc_E1 * acc_E2 over all logged t and seeds
+                                                                              0                                              1                                                2                                                     3
+variant                                                              abs05_spec                                        abs05_h                                         rel_spec                                                 rel_h
+definition               |err|^2<0.5 for all three (lead's definition), 1 query  |err|^2<0.5 for all three, 17 queries/context  |err|^2<0.5 E[y^2] (spec: 1.0 for E12), 1 query  |err|^2<0.5 E[y^2] (1.0 for E12), 17 queries/context
+n                                                                          7327                                           7327                                             7327                                                  7327
+n_sub                                                                       247                                            247                                              247                                                   247
+slope_sub                                                                0.7889                                         0.8055                                           0.7139                                                0.6938
+intercept_sub                                                            0.1259                                         0.1177                                           0.3043                                                0.3184
+rms_identity_sub                                                           0.01                                         0.0079                                           0.1259                                                 0.128
+rms_fit_sub                                                              0.0038                                         0.0021                                            0.005                                                0.0022
+slope                                                                    0.7863                                         0.8073                                           0.6531                                                0.6838
+intercept                                                                0.1288                                         0.1164                                           0.3459                                                0.3251
+r2                                                                       0.9665                                         0.9899                                           0.9221                                                0.9778
+rms_identity                                                             0.0132                                         0.0115                                           0.1171                                                0.1165
+rms_fit                                                                  0.0027                                         0.0015                                           0.0035                                                0.0019
+max_dev_identity                                                         0.0248                                         0.0181                                           0.1431                                                0.1436
+mean_dev_identity                                                       -0.0123                                        -0.0108                                           0.1169                                                0.1164
+pairedE12A_slope                                                         0.8735                                         0.8361                                           0.7688                                                 0.728
+pairedE12A_intercept                                                     0.0782                                         0.0997                                           0.2708                                                0.2984
+rms_identity_E12A                                                        0.0076                                         0.0091                                           0.1184                                                0.1189
+theory_slope                                                             0.7609                                          0.671                                           0.9188                                                0.8137
+theory_intercept                                                         0.1689                                         0.2019                                           0.2627                                                0.3015
+rms_theory_identity                                                      0.0877                                         0.0896                                           0.2351                                                0.2378
+rms_obs_vs_theory_acc12                                                  0.2199                                         0.2179                                           0.2017                                                0.1967
+rms_obs_vs_theory_acc1                                                    0.209                                         0.2176                                            0.209                                                0.2176
+rms_obs_vs_theory_acc2                                                   0.2459                                         0.2358                                           0.2459                                                0.2358
+
+## E_x (non-additive product pair) MSE (E[y^2]=1): initial / min over t / final / max over t
+ seed   init    min  final    max  spec_min  spec_final
+    5 1.0156 0.9999 1.0213 1.0214    1.0898      1.1185
+    6 1.0262 1.0262 1.0279 1.0282    0.9013      0.9091
+    7 1.0228 1.0201 1.0305 1.0307    0.9630      0.9706
+    8 0.9973 0.9963 0.9982 0.9985    1.0126      1.0241
+    9 1.0029 1.0025 1.0059 1.0061    1.1116      1.1121
+
+## Neuron-teacher assignment (assigned = argmax_p |m_jp| once max >= 0.5)
+ seed final_assign  n_on_T1  n_on_T2  n_unassigned          final_absm  switches               first_assigned_t  max_other_after_assigned
+    5  T2 T1 T1 T1        3        1             0 1.00 1.00 1.00 1.00         0  [794000, 23000, 32500, 10000]                  0.350544
+    6  T1 -- T2 T2        1        2             1 1.00 0.03 1.00 1.00         0     [102000, -1, 49000, 30000]                  0.038810
+    7  T1 T1 T1 T1        4        0             0 1.00 1.00 1.00 1.00         0 [26000, 638500, 195500, 12500]                  0.183479
+    8  T1 T1 T1 T2        3        1             0 1.00 1.00 1.00 1.00         0    [59500, 15500, 75000, 9000]                  0.114564
+    9  T1 T2 T1 T2        2        2             0 1.00 1.00 1.00 1.00         0  [249500, 400500, 21000, 7000]                  0.108394
+
+## Per-neuron arrival: T_half = first log with |m_jp| >= 0.5 on its final teacher; K = T_half * eta * pi_p * m0^2 (constant if neurons were independent single-neuron cubic escapes)
+ seed  teacher  neuron  arrival_rank_on_teacher     m0   T_half      K  K_nopi
+    5        1       4                        1 0.2771  10000.0 0.5623  0.7497
+    5        1       2                        2 0.2008  23000.0 0.6791  0.9054
+    5        1       3                        3 0.1748  32500.0 0.7271  0.9694
+    5        2       1                        1 0.0636 794000.0 0.7846  3.1383
+    6        1       1                        1 0.1023 102000.0 0.7823  1.0431
+    6        2       4                        1 0.2726  30000.0 0.5443  2.1774
+    6        2       3                        2 0.2244  49000.0 0.6025  2.4102
+    7        1       4                        1 0.2503  12500.0 0.5734  0.7646
+    7        1       1                        2 0.1943  26000.0 0.7190  0.9586
+    7        1       3                        3 0.0867 195500.0 1.0754  1.4339
+    7        1       2                        4 0.0486 638500.0 1.1065  1.4754
+    8        1       2                        1 0.2300  15500.0 0.6008  0.8010
+    8        1       1                        2 0.1336  59500.0 0.7775  1.0367
+    8        1       3                        3 0.1192  75000.0 0.7810  1.0414
+    8        2       4                        1 0.3908   9000.0 0.3355  1.3421
+    9        1       3                        1 0.2064  21000.0 0.6551  0.8734
+    9        1       1                        2 0.0620 249500.0 0.7021  0.9361
+    9        2       4                        1 0.4072   7000.0 0.2834  1.1337
+    9        2       2                        2 0.0955 400500.0 0.8911  3.5645
+rank 1: n=9  K median 0.573  (min 0.283, max 0.785);  K_nopi median 1.04
+rank 2: n=6  K median 0.711  (min 0.603, max 0.891);  K_nopi median 0.998
+teacher 1, first arrivals: n=5 K median 0.601 range [0.562, 0.782]
+teacher 2, first arrivals: n=4 K median 0.44 range [0.283, 0.785]
+
+CPU seconds per seed: 5: 818, 6: 1426, 7: 633, 8: 127, 9: 433; total 0.954 h

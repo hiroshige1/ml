@@ -1,0 +1,6 @@
+[extra_seeds5to9] 0 done, 5 to run; CPU spent so far 0.758 h (cap 2.8 h)
+[extra_seeds5to9    826s wall] seed 5 steps=861500 stop=settled cpu=818s total 0.985 h
+[extra_seeds5to9   1441s wall] seed 6 steps=1500000 stop=max_steps cpu=1426s total 1.381 h
+[extra_seeds5to9   1460s wall] seed 7 steps=697000 stop=settled cpu=633s total 1.557 h
+[extra_seeds5to9   1569s wall] seed 8 steps=132500 stop=settled cpu=127s total 1.592 h
+[extra_seeds5to9   1894s wall] seed 9 steps=470000 stop=settled cpu=433s total 1.712 h

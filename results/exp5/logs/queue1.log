@@ -1,0 +1,10 @@
+skip a 0
+[a_s1] INIT align 0.1515 mse 1.1390
+[a_s1] step 0 mse 1.1390 align 0.152 t=5s
+[a_s1] step 1000 mse 0.8458 align 0.135 t=325s
+[a_s1] step 2000 mse 0.8450 align 0.160 t=642s
+[a_s1] step 3000 mse 0.2260 align 0.947 t=961s
+DONE {'cell': 'a', 'B': 64, 'seed': 1, 'steps_run': 3000, 'Te05': 2800, 'Te01': None, 'final_mse': 0.22597920894622803, 'init_align': 0.15154877305030823, 'wall_s': 961.2, 'cpu_s': 960.7}
+[a_s2] INIT align 0.1759 mse 1.0886
+[a_s2] step 0 mse 1.0886 align 0.176 t=5s
+[a_s2] step 1000 mse 0.7872 align 0.197 t=324s

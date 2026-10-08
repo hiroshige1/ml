@@ -1,0 +1,1 @@
+{"tag": "gamma0.3", "out": "results/exp3", "seeds": [0, 1, 2], "workers": 2, "max_steps": 1500000, "gamma": 0.3, "stop_mse": 0.1, "stop_align": 0.95, "align_hold": 50000, "cpu_cap_h": 2.8, "verbose": false}
