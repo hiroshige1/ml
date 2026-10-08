@@ -69,10 +69,14 @@ From (2.1) with `N < ∞`, the term `Γ² g(1) V(m)/N` *increases* with `m` (ali
 correlated heavy tails with the teacher, so the context statistic is noisier when it is useful).
 Near `m = 0`, for `σ = σ_2`, `Γ = γ`, `g(1) = 1`:
 ```
-−∂_m L_A = s² [ (4γ − 2γ²(1−1/N)) m³ − γ² (16 m + 24 m³)/N ].
+−∂_m L_A = s² [ (8γ − 4γ²(1−1/N) − 24γ²/N) m³ − 16γ² m/N ].
 ```
-The origin is **stable** (no escape by drift) when `m² < 4γ/(N(1 − γ/2))·…≈ 4γ/N`... more precisely
-when `m² < 16γ/(N(4 − 2γ))`, i.e. `m ≲ 2√(γ/N)` for small `γ`. With `γ = 1, N = 64` this is `m < 0.25`:
+The origin is **stable** (no escape by drift) when
+`m² < m*² := 16γ / (N (8 − 4γ(1−1/N) − 24γ/N)) ≈ 2γ/(N(1−γ/2))`, i.e. `m* ≈ √(2γ/N)` for small `γ`.
+(**Correction 2026-10-08:** an earlier version of this section had `(4γ − 2γ²)m³` and the threshold `16γ/(N(4−2γ))`,
+a factor-2 slip in the hand derivative; the closed-form loss (2.1), which the drift check verified, was always right. The
+corrected threshold puts exp 1b's `γ=1, N=128, d=32` cell exactly on the boundary, `d* = N(8−4γ(1−1/N)−24γ/N)/(16γ) ≈ 31`,
+which is where 1/3 escapes were observed.) With `γ = 1, N = 64` this is `m < 0.26`:
 a single-neuron ICL model with unit readout and short context *cannot* learn a `k* = 2` skill from a random
 initialisation in `d ≳ 16`. Escape requires either a long context (`N ≫ γ d`) or a small readout
 (`γ ≪ N/d`). In a trained model `Γ` is itself learned and starts small, so the real dynamics are
@@ -148,10 +152,11 @@ factor's speed).
 ### 2.5 The threshold is soft under SGD: noise-activated escape (exp 1b)
 
 With a fixed readout the population landscape for `σ_2` is `L(m) = 1 − 2γm⁴ + γ²((1−1/N)m⁴ + (1+8m²+6m⁴)/N)`, which has a
-local *minimum* at `m=0` and a barrier top at `m* = 2√(γ/N)/√(1−γ(1−1/N)/2)` (`γ=1, N=128`: `m* = 0.250`). SGD is a diffusion
-on the sphere, so a run started below `m*` escapes with a Kramers-type probability `∼ exp(−ΔL/D_eff)`, `ΔL = L(m*) − L(m_0)`,
-`D_eff ∝ η·Var(∂_m-gradient)/B`. Barrier heights at `γ=1, N=128`: `d=16` (`m_0 = 0.25 = m*`): `ΔL ≈ 0` → escapes (3/3 observed);
-`d=32` (`m_0=0.177`): `ΔL ≈ 1.6·10⁻⁴` → rare escapes (1/3); `d=64` (`m_0=0.125`): `ΔL ≈ 4.5·10⁻⁴` → none (0/3). The ordering and
+local *minimum* at `m=0` and a barrier top at `m*² = 16γ/(N(8 − 4γ(1−1/N) − 24γ/N))` (`γ=1, N=128`: `m* = 0.180`). SGD is a
+diffusion on the sphere, so a run started below `m*` escapes with a Kramers-type probability `∼ exp(−ΔL/D_eff)`,
+`ΔL = L(m*) − L(m_0)`, `D_eff ∝ η·Var(∂_m-gradient)/B`. At `γ=1, N=128`: `d=16` (`m_0 = 0.25 > m*`): no barrier → escapes (3/3
+observed); `d=32` (`m_0 = 0.177 ≈ m*`): `ΔL ≈ 1.6·10⁻⁶`, on the ridge → coin-flip escapes (1/3); `d=64` (`m_0 = 0.125`):
+`ΔL ≈ 2.7·10⁻⁴` → none (0/3). The ordering and
 the softness are what exp 1b shows; the quantitative Kramers rate needs the gradient-noise variance at `m_0` (to be measured;
 `drift.py` can return it). Increasing `B` lowers `D_eff` and makes the trap *deeper* in SGD terms — the mechanism behind P7
 (more tasks per step do not help; they hurt).

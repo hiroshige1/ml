@@ -172,6 +172,12 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-08 v0.8: **algebra correction** — the stability threshold used in P2/P3 (`m² < 16γ/(N(4−2γ))`, `d* = N(4−2γ)/(16γ)`) had a
+  factor-2 slip in the hand derivative of (2.1); correct: `m*² = 16γ/(N(8−4γ(1−1/N)−24γ/N))`, `d* ≈ 31` for `γ=1, N=128` (was 16),
+  `d* ≈ 7` for `γ=1, N=32` (was 4), `d* ≈ 150–2400` for `γ=0.1`. The exp 1b data were not changed; the corrected threshold places the
+  `d=32` cell on the boundary (1/3 escapes) and `d=16` below it (3/3), i.e. the data fit the corrected formula *better*. P2's
+  pre-registered wording ("stuck for `d ≥ 32`") was derived from the wrong formula and is withdrawn on those grounds as well; the
+  `threshold_grid.png` curve in `results/exp1b/figs` is drawn with the old formula and must be regenerated before any write-up.
 - 2026-10-08 v0.7: P11a–c (exp 5, regime-matched transformer) and P12–P15 (exp 3, composition) pre-registered before the runs.
 - 2026-10-08 v0.6: exp 4 outcome recorded — P8 failed (kill condition met); scope of C2/C3 restricted; P11 regime identified but not yet pre-registered.
 - 2026-10-08 v0.5: P8–P10 (transformer transfer test) pre-registered before exp 4 runs.
