@@ -16,3 +16,4 @@
 [15/230    2169s] A k=2 d=128 eta0=2 seed=4 T05=nan T09=nan reached=False steps=3000000 run=798.9s
 [16/230    2423s] A k=2 d=96 eta0=1 seed=2 T05=nan T09=nan reached=False steps=3000000 run=810.2s
 [17/230    2441s] A k=2 d=96 eta0=2 seed=4 T05=50188.0 T09=66334.0 reached=True steps=66334 run=18.4s
+[18/230    2454s] A k=2 d=96 eta0=1 seed=3 T05=nan T09=nan reached=False steps=3000000 run=812.1s
