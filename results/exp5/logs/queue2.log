@@ -14,3 +14,4 @@ skip d 0
 DONE {'cell': 'd', 'B': 1024, 'seed': 1, 'steps_run': 10800, 'Te05': 10600, 'Te01': None, 'final_mse': 0.10944871045649052, 'init_align': 0.15154877305030823, 'wall_s': 2170.8, 'cpu_s': 2169.6}
 [d_s2] INIT align 0.1759 mse 1.0877
 [d_s2] step 0 mse 1.0877 align 0.176 t=0s
+[d_s2] step 1000 mse 0.8508 align 0.149 t=201s
