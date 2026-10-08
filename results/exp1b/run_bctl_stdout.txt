@@ -1,0 +1,14 @@
+[bctl] 0 done, 12 to run; CPU spent so far 2.459 h (global cap 2.7 h, phase cap 0.12 h, phase so far 0.000 h)
+[bctl 1/12     12s wall, 2.463 h cpu] free1 N=128 B=8 d=32 g=nan m0s=0.7 s=0 T05=105540.0 steps=105540 final|m|=0.501 cpu=12s
+[bctl 2/12     22s wall, 2.465 h cpu] free1 N=128 B=8 d=32 g=nan m0s=0.7 s=1 T05=85448.0 steps=85448 final|m|=0.502 cpu=10s
+[bctl 3/12     46s wall, 2.478 h cpu] free1 N=128 B=8 d=32 g=nan m0s=0.5 s=0 T05=418629.0 steps=418629 final|m|=0.501 cpu=46s
+[bctl 4/12     48s wall, 2.491 h cpu] free1 N=128 B=8 d=32 g=nan m0s=0.5 s=2 T05=448004.0 steps=448004 final|m|=0.500 cpu=48s
+[bctl 5/12     51s wall, 2.493 h cpu] free1 N=128 B=8 d=32 g=nan m0s=1.0 s=0 T05=45820.0 steps=45820 final|m|=0.501 cpu=5s
+[bctl 6/12     52s wall, 2.494 h cpu] free1 N=128 B=8 d=32 g=nan m0s=1.0 s=1 T05=36752.0 steps=36752 final|m|=0.503 cpu=4s
+[bctl 7/12     53s wall, 2.503 h cpu] free1 N=128 B=8 d=32 g=nan m0s=0.7 s=2 T05=279674.0 steps=279674 final|m|=0.500 cpu=31s
+[bctl 8/12     53s wall, 2.503 h cpu] free1 N=128 B=8 d=32 g=nan m0s=1.4 s=0 T05=11673.0 steps=11673 final|m|=0.500 cpu=1s
+[bctl 9/12     55s wall, 2.503 h cpu] free1 N=128 B=8 d=32 g=nan m0s=1.4 s=1 T05=15672.0 steps=15672 final|m|=0.500 cpu=2s
+[bctl 10/12     55s wall, 2.504 h cpu] free1 N=128 B=8 d=32 g=nan m0s=1.4 s=2 T05=13252.0 steps=13252 final|m|=0.502 cpu=1s
+[bctl 11/12     55s wall, 2.505 h cpu] free1 N=128 B=8 d=32 g=nan m0s=1.0 s=2 T05=36746.0 steps=36746 final|m|=0.506 cpu=4s
+[bctl 12/12    106s wall, 2.534 h cpu] free1 N=128 B=8 d=32 g=nan m0s=0.5 s=1 T05=nan steps=1000000 final|m|=0.090 cpu=106s
+[bctl] finished: ran 12, NOT run (budget) 0; wall 106s; total CPU 2.534 h

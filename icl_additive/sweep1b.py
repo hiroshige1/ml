@@ -35,6 +35,11 @@ COLS = ["phase", "protocol", "model", "k", "N", "B", "d", "eta0", "eta", "seed",
         "stuck", "final_gamma", "gamma_at_T05", "cpu_s", "wall_s"]
 KEY = ["phase", "protocol", "N", "B", "d", "eta0", "seed", "gamma", "m0_scale", "rho0", "max_steps"]
 M0_MULT = [0.5, 0.7, 1.0, 1.4]
+# step caps for the kappa phase.  Spec: 1e6.  Tied runs are cheap (T ~ 1e4) and keep 1e6; the free-Gamma runs were capped
+# lower to stay inside the 3 CPU-hour budget (pilot: free eta_Gamma=eta did not reach m=0.5 in 1e5 steps at any N).
+KAPPA_STEPS = {("tied", 32): 1_000_000, ("tied", 128): 1_000_000, ("tied", 512): 1_000_000, ("tied", 4096): 1_000_000,
+               ("free1", 32): 200_000, ("free1", 128): 200_000, ("free1", 512): 300_000, ("free1", 4096): 120_000,
+               ("free10", 32): 200_000, ("free10", 128): 200_000, ("free10", 512): 300_000, ("free10", 4096): 200_000}
 
 
 def _fmt(x):
@@ -67,7 +72,7 @@ def run_one(job):
     if p == "fixed":
         kw.update(gamma=cfg["gamma"])
     elif p in ("free1", "free10"):
-        model, kw.update(gamma=cfg["gamma0"], train_gamma=True, eta_gamma_mult=1.0 if p == "free1" else 10.0)
+        kw.update(gamma=cfg["gamma0"], train_gamma=True, eta_gamma_mult=1.0 if p == "free1" else 10.0)
     elif p == "tied":
         kw.update(rho0=cfg["rho0"])
     else:
@@ -112,8 +117,23 @@ def phase_jobs(phase, seeds=3):
             for p in ("free1", "free10", "tied"):
                 for mm in M0_MULT:
                     for s in range(seeds):
-                        J.append(make_cfg("kappa", p, N, B, 32, s, 1_000_000, m0_scale=mm,
+                        J.append(make_cfg("kappa", p, N, B, 32, s, KAPPA_STEPS[(p, N)], m0_scale=mm,
                                           rho0=0.01 if p == "tied" else float("nan")))
+    elif phase == "kappa2":
+        # re-run (from scratch, same seeds => identical trajectory up to the old cap) the kappa runs that were censored
+        # at the reduced caps, with the spec's 1e6 steps where affordable (N=4096 free1: 3e5)
+        import pandas as pd
+        k = pd.read_csv(os.path.join(OUT, "kappa.csv"))
+        for _, r in k[~k.reached05].iterrows():
+            ms = 300_000 if (r.protocol == "free1" and r.N == 4096) else 1_000_000
+            if ms > r.max_steps:
+                J.append(make_cfg("kappa2", r.protocol, int(r.N), int(r.B), int(r.d), int(r.seed), ms,
+                                  m0_scale=float(r.m0_scale), rho0=float(r.rho0) if r.protocol == "tied" else float("nan")))
+    elif phase == "bctl":
+        # control for the B confound in the kappa table (B=8 was used at N>=512, B=32 at N<=128): free1, N=128, B=8
+        for mm in M0_MULT:
+            for s in range(seeds):
+                J.append(make_cfg("bctl", "free1", 128, 8, 32, s, 1_000_000, m0_scale=mm))
     elif phase == "dscan":
         for N, B in ((128, 32), (2048, 8)):
             for d in (16, 24, 32, 48):
@@ -127,6 +147,8 @@ def phase_jobs(phase, seeds=3):
 def spent_cpu(out):
     tot = 0.0
     for f in glob.glob(os.path.join(out, "*.csv")):
+        if os.path.basename(f)[:-4] not in ("thr", "p7", "tied1", "kappa", "kappa2", "bctl", "dscan"):
+            continue  # skip derived files (summary.csv duplicates the run rows, tables carry no CPU time)
         with open(f) as fh:
             for r in csv.DictReader(fh):
                 try:
@@ -194,7 +216,7 @@ def run_phase(phase, out, workers, cpu_cap_h, phase_cap_h, seeds=3):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--phase", required=True, choices=["thr", "p7", "tied1", "kappa", "dscan", "single"])
+    ap.add_argument("--phase", required=True, choices=["thr", "p7", "tied1", "kappa", "kappa2", "bctl", "dscan", "single"])
     ap.add_argument("--out", default=OUT)
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--cpu-cap-h", type=float, default=3.0)

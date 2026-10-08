@@ -59,3 +59,17 @@
 [p7 2/9    188s wall, 0.439 h cpu] fixed N=128 B=1024 d=64 g=1.0 m0s=1.0 s=2 T05=nan steps=30000 final|m|=0.063 cpu=188s
 [p7 3/9    189s wall, 0.491 h cpu] fixed N=128 B=1024 d=64 g=1.0 m0s=1.0 s=0 T05=nan steps=30000 final|m|=0.067 cpu=188s
 [p7 4/9    190s wall, 0.543 h cpu] fixed N=128 B=1024 d=64 g=1.0 m0s=1.0 s=1 T05=nan steps=30000 final|m|=0.066 cpu=188s
+[p7 5/9    253s wall, 0.560 h cpu] fixed N=128 B=32 d=64 g=1.0 m0s=1.0 s=0 T05=nan steps=300000 final|m|=0.015 cpu=62s
+[p7 6/9    253s wall, 0.578 h cpu] fixed N=128 B=32 d=64 g=1.0 m0s=1.0 s=1 T05=nan steps=300000 final|m|=0.010 cpu=62s
+[p7 7/9    295s wall, 0.618 h cpu] fixed N=128 B=256 d=64 g=1.0 m0s=1.0 s=1 T05=nan steps=100000 final|m|=0.005 cpu=146s
+[p7 8/9    302s wall, 0.650 h cpu] fixed N=128 B=256 d=64 g=1.0 m0s=1.0 s=2 T05=nan steps=100000 final|m|=0.007 cpu=112s
+[p7 9/9    315s wall, 0.667 h cpu] fixed N=128 B=32 d=64 g=1.0 m0s=1.0 s=2 T05=nan steps=300000 final|m|=0.007 cpu=62s
+[p7] finished: ran 9, NOT run (budget) 0; wall 315s; total CPU 0.667 h
+[tied1] 0 done, 6 to run; CPU spent so far 0.667 h (global cap 3.0 h, phase cap 0.2 h, phase so far 0.000 h)
+[tied1 1/6      2s wall, 0.667 h cpu] tied N=128 B=32 d=32 g=nan m0s=1.0 s=2 T05=6790.0 steps=6790 final|m|=0.500 cpu=2s
+[tied1 2/6      2s wall, 0.668 h cpu] tied N=128 B=32 d=32 g=nan m0s=1.0 s=0 T05=7320.0 steps=7320 final|m|=0.501 cpu=2s
+[tied1 3/6      2s wall, 0.668 h cpu] tied N=128 B=32 d=32 g=nan m0s=1.0 s=1 T05=9157.0 steps=9157 final|m|=0.501 cpu=2s
+[tied1 4/6     73s wall, 0.687 h cpu] tied N=128 B=32 d=64 g=nan m0s=1.0 s=0 T05=nan steps=300000 final|m|=0.011 cpu=66s
+[tied1 5/6     76s wall, 0.705 h cpu] tied N=128 B=32 d=64 g=nan m0s=1.0 s=1 T05=nan steps=300000 final|m|=0.004 cpu=67s
+[tied1 6/6     76s wall, 0.724 h cpu] tied N=128 B=32 d=64 g=nan m0s=1.0 s=2 T05=nan steps=300000 final|m|=0.022 cpu=67s
+[tied1] finished: ran 6, NOT run (budget) 0; wall 76s; total CPU 0.724 h

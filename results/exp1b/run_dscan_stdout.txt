@@ -1,0 +1,26 @@
+[dscan] 0 done, 24 to run; CPU spent so far 2.323 h (global cap 2.85 h, phase cap 0.3 h, phase so far 0.000 h)
+[dscan 1/24      1s wall, 2.323 h cpu] free1 N=2048 B=8 d=16 g=nan m0s=1.0 s=0 T05=2097.0 steps=2097 final|m|=0.500 cpu=1s
+[dscan 2/24      1s wall, 2.324 h cpu] free1 N=2048 B=8 d=16 g=nan m0s=1.0 s=2 T05=2372.0 steps=2372 final|m|=0.501 cpu=1s
+[dscan 3/24      2s wall, 2.324 h cpu] free1 N=2048 B=8 d=16 g=nan m0s=1.0 s=1 T05=3606.0 steps=3606 final|m|=0.500 cpu=2s
+[dscan 4/24      9s wall, 2.327 h cpu] free1 N=2048 B=8 d=24 g=nan m0s=1.0 s=0 T05=14876.0 steps=14876 final|m|=0.502 cpu=9s
+[dscan 5/24      9s wall, 2.329 h cpu] free1 N=2048 B=8 d=24 g=nan m0s=1.0 s=2 T05=12588.0 steps=12588 final|m|=0.500 cpu=8s
+[dscan 6/24     10s wall, 2.332 h cpu] free1 N=2048 B=8 d=24 g=nan m0s=1.0 s=1 T05=14481.0 steps=14481 final|m|=0.500 cpu=9s
+[dscan 7/24     22s wall, 2.337 h cpu] free1 N=2048 B=8 d=32 g=nan m0s=1.0 s=0 T05=32468.0 steps=32468 final|m|=0.500 cpu=19s
+[dscan 8/24     27s wall, 2.342 h cpu] free1 N=2048 B=8 d=32 g=nan m0s=1.0 s=1 T05=30586.0 steps=30586 final|m|=0.500 cpu=18s
+[dscan 9/24     29s wall, 2.347 h cpu] free1 N=2048 B=8 d=32 g=nan m0s=1.0 s=2 T05=32239.0 steps=32239 final|m|=0.501 cpu=19s
+[dscan 10/24     29s wall, 2.348 h cpu] free1 N=128 B=32 d=16 g=nan m0s=1.0 s=0 T05=3258.0 steps=3258 final|m|=0.502 cpu=1s
+[dscan 11/24     30s wall, 2.348 h cpu] free1 N=128 B=32 d=16 g=nan m0s=1.0 s=1 T05=3277.0 steps=3277 final|m|=0.501 cpu=1s
+[dscan 12/24     31s wall, 2.348 h cpu] free1 N=128 B=32 d=16 g=nan m0s=1.0 s=2 T05=3418.0 steps=3418 final|m|=0.500 cpu=1s
+[dscan 13/24     34s wall, 2.349 h cpu] free1 N=128 B=32 d=24 g=nan m0s=1.0 s=0 T05=15170.0 steps=15170 final|m|=0.500 cpu=3s
+[dscan 14/24     37s wall, 2.350 h cpu] free1 N=128 B=32 d=24 g=nan m0s=1.0 s=1 T05=12706.0 steps=12706 final|m|=0.500 cpu=3s
+[dscan 15/24     41s wall, 2.351 h cpu] free1 N=128 B=32 d=24 g=nan m0s=1.0 s=2 T05=17390.0 steps=17390 final|m|=0.500 cpu=4s
+[dscan 16/24     48s wall, 2.353 h cpu] free1 N=128 B=32 d=32 g=nan m0s=1.0 s=0 T05=36882.0 steps=36882 final|m|=0.500 cpu=8s
+[dscan 17/24     58s wall, 2.355 h cpu] free1 N=128 B=32 d=32 g=nan m0s=1.0 s=1 T05=40733.0 steps=40733 final|m|=0.500 cpu=9s
+[dscan 18/24     65s wall, 2.357 h cpu] free1 N=128 B=32 d=32 g=nan m0s=1.0 s=2 T05=33986.0 steps=33986 final|m|=0.500 cpu=7s
+[dscan 19/24     99s wall, 2.367 h cpu] free1 N=128 B=32 d=48 g=nan m0s=1.0 s=0 T05=156119.0 steps=156119 final|m|=0.500 cpu=33s
+[dscan 20/24    104s wall, 2.392 h cpu] free1 N=2048 B=8 d=48 g=nan m0s=1.0 s=0 T05=151354.0 steps=151354 final|m|=0.500 cpu=93s
+[dscan 21/24    109s wall, 2.417 h cpu] free1 N=2048 B=8 d=48 g=nan m0s=1.0 s=1 T05=144311.0 steps=144311 final|m|=0.500 cpu=87s
+[dscan 22/24    117s wall, 2.442 h cpu] free1 N=2048 B=8 d=48 g=nan m0s=1.0 s=2 T05=148845.0 steps=148845 final|m|=0.500 cpu=90s
+[dscan 23/24    128s wall, 2.450 h cpu] free1 N=128 B=32 d=48 g=nan m0s=1.0 s=1 T05=138670.0 steps=138670 final|m|=0.500 cpu=30s
+[dscan 24/24    138s wall, 2.459 h cpu] free1 N=128 B=32 d=48 g=nan m0s=1.0 s=2 T05=162225.0 steps=162225 final|m|=0.500 cpu=35s
+[dscan] finished: ran 24, NOT run (budget) 0; wall 138s; total CPU 2.459 h

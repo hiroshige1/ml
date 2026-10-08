@@ -1,0 +1,21 @@
+[kappa2] 0 done, 19 to run; CPU spent so far 1.608 h (global cap 2.85 h, phase cap 1.0 h, phase so far 0.000 h)
+[kappa2 1/19    125s wall, 1.642 h cpu] free1 N=128 B=32 d=32 g=nan m0s=0.5 s=0 T05=578587.0 steps=578587 final|m|=0.500 cpu=124s
+[kappa2 2/19    203s wall, 1.664 h cpu] free1 N=128 B=32 d=32 g=nan m0s=0.5 s=1 T05=361530.0 steps=361530 final|m|=0.500 cpu=78s
+[kappa2 3/19    234s wall, 1.729 h cpu] free1 N=4096 B=8 d=32 g=nan m0s=0.5 s=0 T05=198772.0 steps=198772 final|m|=0.501 cpu=234s
+[kappa2 4/19    302s wall, 1.812 h cpu] free1 N=4096 B=8 d=32 g=nan m0s=0.5 s=2 T05=253735.0 steps=253735 final|m|=0.501 cpu=299s
+[kappa2 5/19    351s wall, 1.909 h cpu] free1 N=4096 B=8 d=32 g=nan m0s=0.5 s=1 T05=296213.0 steps=296213 final|m|=0.500 cpu=350s
+[kappa2 6/19    360s wall, 1.925 h cpu] free10 N=128 B=32 d=32 g=nan m0s=0.5 s=1 T05=260308.0 steps=260308 final|m|=0.500 cpu=57s
+[kappa2 7/19    401s wall, 1.980 h cpu] free1 N=128 B=32 d=32 g=nan m0s=0.5 s=2 T05=872621.0 steps=872621 final|m|=0.500 cpu=197s
+[kappa2 8/19    458s wall, 2.042 h cpu] free10 N=128 B=32 d=32 g=nan m0s=0.5 s=0 T05=nan steps=1000000 final|m|=0.107 cpu=223s
+[kappa2 9/19    475s wall, 2.074 h cpu] free1 N=32 B=32 d=32 g=nan m0s=0.5 s=0 T05=nan steps=1000000 final|m|=0.110 cpu=114s
+[kappa2 10/19    500s wall, 2.080 h cpu] free1 N=32 B=32 d=32 g=nan m0s=0.7 s=1 T05=216571.0 steps=216571 final|m|=0.500 cpu=25s
+[kappa2 11/19    516s wall, 2.112 h cpu] free1 N=32 B=32 d=32 g=nan m0s=0.5 s=1 T05=nan steps=1000000 final|m|=0.087 cpu=115s
+[kappa2 12/19    564s wall, 2.171 h cpu] free10 N=128 B=32 d=32 g=nan m0s=0.5 s=2 T05=nan steps=1000000 final|m|=0.077 cpu=212s
+[kappa2 13/19    574s wall, 2.203 h cpu] free1 N=32 B=32 d=32 g=nan m0s=0.5 s=2 T05=nan steps=1000000 final|m|=0.069 cpu=116s
+[kappa2 14/19    597s wall, 2.210 h cpu] free10 N=32 B=32 d=32 g=nan m0s=0.7 s=0 T05=201581.0 steps=201581 final|m|=0.500 cpu=23s
+[kappa2 15/19    616s wall, 2.241 h cpu] free10 N=32 B=32 d=32 g=nan m0s=0.5 s=0 T05=nan steps=1000000 final|m|=0.071 cpu=114s
+[kappa2 16/19    630s wall, 2.273 h cpu] free10 N=32 B=32 d=32 g=nan m0s=0.5 s=1 T05=nan steps=1000000 final|m|=0.075 cpu=114s
+[kappa2 17/19    639s wall, 2.279 h cpu] free10 N=32 B=32 d=32 g=nan m0s=0.7 s=2 T05=204798.0 steps=204798 final|m|=0.500 cpu=23s
+[kappa2 18/19    641s wall, 2.292 h cpu] free10 N=32 B=32 d=32 g=nan m0s=0.7 s=1 T05=375827.0 steps=375827 final|m|=0.501 cpu=44s
+[kappa2 19/19    677s wall, 2.323 h cpu] free10 N=32 B=32 d=32 g=nan m0s=0.5 s=2 T05=nan steps=1000000 final|m|=0.037 cpu=113s
+[kappa2] finished: ran 19, NOT run (budget) 0; wall 677s; total CPU 2.323 h
