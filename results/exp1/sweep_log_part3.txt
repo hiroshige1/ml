@@ -1,0 +1,20 @@
+212 runs already done, 18 to run -> results/exp1/summary.csv
+[1/18      18s] A k=2 d=16 eta0=2 seed=3 T05=66691.0 T09=67169.0 reached=True steps=67169 run=17.6s
+[2/18      18s] B k=2 d=32 eta0=1 seed=4 T05=1111.0 T09=1427.0 reached=True steps=1427 run=0.1s
+[3/18      18s] B k=2 d=32 eta0=2 seed=4 T05=481.0 T09=650.0 reached=True steps=650 run=0.0s
+[4/18      18s] B k=2 d=8 eta0=1 seed=4 T05=40.0 T09=63.0 reached=True steps=63 run=0.0s
+[5/18      18s] B k=2 d=8 eta0=2 seed=4 T05=13.0 T09=24.0 reached=True steps=24 run=0.0s
+[6/18      18s] B k=1 d=8 eta0=1 seed=0 T05=1.0 T09=21.0 reached=True steps=21 run=0.0s
+[7/18      18s] B k=1 d=8 eta0=1 seed=1 T05=3.0 T09=34.0 reached=True steps=34 run=0.0s
+[8/18      18s] B k=1 d=8 eta0=1 seed=2 T05=6.0 T09=35.0 reached=True steps=35 run=0.0s
+[9/18      18s] B k=1 d=8 eta0=1 seed=3 T05=1.0 T09=20.0 reached=True steps=20 run=0.0s
+[10/18      18s] B k=1 d=8 eta0=1 seed=4 T05=5.0 T09=35.0 reached=True steps=35 run=0.0s
+[11/18      18s] B k=1 d=8 eta0=2 seed=0 T05=1.0 T09=10.0 reached=True steps=10 run=0.0s
+[12/18      18s] B k=1 d=8 eta0=2 seed=1 T05=2.0 T09=16.0 reached=True steps=16 run=0.0s
+[13/18      18s] B k=1 d=8 eta0=2 seed=2 T05=3.0 T09=18.0 reached=True steps=18 run=0.0s
+[14/18      18s] B k=1 d=8 eta0=2 seed=3 T05=1.0 T09=10.0 reached=True steps=10 run=0.0s
+[15/18      18s] B k=1 d=8 eta0=2 seed=4 T05=2.0 T09=17.0 reached=True steps=17 run=0.0s
+[16/18      38s] A k=1 d=128 eta0=2 seed=1 T05=129456.0 T09=156967.0 reached=True steps=156967 run=38.0s
+[17/18      88s] A k=1 d=128 eta0=1 seed=1 T05=298683.0 T09=353737.0 reached=True steps=353737 run=87.5s
+[18/18     130s] A k=2 d=16 eta0=1 seed=3 T05=491875.0 T09=492808.0 reached=True steps=492808 run=129.8s
+done in 130s wall

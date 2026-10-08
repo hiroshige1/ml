@@ -18,7 +18,7 @@ import numpy as np
 from .train import train
 
 COLS = ["model", "k", "d", "N", "B", "gamma", "eta0", "eta", "seed", "m0", "T05", "T09", "reached", "reached05",
-        "steps", "final_m", "max_steps", "sampler", "wall_s"]
+        "steps", "final_m", "max_steps", "sampler", "wall_s", "sym_stop"]
 KEY = ["model", "k", "d", "eta0", "seed", "N", "B", "gamma"]
 
 # default grids (spec_exp1.md; Model A k=2 extended beyond d=48 because it is cheap, see README)

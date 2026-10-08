@@ -17,6 +17,17 @@ def make_rng(seed, d, k, model):
     return np.random.default_rng(np.random.SeedSequence([int(seed), d, K_CODE[k], M_CODE[model]]))
 
 
+def sign_symmetric(model, k):
+    """True if the population loss is invariant under w -> -w (then only |<w,v>| is identifiable).
+
+    Model A: yhat is a product of two sigma_k(<w,.>) factors, so it is even in w for every k.
+    Model B: yhat = a sigma_k(<w,x>) is even in w only for even k (k = 2).  relu is never symmetric.
+    """
+    if k == "relu":
+        return False
+    return model == "A" or k % 2 == 0
+
+
 def init_sphere(d, rng):
     """Teacher v uniform on S^{d-1}; w uniform on S^{d-1}, sign-flipped so <w,v> > 0."""
     v = rng.standard_normal(d)
@@ -41,6 +52,7 @@ def train(model, d, k, eta, seed, N=128, B=32, gamma=0.1, train_gamma=False, a=1
     mdl = ModelA(w0, k, gamma, train_gamma) if model == "A" else ModelB(w0, k, a, train_a)
     m = float(mdl.w @ v)
     m0 = m
+    sym = sign_symmetric(model, k)  # thresholds are applied to |m| if w -> -w is a symmetry (see docstring)
     T05 = T09 = float("nan")
     ts, ms, ls, gs = [0], [m], [float("nan")], [float("nan")]
     loss_acc = g_acc = 0.0
@@ -80,9 +92,10 @@ def train(model, d, k, eta, seed, N=128, B=32, gamma=0.1, train_gamma=False, a=1
         loss_acc += loss
         g_acc += float(np.linalg.norm(gw))
         n_acc += 1
-        if math.isnan(T05) and m >= 0.5:
+        mc = abs(m) if sym else m
+        if math.isnan(T05) and mc >= 0.5:
             T05 = float(t)
-        if m >= stop_m:
+        if mc >= stop_m:
             T09 = float(t)
         if t % log_every == 0 or T09 == T09 or t == max_steps:
             ts.append(t); ms.append(m); ls.append(loss_acc / n_acc); gs.append(g_acc / n_acc)
@@ -94,5 +107,5 @@ def train(model, d, k, eta, seed, N=128, B=32, gamma=0.1, train_gamma=False, a=1
             break
     return dict(model=model, k=k, d=d, N=N, B=B, gamma=gamma, eta=eta, seed=seed, m0=m0, T05=T05, T09=T09,
                 reached=bool(T09 == T09), reached05=bool(T05 == T05), steps=t, final_m=m,
-                max_steps=max_steps, sampler=sampler, wall_s=time.time() - t_start,
+                max_steps=max_steps, sampler=sampler, sym_stop=sym, wall_s=time.time() - t_start,
                 traj=dict(t=np.array(ts), m=np.array(ms), loss=np.array(ls), gnorm=np.array(gs)))
