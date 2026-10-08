@@ -11,7 +11,7 @@ from icl_additive.data import sample_iw, sample_iw_proj, sample_prompts, sample_
 from icl_additive.drift import V_fn, g_fn, loss_formula  # noqa: E402
 from icl_additive.hermite import dsigma, hermite_norm, sigma  # noqa: E402
 from icl_additive.models import ModelA, ModelATied, ModelB  # noqa: E402
-from icl_additive.train import init_fixed, init_sphere, train  # noqa: E402
+from icl_additive.train import ctx_stats_fast, init_fixed, init_sphere, train  # noqa: E402
 
 KS = [1, 2, 3, "relu"]
 
@@ -153,6 +153,18 @@ def test_init_fixed_and_tied_proj_matches_full():
     for j in range(3):
         se = math.sqrt(full[:, j].var() / nb + proj[:, j].var() / nb)
         assert abs(full[:, j].mean() - proj[:, j].mean()) < 5 * se, j
+
+
+def test_fast_ctx_stats_matches_coefs():
+    rng = np.random.default_rng(8)
+    B, N = 5, 20
+    for k in KS:
+        pc, uc = rng.standard_normal((B, N)), rng.standard_normal((B, N))
+        pq, uq, c = rng.standard_normal((3, B))
+        m, s, G = 0.3, math.sqrt(1 - 0.09), 0.7
+        loss, Cc, Cq, gG = ModelA(np.ones(3), k, G).coefs(m * pc + s * uc, c[:, None] * sigma(k, pc), m * pq + s * uq, c * sigma(k, pq))
+        ref = (loss, (Cc * pc).sum() + Cq @ pq, (Cc * uc).sum() + Cq @ uq, (Cc ** 2).sum() + Cq @ Cq, gG)
+        assert np.allclose(ref, ctx_stats_fast(k, G, m, s, pc, uc, pq, uq, c), rtol=1e-12), k
 
 
 def test_closed_form_g_V():
