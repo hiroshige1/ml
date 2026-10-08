@@ -95,7 +95,32 @@ Kill: P8 fails ⇒ the toy phenomenon does not transfer at this scale; that beco
 initial alignment is `Θ(d^{−1/2})`; any statement about transformers must say that a 2-layer softmax transformer at `d=32`,
 width 256 showed the opposite `N`-dependence at fixed tokens/step.
 
-## Secondary question (C4) — to be pre-registered after exp 1 passes K1
+## Regime-matched transformer test (exp 5) — pre-registered 2026-10-08 before any run; spec in `docs/spec_exp5.md`
+
+| ID | setting (`d=256`, MLP width 32, `k*=2`, softmax, 30k steps) | default predicts | rival (ours) predicts |
+|---|---|---|---|
+| P11a | (a) `N=256,B=64`; (b) `N=64,B=64`; (c) `N=16,B=64` | (c) emerges, later (tokens) | (a),(b) emerge all seeds; (c) stuck ≥2/3 seeds |
+| P11b (decisive) | (d) `N=16,B=1024` — same tokens/step as (a) | (d) emerges at ≈ the step count of (a) or sooner | (d) stuck ≥2/3 seeds while (a) emerges |
+| P11c | `k*=1` at `N=16,B=64`; in-weight control | — | both emerge < 2000 steps |
+
+Kill/scope: (d) emerges at ≲ 2× the steps of (a) ⇒ C2/C3 claimed for the single-neuron/narrow model only; both transformer
+experiments reported as the boundary.
+
+## Secondary question (C4) — pre-registered 2026-10-08 before any run; spec in `docs/spec_exp3.md`
+
+Setting: `d=32`, `P=2` orthogonal `σ_2` skills with frequencies `0.75/0.25`, `M=4` neurons, fixed `Γ=0.1`, `N=128`, single-skill
+prompts only.
+
+| ID | quantity | default predicts (Arora–Goyal Cor. 13 / Okawa) | rival (ours, §4) predicts |
+|---|---|---|---|
+| P12 | additivity residual `R(t) = MSE_12 − MSE_1 − MSE_2` | not constrained | `|R| ≲ 0.02` (=O(1/N)) at all `t` |
+| P13 | `T_12` vs `max(T_1,T_2)` | extra delay for the pair (≈ ×10 scale per doubling in A–G) | `T_12 = max(T_1,T_2)` within one logging interval (500 steps) |
+| P14 | `acc_12(t)` vs `acc_1(t)·acc_2(t)` | multiplicative by definition/independence (Okawa) | multiplicative *approximately*, with the deviation predicted by the Gaussian-error model (report both) |
+| P15 | non-additive pair `σ_1(v_1x)σ_1(v_2x)` | — | MSE stays ≈ 1 throughout (not free) |
+
+Kill: P12 or P13 fails ⇒ §4 is wrong as stated (the exact additivity argument has an error); stop and recompute.
+
+## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
 data; thresholded accuracy multiplies. Default: compositional skills need compositional data or extra
@@ -147,6 +172,7 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-08 v0.7: P11a–c (exp 5, regime-matched transformer) and P12–P15 (exp 3, composition) pre-registered before the runs.
 - 2026-10-08 v0.6: exp 4 outcome recorded — P8 failed (kill condition met); scope of C2/C3 restricted; P11 regime identified but not yet pre-registered.
 - 2026-10-08 v0.5: P8–P10 (transformer transfer test) pre-registered before exp 4 runs.
 - 2026-10-08 v0.4: exp 1b outcome recorded; hard-threshold wording withdrawn (soft, noise-activated); post-hoc parameter-free ODE check declared as such.
