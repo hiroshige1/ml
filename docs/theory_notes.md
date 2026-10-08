@@ -83,10 +83,52 @@ This is a genuinely in-context phenomenon (there is no analogue in `L_B`), and i
 **context-length threshold for feature emergence** that is distinct from the usual "context length
 needed for in-context estimation" threshold. To be tested in exp 1b (vary `N` at fixed `d`, `γ`).
 
-TODO: redo with learnable `Γ` (gradient flow for `Γ` at fixed `m`: `Γ*(m) = g²/(g(1)((1−1/N)g² + V/N))`,
-which for `g² ≪ V/N` is `≈ N g²/V` — if `Γ` equilibrates fast, the effective landscape in `m` becomes
-`1 − N g⁴/V`, i.e. exponent **`4k*`**. So readout speed matters: slow `Γ` ⇒ `2k*`, fast `Γ` ⇒ `4k*`?
-This needs care — check numerically before believing it.)
+### 2.3 Trainable readout: shrinkage starves feature learning (population ODE, verified numerically)
+
+Let `Γ` be trained. At fixed `m` the readout relaxes to the Wiener-filter value
+```
+Γ*(m) = g² / ( g(1) ( (1−1/N) g² + V/N ) )            (signal / (signal + context noise))
+```
+at rate `2 g(1)((1−1/N)g² + V/N) ≈ 2V/N` — which is **fast** compared with the alignment dynamics
+(rate `O(m^{2k*−1})`) as soon as `N < ∞`. Plugging `Γ*` in:
+```
+L_A(m, Γ*) = s² [ 1 − g⁴ / ( g(1)((1−1/N) g² + V/N) ) ]
+           ≈ s² [ 1 − N g⁴ / (g(1) V) ]        for  g² ≪ V/N  (i.e. m ≪ N^{−1/(2k*)})
+           ≈ s² [ 1 − g² / g(1) ]              for  g² ≫ V/N.
+```
+So with a trainable readout the effective exponent is **`4k*`** while the context statistic is
+noise-dominated, and `2k*` once it is signal-dominated. From `m_0 = d^{−1/2}` the initial regime is
+noise-dominated iff `d ≫ N^{1/k*}` (for `k* = 2`: `d ≫ √N`). Interpretation: the optimal readout
+*shrinks* an untrustworthy context statistic, and the shrunken readout multiplies the feature gradient,
+so **feature learning is starved exactly when the context is too short to make the feature useful**.
+
+Numerical check of the population gradient flow (`scripts/ode_two_timescale.py`, `k* = 2`, flow time
+to `m = 0.5`, slope of `log T` vs `log d` over `d ∈ [16, 1024]`):
+
+| protocol | N = ∞ | N = 1024 | N = 128 | prediction |
+|---|---|---|---|---|
+| fixed `Γ = 0.1` | 1.03 | 1.06 | 1.24 (stuck at d=1024) | `(2k*−2)/2 = 1`; stuck when `m_0² < 4Γ/N` |
+| fixed `Γ = 1` | 1.03 | stuck for d ≥ 256 | stuck for d ≥ 32 | same |
+| trainable `Γ`, `Γ_0 = 0.01` | 1.37 | 1.72 | 2.30 (→ 3.0 for d ≥ 256) | `(4k*−2)/2 = 3` for `d ≫ √N` |
+
+At `N = 128` the last three points (`d = 256, 512, 1024`) have successive ratios 7.6, 8.0 ⇒ slope 3.0 ✓,
+and the learned readout saturates at `Γ ≈ 0.23` independent of `d` (it tracks `Γ*`). The `N = ∞`
+trainable case (1.37) is a genuinely joint slow dynamics (`Γ̇ = 2g²(1−Γ)` is *slow* when `N = ∞`),
+not a clean power law.
+
+**Caveat (also applies to Model B):** training the second layer `a` from small init in the in-weight
+model does the same thing: `a* = g/g(1)` ⇒ `L_B(m, a*) = 1 − g²/g(1)`, exponent `2k*`. So the
+*ratio* A/B of effective exponents is 2 under either protocol (fixed: `2k*/k*`; trainable: `4k*/2k*`),
+but the absolute numbers depend on the protocol, and the finite-`N` crossover is specific to A.
+Exp 1 uses fixed readouts for both (clean comparison); exp 1b varies `N` with trainable `Γ`.
+
+**Consequence in SGD sample-complexity terms** (heuristic, `κ_eff = 4k*`): escape needs
+`η ≲ d^{−κ/2}` and `n ≍ d^{κ−1} = d^{4k*−1}` — for `k* = 2` that is `d^7`: a linear-attention ICL model
+with a trainable readout and context `N ≪ d²` essentially **cannot acquire an even (k*=2) skill from
+scratch in high dimension**. Whatever real transformers do instead must be one of: long context
+(`N ≳ d^{k*}`), a nonzero task mean (in-weight path, exponent `k*`), or a label nonlinearity in the
+architecture (softmax attention; cf. Nishikawa et al. 2025's "beats CSQ via label transformations").
+That trichotomy is a testable prediction for the small-transformer experiment.
 
 ## 3. Many skills: decoupling and the ICL scaling law
 
