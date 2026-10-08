@@ -72,6 +72,29 @@ dropped). No metric, grid, or seed count will be changed after seeing results wi
 
 Kill: P8 fails ⇒ the toy phenomenon does not transfer at this scale; that becomes the headline of exp 4.
 
+### Exp 4 outcome (recorded 2026-10-08 after the run; `results/exp4/README.md`)
+
+- **P8 FAILED, direction reversed; the pre-registered kill condition is met.** Softmax, `k*=2`, `d=32`, tokens/step fixed: median
+  `T_e` = 1000 / 1400 / 2800 steps at `N` = 16 / 64 / 256 (seed ranges at `N=16` and `N=256` do not overlap); `d=16`: 400 / 500 / 800.
+  Larger context at fixed tokens/step is *slower*, matching the default ("fewer prompts per step") not our prediction.
+- **P9 partly held:** in-weight control emerges in 40–60 steps vs ≥ 800 for every in-context `k*=2` cell (in-weight ≫ in-context, as
+  predicted); `k*=1` `N`-dependence is ×2.0 at 20-step resolution (predicted < ×1.5), same direction as `k*=2`.
+- **P10:** `N`-dependence present in both softmax and linear attention, same direction; linear is slower (and never emerged at `N=256`
+  within 6000 steps).
+- **Post-hoc diagnosis (not a reinterpretation of P8; recorded as a hypothesis for a new pre-registration):** the alignment proxy
+  `max_j |cos(W_j, v)|` over 256 MLP neurons is already **0.43–0.55 at initialisation** for `d=32`. The toy phenomenon needs
+  `m_0 ≲ 2√(γ/N)` (a drift-stable origin), i.e. a small *initial* alignment, which a wide MLP in low `d` never has: the best of
+  256 random directions in 32 dimensions is far above the repulsion barrier. At this scale the pretraining bottleneck is gradient
+  noise across prompts (`B`), not the context statistic's noise. Whether the mechanism matters at all in transformers is therefore
+  **untested, not refuted**, and testable only in the regime `d ≫ width` (e.g. `d=256`, width 32–64, where the max initial
+  alignment is ≈ 0.15–0.2) with `B` held fixed and `N` varied, plus a readout that is not initialised tiny. That experiment, if run,
+  needs its own pre-registration (P11) and an explicit statement that both outcomes change the paper's scope.
+- Budget 6.0 CPU-h (cap 6).
+
+**Scope consequence (binding until P11 is run):** C2/C3 may be claimed only for the single-neuron / narrow regime where the
+initial alignment is `Θ(d^{−1/2})`; any statement about transformers must say that a 2-layer softmax transformer at `d=32`,
+width 256 showed the opposite `N`-dependence at fixed tokens/step.
+
 ## Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
@@ -124,6 +147,7 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-08 v0.6: exp 4 outcome recorded — P8 failed (kill condition met); scope of C2/C3 restricted; P11 regime identified but not yet pre-registered.
 - 2026-10-08 v0.5: P8–P10 (transformer transfer test) pre-registered before exp 4 runs.
 - 2026-10-08 v0.4: exp 1b outcome recorded; hard-threshold wording withdrawn (soft, noise-activated); post-hoc parameter-free ODE check declared as such.
 - 2026-10-08 v0.3: exp 1 outcome recorded; κ=1 prediction corrected (error acknowledged, not reinterpreted).

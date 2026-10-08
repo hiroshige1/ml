@@ -1,0 +1,24 @@
+[k1_d32_N256_softmax_s0] step 0 mse 1.5135 align 0.432 t=2s
+DONE {'k': 1, 'd': 32, 'N': 256, 'attn': 'softmax', 'inweight': 0, 'seed': 0, 'steps_run': 200, 'Te05': 120, 'Te01': 200, 'final_mse': 0.08773574978113174, 'wall_s': 30.9, 'cpu_s': 118.2}
+[k1_d32_N64_softmax_s0] step 0 mse 1.5350 align 0.432 t=0s
+DONE {'k': 1, 'd': 32, 'N': 64, 'attn': 'softmax', 'inweight': 0, 'seed': 0, 'steps_run': 140, 'Te05': 60, 'Te01': 140, 'final_mse': 0.08268179930746555, 'wall_s': 6.7, 'cpu_s': 26.6}
+[k1_d32_N16_softmax_s0] step 0 mse 1.4277 align 0.432 t=0s
+DONE {'k': 1, 'd': 32, 'N': 16, 'attn': 'softmax', 'inweight': 0, 'seed': 0, 'steps_run': 120, 'Te05': 60, 'Te01': 120, 'final_mse': 0.09618205577135086, 'wall_s': 5.4, 'cpu_s': 21.5}
+[k2_d32_N64_softmax_s0_iw] step 0 mse 1.4239 align 0.432 t=0s
+DONE {'k': 2, 'd': 32, 'N': 64, 'attn': 'softmax', 'inweight': 1, 'seed': 0, 'steps_run': 100, 'Te05': 40, 'Te01': 100, 'final_mse': 0.07409147545695305, 'wall_s': 4.9, 'cpu_s': 19.3}
+[k1_d32_N256_softmax_s1] step 0 mse 1.2112 align 0.554 t=2s
+DONE {'k': 1, 'd': 32, 'N': 256, 'attn': 'softmax', 'inweight': 0, 'seed': 1, 'steps_run': 180, 'Te05': 100, 'Te01': 180, 'final_mse': 0.08883890882134438, 'wall_s': 27.6, 'cpu_s': 105.5}
+[k1_d32_N64_softmax_s1] step 0 mse 1.2398 align 0.554 t=0s
+DONE {'k': 1, 'd': 32, 'N': 64, 'attn': 'softmax', 'inweight': 0, 'seed': 1, 'steps_run': 100, 'Te05': 60, 'Te01': 100, 'final_mse': 0.08225553296506405, 'wall_s': 5.0, 'cpu_s': 19.8}
+[k1_d32_N16_softmax_s1] step 0 mse 1.2216 align 0.554 t=0s
+DONE {'k': 1, 'd': 32, 'N': 16, 'attn': 'softmax', 'inweight': 0, 'seed': 1, 'steps_run': 100, 'Te05': 60, 'Te01': 100, 'final_mse': 0.06432327907532454, 'wall_s': 4.5, 'cpu_s': 17.9}
+[k2_d32_N64_softmax_s1_iw] step 0 mse 1.3784 align 0.554 t=0s
+DONE {'k': 2, 'd': 32, 'N': 64, 'attn': 'softmax', 'inweight': 1, 'seed': 1, 'steps_run': 120, 'Te05': 40, 'Te01': 120, 'final_mse': 0.07823057472705841, 'wall_s': 6.2, 'cpu_s': 24.5}
+[k1_d32_N256_softmax_s2] step 0 mse 1.4580 align 0.448 t=2s
+DONE {'k': 1, 'd': 32, 'N': 256, 'attn': 'softmax', 'inweight': 0, 'seed': 2, 'steps_run': 200, 'Te05': 120, 'Te01': 200, 'final_mse': 0.0885839257389307, 'wall_s': 30.7, 'cpu_s': 117.1}
+[k1_d32_N64_softmax_s2] step 0 mse 1.3796 align 0.448 t=0s
+DONE {'k': 1, 'd': 32, 'N': 64, 'attn': 'softmax', 'inweight': 0, 'seed': 2, 'steps_run': 120, 'Te05': 80, 'Te01': 120, 'final_mse': 0.08070431090891361, 'wall_s': 5.7, 'cpu_s': 22.7}
+[k1_d32_N16_softmax_s2] step 0 mse 1.4014 align 0.448 t=0s
+DONE {'k': 1, 'd': 32, 'N': 16, 'attn': 'softmax', 'inweight': 0, 'seed': 2, 'steps_run': 100, 'Te05': 60, 'Te01': 100, 'final_mse': 0.08516035415232182, 'wall_s': 4.5, 'cpu_s': 18.1}
+[k2_d32_N64_softmax_s2_iw] step 0 mse 1.3651 align 0.448 t=0s
+DONE {'k': 2, 'd': 32, 'N': 64, 'attn': 'softmax', 'inweight': 1, 'seed': 2, 'steps_run': 120, 'Te05': 60, 'Te01': 120, 'final_mse': 0.08178852498531342, 'wall_s': 6.0, 'cpu_s': 23.8}

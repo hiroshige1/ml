@@ -1,0 +1,35 @@
+skip k2_d32_N256_softmax_s0
+skip k2_d32_N64_softmax_s0
+skip k2_d32_N16_softmax_s0
+skip k2_d32_N256_softmax_s1
+skip k2_d32_N64_softmax_s1
+skip k2_d32_N16_softmax_s1
+skip k2_d32_N256_softmax_s2
+skip k2_d32_N64_softmax_s2
+skip k2_d32_N16_softmax_s2
+skip k1_d32_N256_softmax_s0
+skip k1_d32_N64_softmax_s0
+skip k1_d32_N16_softmax_s0
+skip k2_d32_N64_softmax_s0_iw
+skip k1_d32_N256_softmax_s1
+skip k1_d32_N64_softmax_s1
+skip k1_d32_N16_softmax_s1
+skip k2_d32_N64_softmax_s1_iw
+skip k2_d32_N256_linear_s0
+skip k2_d32_N16_linear_s0
+skip k2_d32_N256_linear_s1
+skip k2_d32_N16_linear_s1
+[k2_d16_N256_softmax_s0] step 0 mse 1.4356 align 0.831 t=2s
+[k2_d16_N256_softmax_s0] step 2000 mse 0.2708 align 0.970 t=138s
+DONE {'k': 2, 'd': 16, 'N': 256, 'attn': 'softmax', 'inweight': 0, 'seed': 0, 'steps_run': 3400, 'Te05': 1000, 'Te01': 3400, 'final_mse': 0.09389538504183292, 'wall_s': 227.7, 'cpu_s': 895.4}
+[k2_d16_N64_softmax_s0] step 0 mse 1.3829 align 0.831 t=0s
+DONE {'k': 2, 'd': 16, 'N': 64, 'attn': 'softmax', 'inweight': 0, 'seed': 0, 'steps_run': 1200, 'Te05': 600, 'Te01': 1200, 'final_mse': 0.07714002393186092, 'wall_s': 41.8, 'cpu_s': 166.5}
+[k2_d16_N16_softmax_s0] step 0 mse 1.3493 align 0.831 t=0s
+DONE {'k': 2, 'd': 16, 'N': 16, 'attn': 'softmax', 'inweight': 0, 'seed': 0, 'steps_run': 600, 'Te05': 400, 'Te01': 600, 'final_mse': 0.044129093177616596, 'wall_s': 19.6, 'cpu_s': 77.8}
+[k2_d16_N256_softmax_s1] step 0 mse 1.2152 align 0.595 t=2s
+[k2_d16_N256_softmax_s1] step 2000 mse 0.1038 align 0.982 t=112s
+DONE {'k': 2, 'd': 16, 'N': 256, 'attn': 'softmax', 'inweight': 0, 'seed': 1, 'steps_run': 2800, 'Te05': 600, 'Te01': 2800, 'final_mse': 0.09452871792018414, 'wall_s': 158.7, 'cpu_s': 626.5}
+[k2_d16_N64_softmax_s1] step 0 mse 1.3959 align 0.595 t=0s
+DONE {'k': 2, 'd': 16, 'N': 64, 'attn': 'softmax', 'inweight': 0, 'seed': 1, 'steps_run': 1000, 'Te05': 400, 'Te01': 1000, 'final_mse': 0.09659693203866482, 'wall_s': 34.8, 'cpu_s': 138.3}
+[k2_d16_N16_softmax_s1] step 0 mse 1.0461 align 0.595 t=0s
+DONE {'k': 2, 'd': 16, 'N': 16, 'attn': 'softmax', 'inweight': 0, 'seed': 1, 'steps_run': 600, 'Te05': 400, 'Te01': 600, 'final_mse': 0.04256750922650099, 'wall_s': 19.4, 'cpu_s': 77.1}

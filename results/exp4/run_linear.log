@@ -1,0 +1,16 @@
+[k2_d32_N16_linear_s0] step 0 mse 1.3073 align 0.432 t=0s
+[k2_d32_N16_linear_s0] step 2000 mse 0.6745 align 0.952 t=84s
+DONE {'k': 2, 'd': 32, 'N': 16, 'attn': 'linear', 'inweight': 0, 'seed': 0, 'steps_run': 2200, 'Te05': 2200, 'Te01': 2200, 'final_mse': 0.05528668314218521, 'wall_s': 92.3, 'cpu_s': 366.5}
+[k2_d32_N16_linear_s1] step 0 mse 1.3914 align 0.554 t=0s
+[k2_d32_N16_linear_s1] step 2000 mse 1.1527 align 0.593 t=73s
+DONE {'k': 2, 'd': 32, 'N': 16, 'attn': 'linear', 'inweight': 0, 'seed': 1, 'steps_run': 3200, 'Te05': 3000, 'Te01': 3200, 'final_mse': 0.06826440896838903, 'wall_s': 116.4, 'cpu_s': 462.9}
+[k2_d32_N256_linear_s0] step 0 mse 1.5047 align 0.432 t=5s
+[k2_d32_N256_linear_s0] step 2000 mse 1.1464 align 0.441 t=296s
+[k2_d32_N256_linear_s0] step 4000 mse 1.1449 align 0.479 t=581s
+[k2_d32_N256_linear_s0] step 6000 mse 1.1451 align 0.440 t=856s
+DONE {'k': 2, 'd': 32, 'N': 256, 'attn': 'linear', 'inweight': 0, 'seed': 0, 'steps_run': 6000, 'Te05': None, 'Te01': None, 'final_mse': 1.1451119482517242, 'wall_s': 856.4, 'cpu_s': 3340.7}
+[k2_d32_N256_linear_s1] step 0 mse 1.1925 align 0.554 t=5s
+[k2_d32_N256_linear_s1] step 2000 mse 0.9674 align 0.567 t=306s
+[k2_d32_N256_linear_s1] step 4000 mse 0.9708 align 0.554 t=606s
+[k2_d32_N256_linear_s1] step 6000 mse 0.9694 align 0.534 t=909s
+DONE {'k': 2, 'd': 32, 'N': 256, 'attn': 'linear', 'inweight': 0, 'seed': 1, 'steps_run': 6000, 'Te05': None, 'Te01': None, 'final_mse': 0.9693862497806549, 'wall_s': 909.1, 'cpu_s': 3550.8}
