@@ -122,7 +122,30 @@ model does the same thing: `a* = g/g(1)` ⇒ `L_B(m, a*) = 1 − g²/g(1)`, expo
 but the absolute numbers depend on the protocol, and the finite-`N` crossover is specific to A.
 Exp 1 uses fixed readouts for both (clean comparison); exp 1b varies `N` with trainable `Γ`.
 
-**Consequence in SGD sample-complexity terms** (heuristic, `κ_eff = 4k*`): escape needs
+### 2.4 The parameterisation of the readout decides whether shrinkage starves features (ODE-verified)
+
+Ren et al. (2025) use the 2-homogeneous student `Σ_k ‖v_k‖² σ(v̄_k·x)`: the readout is *tied* to the feature
+norm, and their Lemma B.1 makes the directional dynamics independent of the norm. Redo §2.3 with the tied
+parameterisation `Γ = ρ = ‖w‖²` for Model A (`scripts/ode_tied.py`):
+```
+dm/dt  = (1−m²) [ 4 g g' − ρ ( 2(1−1/N) g g' + V'/N ) ]      ← attraction does NOT carry ρ
+dρ/dt  = −4ρ [ −2g² + 2ρ((1−1/N) g² + V/N) ]                  ← ρ relaxes to Γ*(m) (tiny), multiplicatively
+```
+Result (`k* = 2`, flow time to `m = 0.5`, slope of `log T` vs `log d`): **1.03–1.05 for every `N ∈ {128, 1024, ∞}`
+when `ρ_0 = 0.01`** — the `2k*` exponent, no starvation, no `N`-crossover; and **stuck for `d ≥ 32` when `ρ_0 = 1`,
+`N = 128`** — the repulsion threshold of §2.2 is still there.
+
+So: **C2 (finite-context repulsion, threshold `ρ ≲ N m_0²/4`) is robust to how the readout is parameterised;
+C3 (shrinkage → `4k*`) is specific to a readout that can shrink independently of the feature norm** (a free
+attention/output weight). In a transformer both exist: the first-layer norm is a tied (homogeneous) scale for
+ReLU-type MLPs, and the value/output matrices are free readouts; with balanced initialisation gradient flow
+conserves `‖w‖² − ‖Γ‖²`-type quantities, so which regime wins is a quantitative question for the real-model
+experiment — and a cleaner, more surprising claim than "ICL is harder": *the exponent of in-context feature
+emergence is selected by the parameterisation of the readout and by the context length, not by the target alone.*
+This connects to Nam et al. 2025's "dynamical feedback principle" (which factor's magnitude gates which
+factor's speed).
+
+**Consequence in SGD sample-complexity terms** (heuristic, `κ_eff = 4k*`, free readout only): escape needs
 `η ≲ d^{−κ/2}` and `n ≍ d^{κ−1} = d^{4k*−1}` — for `k* = 2` that is `d^7`: a linear-attention ICL model
 with a trainable readout and context `N ≪ d²` essentially **cannot acquire an even (k*=2) skill from
 scratch in high dimension**. Whatever real transformers do instead must be one of: long context
