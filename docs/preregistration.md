@@ -33,6 +33,7 @@ multiplies the feature gradient and changes the effective exponent from `2k*` to
 | P4 | trained `Γ` (`Γ_0 = 0.01`), slope `s` of `log T_0.5` vs `log d` | a single slope (≈2 under `η ∝ d^{−2}` if exponent is `2k*`, ≈1.5 if `k*`) | `s ≈ 2` for `d ≪ √N`, bending to `s ≈ 4` for `d ≫ √N`; `N = 128 → 2048` moves the bend by `×4` in `d` |
 | P5 | learned `Γ` at `T_0.5` | grows with training, no `N`-law | `≈ Γ*(0.5; N)`, independent of `d`, increasing in `N` |
 | P6 | A vs B (in-weight), fixed readouts, `k* = 2`, `N → ∞`-like (`N = 128, Γ = 0.1`) | both ≈ `d log d` | slope difference ≈ 1 (3 vs ≈2) |
+| P7 | **N–T tradeoff test** (vs Oko et al. 2024, Remark 3): fixed `Γ = 1`, `N = 128`, `d = 64` (above the predicted threshold); increase the number of tasks per step `B` from 32 to 1024 and the step budget ×10 | escape time decreases with total samples `B·T` (context length and task count are interchangeable) | **no escape at any `B`**: the repulsion is a drift bias, not averaging noise; the only knobs that restore escape are larger `N` (≥ `4Γd`) or smaller `Γ` |
 
 **Best-case headline.** "Short pretraining context makes even skills unlearnable: the context length
 sets the exponent of in-context feature emergence through readout shrinkage, with a sharp crossover at
@@ -71,3 +72,6 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-08 v0.1: added P7 after reading Oko et al. 2024 Thm 1 / Remark 3 in full (their `N_1 T_1` multiplicative
+  tradeoff is now the named default hypothesis). No exp 1 result inspected beyond 14/230 partial rows of
+  `summary.csv` (T_0.5 values only).
