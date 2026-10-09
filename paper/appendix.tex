@@ -16,6 +16,17 @@ $-\partial_mL_A=\big(8\gamma-4\gamma^2(1-\tfrac1N)-24\gamma^2/N\big)m^3-16\gamma
 $m^{*2}=16\gamma/\big(N(8-4\gamma(1-\tfrac1N)-24\gamma/N)\big)$. (An earlier draft of this derivation dropped the $24\gamma^2/N$ term and
 had a factor 2 in the cubic coefficient; the closed-form loss, which the Monte-Carlo drift check verifies directly, was unaffected.)
 
+\paragraph{General $\sg_k$.} The normalised second Hermite coefficient of $\sg_k^2$ is $\beta_2=\sqrt2\,k$ (checked by quadrature for
+$k\le4$), so the finite-context repulsion is $-\Gamma^2\beta_2^2\,2m/N=-4k^2\Gamma^2m/N$ to leading order while the attraction is
+$2\Gamma(2-\Gamma g(1))\,k\,m^{2k-1}$: the origin is drift-stable below $m^{*\,2(k-1)}\approx2k\Gamma/((2-\Gamma)N)$ for every $k\ge2$ (for $k=1$ the two
+terms have the same power and the repulsion is a constant fraction). At $k=3$, $\Gamma=0.1$, $N=128$ the trap sets in at $d^*\approx17$
+(against $\approx607$ at $k=2$), consistent with the negative Monte-Carlo drift observed for $k^*=3$ at $d=16$. The step size $\eta\propto d^{-2}$ is
+the critical scaling only for $k^*=2$.
+
+\paragraph{Tied $=$ pinned up to a time change.} The tied directional velocity equals the pinned velocity at $\gamma=\rho$ divided by $\rho$;
+with $\dot\rho=-4\rho\,\partial_\rho L_A$ the pair $(m,\rho)$ above threshold obeys $m\propto t^{-2}$, $\rho\propto t^{-1}$ (LSODA to $t=10^6$), and
+the moving threshold $\rho^*(m)\approx Nm^2/2\propto t^{-4}$ falls faster than $\rho$: the population flow traps permanently.
+
 \paragraph{Escape-time scalings in Prop.~\ref{prop:shrink}.} (a)~With $\Gamma=\gamma$ fixed and $m_0>m^*$ the drift near the origin is
 $\approx c_\gamma m^{2k^*-1}$ with $c_\gamma=\gamma(8-4\gamma)k^*\alpha_{k^*}^4/2$ for $k^*=2$, so $\tau_{\rm esc}\asymp m_0^{-(2k^*-2)}/c_\gamma$ up to the $N$-dependent
 correction $-16\gamma^2m/N$, which saturates as $N\to\infty$. (b)~Along $\Gamma^*$, for $g^2\ll V/N$,
@@ -73,7 +84,7 @@ seeds range $0.50$--$2.08\times$. One censored E1 cell (free $10\eta$, $N=128$, 
 
 \paragraph{Exp.~6 (three regimes).} $d=64$, $m_0=d^{-1/2}$, $\eta=1/d^2$, $N\in\{16,64,256\}$, schemes $NB=4096$ and $B=64$, protocols pinned
 $\gamma\in\{1,0.1\}$, free ($\Gamma_0=0.01$, $\eta_\Gamma=\eta$), tied ($\rho_0=0.01$), 3 seeds, $10^6$ steps ($2.5\cdot10^6$ for the free $N=16$ rerun). ODE
-predictions were computed and committed before the run. $12$ of $72$ runs are duplicates ($N=64$ has $B=64$ in both schemes). Compute $2.4$ CPU-h.
+predictions were computed and committed before the run. $12$ of $72$ runs are duplicates ($N=64$ has $B=64$ in both schemes). Compute $2.4$ CPU-h. Medians of three seeds resolve escape times to roughly $5\%$.
 
 \paragraph{Exp.~7 (controls, E5).} As Exp.~6 with $B=64$, 3 seeds, cap $2.5\cdot10^6$ ($10^6$ for the tied $\rho_0=0.3$ cell): free $\Gamma_0=0.01$,
 $\eta_\Gamma=10\eta$: $2.26$M$/498$k$/212$k (ODE $1.83$M$/500$k$/205$k); free $\Gamma_0=0.1$, $\eta_\Gamma=\eta$: $1.52$M$/271$k$/166$k (ODE $1.49$M$/274$k$/164$k);
@@ -117,7 +128,7 @@ P1 & MC drift of A, $k^*{=}2$, $\propto m^3$; closed form within 20\% & met (slo
 P2 & $\gamma{=}1$, $N{=}128$: stuck for $d\ge32$ & partly ($d{=}64$ stuck, $d{=}32$: 1/3 escaped); threshold formula later corrected, $d^*\approx31$ \\
 P3 & $\gamma{=}0.1$: escapes at all $d$ & met (27/27) \\
 P4 & free readout: $\kappa$ rises as $N$ falls, $4\to8$ & direction met; magnitudes match the ODE at $d{=}32$ ($4.85\to7.0$), not the asymptotes \\
-P4$'$ & tied readout: $\kappa\approx4$ at all $N$; $\rho_0{=}1$ stuck for $d\ge32$ & $\kappa$ met ($4.10$--$4.44$); $\rho_0{=}1$: $d{=}32$ escaped 3/3, $d{=}64$ stuck \\
+P4$'$ & tied readout: $\kappa\approx4$ at all $N$; $\rho_0{=}1$ stuck for $d\ge32$ (flow traps; SGD delays) & $\kappa$ met ($4.10$--$4.44$); $\rho_0{=}1$: $d{=}32$ escaped 3/3, $d{=}64$ stuck \\
 P5 & learned $\Gamma\approx\Gamma^*(0.5;N)$ & not met (relaxation too slow at $\eta_\Gamma=\eta$) \\
 P6 & A vs B slope difference $\approx1$ at $k^*{=}2$ & met via $m_0$-regression ($\kappa$ $4.2$ vs $2$); $d$-slopes $0.9\pm0.5$ \\
 P7 & no escape at any $B$ & met (0/9) \\
@@ -130,7 +141,7 @@ P12 & additivity residual $|R|\le0.02$ & failed as pre-registered (estimator noi
 P13 & no extra compositional delay & supported with substitute statistic (floor made the original unreachable) \\
 P14 & multiplicative accuracy, Gaussian closed form & approximately multiplicative; Gaussian form wrong \\
 P15 & product composition not learned & met \\
-P19 & $d{=}64$: pinned-1 trapped; free $T\propto$ ODE with $T(16)/T(256)=4.4$; tied flat within 5\% & pinned-1: $0/9$ at $N\le64$, $3/6$ at $N{=}256$; free within $1$--$3\%$ of ODE, ratio $4.4$; tied flat within $\times1.25$ (5\% not resolvable) \\
+P19 & $d{=}64$: pinned-1 trapped; free $T\propto$ ODE with $T(16)/T(256)=4.4$; tied flat within 5\% & pinned-1: $0/9$ at $N\le64$, $3/6$ at $N{=}256$; free within one s.e. of ODE, ratio $4.4$; tied flat within $\times1.25$ (5\% not resolvable) \\
 P20 & controls: ratios $8.9$/$9.1$ (free $10\eta$/$\Gamma_0{=}0.1$), tied $\rho_0{=}0.1$ ratio $1.9$, tied $\rho_0{=}0.3$ traps at $N{=}16$, pinned $0.01$ flat, $\eta\propto B$ flow-invariant & $10.7$/$9.2$; $2.15$; \textbf{escaped after $30\times$ delay (failed as worded)}; $1.06$; invariant to $0.5\%$ \\
 P16 & $T_p$ slopes $1.5$ (A), $0.75$ (B) & met ($1.44$--$1.53$; B $0.75$ capacity-matched, $0.75$--$0.89$ 2-homogeneous) \\
 P17 & A steps $\ge2\times$ sharper & met ($3.8\times$) \\

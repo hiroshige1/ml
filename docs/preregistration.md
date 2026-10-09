@@ -351,6 +351,11 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-09 v0.19: review 3 (`docs/review_adversarial_3.md`, 5/10 theory persona) acted on: Prop. 3(c) corrected (flow traps permanently above
+  `ρ* = 2Nm²/(4+(N+5)m²) ≈ Nm²/2`; the E5 "delay" is an SGD-noise effect) — all `Nm²/4` constants were leftovers of the factor-2 slip; tied =
+  pinned/ρ identity added; `L_A = L_B[g→g²]` replaced by the correct statement (dependence through `g²`; drift coefficient `2Γ(2−Γg(1))`);
+  Prop. 2 condition `γ < 2N/(N+5)` and general-`k` threshold (`β₂² = 2k²`, verified by quadrature); exponent defined as a secant with the
+  limit structure (`4k*` at fixed `N`, `d→∞`; joint scaling `λ=N/d^{k*}`); "4→8 asymptotes" withdrawn; duplicate paragraph removed.
 - 2026-10-09 v0.18: P21 (exp 8, transformer trap-vs-tradeoff) pre-registered.
 - 2026-10-09 v0.17: exp 7 outcome recorded — P20d failed as worded (tied: delay, not trap); P20a–c,e,f held (a: 24% slow at N=16).
 - 2026-10-09 v0.16: review 2 (`docs/review_adversarial_2.md`, 6/10) received; P20a–f pre-registered with ODE values before the run.

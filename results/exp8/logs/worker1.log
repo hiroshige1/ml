@@ -1,0 +1,8 @@
+[pinned1_N16_B1024_s0] INIT align 0.1261 mse 1.5266 head_norm 0.5550
+[pinned1_N16_B1024_s0] step 0 mse 1.5266 align 0.126 head 0.555 t=0s
+[pinned1_N16_B1024_s0] step 1000 mse 0.8354 align 0.189 head 0.555 t=172s
+[pinned1_N16_B1024_s0] step 2000 mse 0.8323 align 0.139 head 0.555 t=351s
+[pinned1_N16_B1024_s0] step 3000 mse 0.8322 align 0.142 head 0.555 t=528s
+[pinned1_N16_B1024_s0] step 4000 mse 0.8308 align 0.151 head 0.555 t=703s
+[pinned1_N16_B1024_s0] step 5000 mse 0.8313 align 0.233 head 0.555 t=879s
+[pinned1_N16_B1024_s0] step 6000 mse 0.8311 align 0.178 head 0.555 t=1056s

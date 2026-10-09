@@ -10,7 +10,7 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
   permitting); ODE predictions first. Checks that the `d`-dependence of the regimes is as stated (trap for `d>d*(N)`; tied `N`-flat).
 - [ ] **N3. `k*=3` sanity run for one regime.** Tied readout at `d=16`, `N=128` (exponent `2k*=6` predicted; ODE first); pinned `γ=0.1` trap
   check (drift negative below `m≈0.25` per the drift check). Small.
-- [~] (running) **N4. Third adversarial review** on v0.7 with a "theory-rigour" persona (what would need to be proved for Prop. 1–3 to be theorems;
+- [x] (review in docs/review_adversarial_3.md; fixes in v0.8; theorem drafting delegated) **N4. Third adversarial review** on v0.7 with a "theory-rigour" persona (what would need to be proved for Prop. 1–3 to be theorems;
   which statements are heuristic), then respond.
 - [ ] **N5. Venue formatting.** Obtain the ICML 2026 LaTeX style (icml2026.sty from the ICML site or CTAN mirror) as a proxy for 2027,
   reflow the paper to two columns, measure main-text length against a 4–8 page workshop limit, move material to the appendix as needed.
@@ -20,3 +20,9 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
   what the transformer results do and do not show — for the human author to decide the framing.
 - [~] (checked 2026-10-09: nothing yet; docs/venue.md) **N8. Monitor ICML 2027 / HiLD CFP.** Check `icml.cc` and the HiLD site once per wake; when a CFP appears, record dates, page limit,
   LLM policy, archival status in `docs/venue.md`.
+
+- [ ] **N9 (2026-10-09, from review 3). Theorems A/B.** Replace Prop. 3 by (A) finite-context trap for σ_k population flow incl. tied=pinned time
+  change and SGD corollary; (B) free-readout asymptotics τ = (1+o(1))·exp((4k−2)β₂²Γ₀²/(2r))·d^{2k−1}/(4k(4k−2)α⁸N) at fixed N, joint-scaling
+  limit, corner exponents 4k/2k/2k+1. Proof drafts with sympy checks → appendix.
+- [ ] **N10 (2026-10-09). Accurate ODE integration.** Recompute all quoted ODE predictions with LSODA (rtol 1e-10); the Euler integrator may
+  overestimate by 1–4%; update figures/tables where the change exceeds 1%.
