@@ -1,0 +1,4 @@
+id,passed,kill_triggered,detail
+P22a,False,False,d=8 med/ODE=1.181 OUT; d=16 med/ODE=0.892 ok; d=32 med/ODE=0.795 OUT; kappa 8-16 = 5.70 (pre-reg 6.51; ODE-from-csv 6.51) OUT; kappa 16-32 = 6.02 (pre-reg 6.35; ODE-from-csv 6.35) ok
+P22b,False,False,"d=8 ratio=1.14 (pre-reg 1.16 +-0.25) ok; d=16 ratio=19.05 (pre-reg 1.63 +-0.25) OUT; d=32 ratio=inf (lower bound if censored; n16 censored 3/3, n128 censored 0/3; need >=3) ok"
+P22c,True,False,d=8 med/ODE=1.018 ok; d=16 censored 3/3 (need >=2) ok; d=32 censored 3/3 (need >=2) ok
