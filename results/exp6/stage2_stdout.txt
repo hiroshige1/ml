@@ -1,0 +1,20 @@
+54 done, 18 to run, cpu so far 0.999 h, cap 3.0 h
+[1/18     67s wall 1.017 h cpu] fixed1 B64 N=256 B=64 s=1 T05=113319.0 steps=113319 |m|=0.500 ro@T=nan cpu=67s
+[2/18    207s wall 1.074 h cpu] fixed1 tok N=16 B=256 s=0 T05=nan steps=1000000 |m|=0.005 ro@T=nan cpu=205s
+[3/18    275s wall 1.132 h cpu] fixed1 tok N=16 B=256 s=1 T05=nan steps=1000000 |m|=0.005 ro@T=nan cpu=207s
+[4/18    417s wall 1.190 h cpu] fixed1 tok N=16 B=256 s=2 T05=nan steps=1000000 |m|=0.000 ro@T=nan cpu=210s
+[5/18    468s wall 1.244 h cpu] fixed1 tok N=64 B=64 s=0 T05=nan steps=1000000 |m|=0.005 ro@T=nan cpu=193s
+[6/18    562s wall 1.399 h cpu] fixed1 B64 N=256 B=64 s=0 T05=nan steps=1000000 |m|=0.014 ro@T=nan cpu=560s
+[7/18    566s wall 1.554 h cpu] fixed1 B64 N=256 B=64 s=2 T05=nan steps=1000000 |m|=0.002 ro@T=nan cpu=559s
+[8/18    572s wall 1.557 h cpu] fixed1 tok N=256 B=16 s=0 T05=49614.0 steps=49614 |m|=0.501 ro@T=nan cpu=10s
+[9/18    574s wall 1.559 h cpu] fixed1 tok N=256 B=16 s=1 T05=43524.0 steps=43524 |m|=0.500 ro@T=nan cpu=8s
+[10/18    612s wall 1.614 h cpu] fixed1 tok N=64 B=64 s=1 T05=nan steps=1000000 |m|=0.000 ro@T=nan cpu=195s
+[11/18    662s wall 1.667 h cpu] fixed1 tok N=64 B=64 s=2 T05=nan steps=1000000 |m|=0.018 ro@T=nan cpu=193s
+[12/18    763s wall 1.720 h cpu] fixed1 tok N=256 B=16 s=2 T05=nan steps=1000000 |m|=0.015 ro@T=nan cpu=191s
+[13/18    771s wall 1.774 h cpu] fixed1 B64 N=64 B=64 s=0 T05=nan steps=1000000 |m|=0.005 ro@T=nan cpu=194s
+[14/18    807s wall 1.828 h cpu] fixed1 B64 N=64 B=64 s=1 T05=nan steps=1000000 |m|=0.000 ro@T=nan cpu=194s
+[15/18    855s wall 1.882 h cpu] fixed1 B64 N=64 B=64 s=2 T05=nan steps=1000000 |m|=0.018 ro@T=nan cpu=193s
+[16/18    865s wall 1.910 h cpu] fixed1 B64 N=16 B=64 s=0 T05=nan steps=1000000 |m|=0.021 ro@T=nan cpu=102s
+[17/18    873s wall 1.938 h cpu] fixed1 B64 N=16 B=64 s=1 T05=nan steps=1000000 |m|=0.002 ro@T=nan cpu=101s
+[18/18    910s wall 1.967 h cpu] fixed1 B64 N=16 B=64 s=2 T05=nan steps=1000000 |m|=0.002 ro@T=nan cpu=102s
+finished 18 runs, total CPU 1.967 h, wall 910s

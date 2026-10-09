@@ -59,7 +59,7 @@ def run_one(job):
     r = train(model, d, 2, eta, c["seed"], **kw)
     cpu = time.process_time() - c0
     traj = r.pop("traj")
-    np.savez_compressed(os.path.join(traj_dir, f"{p}_{c['scheme']}_N{c['N']}_s{c['seed']}.npz"), **traj)
+    np.savez_compressed(os.path.join(traj_dir, f"{p}_{c['scheme']}_N{c['N']}_s{c['seed']}" + ("_ext" if c["max_steps"] > MAX_STEPS else "") + ".npz"), **traj)
     reached = bool(r["reached05"])
     row = dict(c, d=d, eta=eta, m0=r["m0"], steps=r["steps"], T05=r["T05"], reached05=reached,
                final_abs_m=abs(r["final_m"]), max_abs_m=r["max_abs_m"],
@@ -94,15 +94,20 @@ def main(argv=None):
     ap.add_argument("--cpu-cap-h", type=float, default=3.0)
     ap.add_argument("--fixed1-steps", type=int, default=MAX_STEPS)
     ap.add_argument("--only", default=None, help="comma list of protocols")
+    ap.add_argument("--ext-free16-steps", type=int, default=0,
+                    help="extension run (deviation): only free-readout N=16 cells with this max_steps, written to runs_ext.csv")
     a = ap.parse_args(argv)
     traj_dir = os.path.join(a.out, "traj")
     os.makedirs(traj_dir, exist_ok=True)
-    path = os.path.join(a.out, "runs.csv")
+    path = os.path.join(a.out, "runs_ext.csv" if a.ext_free16_steps else "runs.csv")
     done = set()
     if os.path.exists(path):
         with open(path) as f:
             done = {key_of(r) for r in csv.DictReader(f)}
     J = [c for c in jobs(a.fixed1_steps) if key_of(c) not in done and (a.only is None or c["protocol"] in a.only.split(","))]
+    if a.ext_free16_steps:
+        J = [dict(c, max_steps=a.ext_free16_steps) for c in jobs(a.fixed1_steps) if c["protocol"] == "free" and c["N"] == 16]
+        J = [c for c in J if key_of(c) not in done]
     J.sort(key=lambda c: -cost_est(c))
     tot = spent(path)
     print(f"{len(done)} done, {len(J)} to run, cpu so far {tot/3600:.3f} h, cap {a.cpu_cap_h} h", flush=True)

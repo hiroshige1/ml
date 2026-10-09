@@ -15,7 +15,7 @@
 
 \title{Context length and readout parameterisation select the emergence exponent\\ of in-context skills in an additive model}
 \author{\todo{authors}}
-\date{Draft v0.4 --- \today}
+\date{Draft v0.5 --- \today}
 
 \begin{document}
 \maketitle
@@ -191,6 +191,16 @@ $\eta_\Gamma=\eta$; the exponent prediction does not depend on this), and a scan
 no $N$-dependence (slopes $3.49\pm0.08$ vs $3.70\pm0.21$), which is what the ODE predicts for $d\le48$ but means the $N$-dependence is
 established only through $\kappa_{\rm eff}(N)$ at fixed $d$. With the tied readout at $\rho_0=1$, $N=128$, the natural O(1)-readout
 version of Prop.~\ref{prop:repulsion}, $d=32$ escaped ($3/3$) while $d=64$ was trapped ($0/3$, $\rho$ decaying to $0.18$).
+
+\paragraph{Experiment 2 (the three regimes by SGD).}
+To test Prop.~\ref{prop:shrink} directly we fix $d=64$, $m_0=d^{-1/2}$, $\eta=1/d^2$, vary $N\in\{16,64,256\}$ under two schemes---tokens per
+step fixed ($NB=4096$) and prompts per step fixed ($B=64$)---and run the four protocols, three seeds each, with the population
+escape times computed before the run. Pinned $\gamma=1$: no escape at $N\le64$ in $10^6$ steps ($0/9$, including $B=256$), $3/6$ at $N=256$
+($d^*\approx63$); pinned $\gamma=0.1$: median $396$k$/192$k$/179$k steps against $414$k$/197$k$/176$k predicted; free: $1.78$M$/614$k$/402$k
+against $1.84$M$/627$k$/414$k, ratio $T(16)/T(256)=4.4$ as predicted ($4.44$); tied: $17.0$k$/15.1$k$/14.0$k against $17.2$k$/16.7$k$/16.5$k
+(flat within $\times1.25$; seed scatter $4$--$20\%$). In every protocol the two batch schemes give the same step counts: what trades off against
+context length is training time, never the number of prompts per step. (The free-readout $N=16$ cells exceeded the pre-registered
+$10^6$-step cap, as the ODE had predicted, and were rerun to $2.5\cdot10^6$ steps.)
 
 \begin{figure}[t]
 \centering

@@ -1,0 +1,8 @@
+0 done, 6 to run, cpu so far 0.000 h, cap 3.0 h
+[1/6    191s wall 0.053 h cpu] free B64 N=16 B=64 s=0 T05=1878749.0 steps=1878749 |m|=0.500 ro@T=0.155 cpu=189s
+[2/6    350s wall 0.149 h cpu] free tok N=16 B=256 s=0 T05=1695529.0 steps=1695529 |m|=0.500 ro@T=0.146 cpu=348s
+[3/6    367s wall 0.251 h cpu] free tok N=16 B=256 s=1 T05=1779437.0 steps=1779437 |m|=0.500 ro@T=0.147 cpu=366s
+[4/6    369s wall 0.300 h cpu] free B64 N=16 B=64 s=1 T05=1729934.0 steps=1729934 |m|=0.500 ro@T=0.152 cpu=176s
+[5/6    370s wall 0.402 h cpu] free tok N=16 B=256 s=2 T05=1789265.0 steps=1789265 |m|=0.500 ro@T=0.144 cpu=368s
+[6/6    557s wall 0.460 h cpu] free B64 N=16 B=64 s=2 T05=2037708.0 steps=2037708 |m|=0.500 ro@T=0.151 cpu=207s
+finished 6 runs, total CPU 0.460 h, wall 557s

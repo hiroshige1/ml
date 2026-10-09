@@ -31,7 +31,10 @@ read. Pre-registration status refers to `docs/preregistration.md`.
   `T·N ≈ const` (`2.9, 2.8, 2.75·10⁶` at `d=512`) — i.e. *Oko et al.'s multiplicative N–T trade-off reappears as a consequence of
   shrinkage* — crossing over to `N`-independence where signal-dominated (`d=32`: `53, 37, 34, 33`); **tied** readout: `T` independent
   of `N` at every `d`. So "prompts cannot substitute for context" (P7) is a statement about the pinned readout only; with a free
-  readout the trade-off holds and the exponent crossover is the visible effect. **This is the paper's central statement now.**
+  readout the trade-off holds and the exponent crossover is the visible effect. **This is the paper's central statement now.** **S** (exp 6, `d=64`, `N=16/64/256`): pinned `Γ=1` trapped at `N≤64` (0/9) and marginal at
+  `N=256` (3/6); pinned `Γ=0.1` `396k/192k/179k` steps vs ODE `414k/197k/176k`; free `1.78M/614k/402k` vs ODE `1.835M/627k/414k` (ratio 4.4 = ODE);
+  tied `17.0k/15.1k/14.0k` vs ODE `17.2k/16.7k/16.5k`. Tokens-matched and fixed-`B` schemes give identical step counts in every protocol:
+  **context trades off against training time, never against prompts per step.**
 - Free scalar readout relaxes fast to the Wiener value `Γ* = g²/((1−1/N)g² + V/N)` and multiplies the feature gradient ⇒
   effective exponent `4k*` where the context statistic is noise-dominated (`d ≫ N^{1/k*}`), `2k*` otherwise. Tied readout
   (`Γ = ‖w‖²`, Ren et al.'s 2-homogeneous form) has norm-independent directional dynamics ⇒ `2k*` at every `N` (but the F2

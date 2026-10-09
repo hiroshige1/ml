@@ -51,6 +51,10 @@ $|m|$ $0.005$--$0.015$ ($B\le256$) and $0.063$--$0.067$ ($B=1024$). Exponent tab
 $\Gamma_0=0.01$ or $\rho_0=0.01$): in Fig.~\ref{fig:kappa}; censored runs ($N=32$: 3/12 for both free protocols; $N=128$, $10\eta$: 2/12) are
 all at the smallest $m_0$.
 
+\paragraph{Exp.~6 (three regimes).} $d=64$, $m_0=d^{-1/2}$, $\eta=1/d^2$, $N\in\{16,64,256\}$, schemes $NB=4096$ and $B=64$, protocols pinned
+$\gamma\in\{1,0.1\}$, free ($\Gamma_0=0.01$, $\eta_\Gamma=\eta$), tied ($\rho_0=0.01$), 3 seeds, $10^6$ steps ($2.5\cdot10^6$ for the free $N=16$ rerun). ODE
+predictions were computed and committed before the run. $12$ of $72$ runs are duplicates ($N=64$ has $B=64$ in both schemes). Compute $2.4$ CPU-h.
+
 \paragraph{Exp.~2 (many skills).} $P=16$, $\pi_p\propto p^{-1.5}$, $M=64$, $\Gamma=0.1$, $N=128$, 3 seeds (plus 2 extra and $\alpha=1$).
 Skills 1--8 learned in every run; emergence of skills 9--16 partial. In-weight baselines: (i) readout $\rho=\sum_pa_p/M$ (the readout-1 baseline does not learn); (ii) the 2-homogeneous student
 $\sum_j\|u_j\|^2\sg_2(\hat u_j\cdot x)$, $\|u_j\|^2_0=0.01$, $\eta\in\{0.25,1,4\}/d^2$, 3 seeds each: slope $0.75\pm0.09$ (1000-step log),
@@ -100,6 +104,7 @@ P12 & additivity residual $|R|\le0.02$ & failed as pre-registered (estimator noi
 P13 & no extra compositional delay & supported with substitute statistic (floor made the original unreachable) \\
 P14 & multiplicative accuracy, Gaussian closed form & approximately multiplicative; Gaussian form wrong \\
 P15 & product composition not learned & met \\
+P19 & $d{=}64$: pinned-1 trapped; free $T\propto$ ODE with $T(16)/T(256)=4.4$; tied flat within 5\% & pinned-1: $0/9$ at $N\le64$, $3/6$ at $N{=}256$; free within $1$--$3\%$ of ODE, ratio $4.4$; tied flat within $\times1.25$ (5\% not resolvable) \\
 P16 & $T_p$ slopes $1.5$ (A), $0.75$ (B) & met ($1.44$--$1.53$; B $0.75$ capacity-matched, $0.75$--$0.89$ 2-homogeneous) \\
 P17 & A steps $\ge2\times$ sharper & met ($3.8\times$) \\
 P18 & loss exponents $0.33$ (A), $0.67$ (B) & A within tolerance ($0.40$); B failed (collective fit saturates) \\

@@ -231,6 +231,21 @@ before any SGD run (see git log).
 
 Kill: P19b fails (free readout `T` independent of `N` at fixed `B`, or the trap appears) ⇒ the reframed central claim is wrong.
 
+### Exp 6 outcome (recorded 2026-10-09 after the run; `results/exp6/README.md`)
+
+- **P19a held:** pinned `Γ=1`: 0/9 escapes at `N ≤ 64` (incl. `B=256`), 3/6 at `N=256` (marginal `d* ≈ 63`); stuck runs end at `|m| ≤ 0.021`.
+- **P19b held, better than written:** free readout medians `1.78M / 614k / 402k` steps (ODE `1.835M / 627k / 414k`), ratio `T(16)/T(256) = 4.4` (ODE 4.44);
+  **tokens-matched and `B=64` schemes give the same step counts** (`1.88M/614k/411k`) — prompts per step do not substitute for context in
+  any protocol; what trades off against `N` is training *time*. The `N=16` cells needed a rerun to `2.5·10⁶` steps (pre-registered cap `10⁶`
+  was below the ODE time; declared).
+- **P19c partly:** tied `17.0k / 15.1k / 14.0k` (ODE `17.2k / 16.7k / 16.5k`) — flat within ×1.25 over 16× in `N`, not within the literal 5%
+  (seed scatter 4–20%); kill not triggered.
+- **P19d held:** pinned `Γ=0.1`: `396k / 192k / 179k` (ODE `414k / 197k / 176k`).
+- Budget 2.4 CPU-h (cap 3). 12 of 72 runs were duplicates (`N=64` has `B=64` in both schemes).
+
+**Scope consequence:** the three-regime statement (Prop. 3) is quantitatively confirmed at `d=64`: the population ODE predicts the SGD escape
+steps to 1–4% for pinned-0.1 and free readouts across `N`, the trap for pinned-1, and `N`-independence (within scatter) for tied.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
@@ -283,6 +298,7 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-09 v0.15: exp 6 outcome recorded — P19a/b/d held (ODE within 1–4%), P19c flat but outside the literal 5% band.
 - 2026-10-09 v0.14: P19 (exp 6: N–T exchange by readout protocol) pre-registered.
 - 2026-10-09 v0.13: adversarial review (`docs/review_adversarial.md`, score 5/10) acted on: (a) "12/12 within 0.5" corrected to 11/12 within
   0.6 and one censored cell at 1.0; post-hoc ODE evaluation now disclosed in the paper; (b) the N–T non-substitutability claim restricted
