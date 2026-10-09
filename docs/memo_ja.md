@@ -36,5 +36,6 @@ one-step 解析ではプロンプト数とプロンプト長は積でしか効�
 
 ## 著者が決めること
 - 題名（現：Context length and readout parameterisation select the emergence exponent of in-context skills in an additive model）。
-- Transformer 節は「境界の報告＋否定的結果」で確定（Exp 8）。次に試すなら attention の value/output 射影のノルム固定（Γ の本当の相手の候補）。
+- Transformer 節は「境界の報告＋否定的結果」で確定（Exp 8、Exp 11）。attention 出力射影の凍結（O(1) / 0.1 倍）も罠も救済も再現せず（両 kill 基準該当）、
+  凍結は一律に約 3 倍の減速。未検証の相手は特徴ノルム（結合読み出し ρ の相手）のみ。
 - 投稿先（HiLD が最有力；ICML 2027 の CFP 未発表）。

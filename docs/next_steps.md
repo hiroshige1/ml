@@ -27,6 +27,9 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
 - [x] (scripts/ode_lsoda.py, results/README_ode.md; paper v0.9) **N10 (2026-10-09). Accurate ODE integration.** Recompute all quoted ODE predictions with LSODA (rtol 1e-10); the Euler integrator may
   overestimate by 1–4%; update figures/tables where the change exceeds 1%.
 
-- [ ] **N11 (2026-10-09, from exp 8). Transformer: control the value/output projection instead of the final readout.** Freeze the norm of the
+- [x] (exp 11: ff2cc7d prereg, 9eb8f7d results; P24a-c failed, kill met; paper v0.15) **N11 (2026-10-09, from exp 8). Transformer: control the value/output projection instead of the final readout.** Freeze the norm of the
   attention output projection (and separately the MLP output) at O(1) and at 0.1×, same cells as exp 8; pre-register as P24 with the same
   trap/rescue predictions. Only if budget allows (≈6 CPU-h); otherwise leave as a stated open test in the paper.
+
+- [ ] **N12 (2026-10-09, from exp 11). Fourth adversarial review** of v0.15 (persona: workshop area chair; 4-page cut plan; is the negative transformer
+  result stated at the right strength; are E6/E7 and the pre-registration errors presented honestly), then respond in the paper.

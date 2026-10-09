@@ -87,7 +87,10 @@ Prop. 3(c) states `N`-flatness only for `ρ₀ ≪ ρ_trap(m₀, N)`; pre-regist
 Freezing the final linear readout at O(1) norm did not create a trap (`N=16, B=1024` emerged at 5.8k/8.4k steps, no later than trainable) and
 freezing it at 0.1× did not rescue `N=16, B=64` (stuck 2/2 at 30k); the free protocol reproduced exp 5 (3.7×, 3.8× later than `N=256`). Both
 P21a and P21b failed → kill criterion met: Sec. 5 of the paper stays observational and states the negative result. The likely reason is that the
-final readout multiplies the residual stream, not the context statistic; the Γ-analogue sits in the attention value/output path (untested).
+final readout multiplies the residual stream, not the context statistic. **Exp 11** then froze the attention output projections (the path
+of the context statistic) at O(1) and at 0.1×: `B=1024` still rescued `N=16` (15.0k/26.4k) and the small scale did not rescue `N=16,B=64`
+(stuck 2/2); freezing slowed emergence ≈3× at `N=256`. Kill met again. Neither the readout nor the attention-output scale is the
+transformer's Γ; the feature norm (tied analogue) remains untested.
 
 ## What would make this a paper (current best framing, subject to exp 3/5)
 *"The exponent of in-context skill emergence is set by the readout and the context, not by the skill alone"*: F1 as the known

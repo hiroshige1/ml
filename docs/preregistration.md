@@ -413,6 +413,23 @@ Kill: P24a fails **and** P24b fails ⇒ neither readout nor attention-output sca
 results and names the remaining candidate (the embedding/feature norm, the tied analogue) as untested. Either holding ⇒ partial transfer, reported
 with the LayerNorm caveat.
 
+## Exp 11 outcome (recorded 2026-10-09 after the run; `results/exp11/README.md`, commit 9eb8f7d)
+
+11 fresh runs + 6 free rows from exp 8; 6.02 CPU-h (64 s over the cap). `T_e(0.5)` per seed: O1 (attn.out frozen at init, norms 4.6/4.6 in both
+blocks, bit-identical at the end): `N=16,B=64` not reached 2/2; `N=16,B=1024` **15000, 26400**; `N=256,B=64` 13600, 7200. Os (×0.1 then frozen,
+norms 0.46): `N=16,B=64` **not reached 2/2**; `N=16,B=1024` censored at 8000 (budget; seed 1 not run); `N=256,B=64` 5400 and censored at 10800
+(budget). Free (exp 8): n/r, n/r; 14800, 10600; 4000, 2800.
+
+**P24a failed** (B=1024 rescues the O(1)-frozen attention output, 2/2). **P24b failed** (the small frozen attention output does not rescue
+`N=16,B=64`). **P24c failed** (O1 is 3.4× and 2.6× slower than free at `N=256`, against the pre-registered ×1.5). **Kill criterion met**: neither
+the final readout (exp 8) nor the attention-output scale carries the mechanism. Side observation (not pre-registered): freezing the attention output
+at either scale *slows* emergence everywhere (Os `N=256` took 5400 in the one seed that finished, O1 ≈3× free), i.e. the trainable scale matters, but
+as a generic speed knob, not as the Γ of Prop. 3. The remaining untested candidate is the embedding/feature norm (the tied analogue); the paper names
+it as open and makes no transfer claim.
+
+Deviations (runner): Os `N=16,B=1024` seed 1 not run; two Os runs killed on the plateau for budget (censored, not failures); the Os `N=256`
+comparator rests on one seed (the P24b verdict does not depend on it).
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional

@@ -346,8 +346,12 @@ $N=16$ handicap into a trap that $B=1024$ cannot lift, and freezing it at $0.1\t
 trainable one---and the small frozen readout stayed on the plateau for $30$k steps at $B=64$ in both seeds, while $N=256$ emerged under every protocol.
 The pre-registered kill criterion was met, so we state the negative result: in this architecture the final readout multiplies the residual stream rather
 than the context statistic, and whatever plays the role of $\Gamma$ sits inside the attention value/output path, which these protocols did not control.
-The three-regime picture is therefore established for the solvable model only; Sec.~\ref{sec:transformer} reports the transformer's $N$--$B$ behaviour
-as an observation.
+A second pre-registered test (Exp.~11, P24) moved the knob to the attention output projections of both blocks, the path through which the context
+statistic enters the residual stream: frozen at their initial norm, $N=16$ was again stuck at $B=64$ ($2/2$) and rescued by $B=1024$ ($15.0$k, $26.4$k);
+frozen at $0.1\times$, $N=16$, $B=64$ stayed stuck ($2/2$). Both kill criteria were met. Freezing the attention output at either scale slowed emergence at
+every context length ($\approx3\times$ at $N=256$), so this scale matters as a generic speed knob, not as the $\Gamma$ of Prop.~\ref{prop:shrink}.
+The three-regime picture is therefore established for the solvable model only; the remaining untested analogue is the feature norm (the tied readout's
+$\rho$), and Sec.~\ref{sec:transformer} reports the transformer's $N$--$B$ behaviour as an observation.
 
 \section{Related work}
 \label{sec:related}
