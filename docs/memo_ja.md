@@ -37,7 +37,7 @@ one-step 解析ではプロンプト数とプロンプト長は積でしか効�
 ## 著者が決めること
 - 題名（現：Context length and readout parameterisation select the emergence exponent of in-context skills in an additive model）。
 - Transformer 節は「境界の報告＋否定的結果」で確定（Exp 8、Exp 11）。attention 出力射影の凍結（O(1) / 0.1 倍）も罠も救済も再現せず（両 kill 基準該当）、
-  凍結は一律に約 3 倍の減速。未検証の相手は特徴ノルム（結合読み出し ρ の相手）のみ。
+  凍結は一律に約 3 倍の減速。未検証の相手は特徴ノルム（結合読み出し ρ の相手）のみ。Exp 12（単一特徴モデルに Adam / softmax を一つずつ追加）：Adam では B=1024 が N=16 を救わない（0/4、P25b 成立）ので最適化器は原因から除外；softmax 版は N=1024 でも学習せず判定不能（P25c/d は書いた通りには失敗）。残る候補は深さ・LayerNorm・残差ストリーム。
 - 投稿先（HiLD が最有力；ICML 2027 の CFP 未発表）。
 
 ## 現状（2026-10-09 末、論文 v0.17）

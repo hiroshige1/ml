@@ -453,6 +453,18 @@ Reading rules fixed now: a cell "escapes" if ≥ 1 of 2 seeds reaches `|m| ≥ 0
 hold, the paper states that neither Adam nor softmax breaks the mechanism in the single-feature model, so the transformer's difference lies in
 depth / LayerNorm / the residual stream (untested). No claim about the transformer itself follows from any outcome.
 
+## Exp 12 outcome (recorded 2026-10-09 after the run; `results/exp12/README.md`, commit fe4013d)
+
+24/24 runs, 3.10 CPU-h (3% over the cap). Sanity: torch linear model = `ModelA(γ=1)` to 2·10⁻⁷ (fp32). Escapes: only linear `N=1024, B=64` —
+SGD 34517 / 37356 steps, Adam 379 / 1421 steps; every `N=16` cell (both `B`, all four model × optimiser combinations) 0/2; softmax at `N=1024` 0/2
+under both optimisers. **P25a held. P25b held**: Adam at `lr 10⁻³` does not let `B=1024` rescue `N=16` (0/4). **P25c and P25d failed as worded**
+on the `N=1024` leg: the softmax variant as defined (logits `σ(w·x_i)σ(w·x_q)`, temperature 1) does not escape even at `N=1024` within the cap, so
+it has no working baseline and the softmax arm is **inconclusive**, not a rescue. Reading: in the single-feature model the optimiser is not the
+ingredient that produces the transformer's `B`-rescue; the softmax arm needs a variant that learns at all before it can be tested (open).
+Deviations (runner): SGD cells used the distribution-exact projected sampler (budget; one-step full-vs-projected check agrees), Adam cells full data;
+the lr 10⁻⁴ extra was not needed (Adam stable, max |Δm| ≤ 0.011 per step). The runner's hypothesis for the softmax trap (heavy-tailed `σ_2` logits
+make the attention effectively sparse) is post hoc and untested.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional

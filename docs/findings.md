@@ -90,7 +90,9 @@ P21a and P21b failed → kill criterion met: Sec. 5 of the paper stays observati
 final readout multiplies the residual stream, not the context statistic. **Exp 11** then froze the attention output projections (the path
 of the context statistic) at O(1) and at 0.1×: `B=1024` still rescued `N=16` (15.0k/26.4k) and the small scale did not rescue `N=16,B=64`
 (stuck 2/2); freezing slowed emergence ≈3× at `N=256`. Kill met again. Neither the readout nor the attention-output scale is the
-transformer's Γ; the feature norm (tied analogue) remains untested.
+transformer's Γ. **Exp 12** (single-feature model + one ingredient at a time): Adam does not let `B=1024` rescue `N=16` (0/4, P25b held), so the
+optimiser is excluded; the softmax arm did not learn at any `N` (inconclusive, P25c/d failed as worded). Remaining candidates: depth, LayerNorm,
+residual stream.
 
 ## What would make this a paper (current best framing, subject to exp 3/5)
 *"The exponent of in-context skill emergence is set by the readout and the context, not by the skill alone"*: F1 as the known
