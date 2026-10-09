@@ -320,8 +320,81 @@ def fig_transformer():
     save(fig, "fig_transformer")
 
 
+# ----------------------------------------------------------------------------------------------------------------
+# Fig 5: three regimes by SGD (exp 6): escape steps T_0.5 vs N, one panel per readout protocol
+# ODE steps = pre-registered flow time x d^2 (= x 4096), fixed before the run; cross-checked against summary.csv below.
+ODE6_N = [16, 64, 256]
+ODE6 = {"fixed01": [414e3, 197e3, 176e3], "free": [1.835e6, 627e3, 414e3], "tied": [17.2e3, 16.7e3, 16.5e3]}
+
+
+def fig_regimes():
+    S = pd.read_csv(os.path.join(R, "exp6", "summary.csv"))
+    # free N=16 was rerun with max_steps 2.5e6 (variant "ext"): use the rerun rows where present
+    S = S.sort_values("variant", key=lambda v: v.map({"ext": 0}).fillna(1)).drop_duplicates(["protocol", "scheme", "N"])
+    panels = [("fixed1", r"pinned $\gamma=1$"), ("fixed01", r"pinned $\gamma=0.1$"), ("free", "free"), ("tied", "tied")]
+    schemes = [("tok", BLUE, "o", r"tokens matched, $NB=4096$", 0.84), ("B64", ORANGE, "s", r"$B=64$", 1.19)]
+    seed_off = np.array([0.95, 1.0, 1.05])
+    fig, axes = plt.subplots(1, 4, figsize=(6.4, 2.45), sharey=True, gridspec_kw={"wspace": 0.10})
+    ymax = 4e6
+    for ax, (prot, title) in zip(axes, panels):
+        g = S[S.protocol == prot]
+        if prot in ODE6:  # check the hard-coded pre-registered values against the table
+            od = g[g.scheme == "tok"].sort_values("N").ode_steps.values
+            assert np.allclose(od, ODE6[prot], rtol=0.01), (prot, od)
+            ax.plot(ODE6_N, ODE6[prot], ls=(0, (4, 2)), color=INK2, lw=1.2, zorder=2)
+        else:  # trapped: no finite ODE escape time; shade everything beyond the step cap
+            assert np.isinf(g.ode_steps).all()
+            ax.axhspan(1e6, ymax, facecolor="#ecebe7", edgecolor="none", zorder=0)
+            ax.axhline(1e6, color=INK2, lw=0.7, ls=(0, (1, 2)), zorder=1)
+            ax.text(0.5, 0.965, "trapped (ODE)", transform=ax.transAxes, ha="center", va="top", fontsize=FS - 1,
+                    color=INK2)
+        for sch, col, mk, _, so in schemes:
+            med_x, med_y = [], []
+            for N in ODE6_N:
+                r = g[(g.scheme == sch) & (g.N == N)].iloc[0]
+                T = np.array([float(v) for v in r.T05_seeds.split("/")])
+                x = N * so * seed_off
+                ok = np.isfinite(T)
+                ax.scatter(x[ok], T[ok], s=11, marker=mk, color=col, alpha=0.55, edgecolor="none", zorder=3)
+                if (~ok).any():  # censored: upward open triangle at the cap of this run
+                    ax.scatter(x[~ok], np.full((~ok).sum(), float(r.max_steps)), marker="^", s=26, facecolor="none",
+                               edgecolor=col, lw=1.0, zorder=4)
+                if np.isfinite(r.T05_median):
+                    med_x.append(N * so)
+                    med_y.append(r.T05_median)
+            ax.plot(med_x, med_y, color=col, lw=0.9, zorder=3.5)
+            ax.plot(med_x, med_y, ls="none", marker=mk, ms=4.8, color=col, mec="white", mew=0.6, zorder=5)
+        if prot == "fixed1":  # escape counts
+            for sch, col, _, _, so in schemes:
+                for N in ODE6_N:
+                    r = g[(g.scheme == sch) & (g.N == N)].iloc[0]
+                    ax.text(N * so, 1.05e4 if sch == "tok" else 0.8e4, f"{int(r.n_reached)}/{int(r.n)}", color=col,
+                            ha="center", va="center", fontsize=FS - 1.5)
+        ax.set_xscale("log")
+        ax.set_yscale("log")
+        ax.set_xlim(10.5, 390)
+        ax.set_ylim(6.5e3, ymax)
+        ax.set_xticks(ODE6_N)
+        ax.set_xticklabels([str(n) for n in ODE6_N])
+        ax.minorticks_off()
+        ax.grid(axis="x", visible=False)
+        ax.set_title(title, fontsize=FS, pad=3)
+    axes[0].set_ylabel(r"escape steps $T_{0.5}$")
+    fig.subplots_adjust(left=0.10, right=0.995, top=0.90, bottom=0.34)
+    fig.text(0.5, 0.215, r"context length $N$", fontsize=FS, ha="center", va="top")
+    h = [Line2D([], [], marker=mk, ms=4.8, color=col, mec="white", mew=0.6, lw=0.9) for _, col, mk, _, _ in schemes]
+    h += [Line2D([], [], marker="o", ms=2.8, color=INK2, alpha=0.6, ls="none"),
+          Line2D([], [], marker="^", ms=5, mfc="none", mec=INK2, ls="none", mew=1.0),
+          Line2D([], [], color=INK2, ls=(0, (4, 2)), lw=1.2)]
+    lab = [schemes[0][3], schemes[1][3], "single seed", "censored at cap", "pre-registered ODE"]
+    fig.legend(h, lab, loc="lower center", ncol=3, bbox_to_anchor=(0.5, 0.0), handlelength=2.0, labelspacing=0.3,
+               columnspacing=1.6)
+    save(fig, "fig_regimes")
+
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
-    only = sys.argv[1:] or ["kappa", "threshold", "many", "transformer"]
+    only = sys.argv[1:] or ["kappa", "threshold", "many", "transformer", "regimes"]
     for n in only:
-        {"kappa": fig_kappa, "threshold": fig_threshold, "many": fig_many, "transformer": fig_transformer}[n]()
+        {"kappa": fig_kappa, "threshold": fig_threshold, "many": fig_many, "transformer": fig_transformer,
+     "regimes": fig_regimes}[n]()

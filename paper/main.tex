@@ -193,7 +193,7 @@ established only through $\kappa_{\rm eff}(N)$ at fixed $d$. With the tied reado
 version of Prop.~\ref{prop:repulsion}, $d=32$ escaped ($3/3$) while $d=64$ was trapped ($0/3$, $\rho$ decaying to $0.18$).
 
 \paragraph{Experiment 2 (the three regimes by SGD).}
-To test Prop.~\ref{prop:shrink} directly we fix $d=64$, $m_0=d^{-1/2}$, $\eta=1/d^2$, vary $N\in\{16,64,256\}$ under two schemes---tokens per
+To test Prop.~\ref{prop:shrink} directly (Fig.~\ref{fig:regimes}) we fix $d=64$, $m_0=d^{-1/2}$, $\eta=1/d^2$, vary $N\in\{16,64,256\}$ under two schemes---tokens per
 step fixed ($NB=4096$) and prompts per step fixed ($B=64$)---and run the four protocols, three seeds each, with the population
 escape times computed before the run. Pinned $\gamma=1$: no escape at $N\le64$ in $10^6$ steps ($0/9$, including $B=256$), $3/6$ at $N=256$
 ($d^*\approx63$); pinned $\gamma=0.1$: median $396$k$/192$k$/179$k steps against $414$k$/197$k$/176$k predicted; free: $1.78$M$/614$k$/402$k
@@ -202,6 +202,8 @@ against $1.84$M$/627$k$/414$k, ratio $T(16)/T(256)=4.4$ as predicted ($4.44$); t
 context length is training time, never the number of prompts per step. (The free-readout $N=16$ cells exceeded the pre-registered
 $10^6$-step cap, as the ODE had predicted, and were rerun to $2.5\cdot10^6$ steps.)
 
+
+
 \begin{figure}[t]
 \centering
 \includegraphics[width=.63\linewidth]{figs/fig_kappa.pdf}
@@ -209,6 +211,19 @@ $10^6$-step cap, as the ODE had predicted, and were rerun to $2.5\cdot10^6$ step
 set to the step cap) against the parameter-free population ODE (dashed). The tied readout stays at $2k^*=4$; the free readout
 rises towards $4k^*=8$ as the context shortens.}
 \label{fig:kappa}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=.985\linewidth]{figs/fig_regimes.pdf}
+\caption{Escape steps $T_{0.5}$ (first step with $|m|\ge0.5$) against context length $N$ for the four readout protocols ($d=64$, $\eta=1/d^2$,
+$m_0=d^{-1/2}$; shared log--log axes). Light markers are single seeds (three per cell), solid markers and lines the median over seeds, for
+tokens per step fixed ($NB=4096$, circles) and prompts per step fixed ($B=64$, squares). Open triangles are runs that had not escaped at the
+step cap ($10^6$) and are drawn at the cap; the counts under the pinned-$\gamma=1$ panel are runs escaped out of $3$. Dashed lines are the
+population-ODE escape times (flow time $\times d^2$), \emph{fixed before the run}; pinned $\gamma=1$ has no finite ODE escape time
+(trapped, shaded beyond the cap). The free-readout $N=16$ cells use the reruns to $2.5\cdot10^6$ steps (the pre-registered cap was
+exceeded by the predicted $1.84$M steps). At $N=64$ both schemes have $B=64$ and are the same three runs.}
+\label{fig:regimes}
 \end{figure}
 
 \begin{figure}[t]
