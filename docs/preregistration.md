@@ -282,6 +282,23 @@ tying" is wrong.
 
 **Scope consequence:** Prop. 3(c) must say "delayed, not trapped" for `ρ_0 ≳ N m_0²/4`; the pinned-readout trap is the only permanent one.
 
+## Transformer trap-vs-tradeoff test (exp 8, backlog N1) — pre-registered 2026-10-09 before any run
+
+Setting: exp 5's transformer (`d=256`, `d_model=64`, MLP width 32, 2 blocks, softmax, Adam `1e-3`, `k*=2`, 30k steps, eval every 200). The
+knob standing in for the toy's readout `Γ` is the **final linear readout** (the closest available analogue; it multiplies the residual stream,
+not the context statistic directly — caveat recorded). Protocols: (F) free/trainable (= exp 5); (P1) frozen at its initial norm (≈0.57, "pinned
+O(1)"); (Ps) frozen at `0.1×` its initial norm ("pinned small"). Cells: `N=16, B=64`; `N=16, B=1024`; `N=256, B=64`; 2 seeds each; cap 6 CPU-h.
+
+| ID | protocol | prediction (from Prop. 3 by analogy) | default |
+|---|---|---|---|
+| P21a | P1 (pinned O(1)) | `N=16` stuck at **both** `B=64` and `B=1024` (no tradeoff: the trap); `N=256` emerges | B compensates as in exp 5 |
+| P21b | Ps (pinned small) | `N=16, B=64` **emerges** (rescued relative to F, which was stuck 3/3 in exp 5), at a time within ×2 of `N=256` | still stuck |
+| P21c | F (free) | replicates exp 5: `N=16,B=64` stuck, `N=16,B=1024` emerges ≈3× later than `N=256` | — |
+
+Kill: P21a fails (B=1024 rescues the pinned-O(1) readout) **and** P21b fails (small pinned readout does not rescue) ⇒ the readout–context
+mechanism does not transfer to this transformer even qualitatively; the paper keeps Sec. 5 as observations only. Either one holding is
+reported as partial transfer.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
@@ -334,6 +351,7 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-09 v0.18: P21 (exp 8, transformer trap-vs-tradeoff) pre-registered.
 - 2026-10-09 v0.17: exp 7 outcome recorded — P20d failed as worded (tied: delay, not trap); P20a–c,e,f held (a: 24% slow at N=16).
 - 2026-10-09 v0.16: review 2 (`docs/review_adversarial_2.md`, 6/10) received; P20a–f pre-registered with ODE values before the run.
 - 2026-10-09 v0.15: exp 6 outcome recorded — P19a/b/d held (ODE within 1–4%), P19c flat but outside the literal 5% band.
