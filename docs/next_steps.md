@@ -50,3 +50,6 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
   small derived CSVs or documenting the regeneration command.
 - [x] (docs/paper_map.md, linked from README; gap-closing scripts kappa_limits.py, ode_fast_readout.py; verify_theorems output saved) **N17 (2026-10-09). Paper map in the root README**: a table from every figure/table/number family in the paper to the script and results file that
   produces it, and the experiment ↔ E-label mapping.
+
+- [~] (pre-registered 7a48255; running) **N18 (2026-10-09, from exps 8/11). Ingredient ablation (exp 12).** Add Adam and softmax attention one at a time to
+  the single-feature pinned-readout model at `d=64`, `Γ=1`, `N∈{16,1024}`, `B∈{64,1024}`; which ingredient (if any) lets `B` rescue `N=16`? P25a–d.
