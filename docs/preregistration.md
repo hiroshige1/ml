@@ -351,6 +351,11 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-09 v0.21: Theorems A/B, the joint-scaling proposition and the SGD-transfer conjecture (backlog N9) drafted in `paper/theorems.tex`
+  with proofs; every closed form checked numerically in `scripts/verify_theorems.py` (61/61: Q_γ polynomial and γ₁ bound, k=2 closed forms,
+  exact partial-fraction escape time vs LSODA, tied time change, ρ_trap, B-independence, Theorem B prefactor vs ODE at d=64–512, joint-limit
+  corners). Two statements in the main text sharpened as a consequence: Prop. 2 is stated for γ < γ₁ = 2N/(N+9) (k=2) and Prop. 3(c) traps for
+  ρ₀ > c_k ρ*(m₀) with c₂ = 4/3 (previously ρ₀ > ρ*). No prediction or outcome changes.
 - 2026-10-09 v0.20: all ODE predictions recomputed with LSODA (`scripts/ode_lsoda.py`, `results/README_ode.md`): Euler overestimated times by
   0.6–3.6%; 46 of 101 quoted numbers change by >1% (none of the exponents, ratios or trap verdicts); paper updated. Also corrected: the exp-1b
   'd-scan within 15% for d ≤ 48' claim holds only to d=32 (20% at d=48).

@@ -15,7 +15,7 @@
 
 \title{Context length and readout parameterisation select the emergence exponent\\ of in-context skills in an additive model}
 \author{\todo{authors}}
-\date{Draft v0.9 --- \today}
+\date{Draft v0.10 --- \today}
 
 \begin{document}
 \maketitle
@@ -135,7 +135,8 @@ timescales are $d^{\kappa-1}$ with $\kappa=2k^*$: for $k^*=2$, in-weight needs $
 \begin{proposition}[Finite context: a drift-stable unaligned state]
 \label{prop:repulsion}
 For $\sg_2$ and fixed readout $\Gamma=\gamma$, $-\partial_mL_A=s^2\big[(8\gamma-4\gamma^2(1-\tfrac1N)-24\gamma^2/N)m^3-16\gamma^2m/N\big]$. For
-$\gamma<2N/(N+5)$ the origin is a local minimum of $L_A$ and the drift is repulsive for $m<m^*$, $m^{*2}=4\gamma/\big(2N-(N+5)\gamma\big)\approx2\gamma/(N(1-\gamma/2))$;
+$\gamma<\gamma_1=2N/(N+9)$ the origin is a local minimum of $L_A$, the drift is repulsive for $m<m^*$ and attractive on $(m^*,1)$, with
+$m^{*2}=4\gamma/\big(2N-(N+5)\gamma\big)\approx2\gamma/(N(1-\gamma/2))$ (for $\gamma\ge\gamma_1$ the overlap decays from every $m_0<1$);
 for general $\sg_k$, $k\ge2$, the same holds with $m^{*\,2(k-1)}\approx2k\gamma/\big((2-\gamma)N\big)$ to leading order, because $\sg_k^2$ has
 normalised second Hermite coefficient $\beta_2^2=2k^2$ (Appendix~\ref{app:deriv}).
 \end{proposition}
@@ -153,7 +154,7 @@ $d=32$ sits on the ridge ($\Delta L/D_{\rm eff}\approx0.02$), $d=64$ is trapped 
 Larger batches lower $D_{\rm eff}$ and \emph{deepen} the trap.
 \end{remark}
 
-\begin{proposition}[Readout parameterisation: three regimes]
+\begin{proposition}[Readout parameterisation: three regimes---informal summary of Theorems~\ref{thm:A}--\ref{thm:B} and Prop.~\ref{prop:joint}, Appendix~\ref{app:thm}]
 \label{prop:shrink}
 Consider the population gradient flow of~\eqref{eq:LA} for $\sg=\sg_2$ in flow time $t=\eta\cdot\text{steps}$, started at $m_0=d^{-1/2}$,
 and let $\tau_{\rm esc}$ be the time to reach $m=\tfrac12$.
@@ -170,8 +171,10 @@ $N$-dependences (e.g.\ $\tau(16)/\tau(256)=4.4$ at $d=64$, $\Gamma_0=0.01$, $r=1
 $(1-m^2)\big[4gg'-\rho\,(2(1-\tfrac1N)gg'+V'/N)\big]$, which is exactly the pinned velocity at $\gamma=\rho$ divided by $\rho$ (norm-independence
 of the attraction, \citealp[Lemma~B.1]{ren2025emergence}): a tied readout behaves like a pinned readout of value $\rho(t)$ under a time
 change. From a small $\rho_0$, $\dot\rho=-4\rho\,\partial_\rho L_A$ leaves $\rho$ near $\rho_0$ and $\tau_{\rm esc}=\Theta(m_0^{-2})$ is independent of
-$N$---the tied readout self-selects the small-readout regime. For $\rho_0>\rho^*(m_0)=2Nm_0^2/\big(4+(N+5)m_0^2\big)\approx Nm_0^2/2$ the
-population flow traps permanently ($m\propto t^{-2}$ while $\rho\propto t^{-1}$, so $\rho$ never falls below the moving threshold); under SGD,
+$N$---the tied readout self-selects the small-readout regime. Let $\rho^*(m)=2Nm^2/\big(4+(N+5)m^2\big)\approx Nm^2/2$ be the value at which the
+directional drift vanishes. For $\rho_0>c_2\rho^*(m_0)$, $c_2=\tfrac43$ (Theorem~\ref{thm:A}(iii); between $\rho^*$ and $c_2\rho^*$ the overlap first
+falls and then escapes), the population flow traps permanently ($m\propto t^{-2}$ while $\rho\propto t^{-1}$, so $\rho$ never falls below the
+moving threshold); under SGD,
 noise keeps $m$ at the noise floor while $\rho$ decays, and the feature is eventually released---a long delay rather than a trap (E5).
 \end{enumerate}
 \end{proposition}
@@ -202,7 +205,8 @@ reproduces absolute escape times: over the 45 fully-reached E1 cells the ratio m
 $10\%$ and 35 within $20\%$ (no trend in $N$ or protocol; the largest deviations are at the smallest $m_0$), and one censored cell
 (free, $10\eta$, $N=128$, smallest $m_0$) is at least $2.3\times$ slower than predicted (Appendix~\ref{app:exp}). The
 in-weight model at the same $k^*$ gives a logarithmic $m_0$-dependence ($\kappa=2$). $\kappa_{\rm eff}$ is a secant over a factor $2.8$ in $m_0$ at fixed $(d,N,\Gamma_0,\eta_\Gamma/\eta)$, not an asymptotic exponent: at fixed $N$ and
-$d\to\infty$ the free-readout flow gives $4k^*$ for every $N$ (with $N$ only in the prefactor), while a $d$-free limit exists under the joint
+$d\to\infty$ the free-readout flow gives $4k^*$ for every $N$ with $N$ only in the prefactor (Theorem~\ref{thm:B}:
+$\tau_{\rm esc}\sim e^{(4k^*-2)k^{*2}\Gamma_0^2/r}\,\mu_0^{-(4k^*-2)}d^{2k^*-1}/(4k^*(4k^*-2)N)$), while a $d$-free limit exists under the joint
 scaling $\lambda=N/d^{k^*}$, $\tilde r=(\eta_\Gamma/\eta)/d$, giving $\kappa(\lambda,\tilde r,\Gamma_0)$ whose $d\to\infty$ values ($6.45/5.40/4.95/4.83$)
 are within $0.06$ of the $d=32$ ODE numbers; its large-$\lambda$ end at small $\Gamma_0$ is $2k^*+1$ (readout growth from $\Gamma_0$), not $2k^*$.
 The pre-registered ``$4\to8$'' was this corner structure misstated as $d\to\infty$ limits. Two pre-registered predictions in this experiment failed and are
@@ -230,8 +234,8 @@ $10^6$-step cap, as the ODE had predicted, and were rerun to $2.5\cdot10^6$ step
 Varying the readout's initial value and learning rate (free: $\Gamma_0=0.1$ or $\eta_\Gamma=10\eta$ at $d=64$) changes the $N$-ratio from $4.4$ to
 $9.2$ and $10.7$ (ODE $9.1$ and $8.9$; medians within $2\%$ except the $\eta_\Gamma=10\eta$, $N=16$ cell, $24\%$ slow), confirming that the
 free-readout exponent is a function of $(N,\Gamma_0,\eta_\Gamma/\eta)$, as Prop.~\ref{prop:shrink}(b) states. A pinned $\gamma=0.01$ readout is as
-$N$-flat as the tied one (ratio $1.06$, ODE $1.04$). A tied readout started at $\rho_0=0.3>\rho^*(m_0)=0.12$ at $N=16$ was pre-registered to trap
-(the deterministic flow does trap: $m\propto t^{-2}$, $\rho\propto t^{-1}$); under SGD all three seeds escaped after a $\approx30\times$ delay, once $\rho$ had
+$N$-flat as the tied one (ratio $1.06$, ODE $1.04$). A tied readout started at $\rho_0=0.3>\rho_{\rm trap}(m_0)=0.18$ at $N=16$ was pre-registered to trap
+(the deterministic flow provably does, Theorem~\ref{thm:A}(iii): $m\propto t^{-2}$, $\rho\propto t^{-1}$); under SGD all three seeds escaped after a $\approx30\times$ delay, once $\rho$ had
 decayed to $0.012$---so under SGD tying converts the pinned trap into a delay, and the pre-registered wording "the repulsion survives tying" is
 withdrawn in favour of "is delayed by tying". Finally, scaling the step size with the batch ($\eta\propto B$, pinned $\gamma=0.1$, $N=64$)
 leaves the escape \emph{flow time} invariant to $0.5\%$ while steps scale as $1/\eta$: the irrelevance of prompts per step in E2 is a

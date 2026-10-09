@@ -53,6 +53,12 @@ quoted $d=32$ ratio, so only the $d=64$ value ($\approx20$) is meaningful.
 Ratios MC/formula at $m=0.2$ and $0.4$: Model B $k^*=1,2,3$: $0.998$--$1.00$; Model A $k^*=1$: $1.000$; $k^*=2$: $0.972$, $0.998$;
 $k^*=3$: $0.88\pm0.76$ (drift $\approx0$), $1.02$. Model A $k^*=3$ at $\gamma=0.1$, $N=128$ has negative drift for $m\le0.2$.
 
+\section{Theorems and proofs}
+\label{app:thm}
+All closed forms in this section are checked numerically by \texttt{scripts/verify\_theorems.py} (61 checks: thresholds, the exact escape time
+against LSODA, the time-change identity, the $t^{-2}/t^{-1}$ asymptotics, Theorem~\ref{thm:B} at $d$ up to $6.5\cdot10^4$, the corner exponents).
+\input{theorems}
+
 \section{Experimental details}
 \label{app:exp}
 All toy experiments: float64 numpy, analytic gradients verified by finite differences (relative error $<10^{-4}$), online spherical

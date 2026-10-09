@@ -21,7 +21,7 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
 - [~] (checked 2026-10-09: nothing yet; docs/venue.md) **N8. Monitor ICML 2027 / HiLD CFP.** Check `icml.cc` and the HiLD site once per wake; when a CFP appears, record dates, page limit,
   LLM policy, archival status in `docs/venue.md`.
 
-- [ ] **N9 (2026-10-09, from review 3). Theorems A/B.** Replace Prop. 3 by (A) finite-context trap for σ_k population flow incl. tied=pinned time
+- [x] (paper/theorems.tex, scripts/verify_theorems.py 61/61; paper v0.10; prereg v0.21) **N9 (2026-10-09, from review 3). Theorems A/B.** Replace Prop. 3 by (A) finite-context trap for σ_k population flow incl. tied=pinned time
   change and SGD corollary; (B) free-readout asymptotics τ = (1+o(1))·exp((4k−2)β₂²Γ₀²/(2r))·d^{2k−1}/(4k(4k−2)α⁸N) at fixed N, joint-scaling
   limit, corner exponents 4k/2k/2k+1. Proof drafts with sympy checks → appendix.
 - [x] (scripts/ode_lsoda.py, results/README_ode.md; paper v0.9) **N10 (2026-10-09). Accurate ODE integration.** Recompute all quoted ODE predictions with LSODA (rtol 1e-10); the Euler integrator may

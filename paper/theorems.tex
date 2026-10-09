@@ -1,0 +1,191 @@
+% theorems.tex -- Theorems A and B (population flow) with proofs; \input after the preamble of main.tex.
+% Every closed form below is checked by scripts/verify_theorems.py (run: python3 -I scripts/verify_theorems.py).
+\makeatletter
+\@ifundefined{c@theorem}{\newtheorem{theorem}{Theorem}\renewcommand{\thetheorem}{\Alph{theorem}}}{}
+\@ifundefined{c@lemma}{\newtheorem{lemma}{Lemma}[theorem]}{}
+\@ifundefined{c@proposition}{\newtheorem{proposition}{Proposition}}{}
+\@ifundefined{c@remark}{\newtheorem{remark}{Remark}}{}
+\@ifundefined{c@conjecture}{\newtheorem{conjecture}{Conjecture}}{}
+\makeatother
+
+\paragraph{Standing notation.} $\sg=\sg_k$, $k\ge2$, so $\alpha_k=1$, $g(m)=m^k$, $g(1)=1$. Write $\sg_k^2=\sum_{i=0}^k\beta_{2i}\sg_{2i}$; the
+linearisation formula $\mathrm{He}_k^2=\sum_{j}j!\binom kj^2\mathrm{He}_{2k-2j}$ gives
+$\beta_{2i}^2=\big((k-i)!\binom k{i}^2\big)^2(2i)!/k!^2\ge0$, in particular $\beta_0^2=1$, $\beta_2^2=2k^2$, $\beta_{2k}^2=\binom{2k}k$, and
+$V(m)=\sum_{i=0}^k\beta_{2i}^2m^{2i}$, $V'(1)=4k\,\E[\sg_k^2\sg_{k-1}^2]$ ($=40$ for $k=2$). Put $G=g^2=m^{2k}$, $D(m)=(1-\frac1N)m^{2k}+V(m)/N$, so that
+\[
+L(m,\Gamma)=s^2\big[1-2\Gamma G+\Gamma^2D\big],\quad \partial_mL=s^2(\Gamma^2D'-2\Gamma G'),\quad \partial_\Gamma L=2s^2(\Gamma D-G),\quad \Gamma^*(m)=G/D .
+\]
+Two elementary facts are used throughout: $D\ge V(0)/N=1/N$, and $mV'\le2kV$ (hence $mD'\le2kD$), because $V$ has degree $2k$ and
+nonnegative coefficients. Flows: pinned $\dot m=-(1-m^2)\partial_mL(m,\gamma)$; free $\dot m=-(1-m^2)\partial_mL$, $\dot\Gamma=-r\partial_\Gamma L$;
+tied $\dot m=-(1-m^2)\partial_mL(m,\rho)/\rho$, $\dot\rho=-4\rho\,\partial_\rho L(m,\rho)$. The interval $(0,1)$ is invariant for $m$ in all three
+($g'(0)=V'(0)=0$ for $k\ge2$), $\tau_{\rm esc}=\inf\{t:m(t)\ge\frac12\}$, and $t$ is flow time ($\eta\cdot$steps).
+
+\begin{theorem}[Finite-context trap; population flow, $\sg=\sg_k$, $k\ge2$]\label{thm:A}
+\textup{(i) Pinned readout $\Gamma\equiv\gamma>0$.} $\dot m=s^2\gamma(1-m^2)\,m\,Q_\gamma(m^2)$ with
+\[
+Q_\gamma(x)=2k\big(2-\gamma(1-\tfrac1N)\big)x^{k-1}-\frac{\gamma}{N}\sum_{i=1}^{k}2i\beta_{2i}^2x^{i-1}.
+\]
+Let $\gamma_1=2N/\big(N-1+V'(1)/2k\big)$. If $\gamma<\gamma_1$, $Q_\gamma$ has exactly one positive root $x^*$, and $x^*\in(0,1)$; with $m^*=\sqrt{x^*}$,
+$m(t)\downarrow0$ (exponentially, at rate $\to4k^2s^2\gamma^2/N$) if $m_0<m^*$, and $m(t)\uparrow1$ with $\tau_{\rm esc}<\infty$ if $m^*<m_0<\frac12$. If
+$\gamma\ge\gamma_1$, $m(t)\to0$ from every $m_0\in(0,1)$. As $N\to\infty$ at fixed $\gamma\in(0,2)$,
+$m^{*\,2(k-1)}=\frac{2k\gamma}{(2-\gamma)N}\big(1+O(N^{-1/(k-1)})\big)$. For $k=2$: $\gamma_1=\frac{2N}{N+9}$ and $m^{*2}=\frac{4\gamma}{2N-(N+5)\gamma}$.
+
+\textup{(ii) Exact escape time, $k=2$.} Let $C=\gamma(8-4\gamma-20\gamma/N)$, $B=16\gamma^2/N$ $(C>B\iff\gamma<\gamma_1)$ and $m^{*2}<m_0^2<\frac14$. Then
+\[
+\tau_{\rm esc}=\frac{F(\tfrac14)-F(m_0^2)}{2s^2},\qquad F(u)=-\frac{\ln u}{B}-\frac{\ln(1-u)}{C-B}+\frac{C\ln(Cu-B)}{B(C-B)} .
+\]
+Hence $2s^2Cm_0^2\,\tau_{\rm esc}=1+O\big(m_0^2\ln\frac1{m_0}+m^{*2}/m_0^2\big)$, and $\tau_{\rm esc}\sim\frac{C}{2s^2B(C-B)}\ln\frac1{m_0^2-m^{*2}}$ as $m_0\downarrow m^*$.
+
+\textup{(iii) Tied readout.} (a) $\dot m_{\rm tied}(m,\rho)=\dot m_{\rm pinned}(m;\gamma{=}\rho)/\rho$ identically. Hence, if $(m,\rho)(t')$ is the tied
+solution and $t=\int_0^{t'}\!du/\rho(u)$, then $m(t)$ solves the pinned flow with the time-dependent value $\gamma(t)=\rho$ (i.e.\ $dt'=\rho\,dt$);
+for $\rho$ frozen at $\rho_0$, $\tau_{\rm tied}=\rho_0\,\tau_{\rm pinned}(\gamma{=}\rho_0)$. (b) Let $m_0<\frac12$, $D_0=D(m_0)$ and
+$a=k^2(k-1)(1-m_0^2)/(ND_0)$. If $a>1$ and
+\begin{equation}\label{eq:trapcond}
+\rho_0\;>\;\rho_{\rm trap}(m_0):=\frac{k(k-1)\,m_0^{2k-2}}{D_0\,(a-1)},
+\end{equation}
+the tied flow is trapped for ever: $m(t)\le m_0$ for all $t$, $m(t)\to0$, and, as $t\to\infty$, $\rho(t)\,t\to N/(8s^2)$ and $m(t)\,t^{k^2/2}\to c\in(0,\infty)$; for $k=2$,
+$m\propto t^{-2}$, $\rho\propto t^{-1}$. Since $\rho^*(m):=2G'/D'\asymp Nm^{2k-2}/k$, $\rho/\rho^*(m)\to\infty$: the threshold recedes faster than $\rho$ decays.
+
+\textup{(iv)} For every number $B$ of prompts per step the expected minibatch gradient is $\nabla L$; the population flows above, and hence
+$m^*(\gamma,N,k)$, $\gamma_1$ and (ii)--(iii), do not depend on $B$.
+\end{theorem}
+
+\begin{lemma}[Monotone signal-to-noise]\label{lem:mono}
+$R(m)=G^2/D$ is strictly increasing on $(0,1]$, and $\rho^*(m)=2G'/D'$ satisfies $\rho^*>\Gamma^*$ and is strictly increasing.
+\end{lemma}
+\begin{proof}
+$mR'/R=4k-mD'/D\ge2k>0$. $\rho^*>\Gamma^*\iff2G'D>GD'\iff4kD>mD'$. Finally $\rho^*=4k/\big(2k(1-\frac1N)+N^{-1}\sum_i2i\beta_{2i}^2m^{2i-2k}\big)$ and
+each $m^{2i-2k}$, $i<k$, is strictly decreasing.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:A}]
+(i) Insert $G'=2km^{2k-1}$ and $V'(m)/m=\sum_{i\ge1}2i\beta_{2i}^2m^{2i-2}$ in $-\partial_mL$. The coefficients of $Q_\gamma$ of
+degree $<k-1$ are strictly negative ($\beta_{2i}^2>0$), and $Q_\gamma(0)=-4k^2\gamma/N<0$. By Descartes' rule $Q_\gamma$ has at most one positive root;
+it has one iff the leading coefficient $2k[2-\gamma(N-1+\beta_{2k}^2)/N]$ is positive, and the root lies in $(0,1)$ iff
+$Q_\gamma(1)=2k[2-\gamma(N-1+V'(1)/2k)/N]>0$, i.e.\ $\gamma<\gamma_1$ (this implies the former, as $V'(1)/2k>\beta_{2k}^2$). Then $Q_\gamma<0$ on $(0,x^*)$ and $>0$ on $(x^*,\infty)$; if $\gamma\ge\gamma_1$, $Q_\gamma<0$ on
+$(0,1)$. The one-dimensional phase portrait follows: on $[m_0,\frac12]\subset(m^*,1)$, $\dot m\ge c>0$; on $(0,m_0]\subset(0,m^*)$, $\dot m/m\le-c'<0$ and
+$\dot m/m\to s^2\gamma Q_\gamma(0)$. For the asymptotics, the root equation $2k(2-\gamma(1-\frac1N))\,x^{*\,k-1}=\frac{\gamma}{N}\sum_i2i\beta_{2i}^2x^{*\,i-1}$ forces $x^*\to0$
+and gives $x^{*\,k-1}=\frac{4k^2\gamma}{2k(2-\gamma)N}(1+O(x^*+N^{-1}))$ with $x^*=O(N^{-1/(k-1)})$. For $k=2$, $Q_\gamma(x)=(C x-B)/\gamma$.
+
+(ii) With $u=m^2$, $\dot u=2s^2u(1-u)(Cu-B)$, and $\frac1{u(1-u)(Cu-B)}=-\frac1{Bu}+\frac1{(C-B)(1-u)}+\frac{C^2}{B(C-B)(Cu-B)}$; integrate from
+$u_0$ to $\frac14$. Expanding $F$ in $\varepsilon=B/(Cu_0)$ gives $2s^2(F(\frac14)-F(u_0))=\frac1{Cu_0}(1+O(\varepsilon))+O(C^{-1}\ln\frac1{u_0})$; the
+logarithmic singularity at $u_0=B/C$ is the last term of $F$.
+
+(iii)(a) $\partial_mL(m,\gamma)=s^2\gamma(\gamma D'-2G')$, so $\dot m_{\rm pinned}/\gamma=s^2(1-m^2)(2G'-\gamma D')$, which is the tied velocity
+$-(1-m^2)\partial_mL(m,\rho)/\rho$ at $\gamma=\rho$ (the $1/\rho$ is the chain rule through $w=u/\|u\|$, $\rho=\|u\|^2$;
+cf.\ \citealp[Lemma~B.1]{ren2025emergence}). Reparametrising time by $dt=dt'/\rho$ gives the claim.
+
+(b) Write $z=m^{-(2k-2)}$. While $m\le\bar m$ ($\bar m\downarrow m_0$ at the end), using $1-m^2\le1$ in the attraction, $1-m^2\ge1-\bar m^2$ and
+$V'(m)/m\ge4k^2$ in the repulsion, dropping the term $-2k(1-\frac1N)\rho m^{2k-2}$, and using that $D$ is increasing,
+\[
+\frac{d\ln m}{dt}\le s^2\Big[4km^{2k-2}-(1-\bar m^2)\frac{4k^2\rho}{N}\Big],\qquad \dot\rho=8s^2\rho(G-\rho D)\ge-8s^2D(\bar m)\rho^2 ,
+\]
+so $\rho\ge\rho_0/E$ with $E(t)=1+8s^2D(\bar m)\rho_0t$, and $\dot z\ge-(2k-2)4ks^2+(2k-2)(1-\bar m^2)\frac{4k^2s^2}{N}\rho\,z$. Comparison with the linear
+equation gives $z(t)\ge(z_0-K)E^{a}+KE$ with $K=k(k-1)/(\rho_0D(\bar m)(a-1))$ (and $a$ evaluated at $\bar m$). By \eqref{eq:trapcond} $z_0>K$ for $\bar m$
+close to $m_0$, so the right side is increasing in $E\ge1$ and $z(t)\ge z_0$: $m\le m_0<\bar m$ for all $t$ (continuity argument), $m\to0$, and
+$\rho z\ge\rho_0(z_0-K)E^{a-1}\to\infty$. Restarting the argument at a late time $t_0$ (where $ND(m(t_0))\to1$, so \eqref{eq:trapcond} holds with $a$
+arbitrarily close to $k^2(k-1)$) gives $m^{2k-2}\le Ct^{-a'}$ for every $a'<k^2(k-1)$. Hence $m^2$ and $G/\rho$ are integrable in $t$, so
+$\frac{d}{dt}\frac1\rho=8s^2(D-G/\rho)=\frac{8s^2}N+(\text{integrable})$ gives $\frac1\rho=\frac{8s^2t}N+c_1+o(1)$. Then
+$\frac{d\ln m}{dt}=-\frac{4k^2s^2}N\rho(1+O(m^2))+O(m^{2k-2})=-\frac{k^2}{2t}+(\text{integrable})$, so $m\,t^{k^2/2}$ converges to a positive limit.
+
+(iv) The per-prompt losses in a step are i.i.d.\ with mean $L$; the gradient of their average has mean $\nabla L$ for every $B$ (differentiation
+under $\E$ is justified by polynomial moments), and $B$ enters only the covariance, which is $\propto1/B$.
+\end{proof}
+
+\begin{remark}[The trap boundary is $c_k\rho^*$, not $\rho^*$]\label{rem:ck}
+Condition \eqref{eq:trapcond} is sharp as $m_0\to0$: since $ND_0\to1$ and $a\to k^2(k-1)$, it reads
+$\rho_0>c_k\,Nm_0^{2k-2}/k\,(1+o(1))$ with $c_k=1+1/(k^3-k^2-1)$ ($c_2=\frac43$, $c_3=\frac{18}{17}$), and in the small-$m$ system
+$\dot m=s^2m(4km^{2k-2}-4k^2\rho/N)$, $\dot\rho=-8s^2\rho^2/N$ (exactly $z=(z_0-K)E^a+KE$ with $a=k^2(k-1)$, $ND_0=1$) $z$ reaches $0$ in finite time, i.e.\ the flow escapes, for every $\rho_0<c_kNm_0^{2k-2}/k$.
+So for $\rho^*(m_0)<\rho_0<c_k\rho^*(m_0)$ the overlap first \emph{decreases} and then escapes: ``$\rho_0>\rho^*(m_0)\Rightarrow$ trap'' is false. LSODA
+bisection of the exact flow gives the boundary $\rho_0/\rho^*(m_0)=1.3333$ ($k{=}2$, $m_0{=}10^{-3}$), $1.0589$ ($k{=}3$, $m_0{=}10^{-2}$) and $1.3735$ at the E5
+cell ($d{=}64$, $N{=}16$, $\rho^*=0.1155$), where \eqref{eq:trapcond} gives $\rho_{\rm trap}=0.178$: $\rho_0=0.3$ is provably trapped, and
+$\rho_0=0.1<\rho^*$ escapes. The escape half is proved only for the
+small-$m$ system; for the exact flow it is a numerical statement.
+\end{remark}
+
+\begin{theorem}[Free readout, fixed $N$, $d\to\infty$]\label{thm:B}
+Assume (B1) $\sg=\sg_k$, $k\ge2$; (B2) $N\ge2$, $r>0$, $\Gamma_0>0$, $s>0$ and $\mu_0>0$ fixed; (B3) $m_0=\mu_0d^{-1/2}$, $d\to\infty$. Then
+\[
+\tau_{\rm esc}=(1+o(1))\,\exp\!\Big(\frac{(4k-2)\beta_2^2\Gamma_0^2}{2r}\Big)\,\frac{\mu_0^{-(4k-2)}\,d^{2k-1}}{4k(4k-2)\,\alpha_k^8\,s^2N},
+\qquad\beta_2^2=2k^2,\ \alpha_k=1 .
+\]
+In particular the escape exponent is $4k$ for every finite $N$, and $N$ enters only as the prefactor $1/N$.
+\end{theorem}
+
+\begin{proof}
+Rescale $t\mapsto s^2t$ (this maps the flow with $s$ to the flow with $s=1$ and the same $r$), so $s=1$. Put $m_1=m_0e^{-k^2\Gamma_0^2/r}$ and note
+$\frac{(4k-2)\beta_2^2\Gamma_0^2}{2r}=(4k-2)\frac{k^2\Gamma_0^2}r$, so the claim is $\tau_{\rm esc}\sim\tau_B:=m_1^{-(4k-2)}/(4k(4k-2)N)$. The equations are
+\[
+\frac{d\ln m}{dt}=(1-m^2)\Big[4k\Gamma m^{2k-2}\big(1-\tfrac\Gamma2(1-\tfrac1N)\big)-\frac{\Gamma^2V'(m)}{Nm}\Big],\qquad \dot\Gamma=-2rD(m)\big(\Gamma-\Gamma^*(m)\big),
+\]
+with $V'(m)/m=4k^2(1+O(m^2))$, $D=N^{-1}(1+O(m^2))$, $\Gamma^*=Nm^{2k}(1+O(m^2+Nm^{2k}))$; constants below depend on $(k,N,r,\Gamma_0,\mu_0)$ only.
+
+\emph{Phase 1, $0\le t\le t_1=\frac{(k-1)N}{4r}\ln d$ (readout transient).} While $m\le2m_0$, $\dot\Gamma=-\frac{2r}N(1+O(d^{-1}))\Gamma+O(d^{-k})$, and
+$\Gamma\ge\Gamma_0d^{-(k-1)/2}/2\gg Nd^{-k}$, so $\Gamma(t)=\Gamma_0e^{-2rt/N}(1+o(1))$ uniformly. Integrating the $m$-equation,
+$\ln\frac{m(t_1)}{m_0}=-\frac{4k^2}N\int_0^{t_1}\!\Gamma^2(1+o(1))+O\big(m_0^{2k-2}\!\int(\Gamma+\Gamma^2)\big)=-\frac{k^2\Gamma_0^2}r+o(1)$, because
+$\int_0^{t_1}\Gamma^2=\frac{N\Gamma_0^2}{4r}(1+o(1))$ and $m_0^{2k-2}\int(\Gamma+\Gamma^2)=O(d^{1-k}N/r)$; the same bounds keep $m\le m_0(1+o(1))$, closing the bootstrap.
+
+\emph{Phase 2, $t_1\le t\le t_2=t_1+\frac{(k+1)N}{2r}\ln d$ (relaxation onto $\Gamma^*$).} Now $\Gamma\le2\Gamma_0d^{-(k-1)/2}$, so
+$|\frac{d\ln m}{dt}|=O(d^{1-k}\Gamma+\Gamma^2)$ integrates to $o(1)$: $m(t_2)=m_1(1+o(1))$. With $e=\Gamma-\Gamma^*$, $\dot e=-2rDe-\Gamma^{*\prime}\dot m$ and $D\ge1/N$,
+$|e(t_2)|\le d^{-(k+1)}\Gamma_0+\frac N{2r}\sup|\Gamma^{*\prime}\dot m|=o(d^{-k})=o(\Gamma^*(m(t_2)))$.
+
+\emph{Phase 3, adiabatic, until $t_3$, the first time $m=m_\delta$.} Fix $\delta\in(0,\frac14)$ and choose $m_\delta$ (independent of $d$) so small that
+for $m\le m_\delta$ the $O(\cdot)$ terms above are $\le\delta$ and $\epsilon_\delta:=32k^2Nm_\delta^{4k-2}\le\delta r/N$. Write $\Gamma=\Gamma^*(1+e')$. While
+$|e'|\le1$, $0<\frac{d\ln m}{dt}=4kNm^{4k-2}(1+e')(1+O(\delta))$ and, as $0\le\frac{d\ln\Gamma^*}{d\ln m}=2k-\frac{mD'}D\le2k$, $|\frac{d\ln\Gamma^*}{dt}|\le\epsilon_\delta$;
+and $\dot e'=-\big(2rD+\frac{d\ln\Gamma^*}{dt}\big)e'-\frac{d\ln\Gamma^*}{dt}$. At $|e'|=\delta$ the right side has the sign of $-e'$, since
+$(\frac{2r}N-\epsilon_\delta)\delta>\epsilon_\delta$. Hence $|e'|\le\delta$ on $[t_2,t_3]$, and
+$t_3-t_2=(1+O(\delta))\frac{m(t_2)^{-(4k-2)}-m_\delta^{-(4k-2)}}{4k(4k-2)N}=(1+O(\delta)+o(1))\,\tau_B$.
+
+\emph{Phase 4, $t\ge t_3$.} $(m,\Gamma)(t_3)\in K_\delta=\{m_\delta\}\times[(1-\delta)\Gamma^*,(1+\delta)\Gamma^*]$, a compact set on which $L<1=L(0,0)$
+(since $L=1-\Gamma G(2-(1+e'))$). $L$ is a Lyapunov function, $\frac{dL}{dt}=-(1-m^2)(\partial_mL)^2-r(\partial_\Gamma L)^2$, trajectories are bounded, and the
+only equilibria in $[0,1)\times[0,\infty)$ are $(0,0)$ and, for $m\in(0,1)$, points with $\Gamma=\Gamma^*(m)$ and $\frac{d}{dm}L(m,\Gamma^*(m))=-R'(m)=0$
+(envelope theorem), which Lemma~\ref{lem:mono} excludes. By LaSalle every trajectory from $K_\delta$ has $m\to1$; the sets
+$\{x:\ m\text{ exceeds }\frac12\text{ before time }T\}$ are open and cover $K_\delta$, so the remaining time is $\le T_\delta<\infty$, independent of $d$.
+
+Phases 1, 2 and 4 last $O(N\ln d/r)+T_\delta=o(\tau_B)$, as $\tau_B\asymp d^{2k-1}$. Thus $\limsup|\tau_{\rm esc}/\tau_B-1|\le C\delta$ for every $\delta$.
+\end{proof}
+
+\begin{proposition}[Joint scaling; proof sketch]\label{prop:joint}
+Let $N=\lambda d^k$, $r=\tilde r d$, $m_0=\mu_0d^{-1/2}$, $\Gamma_0\in(0,2)$, $s=1$, and put $\mu=\sqrt d\,m$, $\theta=t\,d^{1-k}$. As $d\to\infty$ the flow
+converges, uniformly on compacts of $\{\mu>0\}$ with an $O(1/d)$ error, to the $d$-free system
+\begin{equation}\label{eq:limit}
+\frac{d\mu}{d\theta}=4k\,\Gamma\big(1-\tfrac\Gamma2\big)\mu^{2k-1},\qquad \frac{d\Gamma}{d\theta}=2\tilde r\Big[\mu^{2k}-\Gamma\Big(\mu^{2k}+\frac1\lambda\Big)\Big],
+\end{equation}
+whose solution blows up ($\mu\to\infty$) at a finite $T(\mu_0;\lambda,\tilde r,\Gamma_0)$, and $\tau_{\rm esc}\,d^{1-k}\to T$. (The finite-$N$ repulsion is
+$O(1/d)$ in this scaling.) With $\kappa:=2-\partial\ln T/\partial\ln\mu_0$ (the secant exponent of the experiments is a finite-difference estimate of it):
+(a) $\lambda T\to\mu_0^{-(4k-2)}/(4k(4k-2))$ as $\lambda\to0$ ($\tilde r,\Gamma_0,\mu_0$ fixed): $\kappa\to4k$;
+(b) at $\lambda=\infty$ and fixed $\Gamma_0\in(0,2)$, $\mu_0^{2k-2}T\to1/\big((2k-2)\,2k\Gamma_0(2-\Gamma_0)\big)$ as $\mu_0\to0$: $\kappa\to2k$;
+(c) at $\lambda=\infty$, $\Gamma_0=0$ (readout growth-limited), $\mu_0^{2k-1}T\to\frac{\pi}{2}\frac{(2k-3)!!}{(2k-2)!!}\big/\big(2\sqrt{2k\tilde r}\big)$ as $\sqrt{\tilde r}\mu_0\to0$: $\kappa\to2k+1$.
+\end{proposition}
+\begin{proof}[Sketch]
+Substituting, $d^{k-\frac12}\dot m=(1-\frac{\mu^2}d)\big[2k\Gamma(2-\Gamma(1-\frac1N))\mu^{2k-1}-\frac{\Gamma^2}\lambda\sum_i2i\beta_{2i}^2\mu^{2i-1}d^{-i}\big]$ and
+$d^{k-1}\dot\Gamma=2\tilde r[\mu^{2k}-\Gamma((1-\frac1N)\mu^{2k}+V(\mu d^{-1/2})/\lambda)]$, which is \eqref{eq:limit} up to $O((1+\mu^{2k+2})/d)$.
+In \eqref{eq:limit}, $\Gamma\le\max(\Gamma_0,1)<2$ (at $\Gamma\ge1$, $\dot\Gamma<0$) and $\Gamma\ge c:=\min(\Gamma_0,\Gamma^*_\infty(\mu_0))$ with
+$\Gamma^*_\infty=\mu^{2k}/(\mu^{2k}+\lambda^{-1})$ increasing along the (increasing) $\mu$; so $\dot\mu\ge c'\mu^{2k-1}$ and $\mu$ blows up in finite time. Split at
+$\mu=M$: up to $M$, continuous dependence gives convergence of the hitting time; after $M$ both the limit and (by the same invariance bounds, the repulsion
+being $O(M^{2-2k}/\lambda d)$) the finite-$d$ flow need time $\le C M^{2-2k}$, which $\to0$ as $M\to\infty$. Corners: (a) $\Gamma$ relaxes at rate
+$2\tilde r/\lambda\to\infty$ onto $\Gamma^*_\infty\approx\lambda\mu^{2k}$, the transient moves $\ln\mu$ by $O(\Gamma_0\lambda/\tilde r)$, and
+$\dot\mu=4k\lambda\mu^{4k-1}(1+o(1))$. (b) $d\Gamma/d\mu=\tilde r\mu(1-\Gamma)/(2k\Gamma(1-\Gamma/2))$, so $\Gamma=\Gamma_0+O(\tilde r\mu_0^2M^2)$ on
+$[\mu_0,M\mu_0]$, which carries all but $O(M^{2-2k})$ of $T$. (c) For $\Gamma\ll1$, $\Gamma^2=\frac{\tilde r}{2k}(\mu^2-\mu_0^2)$ is an approximate first
+integral, so $\dot\mu=4k\sqrt{\tilde r/2k}\,\sqrt{\mu^2-\mu_0^2}\,\mu^{2k-1}$ and $T=\mu_0^{1-2k}\int_1^\infty\!\frac{dx}{4k\sqrt{\tilde r/2k}\,x^{2k-1}\sqrt{x^2-1}}$;
+the region where $\Gamma=O(1)$ costs $O(\tilde r^{k-1})=o(\mu_0^{1-2k}\tilde r^{-1/2})$. The interchange of the corner limits with $\partial/\partial\ln\mu_0$
+(needed for $\kappa$ rather than for $T$) is not proved here; numerically the limits hold for the derivative as well (script).
+\end{proof}
+
+\begin{remark}[What is needed to transfer Theorem~\ref{thm:B} to online SGD; heuristic]\label{rem:sgd}
+(1) \emph{Feature step.} A drift $\eta\,c\,m^{\kappa-1}$ beats the spherical renormalisation drag $\asymp\eta^2d\,\sigma_w^2m/B$ at $m\asymp d^{-1/2}$ iff
+$\eta\lesssim cB\,d^{-\kappa/2}/\sigma_w^2$: the critical scaling $\eta\asymp d^{-\kappa/2}$ of \citet{benarous2021online}, with $\kappa=2k$ (pinned, tied) or $4k$
+(free). Every $w$-gradient carries a factor $\Gamma$, so $\sigma_w^2\asymp\Gamma^2/N$ near $m=0$, which relaxes the free-readout requirement once
+$\Gamma\approx\Gamma^*$. (2) \emph{Readout noise.} The SGD readout fluctuates around $\Gamma^*$ with stationary variance $\mathrm{Var}(\Gamma)\asymp\eta_\Gamma/B$
+(relaxation rate and per-prompt variance both $\asymp1/N$), independent of $N$; as $L$ is quadratic in $\Gamma$ this adds $\mathrm{Var}(\Gamma)D'(m)$ to the
+repulsion. Pathwise tracking, $\mathrm{Var}(\Gamma)\ll\Gamma^{*2}\asymp N^2d^{-2k}$ at $m\asymp d^{-1/2}$, needs $\eta_\Gamma\ll BN^2d^{-2k}$; the mean $m$-drift alone needs
+only $\eta_\Gamma\ll BN^2d^{1-2k}/k$. At $\eta_\Gamma=r\eta_0d^{-2}$ and fixed $N$ both fail as $d\to\infty$ ($k\ge2$). In E2 ($k=2$, $d=64$, $\eta_0=r=1$) $d^2=4096$ against $BN^2\ge16384$; the E5 cell
+$\eta_\Gamma=10\eta$, $N=16$ violates it ($BN^2/r=1638<d^2$, constants aside), consistent with SGD being $24\%$ slower than the flow there ($2.26$M vs $1.83$M steps).
+\end{remark}
+
+\begin{conjecture}[SGD transfer]\label{conj:sgd}
+(a) Under the conditions of Theorem~\ref{thm:B}, with $\eta=\eta_0d^{-2k}$, $\eta_\Gamma=r\eta$ and $\eta_\Gamma\ll BN^2d^{-2k}$ (i.e.\ $B\gg r\eta_0/N^2$),
+$\eta\cdot T_{0.5}/\tau_{\rm esc}\to1$ in probability. (b) In the setting of Theorem~\ref{thm:A}(i) with $m_0\asymp d^{-1/2}<m^*$, for every $B$ and every
+$\eta\le\eta_0d^{-k}$, $\Pr\big(\max_{n\le e^{c\,d\,m^{*2}}}m_n\ge m^*/2\big)\to0$; this would follow from a supermartingale bound for $e^{a\,d\,m^2}$ on
+$\{m\le m^*\}$ (negative population drift plus spherical drag), in the manner of \citet{benarous2021online}.
+\end{conjecture}
