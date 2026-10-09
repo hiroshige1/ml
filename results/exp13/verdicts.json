@@ -1,0 +1,44 @@
+{
+ "P26a": {
+  "cells": {
+   "N16_B64": [
+    0,
+    2
+   ],
+   "N16_B1024": [
+    0,
+    2
+   ],
+   "N1024_B64": [
+    2,
+    2
+   ]
+  },
+  "stuck16": true,
+  "esc1024_ge1": true,
+  "esc1024_2of2": true,
+  "n16_rescued": false,
+  "held": true
+ },
+ "P26b": {
+  "cells": {
+   "N16_B64": [
+    2,
+    2
+   ],
+   "N16_B1024": [
+    1,
+    2
+   ],
+   "N1024_B64": [
+    2,
+    2
+   ]
+  },
+  "stuck16": false,
+  "esc1024_ge1": true,
+  "esc1024_2of2": true,
+  "n16_rescued": true,
+  "held": false
+ }
+}

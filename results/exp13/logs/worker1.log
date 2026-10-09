@@ -1,0 +1,54 @@
+[w1] start rbf_adam_N1024_B64_s1
+[w1] done rbf_adam_N1024_B64_s1 steps=697 T05=697 max|m|=0.503 max_dm=0.004 cpu=19s censored_by=
+[w1] start rbf_sgd_N16_B1024_s0
+    rbf_sgd_N16_B1024_s0 step=10000 m=+0.108 max|m|=0.125 cpu=57s
+    rbf_sgd_N16_B1024_s0 step=20000 m=+0.099 max|m|=0.125 cpu=114s
+    rbf_sgd_N16_B1024_s0 step=30000 m=+0.086 max|m|=0.125 cpu=170s
+    rbf_sgd_N16_B1024_s0 step=40000 m=+0.070 max|m|=0.125 cpu=227s
+    rbf_sgd_N16_B1024_s0 step=50000 m=+0.050 max|m|=0.125 cpu=283s
+    rbf_sgd_N16_B1024_s0 step=60000 m=+0.044 max|m|=0.125 cpu=341s
+    rbf_sgd_N16_B1024_s0 step=70000 m=+0.038 max|m|=0.125 cpu=397s
+    rbf_sgd_N16_B1024_s0 step=80000 m=+0.028 max|m|=0.125 cpu=453s
+    rbf_sgd_N16_B1024_s0 step=90000 m=+0.025 max|m|=0.125 cpu=509s
+    rbf_sgd_N16_B1024_s0 step=100000 m=+0.018 max|m|=0.125 cpu=566s
+    rbf_sgd_N16_B1024_s0 step=110000 m=+0.014 max|m|=0.125 cpu=622s
+    rbf_sgd_N16_B1024_s0 step=120000 m=+0.011 max|m|=0.125 cpu=679s
+    rbf_sgd_N16_B1024_s0 step=130000 m=+0.001 max|m|=0.125 cpu=735s
+    rbf_sgd_N16_B1024_s0 step=140000 m=+0.005 max|m|=0.125 cpu=791s
+    rbf_sgd_N16_B1024_s0 step=150000 m=+0.006 max|m|=0.125 cpu=847s
+    rbf_sgd_N16_B1024_s0 step=160000 m=+0.008 max|m|=0.125 cpu=904s
+    rbf_sgd_N16_B1024_s0 step=170000 m=+0.002 max|m|=0.125 cpu=960s
+    rbf_sgd_N16_B1024_s0 step=180000 m=-0.002 max|m|=0.125 cpu=1017s
+    rbf_sgd_N16_B1024_s0 step=190000 m=+0.000 max|m|=0.125 cpu=1073s
+    rbf_sgd_N16_B1024_s0 step=200000 m=-0.001 max|m|=0.125 cpu=1130s
+    rbf_sgd_N16_B1024_s0 step=210000 m=-0.002 max|m|=0.125 cpu=1186s
+    rbf_sgd_N16_B1024_s0 step=220000 m=-0.002 max|m|=0.125 cpu=1242s
+    rbf_sgd_N16_B1024_s0 step=230000 m=+0.000 max|m|=0.125 cpu=1298s
+    rbf_sgd_N16_B1024_s0 step=240000 m=-0.005 max|m|=0.125 cpu=1354s
+    rbf_sgd_N16_B1024_s0 step=250000 m=-0.003 max|m|=0.125 cpu=1410s
+    rbf_sgd_N16_B1024_s0 step=260000 m=-0.001 max|m|=0.125 cpu=1466s
+    rbf_sgd_N16_B1024_s0 step=270000 m=+0.001 max|m|=0.125 cpu=1522s
+    rbf_sgd_N16_B1024_s0 step=280000 m=+0.001 max|m|=0.125 cpu=1578s
+    rbf_sgd_N16_B1024_s0 step=290000 m=-0.003 max|m|=0.125 cpu=1635s
+    rbf_sgd_N16_B1024_s0 step=300000 m=-0.002 max|m|=0.125 cpu=1692s
+    rbf_sgd_N16_B1024_s0 step=310000 m=-0.002 max|m|=0.125 cpu=1749s
+    rbf_sgd_N16_B1024_s0 step=320000 m=-0.003 max|m|=0.125 cpu=1806s
+    rbf_sgd_N16_B1024_s0 step=330000 m=-0.006 max|m|=0.125 cpu=1863s
+    rbf_sgd_N16_B1024_s0 step=340000 m=-0.003 max|m|=0.125 cpu=1918s
+    rbf_sgd_N16_B1024_s0 step=350000 m=-0.004 max|m|=0.125 cpu=1974s
+    rbf_sgd_N16_B1024_s0 step=360000 m=-0.003 max|m|=0.125 cpu=2030s
+    rbf_sgd_N16_B1024_s0 step=370000 m=+0.001 max|m|=0.125 cpu=2087s
+    rbf_sgd_N16_B1024_s0 step=380000 m=+0.002 max|m|=0.125 cpu=2144s
+    rbf_sgd_N16_B1024_s0 step=390000 m=+0.004 max|m|=0.125 cpu=2200s
+    rbf_sgd_N16_B1024_s0 step=400000 m=+0.001 max|m|=0.125 cpu=2257s
+    rbf_sgd_N16_B1024_s0 step=410000 m=-0.003 max|m|=0.125 cpu=2313s
+    rbf_sgd_N16_B1024_s0 step=420000 m=-0.005 max|m|=0.125 cpu=2368s
+    rbf_sgd_N16_B1024_s0 step=430000 m=-0.003 max|m|=0.125 cpu=2423s
+    rbf_sgd_N16_B1024_s0 step=440000 m=-0.005 max|m|=0.125 cpu=2479s
+    rbf_sgd_N16_B1024_s0 step=450000 m=-0.009 max|m|=0.125 cpu=2534s
+    rbf_sgd_N16_B1024_s0 step=460000 m=-0.005 max|m|=0.125 cpu=2590s
+    rbf_sgd_N16_B1024_s0 step=470000 m=-0.001 max|m|=0.125 cpu=2646s
+    rbf_sgd_N16_B1024_s0 step=480000 m=+0.005 max|m|=0.125 cpu=2703s
+    rbf_sgd_N16_B1024_s0 step=490000 m=+0.003 max|m|=0.125 cpu=2761s
+    rbf_sgd_N16_B1024_s0 step=500000 m=+0.004 max|m|=0.125 cpu=2819s
+[w1] done rbf_sgd_N16_B1024_s0 steps=500000 T05=-1 max|m|=0.125 max_dm=0.002 cpu=2819s censored_by=cap

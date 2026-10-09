@@ -1,0 +1,1 @@
+{"model": "rbf", "opt": "adam", "N": 1024, "B": 64, "seed": 1, "steps": 697, "T05": 697, "reached05": 1, "final_abs_m": 0.503160834312439, "max_abs_m": 0.503160834312439, "max_dm_step": 0.004376113414764404, "cpu_s": 18.553994108, "censored_by": "", "lr_adam": 0.001, "name": "rbf_adam_N1024_B64_s1"}

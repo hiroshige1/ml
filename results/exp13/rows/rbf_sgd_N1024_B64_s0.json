@@ -1,0 +1,1 @@
+{"model": "rbf", "opt": "sgd", "N": 1024, "B": 64, "seed": 0, "steps": 63865, "T05": 63865, "reached05": 1, "final_abs_m": 0.5001108050346375, "max_abs_m": 0.5001108050346375, "max_dm_step": 0.0033061206340789795, "cpu_s": 1487.0465085360001, "censored_by": "", "lr_adam": NaN, "name": "rbf_sgd_N1024_B64_s0"}

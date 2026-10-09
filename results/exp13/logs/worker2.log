@@ -1,0 +1,30 @@
+[w2] start rbf_sgd_N1024_B64_s1
+    rbf_sgd_N1024_B64_s1 step=10000 m=+0.128 max|m|=0.128 cpu=198s
+    rbf_sgd_N1024_B64_s1 step=20000 m=+0.139 max|m|=0.139 cpu=396s
+    rbf_sgd_N1024_B64_s1 step=30000 m=+0.155 max|m|=0.155 cpu=593s
+    rbf_sgd_N1024_B64_s1 step=40000 m=+0.175 max|m|=0.175 cpu=787s
+    rbf_sgd_N1024_B64_s1 step=50000 m=+0.219 max|m|=0.220 cpu=986s
+    rbf_sgd_N1024_B64_s1 step=60000 m=+0.316 max|m|=0.316 cpu=1185s
+[w2] done rbf_sgd_N1024_B64_s1 steps=65759 T05=65759 max|m|=0.500 max_dm=0.003 cpu=1299s censored_by=
+[w2] start rbf_adam_N16_B1024_s0
+[w2] done rbf_adam_N16_B1024_s0 steps=3561 T05=3561 max|m|=0.501 max_dm=0.004 cpu=22s censored_by=
+[w2] start rbf_adam_N16_B1024_s1
+    rbf_adam_N16_B1024_s1 step=10000 m=+0.059 max|m|=0.131 cpu=59s
+    rbf_adam_N16_B1024_s1 step=20000 m=+0.011 max|m|=0.131 cpu=117s
+    rbf_adam_N16_B1024_s1 step=30000 m=-0.050 max|m|=0.131 cpu=175s
+    rbf_adam_N16_B1024_s1 step=40000 m=+0.034 max|m|=0.131 cpu=233s
+    rbf_adam_N16_B1024_s1 step=50000 m=-0.036 max|m|=0.131 cpu=291s
+    rbf_adam_N16_B1024_s1 step=60000 m=-0.012 max|m|=0.131 cpu=350s
+    rbf_adam_N16_B1024_s1 step=70000 m=-0.037 max|m|=0.131 cpu=408s
+    rbf_adam_N16_B1024_s1 step=80000 m=-0.013 max|m|=0.131 cpu=467s
+    rbf_adam_N16_B1024_s1 step=90000 m=-0.014 max|m|=0.131 cpu=525s
+    rbf_adam_N16_B1024_s1 step=100000 m=-0.022 max|m|=0.131 cpu=583s
+[w2] done rbf_adam_N16_B1024_s1 steps=100000 T05=-1 max|m|=0.131 max_dm=0.005 cpu=583s censored_by=cap
+[w2] start rbf_adam_N16_B64_s0
+    rbf_adam_N16_B64_s0 step=10000 m=-0.035 max|m|=0.155 cpu=10s
+    rbf_adam_N16_B64_s0 step=20000 m=+0.120 max|m|=0.182 cpu=20s
+[w2] done rbf_adam_N16_B64_s0 steps=26348 T05=26348 max|m|=0.500 max_dm=0.004 cpu=26s censored_by=
+[w2] start rbf_adam_N16_B64_s1
+    rbf_adam_N16_B64_s1 step=10000 m=+0.014 max|m|=0.177 cpu=10s
+    rbf_adam_N16_B64_s1 step=20000 m=-0.235 max|m|=0.235 cpu=19s
+[w2] done rbf_adam_N16_B64_s1 steps=24709 T05=24709 max|m|=0.500 max_dm=0.005 cpu=24s censored_by=
