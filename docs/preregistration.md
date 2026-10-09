@@ -392,6 +392,27 @@ is 5.43 and SGD gives 5.37 (against exp 6's median 411137 steps). The error is i
 pre-registration mistake. The exponent 5.4 at N=256 (between the 4 of the signal-dominated and the 8 of the adiabatic limit) is the crossover
 the paper describes.
 
+## Transformer: attention output scale as the Γ-analogue (exp 11, backlog N11) — pre-registered 2026-10-09 before any run
+
+Motivation: exp 8 showed the final linear readout is not the transformer's Γ (kill met). In the two-block pre-LN model the context statistic
+`(1/N)Σ_i y_i φ(x_i)` is formed by softmax attention and enters the residual stream through the attention **output projection** `attn.out`
+(both blocks); its scale relative to the embedding is the closest remaining analogue of Γ (caveat fixed now: the next block's LayerNorm renormalises
+the *sum*, so the analogy is about the relative weight of the context statistic in the residual, not an exact multiplier). Same model, data,
+seeds, Adam `1e-3`, eval every 200 steps, `T_e` = first eval MSE/E[y²] < 0.5, early stop at MSE < 0.25, 30k steps, as exps 5 and 8.
+Protocols: (O1) `attn.out` weight and bias of both blocks frozen at init (`requires_grad=False`, asserted unchanged); (Os) `attn.out` weights
+scaled ×0.1 at init then frozen; (F) free = exp 5/8 rows (reused, not re-run). Cells: `N=16,B=64`; `N=16,B=1024`; `N=256,B=64`; 2 seeds; cap 6 CPU-h,
+launch priority: O1 `N=16,B=1024` → Os `N=16,B=64` → O1/Os `N=256,B=64` → Os `N=16,B=1024` → O1 `N=16,B=64`.
+
+| ID | protocol | prediction (Prop. 3 by analogy) | default |
+|---|---|---|---|
+| P24a | O1 | `N=16` stuck at **both** `B=64` and `B=1024` (trap: no `N`–`B` tradeoff); `N=256` emerges | `B=1024` rescues as in exps 5, 8 |
+| P24b | Os | `N=16, B=64` **emerges** (rescued; free/pinned readouts were stuck 2/2–3/3) within ×2 of `N=256` | still stuck |
+| P24c | O1 vs F at N=256 | emergence time within ×1.5 of free (an O(1) frozen scale does not hurt at long context) | — |
+
+Kill: P24a fails **and** P24b fails ⇒ neither readout nor attention-output scale carries the mechanism; the paper's Sec. 5 states both negative
+results and names the remaining candidate (the embedding/feature norm, the tied analogue) as untested. Either holding ⇒ partial transfer, reported
+with the LayerNorm caveat.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
