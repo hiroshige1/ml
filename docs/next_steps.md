@@ -63,3 +63,6 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
 
 - [x] (727a72b prereg; 7505ffb results; Adam slope −0.75, SGD flat; P28 failed as worded; paper v0.21) **N21 (2026-10-09, from exps 12-14). Adam makes B matter when the drift is positive? (exp 15, P28a/b)**: linear
   pinned Γ=1, N=1024, B∈{16,…,1024}: Adam slope of log T vs log B in [−0.75,−0.25] vs SGD flat. If it holds, exp 16 = transformer B-scan at N=16.
+
+- [~] (pre-registered; running) **N22 (2026-10-09, from exp 15). Transformer B-scan at N=16 (exp 16, P29)**: graded power-law B-dependence (Adam
+  mechanism) vs threshold.

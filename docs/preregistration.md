@@ -552,6 +552,23 @@ positive drift, Adam's escape time falls ≈17× from `B=16` to `B=1024` while S
 `N`–`B` interchange (exps 5, 8, 11) and is tested on the transformer itself in exp 16. The `√B` prediction was quantitatively wrong (the measured
 exponent is ≈0.75); the paper quotes the measured slope and does not claim the SNR exponent.
 
+## Transformer B-scan at N=16: is the rescue graded like Adam's in the toy? (exp 16) — pre-registered 2026-10-09 before any run
+
+Exp 15 showed that under Adam the escape time of the single-feature model falls as `B^{−0.75}` where the drift is positive, while SGD's flow time is
+`B`-invariant. If the transformer's `N=16` rescue (stuck at `B=64`, emerging at `B=1024`) is the same optimiser effect, its emergence time should be
+a graded, roughly power-law function of `B` rather than a threshold. Setting exactly exp 5/8's free protocol (`transformer_exp8.py --run free 16 B
+seed`: `d=256`, width 32, Adam `10⁻³`, 30k steps, eval every 200, `T_e` = first eval MSE/E[y²] < 0.5, early stop at 0.25), `N=16`, `B ∈ {256, 512,
+1024, 2048}`, seeds 0 and 1 (`B=1024` reused from exp 5: 14800, 10600; `B=64` from exps 5/8: stuck 4/4). 6 fresh runs, cap 4.5 CPU-h, launch order
+`B=256`, `512`, `2048`, seed 0 then 1.
+
+| ID | prediction | pass | default |
+|---|---|---|---|
+| P29 | `T_e` decreases with `B` gradually: `B=256` and `B=512` emerge (≥1/2 each) at times between `B=64`'s (∞) and `B=1024`'s, `B=2048` earlier than `B=1024`; OLS slope of `log T_e` (medians, censored = cap) vs `log B` over `B ∈ {256,…,2048}` in `[−1.2, −0.3]` | all three clauses | `B=256` and `B=512` both stuck 2/2 (threshold-like) or slope in `(−0.3, 0)` |
+
+If P29 holds, the paper states that the transformer's `N`–`B` interchange has the graded `B`-dependence that Adam produces in the solvable model
+and that SGD does not, as the mechanism candidate; the transformer is still not a test of Prop. 3. If the default holds, the interchange is
+threshold-like and the Adam mechanism is not supported there; the paper says so.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
