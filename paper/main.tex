@@ -15,7 +15,7 @@
 
 \title{Context length and readout parameterisation select the emergence exponent\\ of in-context skills in an additive model}
 \author{\todo{authors}}
-\date{Draft v0.2 --- \today}
+\date{Draft v0.3 --- \today}
 
 \begin{document}
 \maketitle
@@ -24,18 +24,17 @@
 We study how a feature-learning model acquires \emph{skills} that are presented in context. Targets are additive models
 $y=\sum_p c_p\,\sg(\langle v_p,x\rangle)$ with mean-zero task coefficients $c_p$, and a student with learned features and a
 linear-in-label attention readout must recover the directions $v_p$ by online SGD from prompts of length $N$. For a single
-skill of information exponent $k^*$ we obtain the population loss in closed form and derive three consequences. (i)~The
-in-context loss is the in-weight loss with the link squared, so the effective information exponent is $2k^*$---a fact implicit
-in one-step analyses of pretraining, which we make dynamical and test by online SGD. (ii)~A finite context adds an
-\emph{alignment-dependent} variance term that makes the unaligned state drift-stable below $m^*\approx\sqrt{2\Gamma/N}$; as a
-result, the number of prompts cannot substitute for context length, in contrast to the $N\!\cdot\!T$ trade-off of one-step
-analyses. (iii)~A trainable scalar readout relaxes to a Wiener shrinkage factor that starves feature learning and raises the
-effective exponent towards $4k^*$ as $N$ decreases, whereas a readout tied to the feature norm does not. A parameter-free
-population ODE predicts the SGD-measured exponents across readout protocols and context lengths (12/12 cells within $0.5$).
-With many skills of frequencies $\pi_p$ the dynamics decouple with emergence times $\propto 1/\pi_p$---a $1.6$--$2\times$ steeper ordering
-by frequency than in-weight learning---and additive compositions of learned skills cost nothing. In small softmax transformers the
-effect appears as a $\approx3\times$ per-token handicap of short contexts accompanied by a collapsing readout, not as a trap, and
-is invisible when the initial feature alignment is large; we report both regimes.
+skill of information exponent $k^*$ we obtain the population loss in closed form. As $N\to\infty$ it is the in-weight loss with the
+link squared (effective exponent $2k^*$, a fact implicit in one-step analyses that we make dynamical). At finite $N$ the loss
+acquires an \emph{alignment-dependent} variance term $\Gamma^2V(m)/N$, and the way the readout $\Gamma$ is parameterised decides what
+this term does: a readout pinned at order one makes the unaligned state drift-stable below $m^*$, so that more prompts cannot
+substitute for context length; a free scalar readout shrinks to a Wiener factor, which raises the effective exponent from $2k^*$
+towards $4k^*$ and restores a multiplicative trade-off between context length and training time; a readout tied to the feature
+norm removes the $N$-dependence altogether. A parameter-free population ODE reproduces the exponents measured by online SGD at
+$d=32$ for three readout protocols and four context lengths (11 of 12 cells within $0.6$, the censored cell within $1.0$). With
+many skills the dynamics decouple with emergence times $\propto1/\pi_p$, and additive compositions of learned skills cost nothing.
+In small softmax transformers we find a $\approx3\times$ per-token handicap of short contexts in the small-alignment regime and the
+opposite ordering when the initial alignment is large; these observations are consistent with, but do not test, the mechanism.
 \end{abstract}
 
 \section{Introduction}
@@ -57,26 +56,28 @@ sharp---one or several skills with $k^*=2$ (even links, where in-weight learning
 and a linear-in-label readout, online SGD---and then test the predictions outside the solvable model.
 
 \paragraph{Contributions.}
-(1)~\textbf{Closed form.} The population in-context loss of a single feature is $L_A(m)=1-2\Gamma g(m)^2+\Gamma^2 g(1)\big[(1-\tfrac1N)g(m)^2+V(m)/N\big]$,
-where $m$ is the overlap with the skill direction, $g(m)=\E[\sg(\langle v,x\rangle)\sg(\langle w,x\rangle)]$ and $V(m)=\E[\sg^2\sg^2]$ (Prop.~\ref{prop:loss}).
-As $N\to\infty$ it is the in-weight loss with $g\mapsto g^2$: the effective exponent is $2k^*$. The $m^{2k^*-1}$ gradient is
-present inside the one-step analysis of \citet[Lemma~21]{oko2024pretrained}; we make the statement dynamical and verify it by
-online SGD, including the $k^*=2$ case excluded from \citet{ren2025emergence}.
-(2)~\textbf{Finite context creates a drift-stable unaligned state} (Prop.~\ref{prop:repulsion}): the term $\Gamma^2V(m)/N$ grows with
-alignment, so for $k^*\ge2$ the origin is stable below $m^{*}$ with $m^{*2}=16\Gamma/\big(N(8-4\Gamma(1-\tfrac1N)-24\Gamma/N)\big)$. Under SGD
-the threshold is soft (noise-activated escape), and increasing the number of prompts per step does not remove it (Fig.~\ref{fig:threshold}).
-(3)~\textbf{The readout parameterisation selects the exponent} (Prop.~\ref{prop:shrink}): a free scalar readout relaxes to the Wiener value
-$\Gamma^*(m)=g^2/\big((1-\tfrac1N)g^2+V/N\big)$ and multiplies the feature gradient, giving effective exponent $4k^*$ where the context statistic
-is noise-dominated ($d\gg N^{1/k^*}$), while a readout tied to the feature norm has norm-independent directional dynamics and stays at
-$2k^*$. The population ODE predicts the SGD exponents measured at $d=32$ for three readout protocols and four context lengths
-(Fig.~\ref{fig:kappa}).
-(4)~\textbf{Many skills and composition.} With a power-law dictionary the dynamics decouple with $T_p\propto1/\pi_p$ (measured slope
-$1.44$--$1.53$ for $\pi_p\propto p^{-1.5}$), $1.6$--$2\times$ the in-weight slope; additive compositions of learned skills emerge with the slower
-skill and cost no extra time, product compositions are not learned.
-(5)~\textbf{Transformers.} In a two-layer softmax transformer in the small-alignment regime ($d=256$, width 32) a context of 16
-with $16\times$ the prompts emerges $\approx3\times$ later than a context of 256 at equal tokens per step, and the readout norm collapses
-while the skill is unlearned; at $d=32$, width 256 (large initial alignment) the ordering reverses. We report both as the boundary of
-the mechanism.
+(1)~\textbf{Closed form.} The population in-context loss of a single feature is
+$L_A(m)=1-2\Gamma g(m)^2+\Gamma^2 g(1)\big[(1-\tfrac1N)g(m)^2+V(m)/N\big]$, where $m$ is the overlap with the skill direction,
+$g(m)=\E[\sg(\langle v,x\rangle)\sg(\langle w,x\rangle)]$ and $V(m)=\E[\sg^2\sg^2]$ (Prop.~\ref{prop:loss}). As $N\to\infty$ it is the in-weight loss with
+$g\mapsto g^2$: the effective exponent is $2k^*$. The $m^{2k^*-1}$ gradient is inside the one-step analysis of
+\citet[Lemma~21]{oko2024pretrained} (and depends on parameterisation and initialisation, cf.\ \citet{nishikawa2025nonlinear}); we make
+the statement dynamical and verify it by online SGD, including the $k^*=2$ case excluded from \citet{ren2025emergence}.
+(2)~\textbf{The finite-context term and the readout} (Props.~\ref{prop:repulsion}--\ref{prop:shrink}). $\Gamma^2V(m)/N$ grows with
+alignment. With $\Gamma$ pinned at order one the origin is drift-stable below $m^*$, $m^{*2}=16\Gamma/\big(N(8-4\Gamma(1-\tfrac1N)-24\Gamma/N)\big)$;
+under SGD the threshold is soft, and more prompts per step do not remove it (Fig.~\ref{fig:threshold}). With a free scalar
+readout, $\Gamma$ relaxes to the Wiener value $\Gamma^*(m)=g^2/\big(g(1)[(1-\tfrac1N)g^2+V/N]\big)$, which multiplies the feature gradient:
+the effective exponent rises from $2k^*$ towards $4k^*$ as the context statistic becomes noise-dominated, and the escape time scales
+as $1/N$ there---the multiplicative trade-off of one-step analyses~\citep[Remark~3]{oko2024pretrained} reappears, now as a
+consequence of shrinkage. With the readout tied to the feature norm (the 2-homogeneous student of \citet{ren2025emergence}) the
+directional dynamics are norm-independent (their Lemma~B.1) and the $N$-dependence disappears. The population ODE predicts the
+exponents measured by SGD at $d=32$ (Fig.~\ref{fig:kappa}).
+(3)~\textbf{Many skills and composition.} With a power-law dictionary the dynamics decouple with $T_p\propto1/\pi_p$ (measured slope
+$1.44$--$1.53$ for $\pi_p\propto p^{-1.5}$) against $0.75$--$0.89$ for two in-weight baselines, a corollary of (1); additive compositions of
+learned skills emerge with the slower skill, by linearity.
+(4)~\textbf{Transformers.} In a two-layer softmax transformer with small initial alignment ($d=256$, width 32) a context of 16
+with $16\times$ the prompts emerges $\approx3\times$ later than a context of 256 at equal tokens per step; with large initial alignment
+($d=32$, width 256) the ordering reverses. Neither pre-registered extreme (a trap; interchangeability) held; we report both as
+observations.
 
 \section{Setting}
 \label{sec:setup}
@@ -153,20 +154,35 @@ drift is $(1-m^2)\big[4gg'-\rho(2(1-\tfrac1N)gg'+V'/N)\big]$---the attraction do
 $\rho$ small; the effective exponent is $2k^*$ for every $N$, while the repulsion of Prop.~\ref{prop:repulsion} survives.
 \end{proposition}
 The static value $\Gamma^*$ is the ridge/Wiener optimum that appears in replica analyses of trained
-models~\citep[eq.~(298)]{gu2026incontext}; our point is its \emph{dynamical} effect: the optimal readout shrinks an untrustworthy
-context statistic, and the shrunken readout multiplies the feature gradient, so feature learning is starved exactly when the
-context is too short to make the feature useful. That a fast readout doubles the exponent of an in-weight problem is known
-\citep[\S5]{bietti2023learning}; what is specific to the in-context problem is that the finite-context noise makes the readout
-fast, pins it at $\Gamma^*$, and makes the outcome depend on whether the readout can shrink independently of the feature norm.
+models~\citep[eqs.~(297)--(298)]{gu2026incontext}; our point is its \emph{dynamical} effect. Integrating the population flow from
+$m_0=d^{-1/2}$ gives three different $N$-dependences of the escape time for the same loss: (i)~\emph{pinned} readout ($\Gamma=0.1$):
+$T$ saturates in $N$ and diverges (trap) when $d$ exceeds $d^*(N)$---$T=197,96,88,86$ at $d=128$ and $\infty,771,386,352$ at $d=512$
+for $N=32,128,512,2048$; (ii)~\emph{free} readout: in the noise-dominated regime $T\cdot N\approx\mathrm{const}$ ($2.9,2.8,2.75\times10^6$ at
+$d=512$, $N=32,128,512$), i.e.\ exactly the multiplicative $N$--$T$ trade-off of \citet[Remark~3]{oko2024pretrained}, crossing over to
+$N$-independence where the statistic is signal-dominated ($d=32$: $53,37,34,33$); (iii)~\emph{tied} readout: $T$ independent of $N$
+($1.96,1.94,1.94,1.94$ at $d=32$; $39,34,33,33$ at $d=512$). That a fast readout doubles the exponent of an in-weight problem is
+known~\citep[\S5]{bietti2023learning}; what is specific to the in-context problem is that the finite-context noise makes the
+readout fast and pins it at $\Gamma^*$, so that \emph{whether context length trades off against training time, is irrelevant, or is a
+hard requirement is decided by how the readout is parameterised}. One-step analyses sit in case (ii) by construction: the readout
+is initialised at $\gamma\propto d^{-k^*}$~\citep[Lemma~18]{oko2024pretrained}, which also makes $\Gamma^2V/N$ negligible.
 
 \paragraph{Experiment 1 (exponents by SGD).}
 Online SGD, $\sg_2$, $d=32$, $\eta=1/d^2$, initial overlap $m_0=c\,d^{-1/2}$, $c\in\{0.5,0.7,1,1.4\}$, three seeds each; the escape
-time from $m_0$ scales as $m_0^{-(\kappa-2)}$ for $\kappa>2$, so the slope of $\log T_{0.5}$ against $\log m_0$ measures $\kappa_{\rm eff}=2-\text{slope}$.
-Fig.~\ref{fig:kappa} shows $\kappa_{\rm eff}$ for free ($\eta_\Gamma=\eta$ and $10\eta$) and tied readouts at $N\in\{32,128,512,4096\}$ against the
-population ODE of Props.~\ref{prop:loss}--\ref{prop:shrink} evaluated at the same $d$, $m_0$-grid, $\Gamma_0$ and $\eta_\Gamma/\eta$: tied
-$4.10$--$4.44$ (ODE $4.15$--$4.18$); free $4.8$--$6.6$ rising as $N$ falls (ODE $4.85$--$7.0$); every cell within $\approx0.2$--$0.5$, the $N=32$
-cells biased low by censoring. The in-weight model at the same $k^*$ gives a logarithmic $m_0$-dependence ($\kappa=2$). The
-pre-registered asymptotes $4\to8$ are the $d\to\infty$ limits; at $d=32$ the same ODE predicts $4.85\to7.0$, which is what SGD shows.
+time from $m_0$ scales as $m_0^{-(\kappa-2)}$ for $\kappa>2$, so the slope of $\log T_{0.5}$ against $\log m_0$ estimates $\kappa_{\rm eff}=2-\text{slope}$
+(12 runs per cell; the estimator is coarse and the censored cells are biased low). Fig.~\ref{fig:kappa} shows $\kappa_{\rm eff}$ for free
+($\eta_\Gamma=\eta$ and $10\eta$) and tied readouts at $N\in\{32,128,512,4096\}$ against the population ODE of
+Props.~\ref{prop:loss}--\ref{prop:shrink} evaluated \emph{after the run} at the same $d$, $m_0$-grid, $\Gamma_0$ and $\eta_\Gamma/\eta$ (the ODE
+itself was fixed before the run; its evaluation at these parameters was not pre-registered): tied $4.10$--$4.44$ (ODE $4.15$--$4.18$); free
+$4.8$--$6.6$ rising as $N$ falls (ODE $4.85$--$7.0$). Eleven of twelve cells agree within $0.6$; the free-readout cell at $N=32$,
+$\eta_\Gamma=\eta$, with 3 of 12 runs censored, is $1.0$ below the ODE ($0.55$ if censored runs are set to the cap). The ODE also
+reproduces the absolute escape times (free, $N=128$: $565/113/36/13$ steps$\cdot\eta$ measured vs $473/120/37/13$ predicted). The
+in-weight model at the same $k^*$ gives a logarithmic $m_0$-dependence ($\kappa=2$). The pre-registered asymptotes $4\to8$ are the
+$d\to\infty$ limits; at $d=32$ the same ODE predicts $4.85\to7.0$. Two pre-registered predictions in this experiment failed and are
+reported as such: the learned $\Gamma$ at $T_{0.5}$ is $0.18$--$0.25$, below $\Gamma^*(0.5;N)=0.38$--$0.99$ (the readout has not equilibrated at
+$\eta_\Gamma=\eta$; the exponent prediction does not depend on this), and a scan of $T_{0.5}$ against $d\le48$ at $N=128$ versus $2048$ showed
+no $N$-dependence (slopes $3.49\pm0.08$ vs $3.70\pm0.21$), which is what the ODE predicts for $d\le48$ but means the $N$-dependence is
+established only through $\kappa_{\rm eff}(N)$ at fixed $d$. With the tied readout at $\rho_0=1$, $N=128$, the natural O(1)-readout
+version of Prop.~\ref{prop:repulsion}, $d=32$ escaped ($3/3$) while $d=64$ was trapped ($0/3$, $\rho$ decaying to $0.18$).
 
 \begin{figure}[t]
 \centering
@@ -192,7 +208,8 @@ more prompts do not substitute for context length.}
 Fig.~\ref{fig:many} summarises Exps.~2--3. With $P$ orthogonal skills and $M\ge P$ features the loss splits, when each feature is assigned to one skill, into
 $\sum_p\pi_p s_p^2\,\ell(m_p)$ with $\ell$ the single-skill loss; each overlap then follows the single-feature dynamics with rate
 $\propto\pi_ps_p^2\Gamma$, so $T_p\propto1/\pi_p$. In-weight learning of the same dictionary carries the coefficient $a_p$ (with
-$a_p^2\propto\pi_p$), hence $T_p\propto1/a_p\propto\pi_p^{-1/2}$: \emph{in-context learning orders skills by frequency about twice as steeply} (measured $1.6$--$2\times$).
+$a_p^2\propto\pi_p$), hence $T_p\propto1/a_p\propto\pi_p^{-1/2}$: in-context learning orders skills by frequency about twice as steeply---a corollary of the squared link,
+since the in-context drift carries $\E c_p^2\,\pi_p$ and the in-weight drift carries $a_p$.
 \textbf{Experiment 2} ($d=32$, $P=16$, $\pi_p\propto p^{-1.5}$, $M=64$, fixed $\Gamma=0.1$, three seeds) gives slopes of $\log T_p$ versus $\log p$ of
 $1.44\pm0.08$ (drop midpoints; $1.53\pm0.22$ with the $0.5$-crossing) for the in-context model, against $0.75\pm0.08$ for a capacity-matched in-weight baseline and $0.75$--$0.89$ for the
 2-homogeneous in-weight student of \citet{ren2025emergence} (small initialisation, no hand-chosen readout; the lower value is
@@ -212,8 +229,9 @@ identically, and for independent mean-zero $c_1,c_2$ the loss on an additive pai
 single-skill prompts only ($d=32$, $P=2$, $\pi=0.75/0.25$, $M=4$), the pair loss reaches $90\%$ of its drop before or together with the
 slower skill in every run (never after), in contrast to the extra delay for tuples predicted by \citet{arora2023theory}; the
 thresholded pair accuracy is approximately the product of the single-skill accuracies ($\mathrm{acc}_{12}\approx0.85\,\mathrm{acc}_1\mathrm{acc}_2+0.09$, r.m.s.\
-$0.008$ from $y=x$)---the multiplicative emergence observed empirically by \citet{okawa2023compositional}---while a Gaussian-error
-closed form fails (heavy tails). A product composition $\sg_1(\langle v_1,x\rangle)\sg_1(\langle v_2,x\rangle)$ is never learned (loss $\approx1$).
+$0.008$ from $y=x$)---the multiplicative form observed empirically by \citet{okawa2023compositional}, and a delay of the kind
+\citet{arora2023theory} describe---while a Gaussian-error closed form fails (heavy tails). A product composition
+$\sg_1(\langle v_1,x\rangle)\sg_1(\langle v_2,x\rangle)$ is not learned (loss $\approx1$), as expected for a model never shown product prompts.
 
 \begin{figure}[t]
 \centering
@@ -245,11 +263,11 @@ of 256 random first-layer directions already has $|\cos|=0.43$--$0.55$ with $v$)
 \emph{increases} with $N$ ($1000/1400/2800$ for $N=16/64/256$)---fewer prompts per step dominate and the mechanism is invisible, as it
 must be when $m_0\gg m^*$. \textbf{Small initial alignment} ($d=256$, width 32; $|\cos|_0=0.13$--$0.18$): $N=16$ with $B=64$ prompts never
 emerges in $30$k steps ($3/3$); $N=16$ with $B=1024$ (the same tokens per step as $N=256$, $B=64$) emerges in all seeds but at
-$10.6$--$14.8$k steps, $\approx3\times$ later than $N=256$ ($2.8$--$4.0$k); while a run is stuck its final readout norm collapses from $0.57$ to
-$0.03$--$0.16$, and the first norm logged after emergence is back at $1.7$. Neither pre-registered extreme (a trap, or interchangeability of $N$ and $B$) holds: in the
-transformer, context tokens are worth $\approx3\times$ more than prompt tokens for acquiring an even skill, and the readout shrinks
-while the skill is unlearned. We state this as an observation consistent with---not a confirmation of---the mechanism of
-Sec.~\ref{sec:single}; $k^*=1$ and in-weight controls emerge within $1.4$k and $0.4$k steps.
+$10.6$--$14.8$k steps, $\approx3\times$ later than $N=256$ ($2.8$--$4.0$k); while a run is on the plateau its final readout norm collapses from $0.57$ to
+$0.03$--$0.16$ (in stuck and emerging runs alike), and the first norm logged after emergence is back at $1.7$. Neither pre-registered extreme (a trap, or interchangeability of $N$ and $B$) holds; the $\approx3\times$ ratio rests on two paired seeds,
+the Adam step was not rescaled with $B$, and the readout collapse is identical in stuck and later-emerging runs (Fig.~\ref{fig:transformer}b),
+so it is plateau behaviour rather than a signature of Prop.~\ref{prop:shrink}. We state the result as an observation consistent
+with---not a test of---the mechanism of Sec.~\ref{sec:single}; $k^*=1$ and in-weight controls emerge within $1.4$k and $0.4$k steps.
 
 \section{Related work}
 \label{sec:related}
@@ -259,15 +277,18 @@ consequence of correlational information; their Remark~3 states the $N_1$--$T_1$
 Fig.~\ref{fig:threshold} contradict beyond the one-step regime. \citet{nishikawa2025nonlinear} show that softmax's label
 nonlinearity lowers the \emph{inference-time} context length to the generative exponent while one-step pretraining stays at
 $d^{\Theta(\mathrm{ie})}$. \citet{gu2026incontext} derive, by the replica method for trained models with $k^*=1$, the kernel-vs-feature
-context-length scalings and the static shrinkage $\Gamma^*$; they list jointly trained readouts and $k^*\ge2$ as open, which is where our
-results sit. \citet{kim2024transformers} note that at finite sample size the ICL landscape may acquire a spurious minimum at the
+context-length scalings (their feature learner has a single transition at $N=\Theta(d)$, the same scaling as our $d^*(N)$ but for
+inference, not for feature emergence) and the static shrinkage $\Gamma^*$ (their eqs.~(297)--(298)); they list jointly trained readouts
+and $k^*\ge2$ as open, which is where our results sit. \citet{kim2024transformers} note that at finite sample size the ICL landscape may acquire a spurious minimum at the
 origin (their App.~C.4), a qualitative precursor of Prop.~\ref{prop:repulsion}. \citet{ren2025emergence} treat the additive model
-in-weight for even links with $k^*>2$ with a 2-homogeneous student; our tied protocol is theirs, and $k^*=2$ is outside their
-assumptions. The doubling of the exponent by a fast link is in \citet[\S5]{bietti2023learning} and \citet{bietti2022learning}.
+in-weight for even links with $k^*>2$ with a 2-homogeneous student; our tied protocol is theirs, the norm-independence of the
+directional dynamics is their Lemma~B.1, and $k^*=2$ is outside their assumptions (a companion work treats the quadratic case
+in-weight~\citep{benarous2025quadratic}). The doubling of the exponent by a fast link is in \citet[\S5]{bietti2023learning} and \citet{bietti2022learning}.
 \citet{zhang2024incontext} prove, for linear regression, that the task mean is learned in-weight by the MLP and the covariance
 in-context. Skill-based accounts of emergence~\citep{michaud2023quantization,nam2024exactly,arora2023theory,okawa2023compositional}
-are in-weight; our composition result is the label-linear in-context counterpart. Compositions that are not output-additive need
-extra structure~\citep{kobayashi2024compositional,wang2026power,he2024learning}.
+are in-weight; our composition result is the label-linear in-context counterpart. Compositions that are not output-additive need extra structure~\citep{kobayashi2024compositional,wang2026power}; \citet{he2024learning}
+show that even a label-linear in-context algorithm is not free when the network must discover it against an in-weight memoriser,
+whereas in~\eqref{eq:modelA} linearity in the labels is built in.
 
 \section{Limitations}
 \label{sec:limits}

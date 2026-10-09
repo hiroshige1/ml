@@ -264,6 +264,13 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-09 v0.13: adversarial review (`docs/review_adversarial.md`, score 5/10) acted on: (a) "12/12 within 0.5" corrected to 11/12 within
+  0.6 and one censored cell at 1.0; post-hoc ODE evaluation now disclosed in the paper; (b) the N–T non-substitutability claim restricted
+  to pinned readouts — with a free readout the ODE gives `T·N ≈ const` in the noise-dominated regime (Oko Remark 3 recovered); (c) omitted
+  adverse evidence (P5 fail, d-scan no N-dependence, P4′ `ρ_0=1, d=32` escape) put in the paper; (d) many-skill/composition results
+  relabelled as corollaries/identities; (e) transformer readout-collapse "signature" withdrawn (identical in stuck and emerging runs);
+  (f) abstract `m*` formula and `Γ*` `g(1)` factor fixed; (g) related work: Ren Lemma B.1, Gu eq. 297 and `L=Θ(d)`, Nishikawa caveat, He
+  et al. recast, BAEVW25 (check pending).
 - 2026-10-09 v0.12: exp 2 outcome recorded — P16, P17 held; P18 held for A, failed for B (collective-fit baseline); B-readout deviation declared.
 - 2026-10-09 v0.11: P16–P18 (exp 2, many-skill scaling) pre-registered before the run.
 - 2026-10-09 v0.10: exp 5 outcome recorded — P11b: both rival and default failed; intermediate (≈3× handicap, not a trap); scope fixed.
