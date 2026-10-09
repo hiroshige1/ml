@@ -1,0 +1,13 @@
+d=128 m0=0.0884 eta=6.104e-05
+pinned g=1.0 N=16: TRAPPED (m*=0.6030 >= m0)
+pinned g=1.0 N=64: TRAPPED (m*=0.2604 >= m0)
+pinned g=1.0 N=256: TRAPPED (m*=0.1262 >= m0)
+pinned g=0.1 N=16: TRAPPED (m*=0.1157 >= m0)
+pinned g=0.1 N=64: tau=110.1 steps=1.8e+06  m*=0.0575
+pinned g=0.1 N=256: tau=88.98 steps=1.46e+06  m*=0.0287
+tied rho0=0.01 N=16: tau=8.764 steps=1.44e+05 rho_T=0.01092
+tied rho0=0.01 N=64: tau=8.196 steps=1.34e+05 rho_T=0.01135
+tied rho0=0.01 N=256: tau=8.067 steps=1.32e+05 rho_T=0.01146
+free G0=0.01 r=1 N=16: tau=3064 steps=5.02e+07
+free G0=0.01 r=1 N=64: tau=803.4 steps=1.32e+07
+free G0=0.01 r=1 N=256: tau=327.9 steps=5.37e+06

@@ -342,6 +342,26 @@ steps, median/ODE = 1.007 (was 1.18 at η=2·10⁻⁴): the excess was discretis
 hypothesised; the 14% overshoot at B=256 is inside the 3-seed spread (±12%) but outside the declared 10% band, so the flow is confirmed only to
 ≈15% at this m₀. Net: with discretisation and noise controlled, the k=3 tied flow reproduces SGD within 15% at all three d.
 
+## Three regimes at a second `d` (exp 10, backlog N2) — pre-registered 2026-10-09 before any run; ODE numbers from `scripts/ode_exp10.py` (`results/exp10/ode_predictions.txt`)
+
+Setting: exp 6's protocols unchanged (`σ_2`, `m_0 = d^{-1/2}` exactly, `η = 1/d²`, `B = 64`, early stop `|m| ≥ 0.5`), now at **`d = 128`**
+(`m_0 = 0.0884`, `η = 6.1·10⁻⁵`). Cells: (a) pinned `Γ=1`, `N ∈ {16,64,256}`, 2 seeds, cap `10⁶` steps; (b) pinned `Γ=0.1`, `N ∈ {16,64,256}`,
+3 seeds, cap `2.5·10⁶`; (c) tied `ρ_0 = 0.01`, `N ∈ {16,64,256}`, 3 seeds, cap `10⁶`; (d) free `Γ_0 = 0.01`, `η_Γ = η`, `N = 256` only (budget),
+2 seeds, cap `1.2·10⁷`. Total cap 5 CPU-h. The point of the run: the `d`-dependence of the regime boundaries. At `d = 64` (exp 6) pinned
+`Γ=0.1` escaped at every `N`; the threshold `d*(N) = N(8−4γ(1−1/N)−24γ/N)/(16γ)` gives `d*(16) = 76`, `d*(64) = 304`, `d*(256) = 1216`, so at
+`d = 128` the `N=16` cell must flip to trapped while `N=64, 256` still escape.
+
+| ID | cell | ODE prediction | pass criterion | default |
+|---|---|---|---|---|
+| P23a | (a) pinned Γ=1 | trapped at all three `N` (`m* = 0.60, 0.26, 0.126 > m_0`; `d*(256) = 63 < 128`) | censored 2/2 at every `N` | `N=256` escapes |
+| P23b | (b) pinned Γ=0.1 | **`N=16` trapped** (`m* = 0.116 > m_0`), `N=64`: τ = 110.1 → 1.80·10⁶ steps, `N=256`: τ = 89.0 → 1.46·10⁶ (ratio 1.24: `N`-saturating, not `1/N`) | `N=16` censored ≥ 2/3 at 2.5·10⁶; `N=64, 256` medians within 15% | `N=16` escapes 3/3 (no `d`-dependence of the trap) |
+| P23c | (c) tied | τ = 8.76 / 8.20 / 8.07 → 1.44·10⁵ / 1.34·10⁵ / 1.32·10⁵ steps; `N`-flat (ratio 16/256 = 1.09); `ρ(T) ≈ 0.011` | medians within 15%; ratio within ±0.15 of 1.09 | ratio > 2 |
+| P23d | (d) free N=256 | τ = 327.9 → 5.37·10⁶ steps; against exp 6's `d=64` value (τ = 50.1) the secant exponent over `d` is `κ = 2 − ln(327.9/50.1)/ln(2^{-1/2}) = 7.4` (crossover regime, between 4 and 8) | median within 15%; secant within ±0.5 of 7.4 | secant ≤ 4.5 or ≥ 8.5 |
+
+Honest caveats fixed now: the SGD trap is soft, so P23b's `N=16` (`m_0/m* = 0.76`) may escape in one seed; P23a's `N=256` has `m_0/m* = 0.70`
+and the same caveat. The free cell is long (`5·10⁶` steps at `η = 6·10⁻⁵`); if the 5 CPU-h cap is hit the second free seed is dropped and
+reported as such. Kill for the "trap for `d > d*(N)`" statement: P23b `N=16` escapes 3/3 **and** P23a `N=256` escapes 2/2.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
