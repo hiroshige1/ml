@@ -15,7 +15,7 @@
 
 \title{Context length and readout parameterisation select the emergence exponent\\ of in-context skills in an additive model}
 \author{\todo{authors}}
-\date{Draft v0.5 --- \today}
+\date{Draft v0.6 --- \today}
 
 \begin{document}
 \maketitle
@@ -32,7 +32,7 @@ substitute for context length; a free scalar readout shrinks to a Wiener factor,
 towards $4k^*$ and restores a multiplicative trade-off between context length and training time; a readout tied to the feature
 norm removes the $N$-dependence altogether. A parameter-free population ODE reproduces the exponents measured by online SGD at
 $d=32$ for three readout protocols and four context lengths (11 of 12 cells within $0.6$, the censored cell within $1.0$). With
-many skills the dynamics decouple with emergence times $\propto1/\pi_p$, and additive compositions of learned skills cost nothing.
+many skills the dynamics decouple with emergence times $\propto1/\pi_p$; additive compositions of learned skills follow by linearity.
 In small softmax transformers we find a $\approx3\times$ per-token handicap of short contexts in the small-alignment regime and the
 opposite ordering when the initial alignment is large; these observations are consistent with, but do not test, the mechanism.
 \end{abstract}
@@ -65,10 +65,11 @@ the statement dynamical and verify it by online SGD, including the $k^*=2$ case 
 (2)~\textbf{The finite-context term and the readout} (Props.~\ref{prop:repulsion}--\ref{prop:shrink}). $\Gamma^2V(m)/N$ grows with
 alignment. With $\Gamma$ pinned at order one the origin is drift-stable below $m^*$, $m^{*2}=16\Gamma/\big(N(8-4\Gamma(1-\tfrac1N)-24\Gamma/N)\big)$;
 under SGD the threshold is soft, and more prompts per step do not remove it (Fig.~\ref{fig:threshold}). With a free scalar
-readout, $\Gamma$ relaxes to the Wiener value $\Gamma^*(m)=g^2/\big(g(1)[(1-\tfrac1N)g^2+V/N]\big)$, which multiplies the feature gradient:
-the effective exponent rises from $2k^*$ towards $4k^*$ as the context statistic becomes noise-dominated, and the escape time scales
-as $1/N$ there---the multiplicative trade-off of one-step analyses~\citep[Remark~3]{oko2024pretrained} reappears, now as a
-consequence of shrinkage. With the readout tied to the feature norm (the 2-homogeneous student of \citet{ren2025emergence}) the
+readout, $\Gamma$ moves towards the Wiener value $\Gamma^*(m)=g^2/\big(g(1)[(1-\tfrac1N)g^2+V/N]\big)$ and multiplies the feature gradient:
+the effective exponent rises from $2k^*$ towards $4k^*$ as the context statistic becomes noise-dominated; in the adiabatic limit the
+escape time scales as $1/N$ there---the multiplicative trade-off of one-step analyses~\citep[Remark~3]{oko2024pretrained} reappears
+as a consequence of shrinkage---and at finite readout learning rates the ODE gives an intermediate, parameter-dependent $N$-dependence
+that we test prospectively. With the readout tied to the feature norm (the 2-homogeneous student of \citet{ren2025emergence}) the
 directional dynamics are norm-independent (their Lemma~B.1) and the $N$-dependence disappears. The population ODE predicts the
 exponents measured by SGD at $d=32$ (Fig.~\ref{fig:kappa}).
 (3)~\textbf{Many skills and composition.} With a power-law dictionary the dynamics decouple with $T_p\propto1/\pi_p$ (measured slope
@@ -95,7 +96,11 @@ dictionary of $P$ skills and single-skill prompts, skill $p$ appears with freque
 the MLP-plus-linear-attention architecture of \citet{oko2024pretrained}. We consider three readout protocols: \emph{fixed}
 $\Gamma_j=\gamma$; \emph{free}, a trainable scalar; and \emph{tied}, $\Gamma_j=\|u_j\|^2$ with $w_j=u_j/\|u_j\|$ (the 2-homogeneous
 student of \citet{ren2025emergence}). \textbf{Model B (in-weight)} is ordinary regression $\hat y=\sum_j a_j\phi_j(x)$ on the fixed
-task $c\equiv a$. Both are trained by online spherical SGD on the square loss with fresh data at every step.
+task $c\equiv a$. Both are trained by online spherical SGD on the square loss with fresh data at every step: $B$ prompts per step, step size
+$\eta$ on the features (renormalised to the sphere after each step), step size $\eta_\Gamma$ on a free readout initialised at $\Gamma_0$,
+and for the tied readout an unnormalised $u$ with $\|u_0\|^2=\rho_0$. We report escape times $T_{0.5}$ (steps until $|m|\ge\tfrac12$) and
+their \emph{flow-time} version $T_{0.5}\,\eta$, which is what the population ODEs predict; the single-feature experiments initialise
+at $m_0=c\,d^{-1/2}$ exactly.
 
 Write $g(m)=\sum_k\alpha_k^2m^k$ for $\sg=\sum_k\alpha_k\sg_k$ and $V(m)=\E[\sg(\langle v,x\rangle)^2\sg(\langle w,x\rangle)^2]=\sum_j\beta_j^2m^j$
 where $\sg^2=\sum_j\beta_j\sg_j$. For $\sg_2$: $g=m^2$, $V=1+8m^2+6m^4$.
@@ -121,8 +126,8 @@ $k^*\in\{1,2,3\}$: all 24 points agree within $2.3$ s.e.\ and within $3\%$ for $
 
 \paragraph{The link is squared.} As $N\to\infty$, $L_A=L_B[g\mapsto g^2]$. Near $m=0$ the drift is $4\Gamma s^2k^*\alpha_{k^*}^4m^{2k^*-1}$ against
 $2ak^*\alpha_{k^*}^2m^{k^*-1}$ for Model B: the label enters the prediction twice---through the context statistic and through the
-comparison with $y_q$---and the mean-zero task prior removes the cross terms that would provide a degree-$k^*$ path. (A bias added
-to $A_j$ restores an in-weight path of exponent $k^*$ for the \emph{mean} task only; cf.\ \citet{zhang2024incontext} for the linear case.)
+comparison with $y_q$---and the mean-zero task prior removes the cross terms that would provide a degree-$k^*$ path. (A bias added to $A_j$ would give an in-weight path for the \emph{mean} task only, cf.\ \citet{zhang2024incontext} for the linear case;
+we do not analyse it here.)
 With the escape heuristics of \citet{benarous2021online} (drift $\eta Cm^{\kappa-1}$, renormalisation drag $-\eta^2dm/2$) the
 timescales are $d^{\kappa-1}$ with $\kappa=2k^*$: for $k^*=2$, in-weight needs $d\log d$ samples and in-context $d^3$.
 
@@ -147,22 +152,27 @@ Larger batches lower $D_{\rm eff}$ and \emph{deepen} the trap.
 
 \begin{proposition}[Readout parameterisation: three regimes]
 \label{prop:shrink}
-Let $k^*\ge2$, $m_0=d^{-1/2}$, and write $\tau_{\rm esc}$ for the population escape time to $m=\tfrac12$.
+Consider the population gradient flow of~\eqref{eq:LA} for $\sg=\sg_2$ in flow time $t=\eta\cdot\text{steps}$, started at $m_0=d^{-1/2}$,
+and let $\tau_{\rm esc}$ be the time to reach $m=\tfrac12$.
 \begin{enumerate}
-\item[(a)] \emph{Pinned readout} $\Gamma=\gamma$ fixed. If $m_0<m^*(\gamma,N)$ of Prop.~\ref{prop:repulsion} the drift is repulsive and
-$\tau_{\rm esc}=\infty$ (escape only by noise activation); otherwise $\tau_{\rm esc}\asymp m_0^{-(2k^*-2)}$ with a prefactor that saturates in $N$.
-Neither more prompts per step nor more steps change the condition, which involves $N$ alone.
-\item[(b)] \emph{Free scalar readout} trained at rate $\eta_\Gamma$. $\Gamma$ relaxes at rate $\approx2\eta_\Gamma g(1)V(m)/N$---fast relative to the overlap
-dynamics as soon as $N<\infty$---to $\Gamma^*(m)=g^2/\big(g(1)[(1-\tfrac1N)g^2+V/N]\big)$. Along $\Gamma^*$ the overlap sees the effective loss
-$L_A(m,\Gamma^*)=s^2\big[1-g^4/\big(g(1)[(1-\tfrac1N)g^2+V/N]\big)\big]$, whose exponent is $4k^*$ while $g(m)^2\ll V(m)/N$ (noise-dominated
-statistic, $m\ll N^{-1/(2k^*)}$) and $2k^*$ beyond. In the noise-dominated regime the drift is $\propto N$, so $\tau_{\rm esc}\propto 1/N$: context
-length and training time trade off multiplicatively; in the signal-dominated regime $\tau_{\rm esc}$ is independent of $N$.
+\item[(a)] \emph{Pinned readout} $\Gamma=\gamma$. The overlap drift is $(8\gamma-4\gamma^2(1-\tfrac1N)-24\gamma^2/N)m^3-16\gamma^2m/N$ (Prop.~\ref{prop:repulsion}).
+If $m_0<m^*(\gamma,N)$ then $\tau_{\rm esc}=\infty$; otherwise $\tau_{\rm esc}=\Theta(m_0^{-2})$ with an $N$-dependence that saturates for $N\gg\gamma d$.
+The condition involves $N$ and $\gamma$ only---not the number of prompts per step, which does not enter the population drift.
+\item[(b)] \emph{Free scalar readout} $\dot\Gamma=-r\,\partial_\Gamma L_A$, $r=\eta_\Gamma/\eta$, $\Gamma(0)=\Gamma_0$. The fixed point of $\Gamma$ at given $m$ is
+$\Gamma^*(m)=g^2/\big(g(1)[(1-\tfrac1N)g^2+V/N]\big)$, approached at rate $2r\,g(1)[(1-\tfrac1N)g^2+V/N]\approx2r/N$. \emph{Adiabatic case}
+($2r/N\gg$ the overlap rate): the overlap sees $L_A(m,\Gamma^*)$, whose exponent is $4k^*$ for $m^{2k^*}\ll V/N$ and $2k^*$ otherwise, and in the
+former regime $\tau_{\rm esc}\propto m_0^{-(4k^*-2)}/N$ (Appendix~\ref{app:deriv}). \emph{Growth-limited case} ($2r/N\lesssim$ the overlap rate, which
+holds for all parameters used in our SGD runs): $\Gamma$ lags $\Gamma^*$ and $\tau_{\rm esc}$ depends on $(N,\Gamma_0,r)$ jointly; the ODE gives intermediate
+$N$-dependences (e.g.\ $\tau(16)/\tau(256)=4.4$ at $d=64$, $\Gamma_0=0.01$, $r=1$, against $16$ in the adiabatic $1/N$ law).
 \item[(c)] \emph{Tied readout} $\Gamma=\rho=\|u\|^2$, features $\sg(\langle u/\|u\|,x\rangle)$. The directional velocity is
-$(1-m^2)\big[4gg'-\rho\,(2(1-\tfrac1N)gg'+V'/N)\big]$: the attraction does not carry $\rho$ (norm-independence of the directional dynamics,
-\citealp[Lemma~B.1]{ren2025emergence}) while the repulsion does, and $\dot\rho=-4\rho\,\partial_\rho L_A$ keeps $\rho$ at $\Gamma^*\ll1$ from a small
-initialisation. Hence $\tau_{\rm esc}\asymp m_0^{-(2k^*-2)}$ independently of $N$; from $\rho_0=O(1)$ the repulsion of (a) applies until $\rho$ has decayed.
+$(1-m^2)\big[4gg'-\rho\,(2(1-\tfrac1N)gg'+V'/N)\big]$ (norm-independence of the attraction, \citealp[Lemma~B.1]{ren2025emergence}) and
+$\dot\rho=-4\rho\,\partial_\rho L_A$ changes $\rho$ only slowly from a small $\rho_0$. While $\rho\ll Nm^2/4$ the repulsion is negligible and
+$\tau_{\rm esc}=\Theta(m_0^{-2})$ independently of $N$; for $\rho_0\gtrsim Nm_0^2/4$ the trap of (a) applies until $\rho$ has decayed.
 \end{enumerate}
 \end{proposition}
+Integrating the flow (Appendix~\ref{app:deriv}) illustrates the regimes: for $d=512$ and $N=32,128,512$ the escape times are $\infty,771,386$
+(pinned $\gamma=0.1$), $9.0\cdot10^4,2.2\cdot10^4,5.4\cdot10^3$ with $\tau N=2.9,2.8,2.75\times10^6$ (free, $\Gamma_0=0.01$, $r=1$, here close to adiabatic),
+and $39,34,33$ (tied, $\rho_0=0.01$); at $d=32$ the free readout is signal-dominated and $\tau=53,37,34,33$ for $N=32$--$2048$.
 Integrating the population flow confirms the three regimes quantitatively (Appendix~\ref{app:deriv}): for $\sg_2$ at $d=512$ and
 $N=32,128,512$ the escape times are $\infty,771,386$ (pinned $\gamma=0.1$), $9.0\cdot10^4,2.2\cdot10^4,5.4\cdot10^3$ with $\tau N=2.9,2.8,2.75\times10^6$
 (free), and $39,34,33$ (tied); at $d=32$ the free readout is signal-dominated and $\tau=53,37,34,33$ for $N=32$--$2048$.
@@ -171,18 +181,20 @@ models~\citep[eqs.~(297)--(298)]{gu2026incontext}; our point is its \emph{dynami
 \citet[Remark~3]{oko2024pretrained}) with an exponent crossover, or no $N$-dependence, according to the readout. That a fast readout doubles the exponent of an in-weight problem is
 known~\citep[\S5]{bietti2023learning}; what is specific to the in-context problem is that the finite-context noise makes the
 readout fast and pins it at $\Gamma^*$, so that \emph{whether context length trades off against training time, is irrelevant, or is a
-hard requirement is decided by how the readout is parameterised}. One-step analyses sit in case (ii) by construction: the readout
-is initialised at $\gamma\propto d^{-k^*}$~\citep[Lemma~18]{oko2024pretrained}, which also makes $\Gamma^2V/N$ negligible.
+hard requirement is decided by how the readout is parameterised}. One-step analyses have a readout initialised at $\gamma\propto d^{-k^*}$~\citep[Lemma~18]{oko2024pretrained}, which makes $\Gamma^2V/N$
+negligible and places them in the regime where only the product of prompts and prompt length matters.
 
-\paragraph{Experiment 1 (exponents by SGD).}
+\paragraph{E1: exponents by SGD.}
 Online SGD, $\sg_2$, $d=32$, $\eta=1/d^2$, initial overlap $m_0=c\,d^{-1/2}$, $c\in\{0.5,0.7,1,1.4\}$, three seeds each; the escape
 time from $m_0$ scales as $m_0^{-(\kappa-2)}$ for $\kappa>2$, so the slope of $\log T_{0.5}$ against $\log m_0$ estimates $\kappa_{\rm eff}=2-\text{slope}$
 (12 runs per cell; the estimator is coarse and the censored cells are biased low). Fig.~\ref{fig:kappa} shows $\kappa_{\rm eff}$ for free
 ($\eta_\Gamma=\eta$ and $10\eta$) and tied readouts at $N\in\{32,128,512,4096\}$ against the population ODE of
 Props.~\ref{prop:loss}--\ref{prop:shrink} evaluated \emph{after the run} at the same $d$, $m_0$-grid, $\Gamma_0$ and $\eta_\Gamma/\eta$ (the ODE
 itself was fixed before the run; its evaluation at these parameters was not pre-registered): tied $4.10$--$4.44$ (ODE $4.15$--$4.18$); free
-$4.8$--$6.6$ rising as $N$ falls (ODE $4.85$--$7.0$). Eleven of twelve cells agree within $0.6$; the free-readout cell at $N=32$,
-$\eta_\Gamma=\eta$, with 3 of 12 runs censored, is $1.0$ below the ODE ($0.55$ if censored runs are set to the cap). The ODE also
+$4.8$--$6.6$ rising as $N$ falls (ODE $4.85$--$7.0$). With a censored (Tobit) fit for the three cells that contain censored runs, all twelve cells agree with the ODE within $0.5$
+(ordinary least squares on reached runs only: eleven within $0.6$, the free $N=32$, $\eta_\Gamma=\eta$ cell $1.0$ low); the estimator is a
+secant over a factor $2.8$ in $m_0$ and local slopes vary, so these are effective, not asymptotic, exponents, and the prompts per step
+were $32$ for $N\le128$ and $8$ for $N\ge512$ (a $B=8$ control at $N=128$ gives $5.38\pm0.26$ vs $5.59\pm0.20$). The ODE also
 reproduces the absolute escape times (free, $N=128$: $565/113/36/13$ steps$\cdot\eta$ measured vs $473/120/37/13$ predicted). The
 in-weight model at the same $k^*$ gives a logarithmic $m_0$-dependence ($\kappa=2$). The pre-registered asymptotes $4\to8$ are the
 $d\to\infty$ limits; at $d=32$ the same ODE predicts $4.85\to7.0$. Two pre-registered predictions in this experiment failed and are
@@ -192,14 +204,16 @@ no $N$-dependence (slopes $3.49\pm0.08$ vs $3.70\pm0.21$), which is what the ODE
 established only through $\kappa_{\rm eff}(N)$ at fixed $d$. With the tied readout at $\rho_0=1$, $N=128$, the natural O(1)-readout
 version of Prop.~\ref{prop:repulsion}, $d=32$ escaped ($3/3$) while $d=64$ was trapped ($0/3$, $\rho$ decaying to $0.18$).
 
-\paragraph{Experiment 2 (the three regimes by SGD).}
+\paragraph{E2: the three regimes by SGD (the prospective test of Prop.~\ref{prop:shrink}).}
 To test Prop.~\ref{prop:shrink} directly (Fig.~\ref{fig:regimes}) we fix $d=64$, $m_0=d^{-1/2}$, $\eta=1/d^2$, vary $N\in\{16,64,256\}$ under two schemes---tokens per
 step fixed ($NB=4096$) and prompts per step fixed ($B=64$)---and run the four protocols, three seeds each, with the population
 escape times computed before the run. Pinned $\gamma=1$: no escape at $N\le64$ in $10^6$ steps ($0/9$, including $B=256$), $3/6$ at $N=256$
 ($d^*\approx63$); pinned $\gamma=0.1$: median $396$k$/192$k$/179$k steps against $414$k$/197$k$/176$k predicted; free: $1.78$M$/614$k$/402$k
-against $1.84$M$/627$k$/414$k, ratio $T(16)/T(256)=4.4$ as predicted ($4.44$); tied: $17.0$k$/15.1$k$/14.0$k against $17.2$k$/16.7$k$/16.5$k
-(flat within $\times1.25$; seed scatter $4$--$20\%$). In every protocol the two batch schemes give the same step counts: what trades off against
-context length is training time, never the number of prompts per step. (The free-readout $N=16$ cells exceeded the pre-registered
+against $1.84$M$/627$k$/414$k, ratio $T(16)/T(256)=4.4$ ($3.6$--$5.0$ over seed pairings) as predicted ($4.44$)---the growth-limited value of
+Prop.~\ref{prop:shrink}(b), not the adiabatic $1/N$ law; tied: $17.0$k$/15.1$k$/14.0$k against $17.2$k$/16.7$k$/16.5$k (flat within $\times1.25$,
+seed pairings $0.9$--$1.45$). Three seeds resolve medians to roughly $5\%$. In every protocol the two batch schemes give the same step counts,
+as they must at fixed step size (the population drift does not contain $B$); the trade-off is between context length and the number of
+SGD steps, and a step size scaled with $B$ is tested in Appendix~\ref{app:exp}. (The free-readout $N=16$ cells exceeded the pre-registered
 $10^6$-step cap, as the ODE had predicted, and were rerun to $2.5\cdot10^6$ steps.)
 
 
@@ -243,7 +257,7 @@ $\sum_p\pi_p s_p^2\,\ell(m_p)$ with $\ell$ the single-skill loss; each overlap t
 $\propto\pi_ps_p^2\Gamma$, so $T_p\propto1/\pi_p$. In-weight learning of the same dictionary carries the coefficient $a_p$ (with
 $a_p^2\propto\pi_p$), hence $T_p\propto1/a_p\propto\pi_p^{-1/2}$: in-context learning orders skills by frequency about twice as steeply---a corollary of the squared link,
 since the in-context drift carries $\E c_p^2\,\pi_p$ and the in-weight drift carries $a_p$.
-\textbf{Experiment 2} ($d=32$, $P=16$, $\pi_p\propto p^{-1.5}$, $M=64$, fixed $\Gamma=0.1$, three seeds) gives slopes of $\log T_p$ versus $\log p$ of
+\textbf{E3} ($d=32$, $P=16$, $\pi_p\propto p^{-1.5}$, $M=64$, fixed $\Gamma=0.1$, three seeds) gives slopes of $\log T_p$ versus $\log p$ of
 $1.44\pm0.08$ (drop midpoints; $1.53\pm0.22$ with the $0.5$-crossing) for the in-context model, against $0.75\pm0.08$ for a capacity-matched in-weight baseline and $0.75$--$0.89$ for the
 2-homogeneous in-weight student of \citet{ren2025emergence} (small initialisation, no hand-chosen readout; the lower value is
 limited by the logging resolution, the higher one uses a dense early log). Both in-weight baselines fit the target
@@ -257,7 +271,7 @@ many-skill dynamics is the single-feature dynamics with rate $\pi_p$. Per-skill 
 3--8 emerge, against $(\alpha-1)/\alpha=0.33$ for an idealised staircase; the window spans only a factor 3--8 in time, so the exponent
 depends on the emergence definition and we do not claim a scaling-law ratio.
 
-\paragraph{Composition.} Because~\eqref{eq:modelA} is linear in the context labels, $\hat y_q(c_1,c_2)=\hat y_q(c_1,0)+\hat y_q(0,c_2)$
+\paragraph{E4: composition.} Because~\eqref{eq:modelA} is linear in the context labels, $\hat y_q(c_1,c_2)=\hat y_q(c_1,0)+\hat y_q(0,c_2)$
 identically, and for independent mean-zero $c_1,c_2$ the loss on an additive pair is the sum of the single-skill losses. Trained on
 single-skill prompts only ($d=32$, $P=2$, $\pi=0.75/0.25$, $M=4$), the pair
 loss reaches $90\%$ of its drop before or together with the slower skill in every run (never after)---which is forced by
@@ -308,8 +322,8 @@ with---not a test of---the mechanism of Sec.~\ref{sec:single}; $k^*=1$ and in-we
 \label{sec:related}
 \citet{oko2024pretrained} analyse the architecture~\eqref{eq:modelA} with one gradient step; the product of two correlations
 ($\propto m^{2Q-1}$) is in their Lemma~21 and the exponent $2Q$ in their total sample count $N_1T_1=\tilde\Omega(d^{2Q+1}r)$, framed as a
-consequence of correlational information; their Remark~3 states the $N_1$--$T_1$ trade-off that Prop.~\ref{prop:repulsion} and
-Fig.~\ref{fig:threshold} contradict beyond the one-step regime. \citet{nishikawa2025nonlinear} show that softmax's label
+consequence of correlational information; their Remark~3 states the $N_1$--$T_1$ trade-off, which Prop.~\ref{prop:shrink} recovers for a shrinking readout and which fails for
+a readout pinned at order one (Prop.~\ref{prop:repulsion}, Fig.~\ref{fig:threshold}). \citet{nishikawa2025nonlinear} show that softmax's label
 nonlinearity lowers the \emph{inference-time} context length to the generative exponent while one-step pretraining stays at
 $d^{\Theta(\mathrm{ie})}$. \citet{gu2026incontext} derive, by the replica method for trained models with $k^*=1$, the kernel-vs-feature
 context-length scalings (their feature learner has a single transition at $N=\Theta(d)$, the same scaling as our $d^*(N)$ but for
@@ -318,7 +332,9 @@ and $k^*\ge2$ as open, which is where our results sit. \citet{kim2024transformer
 origin (their App.~C.4), a qualitative precursor of Prop.~\ref{prop:repulsion}. \citet{ren2025emergence} treat the additive model
 in-weight for even links with $k^*>2$ with a 2-homogeneous student; our tied protocol is theirs, the norm-independence of the
 directional dynamics is their Lemma~B.1, and $k^*=2$ is outside their assumptions (the companion work \citet{benarous2025quadratic} treats the quadratic case in-weight with a student
-narrower than $d$, sample complexity $d\,\mathrm{polylog}\,d$, and notes that the $k\ge3$ decoupling argument does not apply at $k=2$). The doubling of the exponent by a fast link is in \citet[\S5]{bietti2023learning} and \citet{bietti2022learning}.
+narrower than $d$, sample complexity $d\,\mathrm{polylog}\,d$, and notes that the $k\ge3$ decoupling argument does not apply at $k=2$). The doubling of the exponent by a fast link is in \citet[\S5]{bietti2023learning} and \citet{bietti2022learning}; two-timescale
+readout dynamics in two-layer networks are analysed by \citet{berthier2023learning}, and \citet[Cor.~2.3]{ren2025emergence} give an
+in-weight scaling law in which the frequency ordering is also steepened by the learning-rate schedule.
 \citet{zhang2024incontext} prove, for linear regression, that the task mean is learned in-weight by the MLP and the covariance
 in-context. Skill-based accounts of emergence~\citep{michaud2023quantization,nam2024exactly,arora2023theory,okawa2023compositional}
 are in-weight; our composition result is the label-linear in-context counterpart. Compositions that are not output-additive need extra structure~\citep{kobayashi2024compositional,wang2026power}; \citet{he2024learning}
