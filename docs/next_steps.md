@@ -45,7 +45,7 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
 
 - [ ] **N15 (2026-10-09). Independent proof check of Theorem A(iii)(c)** by a second agent that has not seen the proof's derivation: verify every inequality
   (ρ comparison, the (1−m²) and O(ρ) terms, the sandwich constants C_k, λ_k), report any gap; fix or weaken the statement accordingly.
-- [ ] **N16 (2026-10-09). Fresh-clone reproducibility**: clone the pushed branch into a scratch directory, run the three test scripts, `scripts/ode_lsoda.py`,
+- [x] (fresh clone of 2713aef: 3 test scripts, verify_theorems 61/61, ode_lsoda, make_figs and all three LaTeX builds succeed with no gitignored input needed) **N16 (2026-10-09). Fresh-clone reproducibility**: clone the pushed branch into a scratch directory, run the three test scripts, `scripts/ode_lsoda.py`,
   `scripts/verify_theorems.py`, `paper/figs/make_figs.py` and both LaTeX builds; record what fails because of gitignored inputs (npz) and fix by committing
   small derived CSVs or documenting the regeneration command.
 - [ ] **N17 (2026-10-09). Paper map in the root README**: a table from every figure/table/number family in the paper to the script and results file that
