@@ -1,0 +1,33 @@
+Theorem A(iii)(c) verification (tied flow, LSODA rtol=1e-10, s^2=1); constants:
+  k=2: c1=2V(1/2)/(k(k-1))=3.3750  (4/3)^(3/2k)=1.2408  vbar=V'(1/2)/(2k^2)=1.3750  C_k=4.0000
+  k=3: c1=2V(1/2)/(k(k-1))=3.0625  (4/3)^(3/2k)=1.1547  vbar=V'(1/2)/(2k^2)=2.7083  C_k=4.0000
+
+k    d  rho0     N     q0 hyp eps=krho0/Nm0^(2k-2) rho_min/rho0  R1 low rho_max/rho0  R2 up  max q    X tau   T1 low    T2 up  |Xt-1|  T3 bnd  result
+2   64  0.01    16  0.087 yes      0.08       0.9954  0.8811       1.1142 1.2408  0.087   1.0356   0.9815   1.1915  0.0356  0.5091  PASS 8/8  [E6/E7 d=64]
+2   64  0.01    64  0.025 yes      0.02       1.0000  0.9674       1.1372 1.2408  0.025   1.0011   0.9521   1.1004  0.0011  0.2691  PASS 8/8  [E6/E7 d=64]
+2   64  0.01   256  0.010 yes     0.005       1.0000  0.9916       1.1429 1.2408  0.010   0.9928   0.9447   1.0770  0.0072  0.2091  PASS 8/8  [E6/E7 d=64]
+2   64   0.1    16  0.866  no       0.8       0.7246  0.4255       1.0000 1.2408  0.866   1.9855   1.2581   2.2578  0.9855  3.7491  hypothesis violated (q0>1/4); bounds holding anyway: 7/8 [fail: R0 q<1/3]  [E6/E7 d=64]
+2   64   0.1    64  0.254  no       0.2       0.9681  0.7477       1.0559 1.2408  0.254   1.1713   1.0786   1.4537  0.1713  1.3491  hypothesis violated (q0>1/4); bounds holding anyway: 8/8  [E6/E7 d=64]
+2   64   0.1   256  0.101 yes      0.05       0.9985  0.9222       1.1172 1.2408  0.101   1.0681   1.0090   1.2463  0.0681  0.7491  PASS 8/8  [E6/E7 d=64]
+2  128  0.01    16  0.167 yes      0.16       0.9755  0.7874       1.0923 1.2408  0.167   1.0955   1.0511   1.2873  0.0955  0.7654  PASS 8/8  [E7 d=128]
+2  128  0.01    64  0.045 yes      0.04       0.9982  0.9368       1.1354 1.2408  0.045   1.0245   0.9935   1.1099  0.0245  0.2854  PASS 8/8  [E7 d=128]
+2  128  0.01   256  0.015 yes      0.01       1.0000  0.9834       1.1459 1.2408  0.015   1.0084   0.9786   1.0633  0.0084  0.1654  PASS 8/8  [E7 d=128]
+2   32     1    32  2.578  no         2   no escape by t=1e9 (trapped)  [E10 d=32 rho0=1; hypothesis violated]
+2   32     1   128  1.020  no       0.5       0.6616  0.5424       1.0000 1.2408  1.020   3.3713   1.3250   2.7741  2.3713  6.2550  hypothesis violated (q0>1/4); bounds holding anyway: 5/8 [fail: R0 q<1/3,T2,T1a,T2a]  [E10 d=32 rho0=1]
+2   32     1   512  0.630  no     0.125       0.9185  0.8258       1.0000 1.2408  0.630   2.1236   1.3325   2.2585  1.1236  4.7550  hypothesis violated (q0>1/4); bounds holding anyway: 7/8 [fail: R0 q<1/3]  [E10 d=32 rho0=1]
+2   32     1  2048  0.532  no    0.0312       0.9796  0.9499       1.0000 1.2408  0.532   1.9482   1.3185   2.1296  0.9482  4.3800  hypothesis violated (q0>1/4); bounds holding anyway: 7/8 [fail: R0 q<1/3]  [E10 d=32 rho0=1]
+3    8  0.01    16  0.221 yes      0.12       0.9986  0.8909       1.0185 1.1547  0.221   1.0685   0.8097   1.5079  0.0685  1.0200  PASS 8/8  [E9 k=3]
+3    8  0.01   128  0.032 yes     0.015       1.0000  0.9849       1.0486 1.1547  0.032   0.9237   0.7608   1.2198  0.0763  0.6000  PASS 8/8  [E9 k=3]
+3   16  0.01    16  0.671  no      0.48       0.9291  0.6711       1.0000 1.1547  0.671   1.7946   1.1637   2.4350  0.7946  2.2100  hypothesis violated (q0>1/4); bounds holding anyway: 7/8 [fail: R0 q<1/3]  [E9 k=3]
+3   16  0.01   128  0.088 yes      0.06       1.0000  0.9423       1.0650 1.1547  0.088   1.1026   0.9720   1.3087  0.1026  0.5300  PASS 8/8  [E9 k=3]
+3   32  0.01    16  2.291  no      1.92   no escape by t=1e9 (trapped)  [E9 k=3; hypothesis violated]
+3   32  0.01   128  0.291  no      0.24       0.9889  0.8032       1.0537 1.1547  0.291   1.2457   1.1078   1.7684  0.2457  1.1250  hypothesis violated (q0>1/4); bounds holding anyway: 8/8  [E9 k=3]
+
+cells satisfying the hypothesis: 10/19;  checks passed on them: 80/80
+
+N-ratios tau(N_lo)/tau(N_hi) (exact flow) and the a-priori bracket [T1a(N_lo)/T2a(N_hi), T2a(N_lo)/T1a(N_hi)] from the theorem:
+  k=2 d= 64 rho0=0.01: tau(N=16)/tau(N=256) = 1.0430  [0.905, 1.277]   k rho0/(N_lo m0^(2k-2)) = 0.08
+  k=2 d= 64 rho0=0.1: tau(N=16)/tau(N=256) = 1.8589  (hypothesis fails at N_lo: no bracket)   k rho0/(N_lo m0^(2k-2)) = 0.8
+  k=2 d=128 rho0=0.01: tau(N=16)/tau(N=256) = 1.0865  [0.972, 1.351]   k rho0/(N_lo m0^(2k-2)) = 0.16
+  k=3 d=  8 rho0=0.01: tau(N=16)/tau(N=128) = 1.1568  [0.656, 2.042]   k rho0/(N_lo m0^(2k-2)) = 0.12
+  k=3 d= 16 rho0=0.01: tau(N=16)/tau(N=128) = 1.6276  (hypothesis fails at N_lo: no bracket)   k rho0/(N_lo m0^(2k-2)) = 0.48

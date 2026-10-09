@@ -1,5 +1,6 @@
 % theorems.tex -- Theorems A and B (population flow) with proofs; \input after the preamble of main.tex.
-% Every closed form below is checked by scripts/verify_theorems.py (run: python3 -I scripts/verify_theorems.py).
+% Every closed form below is checked by scripts/verify_theorems.py (run: python3 -I scripts/verify_theorems.py);
+% Theorem A(iii)(c) by scripts/verify_tied_flat.py (-> results/verify_tied_flat.txt).
 \makeatletter
 \@ifundefined{c@theorem}{\newtheorem{theorem}{Theorem}\renewcommand{\thetheorem}{\Alph{theorem}}}{}
 \@ifundefined{c@lemma}{\newtheorem{lemma}{Lemma}[theorem]}{}
@@ -45,6 +46,22 @@ $a=k^2(k-1)(1-m_0^2)/(ND_0)$. If $a>1$ and
 \end{equation}
 the tied flow is trapped for ever: $m(t)\le m_0$ for all $t$, $m(t)\to0$, and, as $t\to\infty$, $\rho(t)\,t\to N/(8s^2)$ and $m(t)\,t^{k^2/2}\to c\in(0,\infty)$; for $k=2$,
 $m\propto t^{-2}$, $\rho\propto t^{-1}$. Since $\rho^*(m):=2G'/D'\asymp Nm^{2k-2}/k$, $\rho/\rho^*(m)\to\infty$: the threshold recedes faster than $\rho$ decays.
+(c) \emph{(Tied readout: $N$-flat escape for small $\rho_0$.)} Let $m_0\in(0,\frac12)$, $\rho_0\le\frac14\rho^*(m_0)$, and put
+$\varepsilon=k\rho_0/(Nm_0^{2k-2})$, $X=s^2(2k-2)\,4k\,m_0^{2k-2}$, $\bar v_k=V'(\frac12)/(2k^2)$, $c_1=2V(\frac12)/(k(k-1))$. Then $m$ increases to $\frac12$ in finite
+time $\tau_{\rm tied}$, $\rho/\rho^*(m)<\frac13$ throughout, and for $t\le\tau_{\rm tied}$
+\begin{equation}\label{eq:rhosandwich}
+\frac{\rho_0}{1+c_1\rho_0/(Nm_0^{2k-2})}\;\le\;\rho(t)\;\le\;\rho_0\Big(\frac{1-m_0^2}{1-m(t)^2}\Big)^{3/(2k)}\;\le\;(\tfrac43)^{3/(2k)}\rho_0 .
+\end{equation}
+With $\rho_{\min},\rho_{\max}$ the extremes of $\rho$ on $[0,\tau_{\rm tied}]$ and $\ell_k=(2k-2)m_0^{2k-4}\int_{m_0}^{1/2}m^{3-2k}dm$ ($=2\ln\frac1{2m_0}$ for $k=2$, $\le\frac{k-1}{k-2}$ for $k\ge3$),
+\begin{equation}\label{eq:tausandwich}
+\begin{aligned}
+X\tau_{\rm tied}&\;\ge\;\big(1-(2m_0)^{2k-2}\big)\Big(1+\tfrac{(1-\frac1N)\rho_{\min}}2\Big)+\big(1-(2m_0)^{4k-4}\big)\frac{k\rho_{\min}}{2Nm_0^{2k-2}},\\
+X\tau_{\rm tied}&\;\le\;1+\tfrac43\ell_km_0^2+\rho_{\max}+\bar v_k\frac{k\rho_{\max}}{Nm_0^{2k-2}},
+\end{aligned}
+\end{equation}
+hence $|X\tau_{\rm tied}-1|\le C_k\big(\varepsilon+\rho_0+\lambda_km_0^2\big)$ with $C_k=\max\{4,(\frac43)^{3/(2k)}\bar v_k\}$, $\lambda_2=1+\ln\frac1{2m_0}$,
+$\lambda_k=1$ ($k\ge3$). For $k=2$: $c_1=\frac{27}8$, $\bar v_2=\frac{11}8$, $C_2=4$; for $k=3$: $c_1=\frac{49}{16}$, $\bar v_3=\frac{65}{24}$, $C_3=4$. The context length enters
+\eqref{eq:rhosandwich}--\eqref{eq:tausandwich} only through $\varepsilon$ and $1-\frac1N$, so for $\varepsilon\to0$ the escape time is $N$-flat.
 
 \textup{(iv)} For every number $B$ of prompts per step the expected minibatch gradient is $\nabla L$; the population flows above, and hence
 $m^*(\gamma,N,k)$, $\gamma_1$ and (ii)--(iii), do not depend on $B$.
@@ -88,6 +105,46 @@ arbitrarily close to $k^2(k-1)$) gives $m^{2k-2}\le Ct^{-a'}$ for every $a'<k^2(
 $\frac{d}{dt}\frac1\rho=8s^2(D-G/\rho)=\frac{8s^2}N+(\text{integrable})$ gives $\frac1\rho=\frac{8s^2t}N+c_1+o(1)$. Then
 $\frac{d\ln m}{dt}=-\frac{4k^2s^2}N\rho(1+O(m^2))+O(m^{2k-2})=-\frac{k^2}{2t}+(\text{integrable})$, so $m\,t^{k^2/2}$ converges to a positive limit.
 
+(c) Write $q=\rho/\rho^*(m)$. Since $\partial_mL(m,\rho)=s^2\rho(\rho D'-2G')$ and $\rho^*=2G'/D'$, the tied flow is
+\[
+\dot m=s^2(1-m^2)\,2G'(1-q)=4ks^2(1-m^2)m^{2k-1}(1-q),\qquad \dot\rho=8s^2\rho\,(G-\rho D),
+\]
+and $1/\rho^*=\frac12(1-\frac1N)+V'(m)/(4kNm^{2k-1})$; the first summand is the $O(\rho)$ term $2k(1-\frac1N)m^{2k-1}\rho$ of $\rho D'$, the second the
+noise term. As $V'(m)/m=\sum_{i\ge1}2i\beta_{2i}^2m^{2i-2}$ is increasing from $4k^2$, for $m\le\frac12$
+\begin{equation}\label{eq:qbounds}
+\rho\Big[\tfrac12(1-\tfrac1N)+\frac{k}{Nm^{2k-2}}\Big]\le q\le\rho\Big[\tfrac12(1-\tfrac1N)+\bar v_k\frac{k}{Nm^{2k-2}}\Big],\qquad\text{and}\quad \rho^*<\frac2{1-1/N}.
+\end{equation}
+\emph{Bootstrap.} Let $T=\sup\{t\le\tau_{\rm tied}:q<\frac13\text{ on }[0,t]\}$; $T>0$ as $q(0)\le\frac14$. On $[0,T)$, $\dot m>0$, so $m\ge m_0$, and $\dot m\ge
+2ks^2m_0^{2k-1}>0$ while $m\le\frac12$, so $\tau_{\rm tied}<\infty$ if $T=\tau_{\rm tied}$. With $m$ as the variable on $[0,T)$,
+\[
+\frac{d\ln\rho}{dm}=\frac{\dot\rho}{\rho\dot m}=\frac{2(G-\rho D)}{k(1-m^2)m^{2k-1}(1-q)}\le\frac{2m}{k(1-m^2)(1-q)}\le\frac{3m}{k(1-m^2)} ,
+\]
+and integrating from $m_0$ gives the upper bound in \eqref{eq:rhosandwich}; with $m\le\frac12$ and $k\ge2$, $\rho\le(\frac43)^{3/4}\rho_0<1.241\rho_0$. By Lemma~\ref{lem:mono}
+$\rho^*(m)\ge\rho^*(m_0)$, so $q\le1.241\rho_0/\rho^*(m_0)\le0.32<\frac13$ on $[0,T)$; by continuity $T=\tau_{\rm tied}$, which proves the first two claims and the
+upper bound. \emph{Lower bound.} Similarly
+\[
+\frac{d}{dm}\frac1\rho=\frac{2(D-G/\rho)}{k(1-m^2)m^{2k-1}(1-q)},\qquad D-\frac G\rho=\frac VN-m^{2k}\Big(\frac1\rho-1+\frac1N\Big)\le\frac VN ,
+\]
+because $\rho\le0.32\rho^*(m_0)<0.64/(1-\frac1N)$ by \eqref{eq:qbounds}. With $1/(1-q)\le\frac32$ and $V/(1-m^2)\le\frac43V(\frac12)$ (both increasing),
+$\frac{d}{dm}\frac1\rho\le\frac{4V(1/2)}{kNm^{2k-1}}$, and integrating from $m_0$, $\frac1\rho\le\frac1{\rho_0}+\frac{4V(1/2)}{k(2k-2)Nm_0^{2k-2}}=\frac1{\rho_0}+\frac{c_1}{Nm_0^{2k-2}}$.
+(The ratio $\rho/\rho_0$ is not $1+O(\rho_0)$: as $\rho_0\to0$, $d\ln\rho/dm\to2m/(k(1-m^2))$, so $\rho(\tau_{\rm tied})/\rho_0\to(\frac43(1-m_0^2))^{1/k}$; the exponent in
+\eqref{eq:rhosandwich} is $1/(k(1-\sup q))$ with $\sup q\le\frac13$. This growth affects $\tau_{\rm tied}$ only through $q$.)
+\emph{Escape time.} Since $m$ is increasing, $\tau_{\rm tied}=\int_{m_0}^{1/2}dm/\dot m$, i.e.
+\[
+X\tau_{\rm tied}=(2k-2)m_0^{2k-2}\int_{m_0}^{1/2}\frac{m^{1-2k}\,dm}{(1-m^2)(1-q)},\qquad (2k-2)m_0^{2k-2}\!\int_{m_0}^{1/2}\!m^{1-2k}dm=1-(2m_0)^{2k-2}.
+\]
+Lower bound: use $\frac1{(1-m^2)(1-q)}\ge1+q$, the left inequality of \eqref{eq:qbounds} with $\rho\ge\rho_{\min}$, and the identity
+$(2k-2)m_0^{2k-2}\int_{m_0}^{1/2}m^{3-4k}dm=\big(1-(2m_0)^{4k-4}\big)/(2m_0^{2k-2})$. Upper bound: for $m\le\frac12$, $q\le\frac13$,
+$\frac1{1-m^2}\le1+\frac43m^2$ and $\frac1{1-q}\le1+\frac32q$, so
+\[
+\frac1{(1-m^2)(1-q)}\le1+\tfrac43m^2+\tfrac32q\big(1+\tfrac43m^2\big)\le1+\tfrac43m^2+2q ;
+\]
+the $m^2$ term integrates to $\frac43\ell_km_0^2$, and the right inequality of \eqref{eq:qbounds} with $\rho\le\rho_{\max}$ gives $2q\le\rho_{\max}+2\bar v_k\rho_{\max}k/(Nm^{2k-2})$,
+whose two terms integrate to at most $\rho_{\max}$ and $\bar v_k\rho_{\max}k/(Nm_0^{2k-2})$. This is \eqref{eq:tausandwich}. Finally, the left side of
+\eqref{eq:tausandwich} is $\ge1-(2m_0)^{2k-2}\ge1-4m_0^2\ge1-4\lambda_km_0^2$, and by \eqref{eq:rhosandwich} the right side is
+$\le1+\frac83\lambda_km_0^2+1.25\rho_0+(\frac43)^{3/(2k)}\bar v_k\varepsilon$ (using $\frac43\ell_2\le\frac83\lambda_2$, and
+$\frac43\ell_k\le\frac43\cdot\frac{k-1}{k-2}\le\frac83$ for $k\ge3$), which gives the bound on $|X\tau_{\rm tied}-1|$.
+
 (iv) The per-prompt losses in a step are i.i.d.\ with mean $L$; the gradient of their average has mean $\nabla L$ for every $B$ (differentiation
 under $\E$ is justified by polynomial moments), and $B$ enters only the covariance, which is $\propto1/B$.
 \end{proof}
@@ -101,6 +158,16 @@ bisection of the exact flow gives the boundary $\rho_0/\rho^*(m_0)=1.3333$ ($k{=
 cell ($d{=}64$, $N{=}16$, $\rho^*=0.1155$), where \eqref{eq:trapcond} gives $\rho_{\rm trap}=0.178$: $\rho_0=0.3$ is provably trapped, and
 $\rho_0=0.1<\rho^*$ escapes. The escape half is proved only for the
 small-$m$ system; for the exact flow it is a numerical statement.
+\end{remark}
+
+\begin{remark}[$N$-flatness of the tied readout is proved]\label{rem:tiedflat}
+Part (iii)(c) closes the gap between the frozen-$\rho$ identity (iii)(a) and the trap (iii)(b): for $\rho_0\le\frac14\rho^*(m_0)$ it bounds $\rho(t)$ on both
+sides up to $m=\frac12$, and the tied escape time is $1/X$ up to a factor $1+O(\varepsilon+\rho_0+\lambda_km_0^2)$ in which $N$ enters only through
+$\varepsilon=k\rho_0/(Nm_0^{2k-2})$, so the $N$-flat third of the trichotomy is a theorem for $\varepsilon\ll1$. When $\rho_0/(Nm_0^{2k-2})=O(1)$ the readout can still
+decay substantially and the escape time is $N$-dependent: the E5 cell ($k=2$, $\rho_0=0.1$, $N=16$, $d=64$) has $\rho_0/(Nm_0^2)=0.4$ and
+$\rho_0/\rho^*(m_0)=0.87$ (outside the hypothesis); along the flow $\rho$ falls to $0.72\rho_0$, and the cell showed an $N$-ratio of $1.9$
+(flow: $\tau(16)/\tau(256)=1.86$). \texttt{scripts/verify\_tied\_flat.py} integrates the exact flow on every tied cell of the paper: $10$ of the $19$
+satisfy the hypothesis, and on them all bounds of (iii)(c) hold ($80/80$ checks; results/verify\_tied\_flat.txt).
 \end{remark}
 
 \begin{theorem}[Free readout, fixed $N$, $d\to\infty$]\label{thm:B}

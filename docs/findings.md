@@ -80,7 +80,7 @@ Evidence level S (SGD vs pre-fixed ODE, 27 + 6 runs). Tied `ρ₀=0.01`, `N=128`
 `B=256`) are controlled. Pinned `γ=0.2`: `m*=0.30` predicted; `d=8` escapes at 1.02× the flow time, `d=16, 32` censored 3/3. Tied `N=16`:
 `d=32` traps as predicted (`ρ₀ > ρ_trap = 0.006`); `d=16` gave 47k / 500k / censored against a flow prediction of 1.6× the `N=128` time —
 with `ρ_trap ∝ m₀^{2k−2}` the "small readout" window is narrow at `k*=3` and SGD noise in `(m, ρ)` decides. Consequence for the paper:
-Prop. 3(c) states `N`-flatness only for `ρ₀ ≪ ρ_trap(m₀, N)`; pre-registered P22a/b failed as worded (recorded), P22c held.
+Prop. 3(c) states `N`-flatness only for `ρ₀ ≤ ρ*(m₀)/4`, now proved as Theorem A(iii)(c) with the `N`-dependence bounded by `C_k kρ₀/(N m₀^{2k−2})` (the failing cell violates the hypothesis); pre-registered P22a/b failed as worded (recorded), P22c held.
 
 ## F8. The mechanism does not transfer through the transformer's final readout (exp 8, pre-registered kill met) [X]
 

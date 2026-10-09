@@ -11,4 +11,4 @@
 | Minor | — | E1–E7 ↔ Exp. mapping sentence added; Fig. 1 caption "near 4 (4.1–4.4)"; m*² form unified to 4γ/(2N−(N+5)γ); Theorem A(ii) constants uniform for γ ≤ (1−δ)γ₁; abstract quotes the censored fit (all 12 within 0.5). `\todo{repo}` left for the author. |
 | Cut plan | 4-page version | Recorded in the review; not executed (venue page limit unknown; docs/venue.md). |
 
-Not done: a proof of the tied-readout N-flatness (would need a bound on ρ(t) − ρ₀ over the escape time; the E5 cell shows ρ can decay by 25× under SGD, so the statement is genuinely numerical at finite N).
+Follow-up (v0.17): the tied-readout N-flatness is now proved as Theorem A(iii)(c) (for ρ₀ ≤ ρ*(m₀)/4: two-sided bounds on ρ(t) and |τ·(2k−2)4k m₀^{2k−2} − 1| ≤ C_k(kρ₀/(N m₀^{2k−2}) + ρ₀ + λ_k m₀²), C₂ = C₃ = 4; `scripts/verify_tied_flat.py`, 80/80 checks on the 10 paper cells that satisfy the hypothesis). The cells where N-dependence was observed (E5 ρ₀ = 0.1, N = 16; E6 N = 16, d = 16) are exactly the ones violating the hypothesis. Prop. 3(c) now cites it instead of calling the statement numerical.

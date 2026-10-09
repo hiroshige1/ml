@@ -34,7 +34,7 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
 - [x] (docs/review_adversarial_4.md 6/10; response docs/review_adversarial_4_response.md; paper v0.16) **N12 (2026-10-09, from exp 11). Fourth adversarial review** of v0.15 (persona: workshop area chair; 4-page cut plan; is the negative transformer
   result stated at the right strength; are E6/E7 and the pre-registration errors presented honestly), then respond in the paper.
 
-- [ ] **N13 (2026-10-09, from review 4). Prove the tied-readout N-flatness (Theorem A(iii)(c)).** Sketch: along the tied flow with m ≤ 1/2,
+- [x] (paper/theorems.tex Thm A(iii)(c) + rem:tiedflat; scripts/verify_tied_flat.py 80/80; paper v0.17) **N13 (2026-10-09, from review 4). Prove the tied-readout N-flatness (Theorem A(iii)(c)).** Sketch: along the tied flow with m ≤ 1/2,
   dρ/dm = 8ρ²(g² − ρD)/ṁ with ṁ = (1−m²)[4gg' − ρ(2(1−1/N)gg' + V'/N)]/ρ ≥ (1−m²)4gg'(1−ρ/ρ*(m))/ρ, so 1/ρ moves by at most
   ∫ m/((1−m²)(1−ρ/ρ*)) dm (upward in ρ) and at most ∫ 2Dρ/((1−m²)2m^{2k−1}(1−ρ/ρ*)) dm ≈ ρ_max/((2k−2)N m₀^{2k−2}) (downward);
   hence ρ ∈ [ρ₀/(1+Cρ₀/(N m₀^{2k−2})), ρ₀/(1−C'ρ₀)] on [m₀,1/2] whenever ρ₀ ≤ ρ*(m₀)/4. Then τ_tied = ∫ dm/(4k m^{2k−1}(1 − ρ/ρ*(m))(1+O(ρ)))
