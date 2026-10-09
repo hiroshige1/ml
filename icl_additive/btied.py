@@ -61,7 +61,7 @@ class BTied:
         return float(np.sum(D * D))
 
 
-def train_btied(seed, eta=None, alpha=1.5, d=32, P=16, M=64, B=32, rho0=0.01, k=2, max_steps=3_000_000, log_every=1000, verbose=False):
+def train_btied(seed, eta=None, alpha=1.5, d=32, P=16, M=64, B=32, rho0=0.01, k=2, max_steps=3_000_000, log_every=1000, fine_every=100, fine_until=30_000, verbose=False):
     t0c, t0w = time.process_time(), time.time()
     eta = 1.0 / d ** 2 if eta is None else eta
     pi = skill_freqs(P, alpha)
@@ -72,6 +72,11 @@ def train_btied(seed, eta=None, alpha=1.5, d=32, P=16, M=64, B=32, rho0=0.01, k=
     mdl = BTied(np.sqrt(rho0) * W0, V, a, k)
     log = {"t": [], "m": [], "norm2": [], "mse_total": [], "train_loss": [], "L_align": []}
     acc, nacc = 0.0, 0
+    fine = {"fine_t": [], "fine_m": [], "fine_norm2": [], "fine_mse": []}  # supplementary dense early log (the 1000-step log is primary)
+
+    def do_fine(t):
+        m = mdl.Uhat @ V.T
+        fine["fine_t"].append(t); fine["fine_m"].append(m.astype(np.float32)); fine["fine_norm2"].append(mdl.n.copy()); fine["fine_mse"].append(mdl.pop_mse())
 
     def do_log(t):
         m = mdl.Uhat @ V.T
@@ -81,16 +86,19 @@ def train_btied(seed, eta=None, alpha=1.5, d=32, P=16, M=64, B=32, rho0=0.01, k=
         return np.abs(m).max(axis=0)
 
     do_log(0)
+    do_fine(0)
     for t in range(1, max_steps + 1):
         x = rng.standard_normal((B, d))
         loss, g = mdl.loss_grad(x, mdl.target(x))
         mdl.U -= eta * g
         acc += loss; nacc += 1
+        if t <= fine_until and t % fine_every == 0:
+            do_fine(t)
         if t % log_every == 0:
             mx = do_log(t)
             acc, nacc = 0.0, 0
             if verbose and (t // log_every) % 100 == 0:
                 print(f"seed {seed} eta*d^2={eta * d * d:g} t={t} mse={log['mse_total'][-1]:.4g} sum n={mdl.n.sum():.3f} "
                       f"n>=.5: {int((mx >= .5).sum())} first8 mx={np.round(mx[:8], 2).tolist()} cpu={time.process_time() - t0c:.0f}s", flush=True)
-    traj = {key: np.array(v) for key, v in log.items()}
+    traj = {key: np.array(v) for key, v in {**log, **fine}.items()}
     return dict(seed=seed, eta=eta, alpha=alpha, steps=max_steps, cpu_s=time.process_time() - t0c, wall_s=time.time() - t0w, traj=traj, V=V)
