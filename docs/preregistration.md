@@ -496,6 +496,21 @@ the linear model's pattern. rbf softmax + Adam: `N=1024` 2/2 (741 / 697); **`N=1
 shallow (drift `−6·10⁻³` at `m_0` against the linear model's `m* = 0.6`), and Adam's normalised steps act as large effective noise, so the escape
 is noise-driven (Kramers) rather than a change of the mean drift. Deviations: none (gradient by chain rule, agrees with autograd to 3·10⁻⁶).
 
+## Is the softmax+Adam escape noise-driven? B-dependence at N=16 (exp 14) — pre-registered 2026-10-09 before any run
+
+Exp 13's post-hoc reading was that the rbf-softmax + Adam escape at `N=16` is noise-driven (shallow barrier + Adam's normalised steps). A noise-driven
+escape gets *harder* with more prompts per step (less gradient noise), the opposite of the transformer (stuck at `B=64` in 12/12 runs, rescued at
+`B=1024`). Setting exactly as exp 13's rbf + Adam cell (`β=0.3`, `Γ=1`, `d=64`, `m_0=1/8`, Adam `10⁻³`, cap `10⁵` steps), `N=16`, `B ∈ {16, 64, 256,
+1024}`, 3 seeds (0, 1, 2; seeds 0–1 at `B=64` and `B=1024` are exp 13's runs, reused), 8 fresh runs + 4 reused, cap 1.5 CPU-h.
+
+| ID | prediction | pass | default |
+|---|---|---|---|
+| P27 | the escape fraction within `10⁵` steps is non-increasing in `B` and the median `T_0.5` (censored = ∞) is non-decreasing in `B`; in particular `B=16` escapes ≥ 2/3 and `B=1024` ≤ 2/3 | both monotonicities hold up to one tie | escape fraction increases with `B` (drift-driven, transformer-like) |
+
+If P27 holds, the paper states that the single-feature softmax + Adam escape is noise-driven and therefore the opposite of the transformer's
+`B`-rescue; if the default holds, the single-feature softmax + Adam model *does* reproduce the transformer's rescue and the paper says so (and the
+"not a `B`-rescue" sentence of v0.19 is withdrawn).
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional

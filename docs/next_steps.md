@@ -57,3 +57,6 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
 - [x] (drift table; exp 13 cd61744 prereg, 38c8acd results; P26a held, P26b failed: softmax+Adam escape N=16 at B=64; paper v0.19) **N19 (2026-10-09, from exp 12). A softmax variant that learns.** The exp-12 softmax form (logits σ(w·x_i)σ(w·x_q), temperature 1) stays stuck even at
   N=1024. Before any ablation can use it: find by ODE/MC drift (`icl_additive/drift.py` style) a temperature or logit normalisation at which the
   population drift at m_0=1/8, N=1024 is positive; pre-register and re-run P25c/d with it. Only then can softmax be excluded or implicated.
+
+- [~] (pre-registered; running) **N20 (2026-10-09, from exp 13). B-dependence of the softmax+Adam escape at N=16 (exp 14, P27)**: noise-driven
+  (escape fraction non-increasing in B) vs drift-driven (increasing, transformer-like).
