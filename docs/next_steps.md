@@ -40,5 +40,5 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
   hence ρ ∈ [ρ₀/(1+Cρ₀/(N m₀^{2k−2})), ρ₀/(1−C'ρ₀)] on [m₀,1/2] whenever ρ₀ ≤ ρ*(m₀)/4. Then τ_tied = ∫ dm/(4k m^{2k−1}(1 − ρ/ρ*(m))(1+O(ρ)))
   is sandwiched: |τ_tied·(2k−2)4k m₀^{2k−2} − 1| ≤ C(ρ₀ k/(N m₀^{2k−2}) + ρ₀ + m₀²). Verify numerically against LSODA over the exp 6/7/9/10
   tied cells, add to paper/theorems.tex, cite from Prop. 3(c), update the review-4 response.
-- [ ] **N14 (2026-10-09, from review 4). Four-page variant** `paper/main_icml_4p.tex` following the review's cut plan (for the author to choose; the
+- [x] (paper/main_icml_4p.tex, body_4p.tex, appendix_figs_4p.tex; 4 pp main text; docs/venue.md) **N14 (2026-10-09, from review 4). Four-page variant** `paper/main_icml_4p.tex` following the review's cut plan (for the author to choose; the
   full version stays the main one).
