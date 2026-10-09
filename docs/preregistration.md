@@ -246,6 +246,23 @@ Kill: P19b fails (free readout `T` independent of `N` at fixed `B`, or the trap 
 **Scope consequence:** the three-regime statement (Prop. 3) is quantitatively confirmed at `d=64`: the population ODE predicts the SGD escape
 steps to 1–4% for pinned-0.1 and free readouts across `N`, the trap for pinned-1, and `N`-independence (within scatter) for tied.
 
+## Controls requested by review 2 (exp 7) — pre-registered 2026-10-09 before any run
+
+Setting as exp 6 (`σ_2`, `d=64`, `m_0=d^{−1/2}`, `η=1/d²`, `N ∈ {16,64,256}`, `B=64`, 3 seeds, cap `2.5·10⁶` steps). ODE flow times (×4096 = steps)
+computed before the run:
+
+| ID | protocol | ODE `T` at `N=16/64/256` (flow) | ratio `T(16)/T(256)` | what it tests |
+|---|---|---|---|---|
+| P20a | free `Γ_0=0.01, η_Γ=10η` | 447 / 122 / 50.1 | 8.9 | the exponent/ratio depends on `η_Γ/η` (review-2 issue 3) |
+| P20b | free `Γ_0=0.1, η_Γ=η` | 363 / 66.9 / 40.1 | 9.1 | dependence on `Γ_0` |
+| P20c | tied `ρ_0=0.1` | 8.13 / 4.76 / 4.34 | 1.9 | `N`-independence needs `ρ_0 ≪ N m_0²` (= 0.25 at N=16) |
+| P20d | tied `ρ_0=0.3` | ∞ / 7.67 / 5.2 | trap at `N=16` | tied readout with `ρ_0 > N m_0²` traps like a pinned one |
+| P20e | pinned `γ=0.01` | 421 / 407 / 403 | 1.04 | a small pinned readout is as `N`-flat as tied |
+| P20f | pinned `γ=0.1`, **`η ∝ B`**: `B ∈ {16, 256}` with `η = (B/64)·(1/d²)` at `N=64` | not an ODE quantity | — | whether "prompts per step never substitute" is an artefact of fixed `η` (review-2 issue 2): prediction — steps scale as `1/η` (i.e. `×4` fewer steps at `B=256`, `×4` more at `B=16`) *if* the larger step size stays in the drift-dominated regime; escape **flow time** `T·η` unchanged |
+
+Kill: none of these changes the three-regime statement; they fix its stated conditions. If P20d does not trap, the claim "the repulsion survives
+tying" is wrong.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
@@ -298,6 +315,7 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-09 v0.16: review 2 (`docs/review_adversarial_2.md`, 6/10) received; P20a–f pre-registered with ODE values before the run.
 - 2026-10-09 v0.15: exp 6 outcome recorded — P19a/b/d held (ODE within 1–4%), P19c flat but outside the literal 5% band.
 - 2026-10-09 v0.14: P19 (exp 6: N–T exchange by readout protocol) pre-registered.
 - 2026-10-09 v0.13: adversarial review (`docs/review_adversarial.md`, score 5/10) acted on: (a) "12/12 within 0.5" corrected to 11/12 within
