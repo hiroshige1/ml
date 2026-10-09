@@ -183,6 +183,29 @@ Setting: `d=32`, `σ_2`, `P=16` skills, `π_p ∝ p^{−1.5}`, single-skill prom
 
 Kill: P16 slope for A < 1.0 ⇒ the "`π_p` vs `√π_p` ordering" claim is wrong.
 
+### Exp 2 outcome (recorded 2026-10-09 after the run; `results/exp2/README.md`)
+
+- **Deviation (declared):** the spec's in-weight baseline with readout 1 and `M=64 > d` cannot learn (trace mismatch); the agent
+  switched to a capacity-matched readout `ρ = Σa_p/M` after looking at seed-0 pilots but before computing any B statistic. B is then a
+  *collective* fit (pooled alignment → 1, individual neurons at 0.5–0.9), so every A-vs-B comparison below carries that caveat.
+  Also: `T_p(0.5)` is contaminated by initial alignments (best of 64 neurons already at 0.36–0.55); the drop-midpoint `T_{p,0.5}` is
+  the cleaner statistic (reported alongside the pre-registered one).
+- **P16 held.** A: slope `1.53 ± 0.22` (spec `T_p(0.5)`), `1.44 ± 0.08` (drop midpoint), `1.45 ± 0.07` (`T_p(0.9)`) vs predicted
+  `1.5 ± 0.2`; B: `0.75 ± 0.08` (drop midpoint) vs predicted `0.75 ± 0.2` (spec statistic `1.15 ± 0.24`). A − B = `0.69 ± 0.11`
+  (midpoint), `0.38 ± 0.33` (spec statistic, n.s.). Kill not triggered. Five-seed A slopes `1.52–1.66`. **In-context ordering of
+  skills by frequency is ≈ twice as steep as in-weight** — with the B-readout caveat (B at `ρ=0.1` gives `0.34`).
+- **P17 held** (median sharpness A 1.08 vs B 4.09, ratio 3.8), weakened by B's partial drops.
+- **P18: A within tolerance (0.40 ± 0.035 vs 0.33 ± 0.15 on the primary alignment loss; 0.27 on MSE), B failed (0.19 vs 0.67):** B's
+  alignment loss saturates at 0.37–0.40 because neurons share skills — the decoupled-neuron prediction does not apply to a
+  collective fit. The predicted A/B exponent ratio is therefore **unsupported**, and the exponent depends on the emergence
+  definition (0.40 vs 0.73 with midpoints) because the window spans only a factor 3–8 in time on a staircase.
+- **Consistency:** `T_{p,0.5}·η·π_p·m_0² = 0.73` (IQR 0.70–0.77) across skills and seeds — the same constant as exp 3 (0.60–0.78) and
+  exp 1b (0.64): the many-skill in-context dynamics is the single-neuron dynamics with rate `∝ π_p`.
+- Budget 3.2 CPU-h (cap 4).
+
+**Scope consequence:** claim `T_p ∝ 1/π_p` (decoupling with frequency-proportional rate) for the in-context model, and the ≈2×
+steeper ordering than in-weight *at matched readout capacity*; do not claim a scaling-exponent ratio.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
@@ -235,6 +258,7 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-09 v0.12: exp 2 outcome recorded — P16, P17 held; P18 held for A, failed for B (collective-fit baseline); B-readout deviation declared.
 - 2026-10-09 v0.11: P16–P18 (exp 2, many-skill scaling) pre-registered before the run.
 - 2026-10-09 v0.10: exp 5 outcome recorded — P11b: both rival and default failed; intermediate (≈3× handicap, not a trap); scope fixed.
 - 2026-10-08 v0.9: exp 3 outcome recorded; two pre-registration design errors acknowledged (floor, estimator); C4 scope narrowed.

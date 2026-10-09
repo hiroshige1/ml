@@ -1,0 +1,10 @@
+0 done, 9 to run; CPU spent 0.200 h (cap 4.0 h)
+[   184s wall] B_a1.5_rho0.1 seed 0 steps=3000000 stop=max_steps cpu=181s total 0.250 h
+[   368s wall] B_a1.5_rho1.0 seed 0 steps=3000000 stop=max_steps cpu=182s total 0.301 h
+[   650s wall] B_a1.5_rho0.1 seed 1 steps=3000000 stop=max_steps cpu=188s total 0.353 h
+[   749s wall] A_a1.5 seed 0 steps=244000 stop=skills_learned cpu=653s total 0.534 h
+[   765s wall] A_a1.5 seed 1 steps=249000 stop=skills_learned cpu=671s total 0.721 h
+[   834s wall] B_a1.5_rho1.0 seed 1 steps=3000000 stop=max_steps cpu=183s total 0.771 h
+[   929s wall] B_a1.5_rho0.1 seed 2 steps=3000000 stop=max_steps cpu=180s total 0.821 h
+[   946s wall] B_a1.5_rho1.0 seed 2 steps=3000000 stop=max_steps cpu=181s total 0.872 h
+[  1459s wall] A_a1.5 seed 2 steps=506000 stop=skills_learned cpu=1364s total 1.251 h

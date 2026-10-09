@@ -1,0 +1,940 @@
+
+## A_a1.0  (model A, alpha 1.0, rho nan; seeds [0, 1, 2])
+ seed  steps    stop_reason  n_learned  n_learned_first8  n_at_init_ge05  neurons_ge09  neurons_05_09  neurons_lt05  neurons_lt01   cpu_s
+    0 307000 skills_learned         14                 8               5            47             12             5             0 844.108
+    1 191000 skills_learned         10                 8               2            37             21             6             0 526.631
+    2 256000 skills_learned         13                 8               3            42             20             2             0 702.650
+
+T_p(m>=0.5): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: 0.310 ± 0.733 (n=9)
+  seed 1: 1.053 ± 0.531 (n=9)
+  seed 2: 0.389 ± 0.358 (n=10)
+  pooled over seeds: 0.681 ± 0.302 (n=28);  mean of per-seed slopes 0.584 ± 0.236 (SE over seeds)
+  restricted to p <= 8, pooled: 1.498 ± 0.276 (n=22)
+
+T_p(m>=0.9): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: 0.886 ± 0.156 (n=14)
+  seed 1: 1.004 ± 0.149 (n=10)
+  seed 2: 0.823 ± 0.093 (n=13)
+  pooled over seeds: 0.906 ± 0.077 (n=37);  mean of per-seed slopes 0.904 ± 0.053 (SE over seeds)
+  restricted to p <= 8, pooled: 1.142 ± 0.113 (n=24)
+
+T_p,0.5 (align-loss drop midpoint): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: 0.868 ± 0.175 (n=14)
+  seed 1: 0.970 ± 0.172 (n=10)
+  seed 2: 0.775 ± 0.110 (n=13)
+  pooled over seeds: 0.877 ± 0.088 (n=37);  mean of per-seed slopes 0.871 ± 0.056 (SE over seeds)
+  restricted to p <= 8, pooled: 1.162 ± 0.127 (n=24)
+
+init-corrected slope of log(T_p,0.5 * m0^2) vs log p: [1.011, 0.985, 1.054]
+
+T_p table (steps; nan = never; 0 = aligned >= 0.5 at init), T_p(m>=0.5) | T_p(m>=0.9) | T_p,0.5(drop) | m0 per seed
+-- T05
+           s0         s1         s2
+p                                  
+1       0.000   1424.000  11815.000
+2   16164.000   2657.000  17624.000
+3   14209.000   8321.000  29057.000
+4   33978.000  17444.000  37562.000
+5   96714.000  77973.000  25482.000
+6  212585.000  26160.000 156987.000
+7   55657.000  79083.000  49085.000
+8   70898.000      0.000  26632.000
+9    4233.000  25829.000  96910.000
+10 209721.000 160260.000      0.000
+11      0.000        NaN      0.000
+12      0.000   4030.000 137206.000
+13      0.000  37562.000  71639.000
+14  40929.000   5389.000  11567.000
+15      0.000      0.000  79852.000
+16  47774.000        NaN      0.000
+-- T09
+           s0         s1         s2
+p                                  
+1   12248.000  14303.000  25529.000
+2   41382.000  28842.000  43258.000
+3   53830.000  46479.000  66416.000
+4   90827.000  70344.000  89523.000
+5  161898.000 140680.000  89594.000
+6  293766.000 105715.000 243075.000
+7  141150.000 174289.000 145015.000
+8  201602.000  69052.000 141260.000
+9  122406.000 154199.000 212854.000
+10        NaN        NaN 186328.000
+11 122261.000        NaN 143544.000
+12 147088.000        NaN        NaN
+13 133603.000        NaN        NaN
+14 230925.000 187795.000 230153.000
+15 211121.000        NaN        NaN
+16        NaN        NaN 231320.000
+-- T05d
+           s0         s1         s2
+p                                  
+1    9335.000  10812.000  20973.000
+2   33152.000  22036.000  34946.000
+3   43304.000  35489.000  53953.000
+4   73274.000  55588.000  73447.000
+5  139196.000 120346.000  70792.000
+6  264648.000  84624.000 211834.000
+7  114193.000 137123.000 116417.000
+8  165745.000  50743.000 111467.000
+9   90425.000 116542.000 173566.000
+10 258504.000 153224.000 157928.000
+11  89771.000   1045.000 106579.000
+12 109249.000 164923.000 140838.000
+13 101561.000 134079.000 184265.000
+14 179679.000 119489.000 160263.000
+15 162499.000 120785.000 131120.000
+16 236113.000      0.000 157618.000
+-- m0
+      s0    s1    s2
+p                   
+1  0.513 0.475 0.356
+2  0.387 0.480 0.390
+3  0.432 0.457 0.363
+4  0.389 0.431 0.380
+5  0.331 0.360 0.427
+6  0.405 0.449 0.351
+7  0.388 0.364 0.418
+8  0.408 0.623 0.467
+9  0.491 0.461 0.367
+10 0.398 0.403 0.561
+11 0.531 0.470 0.509
+12 0.511 0.497 0.480
+13 0.564 0.491 0.452
+14 0.457 0.490 0.485
+15 0.535 0.501 0.450
+16 0.474 0.294 0.510
+
+sharpness (T_0.9 - T_0.1)/T_mid of the alignment-based per-skill loss (learned skills):
+  seed 0: median over learned skills [mid=drop midpoint] 1.035, [mid=T_p(0.5)] 2.152, p<=8 [drop mid] 0.955
+  seed 1: median over learned skills [mid=drop midpoint] 1.102, [mid=T_p(0.5)] 4.651, p<=8 [drop mid] 1.133
+  seed 2: median over learned skills [mid=drop midpoint] 0.931, [mid=T_p(0.5)] 1.817, p<=8 [drop mid] 0.923
+  pooled medians: drop-mid 1.031 (n=37), T_p(0.5)-mid 2.263
+
+scaling exponents over the window between the 3rd and 8th skill emergence (T_p(0.5) order statistics):
+ seed       t3        t8  win_n  expo_align  expo_align_se  expo_mse  expo_mse_se  expo_align_dropwin  expo_align_dropwin_se  L_align_end  L_mse_end
+    0    0.000 16163.526     16       0.132          0.017     0.027        0.004               0.568                  0.006        0.024      0.357
+    1 1424.181 17443.953     16       0.190          0.023     0.039        0.006               0.572                  0.007        0.098      0.408
+    2    0.000 26631.820     26       0.105          0.017     0.043        0.009               0.882                  0.003        0.049      0.366
+  mean exponent over seeds: align 0.142 ± 0.025 (SE over seeds), mse 0.036 ± 0.005
+
+MODEL A per-skill MSE-based sharpness medians (learned skills; n skills): [(1.086, 14), (1.025, 10), (0.877, 13)]
+min over neurons of max_p|m| at the end, per seed: [0.312, 0.367, 0.477]
+
+neurons per skill at the end (|m|>=0.5) per seed:
+p     1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16
+seed                                                                
+0     10   9   4   7   4   1   5   3   4   1   1   2   3   2   3   1
+1      9  10   7   5   3   4   4   5   2   1   0   2   3   2   3   0
+2     10   7   6   6   3   2   6   3   2   4   4   2   4   3   1   3
+
+## A_a1.5  (model A, alpha 1.5, rho nan; seeds [0, 1, 2])
+ seed  steps    stop_reason  n_learned  n_learned_first8  n_at_init_ge05  neurons_ge09  neurons_05_09  neurons_lt05  neurons_lt01    cpu_s
+    0 244000 skills_learned          8                 8               1            34             14            16             0  652.851
+    1 249000 skills_learned          9                 8               2            33             18            13             0  670.687
+    2 506000 skills_learned         11                 8               2            44             13             7             0 1364.456
+
+T_p(m>=0.5): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: 1.563 ± 0.513 (n=7)
+  seed 1: 1.159 ± 0.311 (n=7)
+  seed 2: 1.811 ± 0.388 (n=9)
+  pooled over seeds: 1.534 ± 0.221 (n=23);  mean of per-seed slopes 1.511 ± 0.190 (SE over seeds)
+  restricted to p <= 8, pooled: 1.658 ± 0.234 (n=21)
+
+T_p(m>=0.9): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: 1.475 ± 0.152 (n=8)
+  seed 1: 1.301 ± 0.105 (n=9)
+  seed 2: 1.549 ± 0.119 (n=11)
+  pooled over seeds: 1.448 ± 0.070 (n=28);  mean of per-seed slopes 1.441 ± 0.073 (SE over seeds)
+  restricted to p <= 8, pooled: 1.509 ± 0.079 (n=24)
+
+T_p,0.5 (align-loss drop midpoint): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: 1.463 ± 0.178 (n=8)
+  seed 1: 1.256 ± 0.127 (n=9)
+  seed 2: 1.558 ± 0.132 (n=11)
+  pooled over seeds: 1.435 ± 0.082 (n=28);  mean of per-seed slopes 1.426 ± 0.089 (SE over seeds)
+  restricted to p <= 8, pooled: 1.503 ± 0.091 (n=24)
+
+init-corrected slope of log(T_p,0.5 * m0^2) vs log p: [1.517, 1.461, 1.596]
+
+T_p table (steps; nan = never; 0 = aligned >= 0.5 at init), T_p(m>=0.5) | T_p(m>=0.9) | T_p,0.5(drop) | m0 per seed
+-- T05
+           s0         s1         s2
+p                                  
+1    3154.000   2661.000    880.000
+2    3045.000  15242.000   7881.000
+3   24509.000  17580.000  13695.000
+4   62081.000  36944.000  31560.000
+5   79522.000  14577.000      0.000
+6   58166.000      0.000  19812.000
+7       0.000  58817.000  60779.000
+8   24434.000  28923.000 280536.000
+9  109437.000  58821.000      0.000
+10  89213.000      0.000  23402.000
+11        NaN        NaN 127524.000
+12 117353.000        NaN 289384.000
+13 128417.000 224305.000 179470.000
+14        NaN  52424.000 191800.000
+15  17103.000        NaN  89195.000
+16        NaN        NaN        NaN
+-- T09
+           s0         s1         s2
+p                                  
+1   11467.000  10716.000   9032.000
+2   24155.000  38059.000  31780.000
+3   66527.000  57778.000  58135.000
+4  129978.000 100840.000  93442.000
+5  171423.000 101851.000  90912.000
+6  176797.000  97478.000 148523.000
+7  147172.000 204517.000 223125.000
+8  213494.000 215039.000 472293.000
+9         NaN        NaN 199742.000
+10        NaN 211905.000 312855.000
+11        NaN        NaN 395943.000
+12        NaN        NaN        NaN
+13        NaN        NaN        NaN
+14        NaN        NaN        NaN
+15        NaN        NaN        NaN
+16        NaN        NaN        NaN
+-- T05d
+           s0         s1         s2
+p                                  
+1    8905.000   8103.000   6896.000
+2   18151.000  30771.000  25257.000
+3   53673.000  45778.000  45909.000
+4  109672.000  82852.000  73833.000
+5  139151.000  79069.000  68150.000
+6  140091.000  72066.000 114373.000
+7  111000.000 159947.000 178032.000
+8  152509.000 151288.000 397123.000
+9  171255.000 173175.000 152404.000
+10 145170.000 144010.000 251008.000
+11      0.000   2854.000 307922.000
+12 180310.000  91860.000 376130.000
+13 142072.000 149076.000 357629.000
+14 171697.000 143380.000 371179.000
+15 153226.000      0.000  52700.000
+16 149530.000    500.000 365645.000
+-- m0
+      s0    s1    s2
+p                   
+1  0.416 0.425 0.472
+2  0.469 0.382 0.439
+3  0.393 0.421 0.438
+4  0.365 0.423 0.409
+5  0.361 0.479 0.501
+6  0.411 0.545 0.464
+7  0.500 0.422 0.427
+8  0.472 0.462 0.404
+9  0.409 0.441 0.538
+10 0.459 0.537 0.486
+11 0.492 0.440 0.465
+12 0.471 0.377 0.366
+13 0.439 0.398 0.431
+14 0.395 0.470 0.428
+15 0.489 0.460 0.463
+16 0.395 0.474 0.386
+
+sharpness (T_0.9 - T_0.1)/T_mid of the alignment-based per-skill loss (learned skills):
+  seed 0: median over learned skills [mid=drop midpoint] 1.050, [mid=T_p(0.5)] 2.388, p<=8 [drop mid] 1.050
+  seed 1: median over learned skills [mid=drop midpoint] 1.102, [mid=T_p(0.5)] 2.759, p<=8 [drop mid] 1.081
+  seed 2: median over learned skills [mid=drop midpoint] 1.053, [mid=T_p(0.5)] 3.343, p<=8 [drop mid] 1.074
+  pooled medians: drop-mid 1.077 (n=28), T_p(0.5)-mid 3.084
+
+scaling exponents over the window between the 3rd and 8th skill emergence (T_p(0.5) order statistics):
+ seed       t3        t8  win_n  expo_align  expo_align_se  expo_mse  expo_mse_se  expo_align_dropwin  expo_align_dropwin_se  L_align_end  L_mse_end
+    0 3154.361 62081.061     59       0.457          0.010     0.328        0.005               0.726                  0.016        0.066      0.299
+    1 2661.181 36943.866     34       0.417          0.011     0.284        0.010               0.850                  0.006        0.061      0.291
+    2  880.180 31560.414     31       0.339          0.016     0.198        0.017               0.708                  0.003        0.030      0.253
+  mean exponent over seeds: align 0.404 ± 0.035 (SE over seeds), mse 0.270 ± 0.038
+
+MODEL A per-skill MSE-based sharpness medians (learned skills; n skills): [(0.824, 8), (1.005, 9), (1.086, 11)]
+min over neurons of max_p|m| at the end, per seed: [0.294, 0.305, 0.299]
+
+neurons per skill at the end (|m|>=0.5) per seed:
+p     1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16
+seed                                                                
+0      9  10  10   4   4   4   2   2   2   1   0   1   1   0   1   0
+1     12   7   6   5   6   2   2   4   3   2   0   0   1   2   0   0
+2     10  10   8   5   2   4   5   2   3   2   2   1   2   1   0   0
+
+## B_a1.0_rho0.0566  (model B, alpha 1.0, rho 0.0566; seeds [0, 1, 2])
+ seed   steps stop_reason  n_learned  n_learned_first8  n_at_init_ge05  neurons_ge09  neurons_05_09  neurons_lt05  neurons_lt01   cpu_s
+    0 3000000   max_steps         10                 6               5             0             46            18             0 186.110
+    1 3000000   max_steps         10                 7               2             0             40            24             0 184.629
+    2 3000000   max_steps         10                 8               3             0             46            18             0 184.857
+
+T_p(m>=0.5): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: -0.330 ± 0.424 (n=8)
+  seed 1: 1.189 ± 0.558 (n=9)
+  seed 2: 0.746 ± 0.295 (n=10)
+  pooled over seeds: 0.600 ± 0.281 (n=27);  mean of per-seed slopes 0.535 ± 0.451 (SE over seeds)
+  restricted to p <= 8, pooled: 1.326 ± 0.292 (n=20)
+
+T_p(m>=0.9): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: nan ± nan (n=0)
+  seed 1: nan ± nan (n=0)
+  seed 2: nan ± nan (n=0)
+  pooled over seeds: nan ± nan (n=0);  mean of per-seed slopes nan ± nan (SE over seeds)
+  restricted to p <= 8, pooled: nan ± nan (n=0)
+
+T_p,0.5 (align-loss drop midpoint): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: 0.516 ± 0.147 (n=10)
+  seed 1: 0.718 ± 0.180 (n=10)
+  seed 2: 0.616 ± 0.098 (n=10)
+  pooled over seeds: 0.608 ± 0.083 (n=30);  mean of per-seed slopes 0.617 ± 0.058 (SE over seeds)
+  restricted to p <= 8, pooled: 0.583 ± 0.121 (n=21)
+
+init-corrected slope of log(T_p,0.5 * m0^2) vs log p: [0.576, 0.514, 0.764]
+
+T_p table (steps; nan = never; 0 = aligned >= 0.5 at init), T_p(m>=0.5) | T_p(m>=0.9) | T_p,0.5(drop) | m0 per seed
+-- T05
+           s0        s1        s2
+p                                
+1       0.000   622.000  4982.000
+2    5001.000   781.000  5578.000
+3    7041.000  2754.000  7518.000
+4   10916.000 10030.000 10789.000
+5   25143.000 18643.000  6118.000
+6         NaN  5589.000 83246.000
+7   10839.000 21026.000 13990.000
+8  514578.000     0.000 21053.000
+9    1804.000 78820.000 20475.000
+10        NaN 53069.000     0.000
+11      0.000       NaN     0.000
+12      0.000  1054.000       NaN
+13      0.000 34705.000 21143.000
+14   6804.000  1769.000       NaN
+15      0.000     0.000 65323.000
+16   3490.000       NaN     0.000
+-- T09
+    s0  s1  s2
+p             
+1  NaN NaN NaN
+2  NaN NaN NaN
+3  NaN NaN NaN
+4  NaN NaN NaN
+5  NaN NaN NaN
+6  NaN NaN NaN
+7  NaN NaN NaN
+8  NaN NaN NaN
+9  NaN NaN NaN
+10 NaN NaN NaN
+11 NaN NaN NaN
+12 NaN NaN NaN
+13 NaN NaN NaN
+14 NaN NaN NaN
+15 NaN NaN NaN
+16 NaN NaN NaN
+-- T05d
+          s0         s1         s2
+p                                 
+1   5148.000   5868.000   8342.000
+2   9958.000   7725.000  10658.000
+3  16358.000  10629.000  11807.000
+4  18205.000  32222.000  12814.000
+5  17084.000  12319.000  20464.000
+6  37921.000   7917.000  25080.000
+7  13372.000  15842.000  21093.000
+8  33443.000   1939.000  38207.000
+9  45536.000  52816.000  21002.000
+10 45911.000  33327.000      0.000
+11 21099.000 269777.000 149181.000
+12 70371.000  79288.000 696807.000
+13 88729.000  64691.000  37202.000
+14 31089.000  46678.000 377802.000
+15 67591.000  62656.000  50371.000
+16 16964.000  39657.000 159711.000
+-- m0
+      s0    s1    s2
+p                   
+1  0.513 0.475 0.356
+2  0.387 0.480 0.390
+3  0.432 0.457 0.363
+4  0.389 0.431 0.380
+5  0.331 0.360 0.427
+6  0.405 0.449 0.351
+7  0.388 0.364 0.418
+8  0.408 0.623 0.467
+9  0.491 0.461 0.367
+10 0.398 0.403 0.561
+11 0.531 0.470 0.509
+12 0.511 0.497 0.480
+13 0.564 0.491 0.452
+14 0.457 0.490 0.485
+15 0.535 0.501 0.450
+16 0.474 0.294 0.510
+
+sharpness (T_0.9 - T_0.1)/T_mid of the alignment-based per-skill loss (learned skills):
+  seed 0: median over learned skills [mid=drop midpoint] 4.872, [mid=T_p(0.5)] 12.057, p<=8 [drop mid] 3.447
+  seed 1: median over learned skills [mid=drop midpoint] 4.816, [mid=T_p(0.5)] 15.834, p<=8 [drop mid] 4.929
+  seed 2: median over learned skills [mid=drop midpoint] 4.861, [mid=T_p(0.5)] 5.138, p<=8 [drop mid] 4.221
+  pooled medians: drop-mid 4.837 (n=30), T_p(0.5)-mid 7.692
+
+scaling exponents over the window between the 3rd and 8th skill emergence (T_p(0.5) order statistics):
+ seed      t3        t8  win_n  expo_align  expo_align_se  expo_mse  expo_mse_se  expo_align_dropwin  expo_align_dropwin_se  L_align_end  L_mse_end
+    0   0.000  5001.328      5       0.057          0.007     0.252        0.037               0.136                  0.001        0.513      0.000
+    1 622.049  5588.732      5       0.065          0.009     0.241        0.036               0.126                  0.005        0.506      0.000
+    2   0.000 10789.017     10       0.068          0.008     0.441        0.054               0.139                  0.002        0.553      0.000
+  mean exponent over seeds: align 0.064 ± 0.003 (SE over seeds), mse 0.311 ± 0.065
+
+SUPPLEMENTARY (Model B pooled alignment q_p = rho sum_j m_jp^2 / a_p; skills with q_p(0) <= 0.8 only; midpoint = q0 + 0.5 (1 - q0)):
+  seed 0: slope log T_q,0.5 vs log p = 0.764 ± 0.073 (n=14); median sharpness 5.066
+  seed 1: slope log T_q,0.5 vs log p = 0.781 ± 0.130 (n=13); median sharpness 4.608
+  seed 2: slope log T_q,0.5 vs log p = 0.779 ± 0.123 (n=11); median sharpness 4.470
+  pooled: slope 0.774 ± 0.059 (n=38); pooled median sharpness 4.831
+  pooled alignment q_p at t=0 (mean over seeds): [0.19, 0.27, 0.3, 0.4, 0.38, 0.51, 0.54, 0.74, 0.64, 0.69, 0.76, 0.74, 0.9, 0.87, 0.98, 0.69]
+  pooled alignment q_p at the end (mean over seeds): [0.999, 0.999, 0.999, 0.998, 0.998, 0.998, 0.998, 0.998, 0.997, 0.997, 0.997, 0.997, 0.997, 0.997, 0.997, 0.997]
+min over neurons of max_p|m| at the end, per seed: [0.396, 0.396, 0.391]
+
+neurons per skill at the end (|m|>=0.5) per seed:
+p     1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16
+seed                                                                
+0     17   9   4   5   2   0   2   2   2   0   2   1   2   1   2   1
+1     11   8   6   4   4   2   2   4   1   2   0   1   1   2   1   0
+2     15   7   6   3   3   1   3   2   2   2   2   0   2   0   1   1
+
+## B_a1.0_rho0.1  (model B, alpha 1.0, rho 0.1; seeds [0, 1, 2])
+ seed   steps stop_reason  n_learned  n_learned_first8  n_at_init_ge05  neurons_ge09  neurons_05_09  neurons_lt05  neurons_lt01   cpu_s
+    0 3000000   max_steps          9                 6               5             0             23            41             0 184.710
+    1 3000000   max_steps          9                 7               2             0             26            38             0 185.569
+    2 3000000   max_steps          7                 6               3             0             26            38             0 184.964
+
+T_p(m>=0.5): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: -0.369 ± 0.428 (n=7)
+  seed 1: 1.896 ± 0.383 (n=8)
+  seed 2: 0.516 ± 0.124 (n=7)
+  pooled over seeds: 0.673 ± 0.274 (n=22);  mean of per-seed slopes 0.681 ± 0.659 (SE over seeds)
+  restricted to p <= 8, pooled: 1.209 ± 0.309 (n=18)
+
+T_p(m>=0.9): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: nan ± nan (n=0)
+  seed 1: nan ± nan (n=0)
+  seed 2: nan ± nan (n=0)
+  pooled over seeds: nan ± nan (n=0);  mean of per-seed slopes nan ± nan (SE over seeds)
+  restricted to p <= 8, pooled: nan ± nan (n=0)
+
+T_p,0.5 (align-loss drop midpoint): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: 0.250 ± 0.123 (n=9)
+  seed 1: 0.444 ± 0.120 (n=9)
+  seed 2: 0.378 ± 0.090 (n=7)
+  pooled over seeds: 0.337 ± 0.066 (n=25);  mean of per-seed slopes 0.357 ± 0.057 (SE over seeds)
+  restricted to p <= 8, pooled: 0.413 ± 0.093 (n=19)
+
+init-corrected slope of log(T_p,0.5 * m0^2) vs log p: [0.291, 0.134, 0.463]
+
+T_p table (steps; nan = never; 0 = aligned >= 0.5 at init), T_p(m>=0.5) | T_p(m>=0.9) | T_p,0.5(drop) | m0 per seed
+-- T05
+          s0        s1        s2
+p                               
+1      0.000   349.000  2927.000
+2   2908.000   399.000  3879.000
+3   4059.000  1702.000  3897.000
+4   8544.000  8194.000  6016.000
+5  15790.000 11799.000  4115.000
+6        NaN  2825.000       NaN
+7   5960.000 14814.000  7314.000
+8        NaN     0.000  4890.000
+9   1192.000       NaN 10441.000
+10       NaN 16146.000     0.000
+11     0.000       NaN     0.000
+12     0.000   526.000       NaN
+13     0.000       NaN 21062.000
+14  3252.000   931.000       NaN
+15     0.000     0.000 15704.000
+16  1386.000       NaN     0.000
+-- T09
+    s0  s1  s2
+p             
+1  NaN NaN NaN
+2  NaN NaN NaN
+3  NaN NaN NaN
+4  NaN NaN NaN
+5  NaN NaN NaN
+6  NaN NaN NaN
+7  NaN NaN NaN
+8  NaN NaN NaN
+9  NaN NaN NaN
+10 NaN NaN NaN
+11 NaN NaN NaN
+12 NaN NaN NaN
+13 NaN NaN NaN
+14 NaN NaN NaN
+15 NaN NaN NaN
+16 NaN NaN NaN
+-- T05d
+            s0        s1        s2
+p                                 
+1     2179.000  2572.000  2968.000
+2     3519.000  3068.000  3765.000
+3     6936.000  3471.000  4344.000
+4     6227.000  7026.000  4563.000
+5     6243.000  4112.000  6910.000
+6    14480.000  3294.000  6772.000
+7     5228.000  4899.000  7284.000
+8     6428.000     0.000  3556.000
+9     7036.000 14197.000  5498.000
+10   18027.000  6440.000     0.000
+11    5883.000   694.000     0.000
+12     831.000 10382.000     0.000
+13    1488.000 29510.000 11983.000
+14    6783.000  7697.000     0.000
+15 1241513.000 10600.000  7514.000
+16    4284.000 10502.000 17333.000
+-- m0
+      s0    s1    s2
+p                   
+1  0.513 0.475 0.356
+2  0.387 0.480 0.390
+3  0.432 0.457 0.363
+4  0.389 0.431 0.380
+5  0.331 0.360 0.427
+6  0.405 0.449 0.351
+7  0.388 0.364 0.418
+8  0.408 0.623 0.467
+9  0.491 0.461 0.367
+10 0.398 0.403 0.561
+11 0.531 0.470 0.509
+12 0.511 0.497 0.480
+13 0.564 0.491 0.452
+14 0.457 0.490 0.485
+15 0.535 0.501 0.450
+16 0.474 0.294 0.510
+
+sharpness (T_0.9 - T_0.1)/T_mid of the alignment-based per-skill loss (learned skills):
+  seed 0: median over learned skills [mid=drop midpoint] 3.487, [mid=T_p(0.5)] 3.178, p<=8 [drop mid] 2.705
+  seed 1: median over learned skills [mid=drop midpoint] 3.658, [mid=T_p(0.5)] 4.605, p<=8 [drop mid] 3.852
+  seed 2: median over learned skills [mid=drop midpoint] 3.044, [mid=T_p(0.5)] 2.584, p<=8 [drop mid] 2.920
+  pooled medians: drop-mid 3.487 (n=25), T_p(0.5)-mid 3.147
+
+scaling exponents over the window between the 3rd and 8th skill emergence (T_p(0.5) order statistics):
+ seed      t3       t8  win_n  expo_align  expo_align_se  expo_mse  expo_mse_se  expo_align_dropwin  expo_align_dropwin_se  L_align_end  L_mse_end
+    0   0.000 2908.467      2         NaN            NaN       NaN          NaN                 NaN                    NaN        0.613      0.241
+    1 349.431 2824.618      2         NaN            NaN       NaN          NaN               0.116                  0.003        0.600      0.241
+    2   0.000 4890.264      4       0.059          0.007     0.464        0.054                 NaN                    NaN        0.676      0.241
+  mean exponent over seeds: align 0.059 ± nan (SE over seeds), mse 0.464 ± nan
+
+SUPPLEMENTARY (Model B pooled alignment q_p = rho sum_j m_jp^2 / a_p; skills with q_p(0) <= 0.8 only; midpoint = q0 + 0.5 (1 - q0)):
+  seed 0: slope log T_q,0.5 vs log p = 0.051 ± 0.055 (n=4); median sharpness 1.848
+  seed 1: slope log T_q,0.5 vs log p = -0.174 ± 0.169 (n=5); median sharpness 1.849
+  seed 2: slope log T_q,0.5 vs log p = -0.299 ± 0.248 (n=5); median sharpness 1.858
+  pooled: slope -0.158 ± 0.103 (n=14); pooled median sharpness 1.854
+  pooled alignment q_p at t=0 (mean over seeds): [0.33, 0.47, 0.53, 0.7, 0.68, 0.89, 0.95, 1.31, 1.13, 1.22, 1.35, 1.31, 1.58, 1.55, 1.73, 1.21]
+  pooled alignment q_p at the end (mean over seeds): [1.162, 1.23, 1.274, 1.317, 1.356, 1.391, 1.42, 1.447, 1.476, 1.509, 1.531, 1.55, 1.577, 1.593, 1.619, 1.636]
+min over neurons of max_p|m| at the end, per seed: [0.357, 0.321, 0.34]
+
+neurons per skill at the end (|m|>=0.5) per seed:
+p     1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16
+seed                                                                
+0      6   4   3   1   1   0   1   0   2   0   1   1   1   1   1   1
+1      8   2   4   3   1   2   1   2   0   1   0   1   0   1   1   0
+2      9   5   1   2   2   0   1   2   1   1   0   0   1   0   1   1
+
+## B_a1.5_rho0.0496  (model B, alpha 1.5, rho 0.0496; seeds [0, 1, 2])
+ seed   steps stop_reason  n_learned  n_learned_first8  n_at_init_ge05  neurons_ge09  neurons_05_09  neurons_lt05  neurons_lt01   cpu_s
+    0 3000000   max_steps          8                 8               1             0             51            13             0 183.096
+    1 3000000   max_steps         10                 8               2             1             50            13             0 182.733
+    2 3000000   max_steps          7                 7               2             1             49            14             0 182.432
+
+T_p(m>=0.5): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: 1.265 ± 0.497 (n=7)
+  seed 1: 0.693 ± 0.335 (n=9)
+  seed 2: 2.025 ± 0.370 (n=6)
+  pooled over seeds: 1.151 ± 0.237 (n=22);  mean of per-seed slopes 1.328 ± 0.386 (SE over seeds)
+  restricted to p <= 8, pooled: 1.432 ± 0.246 (n=20)
+
+T_p(m>=0.9): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: nan ± nan (n=0)
+  seed 1: nan ± nan (n=1)
+  seed 2: nan ± nan (n=1)
+  pooled over seeds: nan ± nan (n=2);  mean of per-seed slopes nan ± nan (SE over seeds)
+  restricted to p <= 8, pooled: nan ± nan (n=2)
+
+T_p,0.5 (align-loss drop midpoint): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: 0.660 ± 0.153 (n=8)
+  seed 1: 0.706 ± 0.127 (n=10)
+  seed 2: 0.861 ± 0.116 (n=7)
+  pooled over seeds: 0.750 ± 0.076 (n=25);  mean of per-seed slopes 0.742 ± 0.061 (SE over seeds)
+  restricted to p <= 8, pooled: 0.772 ± 0.087 (n=23)
+
+init-corrected slope of log(T_p,0.5 * m0^2) vs log p: [0.714, 0.83, 0.801]
+
+T_p table (steps; nan = never; 0 = aligned >= 0.5 at init), T_p(m>=0.5) | T_p(m>=0.9) | T_p,0.5(drop) | m0 per seed
+-- T05
+          s0        s1         s2
+p                                
+1   1946.000  1870.000    563.000
+2   1317.000  4580.000   3417.000
+3   7486.000  5548.000   8650.000
+4  25734.000 20674.000   6802.000
+5  30475.000  4768.000      0.000
+6   9829.000     0.000  10559.000
+7      0.000 44244.000 698296.000
+8  11397.000  8844.000  84945.000
+9        NaN 12484.000      0.000
+10       NaN     0.000        NaN
+11       NaN       NaN        NaN
+12       NaN       NaN        NaN
+13       NaN       NaN        NaN
+14       NaN  8035.000        NaN
+15  4021.000       NaN        NaN
+16       NaN       NaN        NaN
+-- T09
+    s0         s1        s2
+p                          
+1  NaN        NaN 48731.000
+2  NaN 368742.000       NaN
+3  NaN        NaN       NaN
+4  NaN        NaN       NaN
+5  NaN        NaN       NaN
+6  NaN        NaN       NaN
+7  NaN        NaN       NaN
+8  NaN        NaN       NaN
+9  NaN        NaN       NaN
+10 NaN        NaN       NaN
+11 NaN        NaN       NaN
+12 NaN        NaN       NaN
+13 NaN        NaN       NaN
+14 NaN        NaN       NaN
+15 NaN        NaN       NaN
+16 NaN        NaN       NaN
+-- T05d
+           s0         s1          s2
+p                                   
+1    6743.000   7203.000    6144.000
+2    9932.000  13480.000   13772.000
+3   13837.000  15534.000   15516.000
+4   28822.000  38679.000   15851.000
+5   26448.000  29829.000   22741.000
+6   24863.000  19441.000   25711.000
+7   17217.000  43336.000   60936.000
+8   26362.000  39293.000   48863.000
+9  103935.000  41405.000       0.000
+10 138049.000 112735.000  456328.000
+11      0.000    500.000 1134457.000
+12      0.000  69978.000   94424.000
+13  97348.000 106921.000   98041.000
+14 122471.000  40617.000   95460.000
+15   1813.000      0.000    2362.000
+16 108708.000      0.000  202332.000
+-- m0
+      s0    s1    s2
+p                   
+1  0.416 0.425 0.472
+2  0.469 0.382 0.439
+3  0.393 0.421 0.438
+4  0.365 0.423 0.409
+5  0.361 0.479 0.501
+6  0.411 0.545 0.464
+7  0.500 0.422 0.427
+8  0.472 0.462 0.404
+9  0.409 0.441 0.538
+10 0.459 0.537 0.486
+11 0.492 0.440 0.465
+12 0.471 0.377 0.366
+13 0.439 0.398 0.431
+14 0.395 0.470 0.428
+15 0.489 0.460 0.463
+16 0.395 0.474 0.386
+
+sharpness (T_0.9 - T_0.1)/T_mid of the alignment-based per-skill loss (learned skills):
+  seed 0: median over learned skills [mid=drop midpoint] 3.978, [mid=T_p(0.5)] 7.200, p<=8 [drop mid] 3.978
+  seed 1: median over learned skills [mid=drop midpoint] 4.218, [mid=T_p(0.5)] 12.950, p<=8 [drop mid] 3.728
+  seed 2: median over learned skills [mid=drop midpoint] 4.319, [mid=T_p(0.5)] 12.617, p<=8 [drop mid] 4.319
+  pooled medians: drop-mid 4.093 (n=25), T_p(0.5)-mid 11.024
+
+scaling exponents over the window between the 3rd and 8th skill emergence (T_p(0.5) order statistics):
+ seed       t3        t8  win_n  expo_align  expo_align_se  expo_mse  expo_mse_se  expo_align_dropwin  expo_align_dropwin_se  L_align_end  L_mse_end
+    0 1946.382 25734.149     24       0.251          0.008     0.981        0.064               0.215                  0.008        0.402      0.000
+    1 1870.492  8844.197      7       0.156          0.015     0.445        0.049               0.177                  0.006        0.365      0.000
+    2  563.150 84944.765     84       0.154          0.004     1.349        0.039                 NaN                    NaN        0.391      0.000
+  mean exponent over seeds: align 0.187 ± 0.032 (SE over seeds), mse 0.925 ± 0.262
+
+SUPPLEMENTARY (Model B pooled alignment q_p = rho sum_j m_jp^2 / a_p; skills with q_p(0) <= 0.8 only; midpoint = q0 + 0.5 (1 - q0)):
+  seed 0: slope log T_q,0.5 vs log p = 0.788 ± 0.165 (n=8); median sharpness 3.727
+  seed 1: slope log T_q,0.5 vs log p = 0.961 ± 0.093 (n=10); median sharpness 3.578
+  seed 2: slope log T_q,0.5 vs log p = 0.995 ± 0.101 (n=9); median sharpness 3.158
+  pooled: slope 0.933 ± 0.064 (n=27); pooled median sharpness 3.493
+  pooled alignment q_p at t=0 (mean over seeds): [0.14, 0.21, 0.31, 0.31, 0.46, 0.61, 0.56, 0.69, 0.99, 0.99, 0.87, 0.91, 0.9, 1.07, 1.09, 1.1]
+  pooled alignment q_p at the end (mean over seeds): [0.999, 0.999, 0.999, 0.998, 0.998, 0.998, 0.998, 0.997, 0.997, 0.997, 0.997, 0.996, 0.996, 0.996, 0.996, 0.995]
+min over neurons of max_p|m| at the end, per seed: [0.414, 0.408, 0.388]
+
+neurons per skill at the end (|m|>=0.5) per seed:
+p     1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16
+seed                                                                
+0     23  14   8   5   2   2   2   2   0   0   0   0   0   0   0   0
+1     23   8   7   5   4   1   3   2   1   1   0   0   0   1   0   0
+2     23   9   9   4   3   4   1   2   0   0   0   0   0   0   0   0
+
+## B_a1.5_rho0.1  (model B, alpha 1.5, rho 0.1; seeds [0, 1, 2])
+ seed   steps stop_reason  n_learned  n_learned_first8  n_at_init_ge05  neurons_ge09  neurons_05_09  neurons_lt05  neurons_lt01   cpu_s
+    0 3000000   max_steps          7                 7               1             0             20            44             0 181.384
+    1 3000000   max_steps          4                 3               2             0             30            34             0 187.719
+    2 3000000   max_steps          5                 5               2             0             23            41             0 179.935
+
+T_p(m>=0.5): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: 1.910 ± 0.812 (n=6)
+  seed 1: 0.172 ± 0.310 (n=4)
+  seed 2: 1.956 ± 0.678 (n=4)
+  pooled over seeds: 1.028 ± 0.416 (n=14);  mean of per-seed slopes 1.346 ± 0.587 (SE over seeds)
+  restricted to p <= 8, pooled: 1.838 ± 0.396 (n=13)
+
+T_p(m>=0.9): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: nan ± nan (n=0)
+  seed 1: nan ± nan (n=0)
+  seed 2: nan ± nan (n=0)
+  pooled over seeds: nan ± nan (n=0);  mean of per-seed slopes nan ± nan (SE over seeds)
+  restricted to p <= 8, pooled: nan ± nan (n=0)
+
+T_p,0.5 (align-loss drop midpoint): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: 0.363 ± 0.165 (n=7)
+  seed 1: 0.220 ± 0.121 (n=4)
+  seed 2: 0.557 ± 0.165 (n=5)
+  pooled over seeds: 0.340 ± 0.082 (n=16);  mean of per-seed slopes 0.380 ± 0.098 (SE over seeds)
+  restricted to p <= 8, pooled: 0.424 ± 0.092 (n=15)
+
+init-corrected slope of log(T_p,0.5 * m0^2) vs log p: [0.359, 0.325, 0.538]
+
+T_p table (steps; nan = never; 0 = aligned >= 0.5 at init), T_p(m>=0.5) | T_p(m>=0.9) | T_p,0.5(drop) | m0 per seed
+-- T05
+          s0        s1        s2
+p                               
+1    930.000  1000.000   276.000
+2    663.000  2179.000  2012.000
+3   4088.000  3583.000  5843.000
+4  21561.000  6853.000  2906.000
+5  43882.000  4423.000     0.000
+6   4973.000     0.000  3180.000
+7      0.000 21505.000       NaN
+8        NaN  7993.000       NaN
+9        NaN 12202.000     0.000
+10       NaN     0.000       NaN
+11       NaN       NaN       NaN
+12       NaN       NaN       NaN
+13       NaN       NaN 73486.000
+14       NaN  1894.000 59287.000
+15   722.000       NaN       NaN
+16       NaN       NaN       NaN
+-- T09
+    s0  s1  s2
+p             
+1  NaN NaN NaN
+2  NaN NaN NaN
+3  NaN NaN NaN
+4  NaN NaN NaN
+5  NaN NaN NaN
+6  NaN NaN NaN
+7  NaN NaN NaN
+8  NaN NaN NaN
+9  NaN NaN NaN
+10 NaN NaN NaN
+11 NaN NaN NaN
+12 NaN NaN NaN
+13 NaN NaN NaN
+14 NaN NaN NaN
+15 NaN NaN NaN
+16 NaN NaN NaN
+-- T05d
+           s0        s1        s2
+p                                
+1    2561.000  2437.000  2187.000
+2    3133.000  4433.000  2891.000
+3    4427.000  3520.000  5413.000
+4    5254.000  1827.000  3939.000
+5    7360.000  4576.000  5429.000
+6    5127.000  5433.000  3235.000
+7    3661.000 10330.000   820.000
+8   12743.000 10292.000 13778.000
+9   20144.000  5771.000     0.000
+10    704.000     0.000     0.000
+11      0.000   500.000   500.000
+12      0.000  4276.000 14689.000
+13   1158.000  5020.000 15250.000
+14 802862.000  4914.000  4529.000
+15   2210.000     0.000   911.000
+16  14385.000     0.000  8794.000
+-- m0
+      s0    s1    s2
+p                   
+1  0.416 0.425 0.472
+2  0.469 0.382 0.439
+3  0.393 0.421 0.438
+4  0.365 0.423 0.409
+5  0.361 0.479 0.501
+6  0.411 0.545 0.464
+7  0.500 0.422 0.427
+8  0.472 0.462 0.404
+9  0.409 0.441 0.538
+10 0.459 0.537 0.486
+11 0.492 0.440 0.465
+12 0.471 0.377 0.366
+13 0.439 0.398 0.431
+14 0.395 0.470 0.428
+15 0.489 0.460 0.463
+16 0.395 0.474 0.386
+
+sharpness (T_0.9 - T_0.1)/T_mid of the alignment-based per-skill loss (learned skills):
+  seed 0: median over learned skills [mid=drop midpoint] 2.643, [mid=T_p(0.5)] 3.004, p<=8 [drop mid] 2.643
+  seed 1: median over learned skills [mid=drop midpoint] 2.606, [mid=T_p(0.5)] 5.499, p<=8 [drop mid] 2.572
+  seed 2: median over learned skills [mid=drop midpoint] 2.518, [mid=T_p(0.5)] 3.641, p<=8 [drop mid] 2.518
+  pooled medians: drop-mid 2.606 (n=16), T_p(0.5)-mid 3.641
+
+scaling exponents over the window between the 3rd and 8th skill emergence (T_p(0.5) order statistics):
+ seed      t3        t8  win_n  expo_align  expo_align_se  expo_mse  expo_mse_se  expo_align_dropwin  expo_align_dropwin_se  L_align_end  L_mse_end
+    0 721.744 43882.108     43       0.076          0.007     0.354        0.022                 NaN                    NaN        0.543      0.326
+    1 999.854  6852.632      6       0.125          0.008     0.536        0.045                 NaN                    NaN        0.568      0.326
+    2 275.810 59286.835     59       0.052          0.005     0.281        0.019                 NaN                    NaN        0.535      0.326
+  mean exponent over seeds: align 0.084 ± 0.022 (SE over seeds), mse 0.390 ± 0.076
+
+SUPPLEMENTARY (Model B pooled alignment q_p = rho sum_j m_jp^2 / a_p; skills with q_p(0) <= 0.8 only; midpoint = q0 + 0.5 (1 - q0)):
+  seed 0: slope log T_q,0.5 vs log p = -0.154 ± 0.036 (n=4); median sharpness 1.764
+  seed 1: slope log T_q,0.5 vs log p = -0.531 ± 0.522 (n=4); median sharpness 1.745
+  seed 2: slope log T_q,0.5 vs log p = 0.028 ± 0.215 (n=4); median sharpness 1.789
+  pooled: slope -0.219 ± 0.171 (n=12); pooled median sharpness 1.769
+  pooled alignment q_p at t=0 (mean over seeds): [0.28, 0.43, 0.62, 0.62, 0.93, 1.22, 1.13, 1.39, 1.99, 1.99, 1.75, 1.84, 1.81, 2.16, 2.21, 2.22]
+  pooled alignment q_p at the end (mean over seeds): [1.146, 1.245, 1.335, 1.418, 1.492, 1.569, 1.626, 1.696, 1.77, 1.832, 1.89, 1.951, 2.001, 2.062, 2.133, 2.166]
+min over neurons of max_p|m| at the end, per seed: [0.317, 0.324, 0.343]
+
+neurons per skill at the end (|m|>=0.5) per seed:
+p     1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16
+seed                                                                
+0      9   4   1   1   1   1   2   0   0   0   0   0   0   0   1   0
+1     12   6   2   1   1   1   2   2   1   1   0   0   0   1   0   0
+2     12   4   1   3   2   3   0   0   0   0   0   0   0   0   0   0
+
+## B_a1.5_rho1.0  (model B, alpha 1.5, rho 1.0; seeds [0, 1, 2])
+ seed   steps stop_reason  n_learned  n_learned_first8  n_at_init_ge05  neurons_ge09  neurons_05_09  neurons_lt05  neurons_lt01   cpu_s
+    0 3000000   max_steps         16                 8               1             0              2            62             0 181.677
+    1 3000000   max_steps         16                 8               2             0              4            60             0 182.677
+    2 3000000   max_steps         16                 8               2             0              7            57             0 180.552
+
+T_p(m>=0.5): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: 0.763 ± 0.307 (n=15)
+  seed 1: -0.343 ± 0.433 (n=14)
+  seed 2: 0.346 ± 0.388 (n=14)
+  pooled over seeds: 0.258 ± 0.229 (n=43);  mean of per-seed slopes 0.255 ± 0.322 (SE over seeds)
+  restricted to p <= 8, pooled: 0.821 ± 0.303 (n=21)
+
+T_p(m>=0.9): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: nan ± nan (n=0)
+  seed 1: nan ± nan (n=0)
+  seed 2: nan ± nan (n=0)
+  pooled over seeds: nan ± nan (n=0);  mean of per-seed slopes nan ± nan (SE over seeds)
+  restricted to p <= 8, pooled: nan ± nan (n=0)
+
+T_p,0.5 (align-loss drop midpoint): per-seed slope of log T vs log p (± SE, n learned skills with T>0):
+  seed 0: 0.267 ± 0.380 (n=16)
+  seed 1: 0.223 ± 0.641 (n=16)
+  seed 2: -0.115 ± 0.549 (n=16)
+  pooled over seeds: 0.125 ± 0.302 (n=48);  mean of per-seed slopes 0.125 ± 0.121 (SE over seeds)
+  restricted to p <= 8, pooled: 0.559 ± 0.474 (n=24)
+
+init-corrected slope of log(T_p,0.5 * m0^2) vs log p: [0.332, 0.291, -0.167]
+
+T_p table (steps; nan = never; 0 = aligned >= 0.5 at init), T_p(m>=0.5) | T_p(m>=0.9) | T_p,0.5(drop) | m0 per seed
+-- T05
+          s0        s1        s2
+p                               
+1    501.000 16842.000   343.000
+2   2478.000   562.000  3303.000
+3   5676.000  8272.000  6558.000
+4  10495.000 10737.000  2903.000
+5  10954.000  3633.000     0.000
+6   8688.000     0.000  2906.000
+7      0.000  7704.000  3698.000
+8   9718.000 10688.000  4292.000
+9  48877.000  2941.000     0.000
+10  5825.000     0.000 15884.000
+11  1738.000  8524.000  3065.000
+12  4737.000  5488.000 18612.000
+13 29724.000  1838.000   969.000
+14  7379.000   407.000  1191.000
+15 11783.000 22642.000   518.000
+16  6888.000   645.000  7551.000
+-- T09
+    s0  s1  s2
+p             
+1  NaN NaN NaN
+2  NaN NaN NaN
+3  NaN NaN NaN
+4  NaN NaN NaN
+5  NaN NaN NaN
+6  NaN NaN NaN
+7  NaN NaN NaN
+8  NaN NaN NaN
+9  NaN NaN NaN
+10 NaN NaN NaN
+11 NaN NaN NaN
+12 NaN NaN NaN
+13 NaN NaN NaN
+14 NaN NaN NaN
+15 NaN NaN NaN
+16 NaN NaN NaN
+-- T05d
+           s0          s1          s2
+p                                    
+1   50854.000   26447.000   80790.000
+2   29998.000     909.000   68507.000
+3  112318.000   17832.000   75847.000
+4   39839.000  209454.000    3738.000
+5   40954.000   29621.000  193693.000
+6  154897.000 1117570.000  273962.000
+7  168747.000  135468.000   32493.000
+8   32902.000  231645.000    4565.000
+9   86771.000   10088.000 1231730.000
+10 608783.000  147765.000   37684.000
+11  46701.000   10753.000  289915.000
+12 737865.000  409835.000   47955.000
+13  92637.000    6594.000  160981.000
+14   7911.000    6961.000    4174.000
+15 165845.000   46987.000   80893.000
+16  45643.000    5988.000   21283.000
+-- m0
+      s0    s1    s2
+p                   
+1  0.416 0.425 0.472
+2  0.469 0.382 0.439
+3  0.393 0.421 0.438
+4  0.365 0.423 0.409
+5  0.361 0.479 0.501
+6  0.411 0.545 0.464
+7  0.500 0.422 0.427
+8  0.472 0.462 0.404
+9  0.409 0.441 0.538
+10 0.459 0.537 0.486
+11 0.492 0.440 0.465
+12 0.471 0.377 0.366
+13 0.439 0.398 0.431
+14 0.395 0.470 0.428
+15 0.489 0.460 0.463
+16 0.395 0.474 0.386
+
+sharpness (T_0.9 - T_0.1)/T_mid of the alignment-based per-skill loss (learned skills):
+  seed 0: median over learned skills [mid=drop midpoint] 15.524, [mid=T_p(0.5)] 172.647, p<=8 [drop mid] 18.741
+  seed 1: median over learned skills [mid=drop midpoint] 11.873, [mid=T_p(0.5)] 195.946, p<=8 [drop mid] 10.076
+  seed 2: median over learned skills [mid=drop midpoint] 4.212, [mid=T_p(0.5)] 174.214, p<=8 [drop mid] 15.948
+  pooled medians: drop-mid 13.012 (n=48), T_p(0.5)-mid 185.477
+
+scaling exponents over the window between the 3rd and 8th skill emergence (T_p(0.5) order statistics):
+ seed       t3       t8  win_n  expo_align  expo_align_se  expo_mse  expo_mse_se  expo_align_dropwin  expo_align_dropwin_se  L_align_end  L_mse_end
+    0 1738.463 6887.855      5      -0.012          0.026     0.024        0.019               0.073                  0.061        0.789    141.948
+    1  407.428 3633.373      3         NaN            NaN       NaN          NaN               0.062                  0.014        0.774    141.522
+    2  343.218 2906.193      2         NaN            NaN       NaN          NaN              -0.012                  0.005        0.713    142.185
+  mean exponent over seeds: align -0.012 ± nan (SE over seeds), mse 0.024 ± nan
+
+SUPPLEMENTARY (Model B pooled alignment q_p = rho sum_j m_jp^2 / a_p; skills with q_p(0) <= 0.8 only; midpoint = q0 + 0.5 (1 - q0)):
+  seed 0: slope log T_q,0.5 vs log p = nan ± nan (n=0); median sharpness nan
+  seed 1: slope log T_q,0.5 vs log p = nan ± nan (n=0); median sharpness nan
+  seed 2: slope log T_q,0.5 vs log p = nan ± nan (n=0); median sharpness nan
+  pooled: slope nan ± nan (n=0); pooled median sharpness nan
+  pooled alignment q_p at t=0 (mean over seeds): [2.75, 4.32, 6.17, 6.21, 9.34, 12.23, 11.27, 13.9, 19.9, 19.89, 17.54, 18.45, 18.06, 21.58, 22.05, 22.21]
+  pooled alignment q_p at the end (mean over seeds): [4.283, 5.995, 7.4, 8.895, 9.24, 13.018, 12.238, 13.936, 14.773, 16.699, 18.767, 18.856, 16.719, 21.955, 21.528, 22.029]
+min over neurons of max_p|m| at the end, per seed: [0.24, 0.254, 0.263]
+
+neurons per skill at the end (|m|>=0.5) per seed:
+p     1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16
+seed                                                                
+0      0   1   0   0   0   0   0   0   0   0   0   0   1   0   0   0
+1      0   1   1   0   0   0   0   0   0   0   0   1   0   0   1   0
+2      2   0   0   1   0   3   0   0   0   0   1   0   0   0   0   0

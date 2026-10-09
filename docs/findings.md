@@ -49,6 +49,14 @@ read. Pre-registration status refers to `docs/preregistration.md`.
   rival); Wang et al. 2026 supports the non-additive side (`d^{k/2}`); Kobayashi et al. 2024 and He et al. 2024 are about
   compositions that are not output-additive or must be discovered against a memoriser — cite as boundaries.
 
+## F6. Many skills decouple with frequency-proportional rates; in-context orders skills ≈2× more steeply than in-weight
+- **S** (exp 2, `P=16`, `π_p ∝ p^{−1.5}`, `M=64`): `T_p ∝ p^{1.44–1.53}` (predicted `1.5`); `T_{p,0.5}·η·π_p·m_0² = 0.73` constant across
+  skills/seeds (= single-neuron constant). In-weight baseline (capacity-matched readout): slope `0.75` (predicted `0.75`), but it is a
+  collective fit, so the comparison is qualified. Per-skill drops ≈4× sharper in-context. Alignment-loss power law for A: `0.40`
+  (predicted `(α−1)/α = 0.33`); no A/B exponent-ratio claim (B saturates).
+- Mechanism: the in-context signal for skill `p` carries the *frequency* `π_p` (and `E[c_p²]`), the in-weight one carries the
+  *coefficient* `a_p ∝ √π_p` — so rare skills are penalised quadratically more in-context.
+
 ## F5. In-weight ≫ in-context for the same `k*=2` skill, in the transformer too
 - **X**: in-weight control emerges in 40–60 steps vs ≥ 800 (exp 4) — qualitatively consistent with F1 but confounded by the
   zeroed-label design; not a quantitative exponent test.
