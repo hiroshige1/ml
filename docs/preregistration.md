@@ -317,6 +317,25 @@ consistent, three of three is a failure. At `d=8` the flow lasts only ~6·10³ s
 is covered by the 15% band. `ρ` is predicted to stay at `ρ_0` (`ρ(T) = 0.0105`); it is recorded. Kill: P22a fails on the secants (both < 5 or both > 8)
 ⇒ the `2k*` statement is specific to `k=2` and the paper must say so.
 
+## Exp 9 outcome (recorded 2026-10-09 after the run; `results/exp9/README.md`, commit 3de17b5)
+
+27/27 runs, 0.89 CPU-h. **P22c held** (pinned γ=0.2: d=8 median 60212 vs ODE 59140, ratio 1.02; d=16 and d=32 censored 3/3 at 10⁶ steps as
+predicted from m*=0.30). **P22a failed on the 15% band, kill not triggered**: tied N=128 medians/ODE = 1.18 (d=8), 0.89 (d=16), 0.80 (d=32);
+secant κ_eff = 5.70 (8→16) and 6.02 (16→32) vs ODE 6.51 / 6.35 — the k=3 exponent is ≈6, clearly above the k=2 value ≈4, but the SGD runs
+are faster than the flow at d=32 and slower at d=8 (both outside ±15%). **P22b failed at d=16**: T(16)/T(128) = 1.14 at d=8 (predicted 1.16)
+and ∞ at d=32 (3/3 censored; predicted trap), but at d=16 the N=16 seeds gave 47171 / 499629 / censored (max |m| = 0.27, ρ drifted down to
+0.0073–0.0090) against a flow prediction of 1.63× — with ρ₀ = 0.01 only a factor 2.6 below ρ_trap = 0.026, the k=3 drift ∝ m⁵ is so weak near
+m₀ that SGD noise in (m, ρ) decides between escape and a long delay. ρ stayed at ≈ ρ₀ in every escaping run (0.0103–0.0110 at N=128).
+
+Reading: the `2k*` exponent rule carries over to k=3 (exponent ≈6), the pinned trap threshold is quantitatively right, and the tied readout's
+"N-flatness" is **not** a k-independent statement: its condition is ρ₀ ≪ ρ_trap(m₀, N) ∝ m₀^{2k−2}·(…), which for k=3 is violated already at
+N=16, d≥16. The paper's Prop. 3(c) must say "N-independent for ρ₀ ≪ ρ_trap" with ρ_trap given, not "N-independent".
+
+Post-hoc diagnostics, declared here **before** running them (not pre-registered; flow predictions unchanged):
+- P22d: cell (a) d=8 at η = 5·10⁻⁵ (4× smaller). If the 1.18 excess is discretisation, the median moves toward the ODE's 24632 steps (within 10%).
+- P22e: cell (a) d=32 at B=256 (4× less gradient noise, η unchanged). If the 0.80 deficit is noise-assisted escape, the median moves toward the
+  ODE's 132880 steps (within 10%); if it stays at ≈0.80 the flow itself is off at this m₀ (e.g. an O(m₀²) correction to the m₀=d^{-1/2} picture).
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
