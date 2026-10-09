@@ -48,5 +48,5 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
 - [x] (fresh clone of 2713aef: 3 test scripts, verify_theorems 61/61, ode_lsoda, make_figs and all three LaTeX builds succeed with no gitignored input needed) **N16 (2026-10-09). Fresh-clone reproducibility**: clone the pushed branch into a scratch directory, run the three test scripts, `scripts/ode_lsoda.py`,
   `scripts/verify_theorems.py`, `paper/figs/make_figs.py` and both LaTeX builds; record what fails because of gitignored inputs (npz) and fix by committing
   small derived CSVs or documenting the regeneration command.
-- [ ] **N17 (2026-10-09). Paper map in the root README**: a table from every figure/table/number family in the paper to the script and results file that
+- [x] (docs/paper_map.md, linked from README; gap-closing scripts kappa_limits.py, ode_fast_readout.py; verify_theorems output saved) **N17 (2026-10-09). Paper map in the root README**: a table from every figure/table/number family in the paper to the script and results file that
   produces it, and the experiment ↔ E-label mapping.

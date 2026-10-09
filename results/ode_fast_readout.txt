@@ -1,0 +1,15 @@
+d=64 m0=0.125 eta=2.44e-4; Theorem B adiabatic: tau ~ mu0^-6 d^3/(48 N) * exp(6*8*G0^2/(2r)): [341.3, 85.3, 21.3]
+r=   1: tau=444.2/152.0/99.9  steps=1.82e+06/6.23e+05/4.09e+05  ratio16/256=4.45  ratio16/64=2.92
+r=   8: tau=441.3/122.3/52.5  steps=1.81e+06/5.01e+05/2.15e+05  ratio16/256=8.40  ratio16/64=3.61
+r=  32: tau=440.7/116.9/40.0  steps=1.81e+06/4.79e+05/1.64e+05  ratio16/256=11.03  ratio16/64=3.77
+r=  64: tau=440.6/115.9/37.0  steps=1.8e+06/4.75e+05/1.52e+05  ratio16/256=11.90  ratio16/64=3.80
+r= 128: tau=440.6/115.4/35.4  steps=1.8e+06/4.73e+05/1.45e+05  ratio16/256=12.45  ratio16/64=3.82
+r= 256: tau=440.6/115.1/34.5  steps=1.8e+06/4.72e+05/1.41e+05  ratio16/256=12.76  ratio16/64=3.83
+SGD-transfer bound eta_G << B N^2 d^-4: B=1024 N=16: 0.0156  (eta*r for r=32: 0.0078, r=64: 0.0156)
+SGD-transfer bound eta_G << B N^2 d^-4: B=1024 N=64: 0.2500  (eta*r for r=32: 0.0078, r=64: 0.0156)
+SGD-transfer bound eta_G << B N^2 d^-4: B=1024 N=256: 4.0000  (eta*r for r=32: 0.0078, r=64: 0.0156)
+SGD-transfer bound eta_G << B N^2 d^-4: B=4096 N=16: 0.0625  (eta*r for r=32: 0.0078, r=64: 0.0156)
+SGD-transfer bound eta_G << B N^2 d^-4: B=4096 N=64: 1.0000  (eta*r for r=32: 0.0078, r=64: 0.0156)
+SGD-transfer bound eta_G << B N^2 d^-4: B=4096 N=256: 16.0000  (eta*r for r=32: 0.0078, r=64: 0.0156)
+Theorem-B estimate at d=128, Gamma_0->0: tau ~ d^3/(48 N) flow units; steps at eta=1/d^2 = d^5/(48N): {16: '4.5e+07', 64: '1.1e+07', 256: '2.8e+06'}
+Theorem-B estimate at d=256, Gamma_0->0: tau ~ d^3/(48 N) flow units; steps at eta=1/d^2 = d^5/(48N): {16: '1.4e+09', 64: '3.6e+08', 256: '8.9e+07'}

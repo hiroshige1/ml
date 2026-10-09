@@ -1,0 +1,93 @@
+== Hermite coefficients of sigma_k^2 (quadrature vs formula)
+[PASS] k=2: beta_2^2=2k^2, beta_2k^2=C(2k,k), all beta_2i^2 beta_2i^2=[1. 8. 6.]
+[PASS] k=2: V'(1) = 4k E[s_k^2 s_(k-1)^2] V'(1)=40
+[PASS] k=2: V(0.6) series vs 2-D quadrature 
+[PASS] k=3: beta_2^2=2k^2, beta_2k^2=C(2k,k), all beta_2i^2 beta_2i^2=[ 1. 18. 54. 20.]
+[PASS] k=3: V'(1) = 4k E[s_k^2 s_(k-1)^2] V'(1)=372
+[PASS] k=3: V(0.6) series vs 2-D quadrature 
+[PASS] k=4: beta_2^2=2k^2, beta_2k^2=C(2k,k), all beta_2i^2 beta_2i^2=[  1.  32. 216. 320.  70.]
+[PASS] k=4: V'(1) = 4k E[s_k^2 s_(k-1)^2] V'(1)=3408
+[PASS] k=4: V(0.6) series vs 2-D quadrature 
+
+== Theorem A(i): pinned threshold
+[PASS] k=2 drift = C m^3 - B m 
+[PASS] k=2 m*^2 = B/C = 4g/(2N-(N+5)g) 
+[PASS] k=2: m*<1 iff g < 2N/(N+9) 
+[PASS] k=2: <=1 positive root (Descartes) and root in (0,1) iff gamma<gamma_1 (300 (gamma,N) pairs)
+[PASS] k=3: <=1 positive root (Descartes) and root in (0,1) iff gamma<gamma_1 (300 (gamma,N) pairs)
+[PASS] k=4: <=1 positive root (Descartes) and root in (0,1) iff gamma<gamma_1 (300 (gamma,N) pairs)
+[PASS] k=2: m*^(2(k-1)) / [2k g/((2-g)N)] -> 1 as N->inf (N=1e2..1e12) [1.0169 1.0002 1.     1.     1.    ]
+[PASS] k=3: m*^(2(k-1)) / [2k g/((2-g)N)] -> 1 as N->inf (N=1e2..1e12) [2.5    1.0892 1.0085 1.0008 1.    ]
+[PASS] k=4: m*^(2(k-1)) / [2k g/((2-g)N)] -> 1 as N->inf (N=1e2..1e12) [101.2674   2.3893   1.2058   1.0412   1.0019]
+   k=3, gamma=0.1, N=128: exact m* = 0.2406, leading order 0.2229, d* = 17.3
+
+== Theorem A(ii): k=2 escape time, partial fractions vs LSODA
+[PASS] d=512 N=128 g=0.1 closed form 744.719  LSODA 744.719  1/(2C m0^2)=337.536
+[PASS] d=512 N=512 g=0.1 closed form 379.344  LSODA 379.344  1/(2C m0^2)=337.015
+[PASS] d=64 N=64 g=0.1 closed form 47.0045  LSODA 47.0045  1/(2C m0^2)=42.2791
+[PASS] d=64 N=16 g=0.01 closed form 414.227  LSODA 414.227  1/(2C m0^2)=402.642
+[PASS] d=32 N=128 g=1.0: m0<m* -> no escape (m0^2=0.03125 <= m*^2=0.03252)
+[PASS] d=16 N=128 g=1.0 closed form 2.6776  LSODA 2.6776  1/(2C m0^2)=2.0813
+[PASS] near threshold (u0 = x*(1+1e-4)) tau=3691.113 LSODA 3691.112
+
+== Theorem A(iii): tied readout
+[PASS] identity mdot_tied(m,rho) = mdot_pinned(m; gamma=rho)/rho (sympy, k=2) 
+[PASS] rho' = -4 rho dL/drho reproduces 8 rho (G - rho D) 
+[PASS] tied(t') == pinned with gamma=rho(t), dt'=rho dt (escape-time match) tied tau'=7.94182, int rho dt=7.94182
+   frozen-rho consequence tau_tied ~ rho0 tau_pinned(rho0) (d=64, rho0=gamma=0.01):
+   N=  16: tau_tied=   4.1422  0.01*tau_pinned=   4.1423  ratio=1.0000  [rho0 d/N=0.04]
+   N=  64: tau_tied=   4.0043  0.01*tau_pinned=   4.0037  ratio=1.0001  [rho0 d/N=0.01]
+   N= 256: tau_tied=   3.9713  0.01*tau_pinned=   3.9709  ratio=1.0001  [rho0 d/N=0.0025]
+   t        m           rho        m t^2       rho t*8/N   rho/rho*(m)
+     1e+02   7.385e-04   1.868e-02      7.3845    0.934232  4.283e+03
+     1e+04   8.450e-08   1.999e-04      8.4502    0.999297  3.499e+09
+     1e+06   8.462e-12   2.000e-06       8.462    0.999993  3.491e+15
+     1e+08   8.462e-16   2.000e-08      8.4621    1.000000  3.491e+21
+     1e+10   8.462e-20   2.000e-10      8.4621    1.000000  3.491e+27
+[PASS] trap: m t^2 -> const, 8 rho t/N -> 1 
+[PASS] k=2 m0=0.001 N=16: trap boundary rho0/rho*(m0) = 1.3333 (small-m prediction c_k=1.3333)
+[PASS] k=2 m0=0.01 N=64: trap boundary rho0/rho*(m0) = 1.3336 (small-m prediction c_k=1.3333)
+[PASS] k=3 m0=0.01 N=16: trap boundary rho0/rho*(m0) = 1.0589 (small-m prediction c_k=1.0588)
+[PASS] k=2 m0=0.125 N=16: trap boundary rho0/rho*(m0) = 1.3735 (small-m prediction c_k=1.3333)
+[PASS] k=2 N=16 m0=0.125: rho0=1.0001 rho_trap traps, m non-increasing rho_trap=0.1781 = 1.5417 rho*(m0)  [c_k=1.3333]
+[PASS] k=2 N=16 m0=0.01: rho0=1.0001 rho_trap traps, m non-increasing rho_trap=0.001067 = 1.3346 rho*(m0)  [c_k=1.3333]
+[PASS] k=2 N=128 m0=0.01: rho0=1.0001 rho_trap traps, m non-increasing rho_trap=0.008537 = 1.3383 rho*(m0)  [c_k=1.3333]
+[PASS] k=3 N=16 m0=0.01: rho0=1.0001 rho_trap traps, m non-increasing rho_trap=5.648e-08 = 1.0597 rho*(m0)  [c_k=1.0588]
+[PASS] k=2 N=16 m0=0.001: rho0=1.0001 rho_trap traps, m non-increasing rho_trap=1.067e-05 = 1.3333 rho*(m0)  [c_k=1.3333]
+[PASS] E5 cell (d=64, N=16): rho0=0.3 > rho_trap rho_trap=0.1781, rho*=0.1155
+
+== Theorem A(iv): B does not enter the mean minibatch gradient (MC, k=2, d=8, N=8, gamma=0.5)
+   B=   1: mean dm-gradient +0.03978 +- 0.00910, per-step sd 13.1754
+   B=  16: mean dm-gradient +0.03978 +- 0.00909, per-step sd 3.2927
+   B= 256: mean dm-gradient +0.03978 +- 0.00904, per-step sd 0.8180
+   population (1-m^2) dL/dm = +0.04032
+[PASS] MC mean gradient = population gradient (|z|<3), sd ~ B^-1/2 
+
+== Theorem B(i): free readout, fixed N, d -> inf; tau_LSODA / tau_formula
+[PASS] k=2 N= 32 r=   1 G0=0.01 ratios at d=256/1024/4096/16384/65536: 1.0451 1.0090 1.0022 1.0005 1.0001
+[PASS] k=2 N= 32 r=   1 G0= 0.3 ratios at d=256/1024/4096/16384/65536: 0.5655 0.8725 0.9668 0.9916 0.9979
+[PASS] k=2 N=128 r=   1 G0= 0.3 ratios at d=256/1024/4096/16384/65536: 0.0474 0.5639 0.8744 0.9675 0.9918
+[PASS] k=2 N= 32 r=  10 G0= 0.5 ratios at d=256/1024/4096/16384/65536: 0.9299 0.9809 0.9951 0.9988 0.9997
+[PASS] k=2 N=  8 r= 0.3 G0= 0.2 ratios at d=256/1024/4096/16384/65536: 0.7505 0.9318 0.9826 0.9956 0.9989
+[PASS] k=2 N= 32 r=   1 G0= 1.0 ratios at d=256/1024/4096/16384/65536: 0.8158 0.9511 0.9876 0.9969 0.9992
+[PASS] k=3 N= 16 r=   1 G0= 0.1 ratios at d=64/256/1024/4096: 1.1997 1.0484 1.0120 1.0030
+[PASS] k=3 N= 64 r=   3 G0= 0.3 ratios at d=64/256/1024/4096: 0.8522 0.9584 0.9893 0.9973
+
+== Proposition B(ii): joint scaling N = lam d^k, r = rt d; tau d^(1-k) -> T(mu0; lam, rt, G0)
+[PASS] lam=0.03125 rt=0.03125 G0=0.01 tau/d at d=32..8192: 1.6357 1.4413 1.3943 1.3825 1.3795  limit T=1.3785
+[PASS] lam=4 rt=0.03125 G0=0.01 tau/d at d=32..8192: 1.0264 1.0233 1.0188 1.0172 1.0167  limit T=1.0166
+[PASS] lam=0.03125 rt=0.3125 G0=0.01 tau/d at d=32..8192: 1.2160 0.9581 0.8989 0.8844 0.8807  limit T=0.8795
+
+== Proposition B(iii): corner exponents kappa = 2 - dlog T/dlog mu0 of the limit system (k=2)
+[PASS] k=2: lam->0 gives 4k kappa=7.9982
+[PASS] k=2: lam=inf, G0 >> sqrt(rt) mu0 gives 2k kappa=4.0000
+[PASS] k=2: lam=inf, G0 << sqrt(rt) mu0 << 1 gives 2k+1 kappa=4.9998
+[PASS] k=3: lam->0 gives 4k kappa=11.9979
+[PASS] k=3: lam=inf, G0 >> sqrt(rt) mu0 gives 2k kappa=6.0000
+[PASS] k=3: lam=inf, G0 << sqrt(rt) mu0 << 1 gives 2k+1 kappa=6.9999
+[PASS] lam->0 constant: T*4k(4k-2)lam*mu0^(4k-2) -> 1 (k=2) 1.0000
+[PASS] 2k+1 corner constant (k=2, rt=1) T/T_pred=1.0002
+[PASS] Wallis: int_1^inf dx/(x^3 sqrt(x^2-1)) = pi/4 
+[PASS] 2k corner constant (k=2): mu0^(2k-2) T -> 1/((2k-2) 2k G0 (2-G0)) T/T_pred=1.0000
+
+61/61 checks passed

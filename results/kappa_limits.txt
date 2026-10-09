@@ -1,0 +1,5 @@
+secant kappa = 2 - [ln T(1.4) - ln T(0.5)]/[ln 1.4 - ln 0.5] of the limit system, k=2, Gamma_0=0.01, r~=r/d
+N=   32 (lambda=0.03125, r~=0.03125): kappa_limit = 6.455
+N=  128 (lambda=0.125, r~=0.03125): kappa_limit = 5.414
+N=  512 (lambda=0.5, r~=0.03125): kappa_limit = 4.958
+N= 4096 (lambda=4, r~=0.03125): kappa_limit = 4.827

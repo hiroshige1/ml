@@ -21,6 +21,8 @@ the emergence exponent of in-context skills in an additive model"*.
 
 ## Reproduce
 
+A map from every figure and quoted number in the paper to the script and results file that produces it is in `docs/paper_map.md`.
+
 ```
 pip install numpy scipy pandas matplotlib            # toy experiments
 pip install torch                                     # transformer experiments (CPU is enough)
