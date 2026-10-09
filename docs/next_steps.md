@@ -8,7 +8,7 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
   protocols (frozen at init-norm×10, trainable, frozen at init-norm/10), 2–3 seeds, 30k steps, cap 6 CPU-h. Pre-register as P21 first.
 - [ ] **N2. Second `d` for the three-regime test.** Pinned `γ∈{1,0.1}` and tied at `d=128`, `N∈{16,64,256}` (free only at `N=256`, budget
   permitting); ODE predictions first. Checks that the `d`-dependence of the regimes is as stated (trap for `d>d*(N)`; tied `N`-flat).
-- [ ] **N3. `k*=3` sanity run for one regime.** Tied readout at `d=16`, `N=128` (exponent `2k*=6` predicted; ODE first); pinned `γ=0.1` trap
+- [x] (exp 9: 3de17b5, diagnostics 9899684; P22c held, P22a/b failed as worded; paper v0.11) **N3. `k*=3` sanity run for one regime.** Tied readout at `d=16`, `N=128` (exponent `2k*=6` predicted; ODE first); pinned `γ=0.1` trap
   check (drift negative below `m≈0.25` per the drift check). Small.
 - [x] (review in docs/review_adversarial_3.md; fixes in v0.8; theorem drafting delegated) **N4. Third adversarial review** on v0.7 with a "theory-rigour" persona (what would need to be proved for Prop. 1–3 to be theorems;
   which statements are heuristic), then respond.

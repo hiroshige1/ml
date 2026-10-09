@@ -151,7 +151,7 @@ $N$-dependences (e.g.\ $\tau(16)/\tau(256)=4.4$ at $d=64$, $\Gamma_0=0.01$, $r=1
 $(1-m^2)\big[4gg'-\rho\,(2(1-\tfrac1N)gg'+V'/N)\big]$, which is exactly the pinned velocity at $\gamma=\rho$ divided by $\rho$ (norm-independence
 of the attraction, \citealp[Lemma~B.1]{ren2025emergence}): a tied readout behaves like a pinned readout of value $\rho(t)$ under a time
 change. From a small $\rho_0$, $\dot\rho=-4\rho\,\partial_\rho L_A$ leaves $\rho$ near $\rho_0$ and $\tau_{\rm esc}=\Theta(m_0^{-2})$ is independent of
-$N$---the tied readout self-selects the small-readout regime. Let $\rho^*(m)=2Nm^2/\big(4+(N+5)m^2\big)\approx Nm^2/2$ be the value at which the
+$N$ provided $\rho_0\ll\rho_{\rm trap}(m_0,N)$ (Theorem~\ref{thm:A}(iii); $\rho_{\rm trap}\propto m_0^{2k^*-2}$, so this window narrows quickly with $k^*$, E6)---within it the tied readout self-selects the small-readout regime. Let $\rho^*(m)=2Nm^2/\big(4+(N+5)m^2\big)\approx Nm^2/2$ be the value at which the
 directional drift vanishes. For $\rho_0>c_2\rho^*(m_0)$, $c_2=\tfrac43$ (Theorem~\ref{thm:A}(iii); between $\rho^*$ and $c_2\rho^*$ the overlap first
 falls and then escapes), the population flow traps permanently ($m\propto t^{-2}$ while $\rho\propto t^{-1}$, so $\rho$ never falls below the
 moving threshold); under SGD,
@@ -220,6 +220,16 @@ decayed to $0.012$---so under SGD tying converts the pinned trap into a delay, a
 withdrawn in favour of "is delayed by tying". Finally, scaling the step size with the batch ($\eta\propto B$, pinned $\gamma=0.1$, $N=64$)
 leaves the escape \emph{flow time} invariant to $0.5\%$ while steps scale as $1/\eta$: the irrelevance of prompts per step in E2 is a
 statement about flow time, independent of how $\eta$ is chosen.
+
+\paragraph{E6: a $k^*=3$ check (Exp.~9, pre-registered P22).}
+With $\sg=\sg_3$ ($g=m^3$, $V=1+18m^2+54m^4+20m^6$), $\eta=2\cdot10^{-4}$, $B=64$, $d\in\{8,16,32\}$, three seeds: the tied readout ($\rho_0=0.01$, $N=128$)
+gives secant exponents $5.7$ and $6.0$ (ODE $6.5$, $6.4$)---the $2k^*$ rule at $k^*=3$, against $\approx4$ at $k^*=2$---and medians within $15\%$ of the flow
+once the two declared post-hoc controls are applied (the $d=8$ excess of $18\%$ vanishes at $\eta/4$, ratio $1.007$; the $d=32$ deficit of $20\%$ at $B=64$ becomes an excess of
+$14\%$ at $B=256$, i.e.\ noise-assisted escape). The pinned readout $\gamma=0.2$ has $m^*=0.30$: $d=8$ ($m_0=0.35$) escapes at $1.02\times$ the flow time and $d=16,32$ are
+censored $3/3$ at $10^6$ steps, as predicted. The pre-registered $N$-flatness of the tied readout \emph{failed} at $N=16$, $d=16$: the flow predicts $1.6\times$ the $N=128$ time,
+the seeds gave $47$k, $500$k and censored, and at $d=32$ all three seeds trapped (predicted: $\rho_0=0.01>\rho_{\rm trap}=0.006$). With $k^*=3$ the drift near $m_0$ is $\propto m^5$ and
+$\rho_0$ was only $2.6\times$ below $\rho_{\rm trap}$, so SGD noise decides between escape and a long delay. The statement that survives is the conditional one in
+Prop.~\ref{prop:shrink}(c): $N$-flat for $\rho_0\ll\rho_{\rm trap}(m_0,N)$.
 
 \begin{figure}[t]
 \centering

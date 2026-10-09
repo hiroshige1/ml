@@ -73,6 +73,15 @@ read. Pre-registration status refers to `docs/preregistration.md`.
 - **X**: in-weight control emerges in 40–60 steps vs ≥ 800 (exp 4) — qualitatively consistent with F1 but confounded by the
   zeroed-label design; not a quantitative exponent test.
 
+## F7. The `2k*` rule and the pinned threshold carry over to `k*=3`; the tied readout's `N`-flatness is conditional (exp 9) [S]
+
+Evidence level S (SGD vs pre-fixed ODE, 27 + 6 runs). Tied `ρ₀=0.01`, `N=128`: secant exponents 5.7 / 6.0 (ODE 6.5 / 6.4) against ≈4 at
+`k*=2`; medians within 15% of the flow once discretisation (`d=8`: 1.18 → 1.007 at `η/4`) and noise-assisted escape (`d=32`: 0.80 → 1.14 at
+`B=256`) are controlled. Pinned `γ=0.2`: `m*=0.30` predicted; `d=8` escapes at 1.02× the flow time, `d=16, 32` censored 3/3. Tied `N=16`:
+`d=32` traps as predicted (`ρ₀ > ρ_trap = 0.006`); `d=16` gave 47k / 500k / censored against a flow prediction of 1.6× the `N=128` time —
+with `ρ_trap ∝ m₀^{2k−2}` the "small readout" window is narrow at `k*=3` and SGD noise in `(m, ρ)` decides. Consequence for the paper:
+Prop. 3(c) states `N`-flatness only for `ρ₀ ≪ ρ_trap(m₀, N)`; pre-registered P22a/b failed as worded (recorded), P22c held.
+
 ## What would make this a paper (current best framing, subject to exp 3/5)
 *"The exponent of in-context skill emergence is set by the readout and the context, not by the skill alone"*: F1 as the known
 mechanism, F3 (parameterisation × context length, ODE-exact) as the main theorem-level claim in the solvable model, F2+P7 as the
