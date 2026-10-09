@@ -101,4 +101,5 @@ def train_btied(seed, eta=None, alpha=1.5, d=32, P=16, M=64, B=32, rho0=0.01, k=
                 print(f"seed {seed} eta*d^2={eta * d * d:g} t={t} mse={log['mse_total'][-1]:.4g} sum n={mdl.n.sum():.3f} "
                       f"n>=.5: {int((mx >= .5).sum())} first8 mx={np.round(mx[:8], 2).tolist()} cpu={time.process_time() - t0c:.0f}s", flush=True)
     traj = {key: np.array(v) for key, v in {**log, **fine}.items()}
+    traj["Uhat_init"], traj["Uhat_end"] = W0.copy(), mdl.Uhat.copy()
     return dict(seed=seed, eta=eta, alpha=alpha, steps=max_steps, cpu_s=time.process_time() - t0c, wall_s=time.time() - t0w, traj=traj, V=V)
