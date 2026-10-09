@@ -430,6 +430,29 @@ it as open and makes no transfer claim.
 Deviations (runner): Os `N=16,B=1024` seed 1 not run; two Os runs killed on the plateau for budget (censored, not failures); the Os `N=256`
 comparator rests on one seed (the P24b verdict does not depend on it).
 
+## Which ingredient breaks the mechanism: optimiser or softmax? (exp 12) — pre-registered 2026-10-09 before any run
+
+Motivation: exps 8 and 11 showed that in the two-block pre-LN transformer prompts per step rescue a short context under every frozen-scale protocol,
+unlike in the solvable model (where, for a pinned O(1) readout, `B` does not enter the population drift: Theorem A(iv), E2/P20f). Exp 12 adds the
+transformer's ingredients one at a time to the single-feature model, keeping everything else as in E2: `σ_2`, `d = 64`, `m_0 = d^{-1/2}` exactly,
+pinned readout `Γ = 1`, `N ∈ {16, 1024}` (`m* = 0.60` and `0.063` against `m_0 = 0.125`: trapped / escaping in the flow), 2 seeds, torch fp32.
+Ingredients: (A) optimiser: plain SGD `η = 1/d²` (reference) vs Adam `lr = 10⁻³` (as the transformer runs), with `w` renormalised to the sphere after
+each step in both; (S) attention: the linear context statistic `ŷ = Γ σ(w·x_q)·(1/N)Σ_i y_i σ(w·x_i)` vs the softmax form
+`ŷ = Γ Σ_i softmax_i(σ(w·x_i) σ(w·x_q)) y_i` (temperature 1; the only change). Cells: {linear, softmax} × {SGD, Adam} × {`N=16,B=64`;
+`N=16,B=1024`; `N=1024,B=64`}, 2 seeds = 24 runs; steps: 3·10⁵ (SGD) and 10⁵ (Adam); `T_0.5` = first step with `|m| ≥ 0.5`; cap 3 CPU-h.
+
+| ID | cell | prediction | default |
+|---|---|---|---|
+| P25a | linear + SGD (reference) | `N=16` stuck at both `B` (0/4), `N=1024` escapes 2/2 (E2 / P20f replicated) | — |
+| P25b | linear + Adam | **same pattern**: Adam rescales coordinates but cannot reverse the sign of the mean drift below `m*`; `N=16` stuck at `B=64` and `B=1024`, `N=1024` escapes | `B=1024` rescues `N=16` under Adam ⇒ the optimiser is the ingredient |
+| P25c | softmax + SGD | same pattern (the finite-`N` variance of a softmax-weighted statistic still grows with alignment) | `N=16` escapes at `B=64` or `B=1024` ⇒ softmax is the ingredient |
+| P25d | softmax + Adam | same pattern | — |
+
+Reading rules fixed now: a cell "escapes" if ≥ 1 of 2 seeds reaches `|m| ≥ 0.5` within the step cap (the trap is soft; a single escape counts against
+"stuck"). If P25b fails, the transformer's `B`-rescue is attributed (in this model) to Adam and the paper says so; if P25c fails, to softmax; if both
+hold, the paper states that neither Adam nor softmax breaks the mechanism in the single-feature model, so the transformer's difference lies in
+depth / LayerNorm / the residual stream (untested). No claim about the transformer itself follows from any outcome.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
