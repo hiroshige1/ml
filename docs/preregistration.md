@@ -569,6 +569,19 @@ If P29 holds, the paper states that the transformer's `N`–`B` interchange has 
 and that SGD does not, as the mechanism candidate; the transformer is still not a test of Prop. 3. If the default holds, the interchange is
 threshold-like and the Adam mechanism is not supported there; the paper says so.
 
+## Exp 16 outcome (recorded 2026-10-09 after the run; `results/exp16/README.md`, commit 9543b7c)
+
+5 fresh runs (B=2048 seed 1 dropped before launch for budget), 3.25 CPU-h. `T_e(0.5)` at `N=16`: `B=64` stuck 4/4 (reused); `B=256` **stuck 2/2** at
+30k; `B=512` 13400 / stuck; `B=1024` 14800 / 10600 (reused); `B=2048` 11000 (one seed). Medians (censored = 30000): 30000⁺ / 21700⁺ / 12700 / 11000;
+OLS slope −0.51 ± 0.07, biased by the censored medians. **P29 failed on clause 1** (`B=256` emerged 0/2); clauses 2–3 hold. The default (threshold:
+256 and 512 both stuck, or slope > −0.3) also fails. Reading: the `B`-dependence is graded but censored — note that the toy's Adam law (slope −0.75)
+applied to `B=1024`'s 12.7k predicts `T_e(256) ≈ 36k`, *beyond* the 30k cap, so the censoring at `B=256` is consistent with the graded law and
+does not decide between graded and threshold. Follow-up exp 17 (below) raises the cap.
+
+## Transformer B=256 at N=16 with a longer cap (exp 17) — pre-registered 2026-10-09 before any run
+
+Same protocol, `B=256`, seeds 0 and 1, cap **80k** steps (≈2 CPU-h). | P30 | the graded law holds: ≥1/2 seeds emerge with `T_e(0.5) ∈ [30k, 80k]` | default: still stuck 2/2 at 80k ⇒ the rescue is threshold-like between `B=256` and `B=512` and the Adam mechanism's graded law is not supported in the transformer |
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
