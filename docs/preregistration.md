@@ -299,6 +299,24 @@ Kill: P21a fails (B=1024 rescues the pinned-O(1) readout) **and** P21b fails (sm
 mechanism does not transfer to this transformer even qualitatively; the paper keeps Sec. 5 as observations only. Either one holding is
 reported as partial transfer.
 
+## `k*=3` sanity run (exp 9, backlog N3) — pre-registered 2026-10-09 before any run; ODE numbers from `scripts/ode_k3.py` (`results/exp9/ode_predictions.csv`)
+
+Setting: single-neuron Model A / tied Ã code of exps 6–7 unchanged except `k=3` (`σ_3 = He_3/√6`, `g=m³`, `V = 1+18m²+54m⁴+20m⁶`),
+`m_0 = d^{-1/2}` exactly (`init="fixed"`), `B=64`, **`η = 2·10⁻⁴` for every cell** (so cross-`d` comparisons are not confounded by `η`),
+early stop at `|m| ≥ 0.5`, cap `10⁶` steps, 3 seeds, 1 BLAS thread per worker, total cap 2 CPU-h. Flow time = steps·η. Cells:
+(a) tied `ρ_0 = 0.01`, `N=128`, `d ∈ {8,16,32}`; (b) tied `ρ_0 = 0.01`, `N=16`, same `d`; (c) pinned `γ = 0.2`, `N=128`, same `d`.
+
+| ID | cell | ODE prediction (flow time → steps) | pass criterion | default |
+|---|---|---|---|---|
+| P22a | (a) | τ = 1.232 / 5.88 / 26.58 → 6.2e3 / 2.94e4 / 1.33e5 steps; secant `κ_eff` (2 − slope of log T vs log m₀) = **6.51** (d 8→16), **6.35** (16→32), i.e. the `k=3` analogue of the `2k*` rule (`2k*=6`; `k=2` gave ≈4) | every median within 15% of ODE steps; both secants within ±0.5 of ODE | secant ≈ 4 (no `k`-dependence) or ≈ 2 (in-weight-like) |
+| P22b | (b) vs (a) | tied readout is **not** `N`-flat at `k=3`: ratio `T(N=16)/T(N=128)` = 1.16 (d=8), 1.63 (d=16); at `d=32` the `N=16` flow **traps** (`ρ_0=0.01 > ρ_trap = 0.0059`), so under SGD the `d=32, N=16` median is ≥ 3× the `N=128` median (soft trap → delay, as in E5) | ratios within ±0.25 at d=8,16; d=32 ratio ≥ 3 (censored counts as ∞) | `N`-flat at all `d` (the k=2 picture carried over naïvely) |
+| P22c | (c) | `m* = 0.3006`: `d=8` (`m₀/m* = 1.18`) escapes, τ = 11.83 → 5.9e4 steps; `d=16` (`0.83`) and `d=32` (`0.59`) trapped in the flow | d=8 median within 15%; d=16 and d=32 each censored in ≥ 2/3 seeds at 10⁶ steps | d=16 or 32 escapes 3/3 |
+
+Honest caveats fixed now: the SGD trap is soft (Kramers), so `d=16` in (c) at `m₀/m*=0.83` may escape in a minority of seeds; one escape of three is
+consistent, three of three is a failure. At `d=8` the flow lasts only ~6·10³ steps at `η=2·10⁻⁴`, so discretisation error of a few % is expected and
+is covered by the 15% band. `ρ` is predicted to stay at `ρ_0` (`ρ(T) = 0.0105`); it is recorded. Kill: P22a fails on the secants (both < 5 or both > 8)
+⇒ the `2k*` statement is specific to `k=2` and the paper must say so.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
