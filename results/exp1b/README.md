@@ -1,5 +1,10 @@
 # Experiment 1b results: context length, fixed vs trainable vs tied readout (Model A, k = 2)
 
+- **Pre-registration:** `docs/preregistration.md`, section "Core question (C2/C3)" (predictions P2-P7; outcome in "Exp 1b outcome")
+- **Code:** `icl_additive/{models,train,sweep1b,analyze1b}.py` (tests: `tests/test_basic.py`)
+- **CPU time:** ~2.8 CPU-h (2.534 recorded in the CSVs + ~0.2-0.3 unrecorded pilots, estimated) (cap 3)
+- **Deviations from pre-registration:** early stop at |m|>=0.5 not 0.9; P7 sample ratios x1/x2.7/x3.2 not x1/x3/x10 (x10 leg not run); B=8 for N>=512; eta_0-invariance and d=128 runs not run; threshold formula d* corrected after the run (see Correction)
+
 Spec: `docs/spec_exp1b.md` (final section "Revision after exp 1" is binding). Pre-registered expectations: `docs/preregistration.md`
 P2, P3, P4, P4', P7. Code: `icl_additive/{models,train,sweep1b,analyze1b}.py`, tests in `tests/test_basic.py`
 (`python tests/test_basic.py`, all pass). Raw per-run rows: `results/exp1b/{thr,p7,tied1,kappa,kappa2,bctl,dscan}.csv`

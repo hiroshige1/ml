@@ -1,5 +1,10 @@
 # Exp 5: regime-matched transformer test (d=256, MLP width 32), spec `docs/spec_exp5.md`, predictions P11a-c in `docs/preregistration.md`
 
+- **Pre-registration:** `docs/preregistration.md`, section "Regime-matched transformer test (exp 5)" (P11a-c)
+- **Code:** `icl_additive/{transformer_exp5,analyze_exp5}.py`
+- **CPU time:** 5.98 CPU-h (5.89 in `summary.csv` + pilots/benchmark) (cap 6)
+- **Deviations from pre-registration:** cell (b) has 1 seed not 3; cell (a) seed 2 censored at 17000 steps (both for the CPU cap); 1 thread x 2 processes; early stop at MSE<0.25 for later runs
+
 Code: `icl_additive/transformer_exp5.py` (standalone copy of the exp-4 data/model/loop with d=256, MLP width 32; resumable via `summary.csv`; invoked as
 `python3 -I icl_additive/transformer_exp5.py --cell NAME SEED` or `--grid --cells a,d,c,b,e,f`), `icl_additive/analyze_exp5.py` (tables, figures).
 Exp 4 files/results untouched. Data: `summary.csv`, `curves/*.npz` (eval MSE and alignment proxy every 200 steps; block-2 fc2 / attn-out / head weight norms every 1000), `logs/`, `tables.md`, `figs/{Te_cells,curves,alignment}.png`.

@@ -1,5 +1,10 @@
 # Experiment 3 results: additive skill composition in a multi-neuron linear-in-label ICL model (C4)
 
+- **Pre-registration:** `docs/preregistration.md`, section "Secondary question (C4)" (P12-P15)
+- **Code:** `icl_additive/{multi,sweep3,analyze3}.py` (tests: `tests/test_basic.py`)
+- **CPU time:** ~2.3 CPU-h (2.19 sweeps + ~0.1 pilot/tests) (cap 3)
+- **Deviations from pre-registration:** added "settled" stop rule (spec stop and T_12 threshold unreachable at Gamma=0.1); absolute E12 threshold 0.5; extra seeds 5-9 and Gamma=0.3 runs added after seeing seed 0 (see "Deviations from the spec")
+
 Spec: `docs/spec_exp3.md`. Pre-registered: P12-P15 in `docs/preregistration.md` ("Secondary question (C4)"). Code: `icl_additive/multi.py`
 (model, exact projected sampler, evaluation sets, training loop), `icl_additive/sweep3.py` (driver, 2 workers),
 `icl_additive/analyze3.py` (tables + figures); tests in `tests/test_basic.py` (`python tests/test_basic.py`, all pass).

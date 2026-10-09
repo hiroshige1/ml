@@ -1,5 +1,10 @@
 # Exp 4: finite-context effect in a small transformer (spec `docs/spec_exp4.md`, predictions P8-P10 in `docs/preregistration.md`)
 
+- **Pre-registration:** `docs/preregistration.md`, section "Transfer test (exp 4, small softmax transformer)" (P8-P10)
+- **Code:** `icl_additive/{transformer_exp4,analyze_exp4}.py`
+- **CPU time:** ~6.0 CPU-h (4.70 logged + ~1.3 unlogged killed run and pilots, estimated) (cap 6)
+- **Deviations from pre-registration:** linear-attention cells capped at 6000 steps and 2 seeds; d=16 with 2 seeds; in-weight control N=64, B=128; supplementary fine-resolution runs (see "Deviations from the spec")
+
 Code: `icl_additive/transformer_exp4.py` (model/data/train/CLI, resumable via `summary.csv`), `icl_additive/analyze_exp4.py` (tables and figures).
 Data: `summary.csv` (31 runs), `curves/*.npz` (full eval curve + alignment per run), `fine/` (supplementary k*=1 / in-weight runs, eval every 20 steps),
 `fine_align/` (supplementary seed-0 reruns with alignment every 200 steps), `tables.md` (these tables), logs `run_*.log`. Figures in `figs/`.

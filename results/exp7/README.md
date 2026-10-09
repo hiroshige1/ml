@@ -1,5 +1,10 @@
 # Experiment 7: controls requested by review 2 (Model A / tied, k=2, d=64)
 
+- **Pre-registration:** `docs/preregistration.md`, section "Controls requested by review 2 (exp 7)" (P20a-f)
+- **Code:** `icl_additive/{sweep7,analyze7,train}.py`
+- **CPU time:** 2.20 CPU-h (cap 2; overrun 10%)
+- **Deviations from pre-registration:** cell (d) cap reduced to 1e6 steps (censored nothing); CPU overran the cap by 10% because the cap only gates launching runs
+
 Pre-registration: `docs/preregistration.md`, section "Controls requested by review 2 (exp 7)" (P20a-f; flow times fixed before the run).
 Code: `icl_additive/sweep7.py` (reuses `train.train`, same single-neuron code and conventions as `sweep6.py`), analysis
 `icl_additive/analyze7.py`. Raw rows: `runs.csv` (51 runs), per-run trajectories `traj/`, stdout `stdout.txt`. Derived: `summary.csv`

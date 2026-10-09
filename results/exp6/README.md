@@ -1,5 +1,10 @@
 # Experiment 6: N-T exchange by readout protocol (Model A, k=2, d=64)
 
+- **Pre-registration:** `docs/preregistration.md`, section "N–T exchange by readout protocol (exp 6)" (P19a-d)
+- **Code:** `icl_additive/{sweep6,analyze6,train}.py`
+- **CPU time:** 2.43 CPU-h (1.97 main + 0.46 rerun) (cap 3)
+- **Deviations from pre-registration:** free N=16 rerun to 2.5e6 steps above the pre-registered 1e6 cap (primary table keeps the 1e6 result); 12 of 72 runs are duplicates (N=64 identical in both schemes)
+
 Pre-registration: `docs/preregistration.md`, section "N-T exchange by readout protocol (exp 6)" (P19a-d). Code: `icl_additive/sweep6.py`
 (reuses `train.train`, fast projected sampler, `init=fixed`), analysis `icl_additive/analyze6.py`. Raw rows: `runs.csv` (72 runs),
 `runs_ext.csv` (6 rerun, see deviations), per-run trajectories `traj/`, stdout `stage{1,2,3_ext}_stdout.txt`. Derived: `summary.csv`

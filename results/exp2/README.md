@@ -1,5 +1,10 @@
 # Experiment 2 results: emergence times and scaling law with many skills (P = 16, M = 64)
 
+- **Pre-registration:** `docs/preregistration.md`, section "Many-skill scaling (exp 2)" (P16-P18)
+- **Code:** `icl_additive/{many,sweep2,analyze2}.py` (tests: `tests/test_many.py`); B-tied add-on: `icl_additive/{btied,sweep_btied,analyze_btied}.py`
+- **CPU time:** ~3.2 CPU-h (2.92 sweeps + 0.3 pilots/tests) (cap 4)
+- **Deviations from pre-registration:** Model B readout rho = sum a_p/M not 1 (spec-literal is degenerate); A max_steps 1e6 not 3e6; extra seeds 3-4 and alpha=1.0 runs; eval set and T_p definitions changed (see "Deviations from the spec")
+
 Spec: `docs/spec_exp2.md`. Pre-registered: P16-P18 in `docs/preregistration.md` ("Many-skill scaling (exp 2)"). Code: `icl_additive/many.py` (Model A fast exact
 gradient, Model B, evaluation, training loop), `icl_additive/sweep2.py` (driver, 4 workers x 1 thread), `icl_additive/analyze2.py` (tables + figures);
 tests `tests/test_many.py` (`python tests/test_many.py`, all pass). **Measured, not confirmed. Headline: P16 (in-context slope ~ alpha) and P17 (A sharper than B) hold

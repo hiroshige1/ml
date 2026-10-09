@@ -1,5 +1,10 @@
 # Experiment 1 results: Model A (in-context) vs Model B (in-weight)
 
+- **Pre-registration:** `docs/preregistration.md`, section "Core question (C2/C3)" (predictions K1, P1, P6; outcome in "Exp 1 outcome")
+- **Code:** `icl_additive/{sweep,drift,train,models,data,plot}.py` (tests: `tests/test_basic.py`)
+- **CPU time:** 6.4 CPU-h (6.02 summed over 330 runs in `summary.csv` + ~0.35 drift check; runs in flight when the sweep was interrupted not recorded) (cap ~2)
+- **Deviations from pre-registration:** stop rule uses |m| (not m) for w -> -w invariant models; Model A k=2 grid extended to d=128 (censored runs at d>=48, so budget exceeded 3x); k=3 not swept; 4 rows rerun after the stop-rule fix
+
 Everything here was produced by the code in `icl_additive/` (pure numpy, float64, analytic gradients; see
 "Deviations from the spec"). All numbers below are generated from the CSVs in this directory
 (`drift.csv`, `drift_slopes.csv`, `summary.csv`, `T_by_config.csv`, `slopes.csv`, `slopes_dge16.csv`,
