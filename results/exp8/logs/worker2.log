@@ -47,3 +47,5 @@ DONE {'proto': 'pinned_small', 'N': 16, 'B': 64, 'seed': 0, 'steps_run': 30000, 
 [pinned_small_N16_B64_s1] step 4000 mse 1.0557 align 0.279 head 0.058 t=42s
 [pinned_small_N16_B64_s1] step 5000 mse 1.0569 align 0.272 head 0.058 t=53s
 [pinned_small_N16_B64_s1] step 6000 mse 1.0561 align 0.227 head 0.058 t=65s
+[pinned_small_N16_B64_s1] step 7000 mse 1.0568 align 0.265 head 0.058 t=76s
+[pinned_small_N16_B64_s1] step 8000 mse 1.0566 align 0.264 head 0.058 t=87s
