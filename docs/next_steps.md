@@ -12,13 +12,13 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
   check (drift negative below `m≈0.25` per the drift check). Small.
 - [x] (review in docs/review_adversarial_3.md; fixes in v0.8; theorem drafting delegated) **N4. Third adversarial review** on v0.7 with a "theory-rigour" persona (what would need to be proved for Prop. 1–3 to be theorems;
   which statements are heuristic), then respond.
-- [ ] **N5. Venue formatting.** Obtain the ICML 2026 LaTeX style (icml2026.sty from the ICML site or CTAN mirror) as a proxy for 2027,
+- [x] (paper/main_icml.tex with icml2026.sty: main text 6.2 pp two-column; shared body.tex; docs/venue.md) **N5. Venue formatting.** Obtain the ICML 2026 LaTeX style (icml2026.sty from the ICML site or CTAN mirror) as a proxy for 2027,
   reflow the paper to two columns, measure main-text length against a 4–8 page workshop limit, move material to the appendix as needed.
 - [~] (LICENSE, CITATION.cff added; log dedup and README format pass pending) **N6. Repository hygiene.** Deduplicate logs in `results/`, make every `results/exp*/README.md` state CPU time and deviations in the
   same format, add `LICENSE` (MIT) and `CITATION.cff`, confirm `python3 tests/*.py` pass from a fresh clone.
 - [x] (docs/memo_ja.md) **N7. Japanese research memo** (`docs/memo_ja.md`): the question, the three regimes, what is new vs. known (table), what failed,
   what the transformer results do and do not show — for the human author to decide the framing.
-- [~] (checked 2026-10-09: nothing yet; docs/venue.md) **N8. Monitor ICML 2027 / HiLD CFP.** Check `icml.cc` and the HiLD site once per wake; when a CFP appears, record dates, page limit,
+- [~] (checked 2026-10-09 ×2: icml.cc/Conferences/2027 is 404, HiLD site still on 2026; docs/venue.md) **N8. Monitor ICML 2027 / HiLD CFP.** Check `icml.cc` and the HiLD site once per wake; when a CFP appears, record dates, page limit,
   LLM policy, archival status in `docs/venue.md`.
 
 - [x] (paper/theorems.tex, scripts/verify_theorems.py 61/61; paper v0.10; prereg v0.21) **N9 (2026-10-09, from review 3). Theorems A/B.** Replace Prop. 3 by (A) finite-context trap for σ_k population flow incl. tied=pinned time

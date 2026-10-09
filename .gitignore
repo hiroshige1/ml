@@ -12,3 +12,4 @@ paper/build.log
 results/**/runs/*.npz
 results/**/curves/*.npz
 results/exp3/runs/*.npz
+paper/build_icml.log
