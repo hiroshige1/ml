@@ -54,6 +54,6 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
 - [x] (7a48255 prereg; fe4013d results; P25a/b held, P25c/d failed as worded (softmax arm inconclusive); paper v0.18) **N18 (2026-10-09, from exps 8/11). Ingredient ablation (exp 12).** Add Adam and softmax attention one at a time to
   the single-feature pinned-readout model at `d=64`, `Γ=1`, `N∈{16,1024}`, `B∈{64,1024}`; which ingredient (if any) lets `B` rescue `N=16`? P25a–d.
 
-- [ ] **N19 (2026-10-09, from exp 12). A softmax variant that learns.** The exp-12 softmax form (logits σ(w·x_i)σ(w·x_q), temperature 1) stays stuck even at
+- [~] (drift table results/exp13/drift_mc.txt; exp 13 pre-registered cd61744; running) **N19 (2026-10-09, from exp 12). A softmax variant that learns.** The exp-12 softmax form (logits σ(w·x_i)σ(w·x_q), temperature 1) stays stuck even at
   N=1024. Before any ablation can use it: find by ODE/MC drift (`icl_additive/drift.py` style) a temperature or logit normalisation at which the
   population drift at m_0=1/8, N=1024 is positive; pre-register and re-run P25c/d with it. Only then can softmax be excluded or implicated.
