@@ -16,6 +16,17 @@ $-\partial_mL_A=\big(8\gamma-4\gamma^2(1-\tfrac1N)-24\gamma^2/N\big)m^3-16\gamma
 $m^{*2}=16\gamma/\big(N(8-4\gamma(1-\tfrac1N)-24\gamma/N)\big)$. (An earlier draft of this derivation dropped the $24\gamma^2/N$ term and
 had a factor 2 in the cubic coefficient; the closed-form loss, which the Monte-Carlo drift check verifies directly, was unaffected.)
 
+\paragraph{Escape-time scalings in Prop.~\ref{prop:shrink}.} (a)~With $\Gamma=\gamma$ fixed and $m_0>m^*$ the drift near the origin is
+$\approx c_\gamma m^{2k^*-1}$ with $c_\gamma=\gamma(8-4\gamma)k^*\alpha_{k^*}^4/2$ for $k^*=2$, so $\tau_{\rm esc}\asymp m_0^{-(2k^*-2)}/c_\gamma$ up to the $N$-dependent
+correction $-16\gamma^2m/N$, which saturates as $N\to\infty$. (b)~Along $\Gamma^*$, for $g^2\ll V/N$,
+$L_A(m,\Gamma^*)\approx s^2[1-N g(m)^4/(g(1)V(m))]$ and $V(m)\to\beta_0^2=g(1)^2$ as $m\to0$, so the drift is $\approx s^2 N\,4k^*\alpha_{k^*}^8 m^{4k^*-1}/g(1)^3$:
+$\tau_{\rm esc}\asymp m_0^{-(4k^*-2)}/N$, i.e.\ $\tau_{\rm esc}\propto d^{2k^*-1}/N$---the multiplicative $N$--$\tau$ trade-off. The condition for this
+regime at the initial overlap is $m_0^{2k^*}\ll V/N$, i.e.\ $d^{k^*}\gg N$; for $d^{k^*}\ll N$ the signal-dominated form $1-g^2/g(1)$ applies and
+$\tau_{\rm esc}\asymp m_0^{-(2k^*-2)}$ is $N$-independent. (c)~For the tied readout the attraction term $4gg'$ carries no $\rho$, so
+$\tau_{\rm esc}\asymp m_0^{-(2k^*-2)}/(4k^*\alpha_{k^*}^4)$ independently of $N$ as long as $\rho\,V'/N\ll 4gg'$ along the trajectory, which holds
+from $\rho_0\ll Nm_0^2$. At $d=512$, $k^*=2$ the three regimes give $\tau\propto\{\infty\text{ or }N\text{-saturating},\;N^{-1},\;N^0\}$, matching the
+integrated flows ($\infty/771/386$; $9.0\cdot10^4/2.2\cdot10^4/5.4\cdot10^3$; $39/34/33$ for $N=32/128/512$).
+
 \paragraph{Population ODEs (Prop.~\ref{prop:shrink}).} Spherical gradient flow for the overlap and plain flow for the readout:
 free readout $\dot m=-(1-m^2)\partial_mL_A$, $\dot\Gamma=-r\,\partial_\Gamma L_A$ with $r=\eta_\Gamma/\eta$; tied readout
 $\dot m=(1-m^2)\big[4gg'-\rho(2(1-\tfrac1N)gg'+V'/N)\big]$, $\dot\rho=-4\rho\,\partial_\rho L_A$. The chain rule through $\hat u=u/\|u\|$
