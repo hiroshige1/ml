@@ -485,6 +485,17 @@ Reading rule as exp 12 (≥1 of 2 escapes counts as "escapes"). If `N=1024` fail
 is reported as such; if `N=16` is rescued by `B=1024` with the softmax but not with the linear statistic (exp 12), softmax is implicated and the paper
 says so; if the pattern holds, softmax is excluded along with Adam.
 
+## Exp 13 outcome (recorded 2026-10-09 after the run; `results/exp13/README.md`, commit 38c8acd)
+
+12/12 runs, 2.74 CPU-h. Sanity drift at m=0.25, N=1024: +3.43·10⁻² ± 3.7·10⁻³ (table +3.25·10⁻²). rbf softmax (β=0.3) + SGD: `N=16` stuck 0/4 at
+5·10⁵ steps (both `B`), `N=1024` escapes 2/2 (63865 / 65759 steps, ≈1.8× the linear model's). **P26a held** — the variant is informative and shows
+the linear model's pattern. rbf softmax + Adam: `N=1024` 2/2 (741 / 697); **`N=16` escapes 3/4** — `B=64`: 26348 / 24709, `B=1024`: 3561 / stuck at
+10⁵. **P26b failed**: with the softmax statistic Adam escapes the short context, and it does so already at `B=64`, so this is not the transformer's
+`B`-rescue either (there `B=64` stayed stuck in 12/12 runs). Reading by the pre-registered rule: softmax is "implicated", but only jointly with Adam
+(linear + Adam stayed trapped in exp 12; softmax + SGD stays trapped here). Post-hoc interpretation, not tested: the softmax barrier at `N=16` is
+shallow (drift `−6·10⁻³` at `m_0` against the linear model's `m* = 0.6`), and Adam's normalised steps act as large effective noise, so the escape
+is noise-driven (Kramers) rather than a change of the mean drift. Deviations: none (gradient by chain rule, agrees with autograd to 3·10⁻⁶).
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional

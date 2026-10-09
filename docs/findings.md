@@ -91,8 +91,10 @@ final readout multiplies the residual stream, not the context statistic. **Exp 1
 of the context statistic) at O(1) and at 0.1×: `B=1024` still rescued `N=16` (15.0k/26.4k) and the small scale did not rescue `N=16,B=64`
 (stuck 2/2); freezing slowed emergence ≈3× at `N=256`. Kill met again. Neither the readout nor the attention-output scale is the
 transformer's Γ. **Exp 12** (single-feature model + one ingredient at a time): Adam does not let `B=1024` rescue `N=16` (0/4, P25b held), so the
-optimiser is excluded; the softmax arm did not learn at any `N` (inconclusive, P25c/d failed as worded). Remaining candidates: depth, LayerNorm,
-residual stream.
+optimiser is excluded; the softmax arm did not learn at any `N` (inconclusive, P25c/d failed as worded). **Exp 13** (distance-based softmax, β=0.3): SGD reproduces the linear pattern (`N=16` stuck 0/4, `N=1024` escapes 2/2, P26a held) but Adam
+escapes `N=16` in 3/4 runs already at `B=64` (P26b failed): softmax and Adam jointly remove the trap in the single-feature model, neither alone;
+the escape needs no extra prompts, so it is still not the transformer's `B`-rescue (post hoc: shallow softmax barrier + Adam noise). Remaining
+candidates for the `B`-rescue: depth, LayerNorm, residual stream.
 
 ## What would make this a paper (current best framing, subject to exp 3/5)
 *"The exponent of in-context skill emergence is set by the readout and the context, not by the skill alone"*: F1 as the known
