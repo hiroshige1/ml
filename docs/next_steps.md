@@ -6,7 +6,7 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
   norm* (pinned) ⇒ `N=16` stays stuck even with `B=1024` (no tradeoff); trainable readout (free) ⇒ emerges with a tradeoff (= exp 5's result);
   readout frozen *small* ⇒ `N`-flat. Design: `d=256`, width 32 as exp 5, cells `N∈{16,256}`, `B∈{64,1024}` for `N=16`, three readout
   protocols (frozen at init-norm×10, trainable, frozen at init-norm/10), 2–3 seeds, 30k steps, cap 6 CPU-h. Pre-register as P21 first.
-- [ ] **N2. Second `d` for the three-regime test.** Pinned `γ∈{1,0.1}` and tied at `d=128`, `N∈{16,64,256}` (free only at `N=256`, budget
+- [x] (exp 10: 692081e prereg, 10213c4 results; P23a-c held, P23d secant baseline error; paper v0.13) **N2. Second `d` for the three-regime test.** Pinned `γ∈{1,0.1}` and tied at `d=128`, `N∈{16,64,256}` (free only at `N=256`, budget
   permitting); ODE predictions first. Checks that the `d`-dependence of the regimes is as stated (trap for `d>d*(N)`; tied `N`-flat).
 - [x] (exp 9: 3de17b5, diagnostics 9899684; P22c held, P22a/b failed as worded; paper v0.11) **N3. `k*=3` sanity run for one regime.** Tied readout at `d=16`, `N=128` (exponent `2k*=6` predicted; ODE first); pinned `γ=0.1` trap
   check (drift negative below `m≈0.25` per the drift check). Small.

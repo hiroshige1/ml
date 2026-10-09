@@ -231,6 +231,14 @@ the seeds gave $47$k, $500$k and censored, and at $d=32$ all three seeds trapped
 $\rho_0$ was only $2.6\times$ below $\rho_{\rm trap}$, so SGD noise decides between escape and a long delay. The statement that survives is the conditional one in
 Prop.~\ref{prop:shrink}(c): $N$-flat for $\rho_0\ll\rho_{\rm trap}(m_0,N)$.
 
+\paragraph{E7: the regime boundaries move with $d$ as predicted (Exp.~10, pre-registered P23).}
+Repeating E2's protocols at $d=128$ ($\eta=1/d^2$, three seeds): the pinned $\gamma=0.1$ cell at $N=16$, which escaped at $d=64$, is now censored
+$3/3$ at $2.5\cdot10^6$ steps---the flip across $d^*(16)=76$ of Prop.~\ref{prop:shrink}(a)---while $N=64,256$ escape at $0.99$ and $1.01$ of the flow
+time ($1.78$ and $1.47\cdot10^6$ steps; ratio $1.22$, $N$-saturating); pinned $\gamma=1$ is censored at every $N$ ($d^*(256)=63$); the tied readout stays
+$N$-flat (medians/flow $1.12,0.97,1.02$; $T(16)/T(256)=1.20$, flow $1.09$); the free readout at $N=256$ takes $5.29\cdot10^6$ steps ($0.985$ of the
+flow) and its secant exponent across $d=64\to128$ is $5.4$ (flow $5.4$), the crossover value between the signal-dominated $4$ and the adiabatic $8$.
+(The pre-registered secant $7.4$ used the wrong $d=64$ baseline, the $\eta_\Gamma=10\eta$ cell; recorded as a pre-registration error.)
+
 \begin{figure}[t]
 \centering
 \includegraphics[width=.63\linewidth]{figs/fig_kappa.pdf}

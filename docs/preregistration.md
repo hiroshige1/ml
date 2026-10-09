@@ -380,6 +380,18 @@ protocols did not control. As pre-registered, the paper keeps Sec. 5 as observat
 Deviations (recorded by the runner): free cells reused from exp 5 rather than re-run (except `N=16,B=64`, re-run); one `pinned_small N=256` seed
 killed at 17k steps to afford a lower-priority cell (censored, not a failure); early stop at MSE < 0.25, so `T_e(0.1)` is not recorded.
 
+## Exp 10 outcome (recorded 2026-10-09 after the run; `results/exp10/README.md`, commit 10213c4)
+
+26 runs (the spec's cell list sums to 26, not the "23" written there), 3.76 CPU-h (cap 5), no run dropped. **P23a held**: pinned Γ=1 censored
+2/2 at N=16, 64, 256. **P23b held**: pinned Γ=0.1 **N=16 censored 3/3** (trapped, as the flip across `d*(16)=76` predicts; at d=64 the same cell
+escaped in exp 6), N=64 median 1.783·10⁶ vs ODE 1.80·10⁶ (0.989), N=256 1.466·10⁶ vs 1.46·10⁶ (1.006). **P23c held**: tied medians/ODE
+1.118 / 0.969 / 1.017, N-ratio T(16)/T(256) = 1.195 (predicted 1.09 ± 0.15). **P23d: median leg held** (seeds 5.459·10⁶, 5.122·10⁶; median/ODE
+0.985); **secant leg failed as written because the pre-registered baseline was wrong**: the d=64 flow time 50.1 quoted in P23d is exp 7's cell (a)
+(η_Γ = 10η), not exp 6's free protocol (η_Γ = η), whose flow time is 99.9 (LSODA, `tau_free(1/8, 0.01, 256, r=1)`); like for like the ODE secant
+is 5.43 and SGD gives 5.37 (against exp 6's median 411137 steps). The error is in the pre-registration, not in the flow; it is recorded as a
+pre-registration mistake. The exponent 5.4 at N=256 (between the 4 of the signal-dominated and the 8 of the adiabatic limit) is the crossover
+the paper describes.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional

@@ -31,7 +31,7 @@ read. Pre-registration status refers to `docs/preregistration.md`.
   `T·N ≈ const` (`2.9, 2.8, 2.75·10⁶` at `d=512`) — i.e. *Oko et al.'s multiplicative N–T trade-off reappears as a consequence of
   shrinkage* — crossing over to `N`-independence where signal-dominated (`d=32`: `53, 37, 34, 33`); **tied** readout: `T` independent
   of `N` at every `d`. So "prompts cannot substitute for context" (P7) is a statement about the pinned readout only; with a free
-  readout the trade-off holds and the exponent crossover is the visible effect. **This is the paper's central statement now.** **S** (exp 6, `d=64`, `N=16/64/256`): pinned `Γ=1` trapped at `N≤64` (0/9) and marginal at
+  readout the trade-off holds and the exponent crossover is the visible effect. **This is the paper's central statement now.** **S (exp 10, `d=128`)**: the pinned `Γ=0.1`, `N=16` cell flips from escape (`d=64`) to trapped 3/3 across `d*(16)=76`; `N=64/256` within 1% of the flow; tied `N`-flat (ratio 1.20 vs 1.09); free `N=256` at 0.985 of the flow with a `d`-secant of 5.4 (crossover). **S** (exp 6, `d=64`, `N=16/64/256`): pinned `Γ=1` trapped at `N≤64` (0/9) and marginal at
   `N=256` (3/6); pinned `Γ=0.1` `396k/192k/179k` steps vs ODE `414k/197k/176k`; free `1.78M/614k/402k` vs ODE `1.835M/627k/414k` (ratio 4.4 = ODE);
   tied `17.0k/15.1k/14.0k` vs ODE `17.2k/16.7k/16.5k`. Tokens-matched and fixed-`B` schemes give identical step counts in every protocol:
   **context trades off against training time, never against prompts per step** (and with `η ∝ B` the flow time is invariant to 0.5%,
