@@ -170,7 +170,7 @@ pre-registered asymptotes $4\to8$ are the $d\to\infty$ limits; at $d=32$ the sam
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=.62\linewidth]{../figs/kappa_vs_N_ode.png}
+\includegraphics[width=.63\linewidth]{figs/fig_kappa.pdf}
 \caption{Effective exponent of skill acquisition for $k^*=2$ at $d=32$: online SGD (points, $\pm$s.e.; triangles: censored runs
 set to the step cap) against the parameter-free population ODE (dashed). The tied readout stays at $2k^*=4$; the free readout
 rises towards $4k^*=8$ as the context shortens.}
@@ -179,17 +179,17 @@ rises towards $4k^*=8$ as the context shortens.}
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=.6\linewidth]{../figs/threshold_grid.png}\hfill
-\includegraphics[width=.36\linewidth]{../figs/P7_tradeoff.png}
-\caption{Left: fraction of runs escaping $m_0=d^{-1/2}$ within $3\cdot10^5$ steps (fixed readout; red curve: $d^*(N)$ of
-Prop.~\ref{prop:repulsion}). Right: at $\gamma=1$, $N=128$, $d=64$ no run escapes for $B\in\{32,256,1024\}$ prompts per step and the
-final overlap falls \emph{below} $m_0$: more prompts do not substitute for context length.}
+\includegraphics[width=\linewidth]{figs/fig_threshold.pdf}
+\caption{Left: fraction of runs escaping $m_0=d^{-1/2}$ within $3\cdot10^5$ steps (fixed readout, 3 seeds per cell; curve: $d^*(N)$ of
+Prop.~\ref{prop:repulsion}; for $\gamma=0.1$ the curve lies above the grid). Right: at $\gamma=1$, $N=128$, $d=64$ no run escapes for
+$B\in\{32,256,1024\}$ prompts per step (total prompts $\times1$, $\times2.7$, $\times3.2$) and the final overlap falls \emph{below} $m_0$:
+more prompts do not substitute for context length.}
 \label{fig:threshold}
 \end{figure}
 
 \section{Many skills and composition}
 \label{sec:many}
-With $P$ orthogonal skills and $M\ge P$ features the loss splits, when each feature is assigned to one skill, into
+Fig.~\ref{fig:many} summarises Exps.~2--3. With $P$ orthogonal skills and $M\ge P$ features the loss splits, when each feature is assigned to one skill, into
 $\sum_p\pi_p s_p^2\,\ell(m_p)$ with $\ell$ the single-skill loss; each overlap then follows the single-feature dynamics with rate
 $\propto\pi_ps_p^2\Gamma$, so $T_p\propto1/\pi_p$. In-weight learning of the same dictionary carries the coefficient $a_p$ (with
 $a_p^2\propto\pi_p$), hence $T_p\propto1/a_p\propto\pi_p^{-1/2}$: \emph{in-context learning orders skills by frequency twice as steeply}.
@@ -210,16 +210,37 @@ thresholded pair accuracy is approximately the product of the single-skill accur
 $0.008$ from $y=x$)---the multiplicative emergence observed empirically by \citet{okawa2023compositional}---while a Gaussian-error
 closed form fails (heavy tails). A product composition $\sg_1(\langle v_1,x\rangle)\sg_1(\langle v_2,x\rangle)$ is never learned (loss $\approx1$).
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figs/fig_many.pdf}
+\caption{(a) Emergence time (drop midpoint) of skill $p$ versus skill index for the in-context model (slope $1.44\pm0.08$) and the
+capacity-matched in-weight baseline (slope $0.75\pm0.08$), $\pi_p\propto p^{-1.5}$, three seeds; unlearned skills omitted.
+(b) Composition (Exp.~3, one seed): normalised MSE on skill-1 prompts, skill-2 prompts, the additive pair (halved) and the product
+pair; the dotted curve is half the sum of the single-skill losses and lies on the pair curve. Plateaus at $0.64$ are the fixed-readout
+floor $(1-\Gamma n)^2$, not zero.}
+\label{fig:many}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figs/fig_transformer.pdf}
+\caption{Two-layer softmax transformer, $d=256$, MLP width 32, $k^*=2$. (a) Evaluation MSE for $N{=}256,B{=}64$; $N{=}16,B{=}64$; and
+$N{=}16,B{=}1024$ (same tokens per step as the first), three seeds each; one $N{=}256$ seed was censored at $17$k steps on the plateau.
+(b) Norm of the final readout for one stuck run ($N{=}16,B{=}64$) and one emerging run ($N{=}16,B{=}1024$, same seed): the norm
+collapses while the skill is unlearned; the regrowth at emergence is a single logged point (norms logged every $1000$ steps).}
+\label{fig:transformer}
+\end{figure}
+
 \section{Transformers: where the effect shows and where it does not}
 \label{sec:transformer}
-We train two-layer softmax transformers (4 heads, pre-LN, Adam, online data) on the same in-context task with $k^*=2$ and ask
+We train two-layer softmax transformers (4 heads, pre-LN, Adam, online data; Fig.~\ref{fig:transformer}) on the same in-context task with $k^*=2$ and ask
 whether a short context can be compensated by more prompts per step. \textbf{Large initial alignment} ($d=32$, MLP width 256; the best
 of 256 random first-layer directions already has $|\cos|=0.43$--$0.55$ with $v$): at a fixed $8192$ tokens per step the emergence step
 \emph{increases} with $N$ ($1000/1400/2800$ for $N=16/64/256$)---fewer prompts per step dominate and the mechanism is invisible, as it
 must be when $m_0\gg m^*$. \textbf{Small initial alignment} ($d=256$, width 32; $|\cos|_0=0.13$--$0.18$): $N=16$ with $B=64$ prompts never
 emerges in $30$k steps ($3/3$); $N=16$ with $B=1024$ (the same tokens per step as $N=256$, $B=64$) emerges in all seeds but at
 $10.6$--$14.8$k steps, $\approx3\times$ later than $N=256$ ($2.8$--$4.0$k); while a run is stuck its final readout norm collapses from $0.57$ to
-$0.03$--$0.16$ and regrows at emergence. Neither pre-registered extreme (a trap, or interchangeability of $N$ and $B$) holds: in the
+$0.03$--$0.16$, and the first norm logged after emergence is back at $1.7$. Neither pre-registered extreme (a trap, or interchangeability of $N$ and $B$) holds: in the
 transformer, context tokens are worth $\approx3\times$ more than prompt tokens for acquiring an even skill, and the readout shrinks
 while the skill is unlearned. We state this as an observation consistent with---not a confirmation of---the mechanism of
 Sec.~\ref{sec:single}; $k^*=1$ and in-weight controls emerge within $1.4$k and $0.4$k steps.

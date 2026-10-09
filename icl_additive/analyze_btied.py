@@ -41,6 +41,17 @@ def merged(run):
     return {"t": t[idx], "m": m[idx]}
 
 
+def logspaced_exponent(t, L, lo, hi, n=40):
+    """Exponent (-slope of log L vs log t) of L resampled (interpolated in log-log) at n log-spaced times in [lo, hi] -- used on the merged
+    100/1000-step grid, where plain OLS on the logged points would weight late times by their density."""
+    if not (np.isfinite(lo) and np.isfinite(hi)) or hi <= lo or lo <= 0:
+        return np.nan
+    ok = (t > 0) & (L > 0)
+    tt = np.geomspace(lo, hi, n)
+    Li = np.exp(np.interp(np.log(tt), np.log(t[ok]), np.log(L[ok])))
+    return -float(stats.linregress(np.log(tt), np.log(Li)).slope)
+
+
 def pooled_q(run):
     return (run["norm2"][:, :, None] * run["m"].astype(float) ** 2).sum(axis=1) / AP[None, :]  # (T,P) sum_j n_j m_jp^2 / a_p
 
@@ -88,9 +99,23 @@ def analyse_run(run, eta, seed):
     e_ms, _, _ = window_fit(t, Lmse, lo, t8)
     e_ald, _, n_ald = window_fit(t, Lal, lo_d, d8)
     e_msd, _, _ = window_fit(t, Lmse, lo_d, d8)
+    # merged-grid exponents (needed when the 3rd-8th window is shorter than the 1000-step log spacing)
+    mg = merged(run)
+    mxm = np.abs(mg["m"]).max(axis=1)
+    Lal_m = (PI[None, :] * (1 - mxm ** 2)).sum(axis=1)
+    Tem = np.sort(skm.T05.values[np.isfinite(skm.T05.values)])
+    t3m, t8m = (Tem[2] if len(Tem) >= 3 else np.nan), (Tem[7] if len(Tem) >= 8 else np.nan)
+    Tdm = np.sort(skm.T05d.values[skm.learned.values & np.isfinite(skm.T05d.values)])
+    d3m, d8m = (Tdm[2] if len(Tdm) >= 3 else np.nan), (Tdm[7] if len(Tdm) >= 8 else np.nan)
+    # pooled-alignment midpoint q_p >= 0.5 (supplementary)
+    sk["Tq05"] = [A2.first_cross_up(t, q[:, p], 0.5) for p in range(P_)]
+    sk["Tq09"] = [A2.first_cross_up(t, q[:, p], 0.9) for p in range(P_)]
+    sk["K3b_d"] = sk.T05d * eta * AP * sk.m0 ** 2  # with the best-at-init neuron (exp-2 definition of m0)
     L = sk[sk.learned]
     row = dict(seed=seed, steps=int(t[-1]), n_learned=len(L), n_learned_first8=int(L.p.le(8).sum()), n_at_init_ge05=int((sk.m0 >= .5).sum()),
                t3=t3, t8=t8, win_n=n_al, expo_align=e_al, expo_mse=e_ms, d3=d3, d8=d8, win_n_drop=n_ald, expo_align_dropwin=e_ald, expo_mse_dropwin=e_msd,
+               t3_fine=t3m, t8_fine=t8m, expo_align_fine=logspaced_exponent(mg["t"], Lal_m, max(t3m, 100.0), t8m),
+               d3_fine=d3m, d8_fine=d8m, expo_align_dropwin_fine=logspaced_exponent(mg["t"], Lal_m, max(d3m, 100.0), d8m),
                L_align_end=float(Lal[-1]), L_mse_end=float(Lmse[-1]), mse_t1000=float(Lmse[1]), sum_n_end=float(n2[-1].sum()),
                n_neurons_mx_ge09=int((np.abs(m[-1]).max(axis=1) >= .9).sum()), n_neurons_mx_ge05=int((np.abs(m[-1]).max(axis=1) >= .5).sum()),
                max_mx_end=float(np.abs(m[-1]).max()), max_n_end=float(n2[-1].max()), min_n_end=float(n2[-1].min()))
@@ -99,6 +124,9 @@ def analyse_run(run, eta, seed):
             ok = Lx[col].values > 0
             sl, se, nn = reg(np.log(Lx.p.values[ok].astype(float)), np.log(Lx[col].values[ok]))
             row[f"slope{sub}_{name}"], row[f"slope{sub}_{name}_se"], row[f"slope{sub}_{name}_n"] = sl, se, nn
+    for nm, cc in (("Tq05", "Tq05"),):
+        Lq = sk[(sk[cc] > 0)]
+        row[f"slope_{nm}"], row[f"slope_{nm}_se"], row[f"slope_{nm}_n"] = reg(np.log(Lq.p.values.astype(float)), np.log(Lq[cc].values))
     row["sharp_d_median"] = float(np.nanmedian(L.sharp_d)) if len(L) else np.nan
     row["sharp_m_median"] = float(np.nanmedian(L.sharp_m[L.T05 > 0])) if (L.T05 > 0).any() else np.nan
     row["sharp_d_fine_median"] = float(np.nanmedian(L.sharp_d_fine)) if len(L) else np.nan
@@ -159,14 +187,19 @@ def main(argv=None):
         P(sm[["seed", "t3", "t8", "win_n", "expo_align", "expo_mse", "d3", "d8", "win_n_drop", "expo_align_dropwin", "expo_mse_dropwin"]].to_string(index=False))
         ex = sm.expo_align.values
         P(f"  mean align exponent {np.nanmean(ex):.3f} ± {np.nanstd(ex, ddof=1) / np.sqrt(np.isfinite(ex).sum()):.3f} (SE over seeds); drop-window mean {np.nanmean(sm.expo_align_dropwin):.3f}; mse-based mean {np.nanmean(sm.expo_mse):.3f}")
+        P("\nmerged-grid (100-step early log) exponents of L_align, log-spaced resampling: spec window (T_p(0.5) order stats) "
+          f"{np.round(sm.expo_align_fine.values, 3).tolist()} (windows {[(round(a_), round(b_)) for a_, b_ in zip(sm.t3_fine, sm.t8_fine)]}), mean {np.nanmean(sm.expo_align_fine):.3f} ± "
+          f"{np.nanstd(sm.expo_align_fine, ddof=1) / np.sqrt(np.isfinite(sm.expo_align_fine).sum()):.3f}; drop-window {np.round(sm.expo_align_dropwin_fine.values, 3).tolist()}, mean {np.nanmean(sm.expo_align_dropwin_fine):.3f}")
+        P(f"pooled-alignment midpoint q_p>=0.5 (supplementary): per-seed slope log T_q vs log p {np.round(sm.slope_Tq05.values, 3).tolist()} ± {np.round(sm.slope_Tq05_se.values, 3).tolist()}; "
+          f"pooled {pooled(ps, 'Tq05', learned=False)[0]:.3f} ± {pooled(ps, 'Tq05', learned=False)[1]:.3f}")
         P("\nT_p tables (steps; nan never; 0 = aligned >= 0.5 at init): T05 | T05d | T05d_fine | m0 (best neuron at init)")
         for col in ("T05", "T05d", "T05d_fine", "m0"):
             w = ps.pivot(index="p", columns="seed", values=col)
             w.columns = [f"s{c}" for c in w.columns]
             P(f"-- {col}"); P(w.round(3 if col == "m0" else 0).to_string())
         P("\nINVARIANT CHECK (neuron j_end that ends on skill p; m0 = its initial |alignment| with v_p), learned skills pooled over seeds:")
-        for nm, kk, desc in (("K1", "K1", "T eta a_p"), ("K2", "K2", "T eta a_p m0"), ("K3", "K3", "T eta a_p m0^2"), ("K4", "K4", "T eta a_p / ln(1/m0)")):
-            for g in ("d", "dfine"):
+        for nm, kk, desc in (("K3b", "K3b", "T eta a_p m0best^2"), ("K1", "K1", "T eta a_p"), ("K2", "K2", "T eta a_p m0"), ("K3", "K3", "T eta a_p m0^2"), ("K4", "K4", "T eta a_p / ln(1/m0)")):
+            for g in (("d",) if kk == "K3b" else ("d", "dfine")):
                 col = f"{kk}_{g}"
                 for lab, Lx in (("learned", Ls), ("learned p<=8", Ls[Ls.p <= 8])):
                     v = Lx[col].values
