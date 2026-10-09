@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use this code or these results, please cite the accompanying paper draft."
+title: "Context length and readout parameterisation select the emergence exponent of in-context skills in an additive model"
+authors:
+  - name: "[authors to be filled]"
+date-released: 2026-10-09
+version: "0.7"
+repository-code: "https://github.com/hiroshige1/ml"
