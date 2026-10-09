@@ -521,6 +521,25 @@ the fraction leg would fail through saturation, not reversal — the intended re
 this ambiguity disclosed. The default (escape fraction increasing with `B`, transformer-like) is rejected. Reading: the softmax + Adam escape at
 `N=16` is noise-driven (slower with less gradient noise), the opposite of the transformer's `B`-rescue; the v0.19 sentence stands and is sharpened.
 
+## Does Adam make prompts per step matter when the drift is positive? (exp 15) — pre-registered 2026-10-09 before any run
+
+Hypothesis (from exps 12–14 and the transformer's `B`-rescue): Adam's normalised step along the mean-gradient direction scales with the gradient's
+signal-to-noise ratio, which grows like `√B`; under plain SGD the mean minibatch gradient is `B`-independent (Theorem A(iv)) and the flow time is
+`B`-invariant (E5, `η ∝ B`). So where the population drift is **positive but small**, Adam's escape time should fall with `B` while SGD's flow time
+does not. This would make the transformer's `N`–`B` interchange an optimiser effect rather than a property of the loss. Test in the solvable model:
+linear statistic, pinned `Γ=1`, `σ_2`, `d=64`, `m_0=1/8`, `N=1024` (`m*=0.063 < m_0`: escaping flow, drift at `m_0` ≈ `5.8·10⁻³`), `B ∈ {16, 64, 256,
+1024}`, 3 seeds. (a) Adam `lr=10⁻³` (full data, cap `2·10⁴` steps); (b) SGD `η=1/d²` (projected sampler as exp 12, cap `3·10⁵`). 24 runs, cap 2 CPU-h.
+
+| ID | prediction | pass | default |
+|---|---|---|---|
+| P28a | Adam: median `T_0.5` decreases with `B`; OLS slope of `log T` vs `log B` over the four `B` in `[−0.75, −0.25]` (`√B` SNR scaling gives `−0.5`) | slope in the band and `T(16)/T(1024) ≥ 2` | slope in `(−0.25, 0.25)`: Adam is `B`-invariant like SGD |
+| P28b | SGD: median flow time `T·η` is `B`-invariant: slope in `(−0.15, 0.15)` and all four medians within 15% of each other (E5 control at `N=64` gave 0.5%) | as stated | — |
+
+If P28a holds (and P28b), the paper adds: "under Adam, prompts per step enter the escape time through the step's signal-to-noise ratio, which is
+one mechanism by which a transformer trained with Adam can trade `B` for `N` even where the loss itself cannot"; a transformer `B`-scan at `N=16`
+(`B ∈ {256, 512, 1024}`) is then pre-registered as exp 16 to test the same scaling there. If P28a fails, Adam is not the mechanism and the paper
+keeps the ablation as is.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
