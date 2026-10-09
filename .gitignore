@@ -16,3 +16,4 @@ paper/build_icml.log
 results/exp12/traces/*.npz
 results/exp13/traces/*.npz
 results/exp14/traces/*.npz
+results/exp15/traces/*.npz

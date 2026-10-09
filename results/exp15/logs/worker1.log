@@ -1,0 +1,2 @@
+[w1] start linear_sgd_N1024_B1024_s2
+[w1] done linear_sgd_N1024_B1024_s2 steps=37789 T05=37789 max|m|=0.500 cpu=1237s

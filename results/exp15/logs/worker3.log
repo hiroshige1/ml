@@ -1,0 +1,8 @@
+[w3] start linear_sgd_N1024_B1024_s1
+[w3] done linear_sgd_N1024_B1024_s1 steps=37344 T05=37344 max|m|=0.500 cpu=847s
+[w3] start linear_sgd_N1024_B64_s0
+[w3] done linear_sgd_N1024_B64_s0 steps=34517 T05=34517 max|m|=0.500 cpu=53s
+[w3] start linear_sgd_N1024_B64_s2
+[w3] done linear_sgd_N1024_B64_s2 steps=34281 T05=34281 max|m|=0.500 cpu=51s
+[w3] start linear_sgd_N1024_B16_s2
+[w3] done linear_sgd_N1024_B16_s2 steps=32582 T05=32582 max|m|=0.500 cpu=19s

@@ -1,0 +1,32 @@
+[w0] start linear_sgd_N1024_B256_s2
+[w0] done linear_sgd_N1024_B256_s2 steps=37692 T05=37692 max|m|=0.500 cpu=263s
+[w0] start linear_adam_N1024_B1024_s0
+[w0] done linear_adam_N1024_B1024_s0 steps=204 T05=204 max|m|=0.507 cpu=133s
+[w0] start linear_adam_N1024_B1024_s1
+[w0] done linear_adam_N1024_B1024_s1 steps=130 T05=130 max|m|=0.502 cpu=81s
+[w0] start linear_adam_N1024_B1024_s2
+[w0] done linear_adam_N1024_B1024_s2 steps=146 T05=146 max|m|=0.506 cpu=91s
+[w0] start linear_adam_N1024_B256_s0
+[w0] done linear_adam_N1024_B256_s0 steps=215 T05=215 max|m|=0.502 cpu=33s
+[w0] start linear_adam_N1024_B256_s1
+[w0] done linear_adam_N1024_B256_s1 steps=216 T05=216 max|m|=0.502 cpu=34s
+[w0] start linear_adam_N1024_B256_s2
+[w0] done linear_adam_N1024_B256_s2 steps=268 T05=268 max|m|=0.502 cpu=42s
+[w0] start linear_adam_N1024_B64_s0
+[w0] done linear_adam_N1024_B64_s0 steps=379 T05=379 max|m|=0.500 cpu=9s
+[w0] start linear_adam_N1024_B64_s1
+[w0] done linear_adam_N1024_B64_s1 steps=1421 T05=1421 max|m|=0.505 cpu=36s
+[w0] start linear_adam_N1024_B64_s2
+[w0] done linear_adam_N1024_B64_s2 steps=3313 T05=3313 max|m|=0.501 cpu=83s
+[w0] start linear_adam_N1024_B16_s0
+[w0] done linear_adam_N1024_B16_s0 steps=1019 T05=1019 max|m|=0.502 cpu=6s
+[w0] start linear_adam_N1024_B16_s1
+[w0] done linear_adam_N1024_B16_s1 steps=5281 T05=5281 max|m|=0.502 cpu=32s
+[w0] start linear_adam_N1024_B16_s2
+[w0] done linear_adam_N1024_B16_s2 steps=2537 T05=2537 max|m|=0.500 cpu=15s
+[w0] start linear_sgd_N1024_B64_s1
+[w0] done linear_sgd_N1024_B64_s1 steps=37356 T05=37356 max|m|=0.500 cpu=55s
+[w0] start linear_sgd_N1024_B16_s0
+[w0] done linear_sgd_N1024_B16_s0 steps=41392 T05=41392 max|m|=0.500 cpu=25s
+[w0] start linear_sgd_N1024_B16_s1
+[w0] done linear_sgd_N1024_B16_s1 steps=48188 T05=48188 max|m|=0.501 cpu=29s
