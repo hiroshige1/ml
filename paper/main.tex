@@ -226,8 +226,10 @@ depends on the emergence definition and we do not claim a scaling-law ratio.
 
 \paragraph{Composition.} Because~\eqref{eq:modelA} is linear in the context labels, $\hat y_q(c_1,c_2)=\hat y_q(c_1,0)+\hat y_q(0,c_2)$
 identically, and for independent mean-zero $c_1,c_2$ the loss on an additive pair is the sum of the single-skill losses. Trained on
-single-skill prompts only ($d=32$, $P=2$, $\pi=0.75/0.25$, $M=4$), the pair loss reaches $90\%$ of its drop before or together with the
-slower skill in every run (never after), in contrast to the extra delay for tuples predicted by \citet{arora2023theory}; the
+single-skill prompts only ($d=32$, $P=2$, $\pi=0.75/0.25$, $M=4$), the pair
+loss reaches $90\%$ of its drop before or together with the slower skill in every run (never after)---which is forced by
+linearity, so this is a check of the identity under SGD, not a test; on a thresholded accuracy, where \citet{arora2023theory}
+predict an extra delay for tuples, the
 thresholded pair accuracy is approximately the product of the single-skill accuracies ($\mathrm{acc}_{12}\approx0.85\,\mathrm{acc}_1\mathrm{acc}_2+0.09$, r.m.s.\
 $0.008$ from $y=x$)---the multiplicative form observed empirically by \citet{okawa2023compositional}, and a delay of the kind
 \citet{arora2023theory} describe---while a Gaussian-error closed form fails (heavy tails). A product composition
