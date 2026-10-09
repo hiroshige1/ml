@@ -9,3 +9,6 @@ paper/*.bbl
 paper/*.blg
 paper/*.out
 paper/build.log
+results/**/runs/*.npz
+results/**/curves/*.npz
+results/exp3/runs/*.npz

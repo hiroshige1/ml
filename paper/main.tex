@@ -15,7 +15,7 @@
 
 \title{Context length and readout parameterisation select the emergence exponent\\ of in-context skills in an additive model}
 \author{\todo{authors}}
-\date{Draft v0.1 --- \today}
+\date{Draft v0.2 --- \today}
 
 \begin{document}
 \maketitle
@@ -32,8 +32,8 @@ result, the number of prompts cannot substitute for context length, in contrast 
 analyses. (iii)~A trainable scalar readout relaxes to a Wiener shrinkage factor that starves feature learning and raises the
 effective exponent towards $4k^*$ as $N$ decreases, whereas a readout tied to the feature norm does not. A parameter-free
 population ODE predicts the SGD-measured exponents across readout protocols and context lengths (12/12 cells within $0.5$).
-With many skills of frequencies $\pi_p$ the dynamics decouple with emergence times $\propto 1/\pi_p$---twice as steep an ordering
-by frequency as in-weight learning---and additive compositions of learned skills cost nothing. In small softmax transformers the
+With many skills of frequencies $\pi_p$ the dynamics decouple with emergence times $\propto 1/\pi_p$---a $1.6$--$2\times$ steeper ordering
+by frequency than in-weight learning---and additive compositions of learned skills cost nothing. In small softmax transformers the
 effect appears as a $\approx3\times$ per-token handicap of short contexts accompanied by a collapsing readout, not as a trap, and
 is invisible when the initial feature alignment is large; we report both regimes.
 \end{abstract}
@@ -71,7 +71,7 @@ is noise-dominated ($d\gg N^{1/k^*}$), while a readout tied to the feature norm 
 $2k^*$. The population ODE predicts the SGD exponents measured at $d=32$ for three readout protocols and four context lengths
 (Fig.~\ref{fig:kappa}).
 (4)~\textbf{Many skills and composition.} With a power-law dictionary the dynamics decouple with $T_p\propto1/\pi_p$ (measured slope
-$1.44$--$1.53$ for $\pi_p\propto p^{-1.5}$), twice the in-weight slope; additive compositions of learned skills emerge with the slower
+$1.44$--$1.53$ for $\pi_p\propto p^{-1.5}$), $1.6$--$2\times$ the in-weight slope; additive compositions of learned skills emerge with the slower
 skill and cost no extra time, product compositions are not learned.
 (5)~\textbf{Transformers.} In a two-layer softmax transformer in the small-alignment regime ($d=256$, width 32) a context of 16
 with $16\times$ the prompts emerges $\approx3\times$ later than a context of 256 at equal tokens per step, and the readout norm collapses
@@ -192,10 +192,15 @@ more prompts do not substitute for context length.}
 Fig.~\ref{fig:many} summarises Exps.~2--3. With $P$ orthogonal skills and $M\ge P$ features the loss splits, when each feature is assigned to one skill, into
 $\sum_p\pi_p s_p^2\,\ell(m_p)$ with $\ell$ the single-skill loss; each overlap then follows the single-feature dynamics with rate
 $\propto\pi_ps_p^2\Gamma$, so $T_p\propto1/\pi_p$. In-weight learning of the same dictionary carries the coefficient $a_p$ (with
-$a_p^2\propto\pi_p$), hence $T_p\propto1/a_p\propto\pi_p^{-1/2}$: \emph{in-context learning orders skills by frequency twice as steeply}.
+$a_p^2\propto\pi_p$), hence $T_p\propto1/a_p\propto\pi_p^{-1/2}$: \emph{in-context learning orders skills by frequency about twice as steeply} (measured $1.6$--$2\times$).
 \textbf{Experiment 2} ($d=32$, $P=16$, $\pi_p\propto p^{-1.5}$, $M=64$, fixed $\Gamma=0.1$, three seeds) gives slopes of $\log T_p$ versus $\log p$ of
-$1.44\pm0.08$ (drop midpoints; $1.53\pm0.22$ with the $0.5$-crossing) for the in-context model and $0.75\pm0.08$ for a capacity-matched
-in-weight baseline (collective fit; a decoupled 2-homogeneous baseline is reported in the appendix, \todo{B-tied numbers}). The
+$1.44\pm0.08$ (drop midpoints; $1.53\pm0.22$ with the $0.5$-crossing) for the in-context model, against $0.75\pm0.08$ for a capacity-matched in-weight baseline and $0.75$--$0.89$ for the
+2-homogeneous in-weight student of \citet{ren2025emergence} (small initialisation, no hand-chosen readout; the lower value is
+limited by the logging resolution, the higher one uses a dense early log). Both in-weight baselines fit the target
+\emph{collectively} at $M=64>d$ (every skill shared by $\ge2$ features, pooled alignment $\to1$, no single feature above $0.9$), so the
+in-weight slope is an empirical baseline rather than a decoupled-neuron prediction; its emergence times nonetheless obey
+$T_p\,\eta\,a_p=\mathrm{const}$ ($0.23$--$0.26$ across skills and three learning rates), i.e.\ ordering by the coefficient $a_p\propto\sqrt{\pi_p}$,
+whereas the in-context times obey $T_p\,\eta\,\pi_p m_0^2=\mathrm{const}$. The
 constant $T_{p}\,\eta\,\pi_p m_0^2=0.73$ (IQR $0.70$--$0.77$) across skills and seeds equals the single-feature value ($0.64$), i.e.\ the
 many-skill dynamics is the single-feature dynamics with rate $\pi_p$. Per-skill drops are $\approx4\times$ sharper than in-weight
 (relative width $1.08$ vs $4.09$). The frequency-weighted alignment loss decays as $t^{-0.40\pm0.04}$ over the window in which skills
@@ -213,8 +218,9 @@ closed form fails (heavy tails). A product composition $\sg_1(\langle v_1,x\rang
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figs/fig_many.pdf}
-\caption{(a) Emergence time (drop midpoint) of skill $p$ versus skill index for the in-context model (slope $1.44\pm0.08$) and the
-capacity-matched in-weight baseline (slope $0.75\pm0.08$), $\pi_p\propto p^{-1.5}$, three seeds; unlearned skills omitted.
+\caption{(a) Emergence time (drop midpoint) of skill $p$ versus skill index for the in-context model (slope $1.44\pm0.08$), the
+capacity-matched in-weight baseline (slope $0.75\pm0.08$) and the 2-homogeneous in-weight student (slope $0.75$--$0.89$), $\pi_p\propto p^{-1.5}$,
+three seeds each; unlearned skills omitted.
 (b) Composition (Exp.~3, one seed): normalised MSE on skill-1 prompts, skill-2 prompts, the additive pair (halved) and the product
 pair; the dotted curve is half the sum of the single-skill losses and lies on the pair curve. Plateaus at $0.64$ are the fixed-readout
 floor $(1-\Gamma n)^2$, not zero.}

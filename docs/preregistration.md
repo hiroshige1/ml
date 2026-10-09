@@ -203,6 +203,12 @@ Kill: P16 slope for A < 1.0 ⇒ the "`π_p` vs `√π_p` ordering" claim is wron
   exp 1b (0.64): the many-skill in-context dynamics is the single-neuron dynamics with rate `∝ π_p`.
 - Budget 3.2 CPU-h (cap 4).
 
+- **Addendum (B-tied, 2026-10-09):** Ren et al.'s 2-homogeneous in-weight student (no hand-chosen readout, `η ∈ {0.25,1,4}/d²`) gives
+  slope `0.75 ± 0.09` (1000-step log) / `0.87–0.89` (100-step log), `T_p·η·a_p = 0.23–0.26` constant; it is *also* a collective fit at
+  `M=64>d` (pooled alignment 1.000, no feature above 0.9). So the in-weight ordering by `a_p ∝ √π_p` is robust to the readout
+  protocol, and the A-vs-B contrast (1.44–1.53 vs 0.75–0.89, i.e. ×1.6–2) stands with the collective-fit caveat on B. Exponent: 0.24–0.31
+  (pre-registered 0.67 — not met; transient in front of a plateau at 0.40).
+
 **Scope consequence:** claim `T_p ∝ 1/π_p` (decoupling with frequency-proportional rate) for the in-context model, and the ≈2×
 steeper ordering than in-weight *at matched readout capacity*; do not claim a scaling-exponent ratio.
 

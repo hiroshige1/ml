@@ -48,8 +48,11 @@ $\Gamma_0=0.01$ or $\rho_0=0.01$): in Fig.~\ref{fig:kappa}; censored runs ($N=32
 all at the smallest $m_0$.
 
 \paragraph{Exp.~2 (many skills).} $P=16$, $\pi_p\propto p^{-1.5}$, $M=64$, $\Gamma=0.1$, $N=128$, 3 seeds (plus 2 extra and $\alpha=1$).
-Skills 1--8 learned in every run; emergence of skills 9--16 partial. In-weight baseline: readout $\rho=\sum_pa_p/M$ (the readout-1
-baseline does not learn), collective fit. Slopes and exponents as in Sec.~\ref{sec:many}; the $\alpha=1$ slope is $0.88\pm0.09$ (A) vs
+Skills 1--8 learned in every run; emergence of skills 9--16 partial. In-weight baselines: (i) readout $\rho=\sum_pa_p/M$ (the readout-1 baseline does not learn); (ii) the 2-homogeneous student
+$\sum_j\|u_j\|^2\sg_2(\hat u_j\cdot x)$, $\|u_j\|^2_0=0.01$, $\eta\in\{0.25,1,4\}/d^2$, 3 seeds each: slope $0.75\pm0.09$ (1000-step log),
+$0.87$--$0.89\pm0.09$ (100-step log), $T_p\eta a_p=0.23$--$0.26$; $18.7,10.7,9.0,6.3,2.7,3.0,2.7,3.7$ features on skills 1--8, best single
+alignment $0.86\to0.59$, pooled alignment $1.000$ for all 16 skills, population MSE $3\cdot10^{-8}$: collective fit. Both are collective at
+$M=64>d$; a decoupled in-weight regime would need $M<d$ and was not run. Slopes and exponents as in Sec.~\ref{sec:many}; the $\alpha=1$ slope is $0.88\pm0.09$ (A) vs
 $0.61\pm0.08$ (B).
 
 \paragraph{Exp.~3 (composition).} $P=2$, $\pi=(0.75,0.25)$, $M=4$, $\Gamma=0.1$, $N=128$, 5 pre-registered seeds + 5 extra + 3 at $\Gamma=0.3$.
@@ -91,7 +94,7 @@ P12 & additivity residual $|R|\le0.02$ & failed as pre-registered (estimator noi
 P13 & no extra compositional delay & supported with substitute statistic (floor made the original unreachable) \\
 P14 & multiplicative accuracy, Gaussian closed form & approximately multiplicative; Gaussian form wrong \\
 P15 & product composition not learned & met \\
-P16 & $T_p$ slopes $1.5$ (A), $0.75$ (B) & met ($1.44$--$1.53$; $0.75$ with capacity-matched B) \\
+P16 & $T_p$ slopes $1.5$ (A), $0.75$ (B) & met ($1.44$--$1.53$; B $0.75$ capacity-matched, $0.75$--$0.89$ 2-homogeneous) \\
 P17 & A steps $\ge2\times$ sharper & met ($3.8\times$) \\
 P18 & loss exponents $0.33$ (A), $0.67$ (B) & A within tolerance ($0.40$); B failed (collective fit saturates) \\
 \bottomrule

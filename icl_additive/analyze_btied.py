@@ -37,8 +37,9 @@ def merged(run):
     """1000-step log merged with the dense (100-step) early log -> finer time resolution for T_p (supplementary)."""
     t = np.concatenate([run["fine_t"], run["t"]]).astype(float)
     m = np.concatenate([run["fine_m"], run["m"]]).astype(float)
+    mse = np.concatenate([run["fine_mse"], run["mse_total"]]).astype(float)
     _, idx = np.unique(t, return_index=True)
-    return {"t": t[idx], "m": m[idx]}
+    return {"t": t[idx], "m": m[idx], "mse": mse[idx]}
 
 
 def logspaced_exponent(t, L, lo, hi, n=40):
@@ -115,6 +116,7 @@ def analyse_run(run, eta, seed):
     row = dict(seed=seed, steps=int(t[-1]), n_learned=len(L), n_learned_first8=int(L.p.le(8).sum()), n_at_init_ge05=int((sk.m0 >= .5).sum()),
                t3=t3, t8=t8, win_n=n_al, expo_align=e_al, expo_mse=e_ms, d3=d3, d8=d8, win_n_drop=n_ald, expo_align_dropwin=e_ald, expo_mse_dropwin=e_msd,
                t3_fine=t3m, t8_fine=t8m, expo_align_fine=logspaced_exponent(mg["t"], Lal_m, max(t3m, 100.0), t8m),
+               expo_mse_fine=logspaced_exponent(mg["t"], mg["mse"], max(t3m, 100.0), t8m),
                d3_fine=d3m, d8_fine=d8m, expo_align_dropwin_fine=logspaced_exponent(mg["t"], Lal_m, max(d3m, 100.0), d8m),
                L_align_end=float(Lal[-1]), L_mse_end=float(Lmse[-1]), mse_t1000=float(Lmse[1]), sum_n_end=float(n2[-1].sum()),
                n_neurons_mx_ge09=int((np.abs(m[-1]).max(axis=1) >= .9).sum()), n_neurons_mx_ge05=int((np.abs(m[-1]).max(axis=1) >= .5).sum()),
@@ -189,7 +191,8 @@ def main(argv=None):
         P(f"  mean align exponent {np.nanmean(ex):.3f} ± {np.nanstd(ex, ddof=1) / np.sqrt(np.isfinite(ex).sum()):.3f} (SE over seeds); drop-window mean {np.nanmean(sm.expo_align_dropwin):.3f}; mse-based mean {np.nanmean(sm.expo_mse):.3f}")
         P("\nmerged-grid (100-step early log) exponents of L_align, log-spaced resampling: spec window (T_p(0.5) order stats) "
           f"{np.round(sm.expo_align_fine.values, 3).tolist()} (windows {[(round(a_), round(b_)) for a_, b_ in zip(sm.t3_fine, sm.t8_fine)]}), mean {np.nanmean(sm.expo_align_fine):.3f} ± "
-          f"{np.nanstd(sm.expo_align_fine, ddof=1) / np.sqrt(np.isfinite(sm.expo_align_fine).sum()):.3f}; drop-window {np.round(sm.expo_align_dropwin_fine.values, 3).tolist()}, mean {np.nanmean(sm.expo_align_dropwin_fine):.3f}")
+          f"{np.nanstd(sm.expo_align_fine, ddof=1) / np.sqrt(np.isfinite(sm.expo_align_fine).sum()):.3f}; drop-window {np.round(sm.expo_align_dropwin_fine.values, 3).tolist()}, mean {np.nanmean(sm.expo_align_dropwin_fine):.3f}; "
+          f"MSE-based (spec window) {np.round(sm.expo_mse_fine.values, 3).tolist()}, mean {np.nanmean(sm.expo_mse_fine):.3f}")
         P(f"pooled-alignment midpoint q_p>=0.5 (supplementary): per-seed slope log T_q vs log p {np.round(sm.slope_Tq05.values, 3).tolist()} ± {np.round(sm.slope_Tq05_se.values, 3).tolist()}; "
           f"pooled {pooled(ps, 'Tq05', learned=False)[0]:.3f} ± {pooled(ps, 'Tq05', learned=False)[1]:.3f}")
         P("\nT_p tables (steps; nan never; 0 = aligned >= 0.5 at init): T05 | T05d | T05d_fine | m0 (best neuron at init)")
@@ -251,7 +254,7 @@ def main(argv=None):
             a_.set_xscale("log"); a_.set_yscale("log"); a_.set_xlabel("skill index p"); a_.set_ylabel("steps")
             a_.set_title(f"{nm}\n{ttl}", fontsize=9)
             a_.legend(fontsize=7, loc="upper left")
-    fig.suptitle("Emergence time vs skill index, alpha = 1.5 (open grey: not learned). B-tied: decoupled in-weight baseline (note: its transitions happen within the first ~1-3k steps; logs every 1000 steps)", fontsize=9.5)
+    fig.suptitle("Emergence time vs skill index, alpha = 1.5 (open grey: not learned). B-tied transitions finish within ~1-3k steps, i.e. 1-3 log intervals of 1000 steps (100-step early log: slope 0.89, see README_Btied.md)", fontsize=9.5)
     fig.tight_layout()
     os.makedirs(os.path.join(a.exp2, "figs"), exist_ok=True)
     fig.savefig(os.path.join(a.exp2, "figs", "Tp_vs_p_with_Btied.png")); plt.close(fig)

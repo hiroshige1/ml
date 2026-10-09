@@ -1,0 +1,480 @@
+
+## Btied_eta0.25   (eta = 0.000244141 = 0.25/d^2; seeds [0, 1, 2])
+ seed   steps  n_learned  n_learned_first8  n_at_init_ge05  mse_t1000  sum_n_end  L_align_end  L_mse_end  n_neurons_mx_ge09  n_neurons_mx_ge05  max_mx_end  cos_init_end_mean  cos_init_end_min   cpu_s
+    0 3000000          9                 8               1      0.808      3.176        0.416      0.000                  0                 49       0.848              0.660             0.494 248.305
+    1 3000000         10                 7               2      0.795      3.176        0.364      0.000                  0                 53       0.894              0.661             0.483 245.970
+    2 3000000          8                 8               2      0.795      3.176        0.421      0.000                  0                 51       0.868              0.659             0.471 245.463
+
+T_p(m>=0.5) [spec]: slope of log T vs log p over learned skills (T>0)
+  seed 0: 1.675 ± 0.555 (n=8); p<=8: 1.021 ± 0.587
+  seed 1: 1.201 ± 0.339 (n=9); p<=8: 0.714 ± 0.542
+  seed 2: 1.890 ± 0.280 (n=7); p<=8: 1.890 ± 0.280
+  pooled over seeds: 1.503 ± 0.227 (n=24);  mean of per-seed slopes 1.588 ± 0.204;  p<=8: 1.263 ± 0.271 (n=20);  all 16 skills (no learned filter): 1.854 ± 0.252 (n=30)
+
+T_p,0.5 (drop midpoint) [1000-step grid]: slope of log T vs log p over learned skills (T>0)
+  seed 0: 0.837 ± 0.197 (n=9); p<=8: 0.600 ± 0.187
+  seed 1: 0.907 ± 0.132 (n=10); p<=8: 0.776 ± 0.223
+  seed 2: 0.799 ± 0.157 (n=8); p<=8: 0.799 ± 0.157
+  pooled over seeds: 0.873 ± 0.088 (n=27);  mean of per-seed slopes 0.848 ± 0.031;  p<=8: 0.718 ± 0.101 (n=23);  all 16 skills (no learned filter): 1.070 ± 0.150 (n=43)
+
+T_p,0.5 on merged 100-step early grid (supplementary): slope of log T vs log p over learned skills (T>0)
+  seed 0: 0.842 ± 0.198 (n=9); p<=8: 0.605 ± 0.189
+  seed 1: 0.912 ± 0.133 (n=10); p<=8: 0.782 ± 0.224
+  seed 2: 0.805 ± 0.160 (n=8); p<=8: 0.805 ± 0.160
+  pooled over seeds: 0.878 ± 0.089 (n=27);  mean of per-seed slopes 0.853 ± 0.031;  p<=8: 0.723 ± 0.102 (n=23);  all 16 skills (no learned filter): 1.058 ± 0.172 (n=43)
+
+T_p(m>=0.5) on merged 100-step early grid (supplementary): slope of log T vs log p over learned skills (T>0)
+  seed 0: 1.676 ± 0.553 (n=8); p<=8: 1.025 ± 0.585
+  seed 1: 1.207 ± 0.338 (n=9); p<=8: 0.737 ± 0.540
+  seed 2: 1.927 ± 0.299 (n=7); p<=8: 1.927 ± 0.299
+  pooled over seeds: 1.517 ± 0.228 (n=24);  mean of per-seed slopes 1.603 ± 0.211;  p<=8: 1.283 ± 0.273 (n=20);  all 16 skills (no learned filter): 1.869 ± 0.253 (n=30)
+
+sharpness (T_0.9-T_0.1)/T_mid, learned skills: per seed [mid=drop midpoint] [1.991, 1.845, 2.395], pooled median 2.004 (n=27); [mid=T_p(0.5)] pooled 4.352; fine-grid [mid=drop] pooled 2.006
+
+scaling exponent of L_align = sum pi_p (1 - max_j m^2) between 3rd and 8th emergence (T_p(0.5) order statistics, as specified); drop-window = same with T_p,0.5 order statistics
+ seed      t3       t8  win_n  expo_align  expo_mse       d3        d8  win_n_drop  expo_align_dropwin  expo_mse_dropwin
+    0 393.023 5247.996      5       0.357     1.017 2736.971  6291.791           4               0.184             1.750
+    1 337.671 2928.411      2         NaN       NaN 2754.913  9688.450           7               0.138             1.996
+    2 124.378 6325.292      6       0.255     1.111 3011.799 10203.979           7               0.030             2.056
+  mean align exponent 0.306 ± 0.051 (SE over seeds); drop-window mean 0.117; mse-based mean 1.064
+
+merged-grid (100-step early log) exponents of L_align, log-spaced resampling: spec window (T_p(0.5) order stats) [0.303, 0.243, 0.182] (windows [(398, 5262), (317, 2779), (112, 6248)]), mean 0.243 ± 0.035; drop-window [0.197, 0.147, 0.066], mean 0.137; MSE-based (spec window) [0.627, 0.27, 0.417], mean 0.438
+pooled-alignment midpoint q_p>=0.5 (supplementary): per-seed slope log T_q vs log p [0.39, 0.401, 0.436] ± [0.049, 0.047, 0.035]; pooled 0.409 ± 0.025
+
+T_p tables (steps; nan never; 0 = aligned >= 0.5 at init): T05 | T05d | T05d_fine | m0 (best neuron at init)
+-- T05
+          s0        s1          s2
+p                                 
+1    393.000   338.000     124.000
+2    252.000   962.000     647.000
+3   1459.000   916.000    1376.000
+4   4957.000  5589.000    1665.000
+5   5248.000   651.000       0.000
+6   2355.000     0.000    1608.000
+7      0.000 11726.000    6325.000
+8    892.000  1570.000   12137.000
+9        NaN  2928.000       0.000
+10       NaN     0.000   26837.000
+11       NaN       NaN         NaN
+12       NaN       NaN         NaN
+13 18976.000 18254.000   22261.000
+14 70387.000  9424.000 1056716.000
+15 15946.000       NaN         NaN
+16       NaN       NaN         NaN
+-- T05d
+          s0         s1        s2
+p                                
+1   1393.000   1326.000  1211.000
+2   1897.000   2447.000  2055.000
+3   2810.000   2893.000  3012.000
+4   4765.000   5840.000  3807.000
+5   5371.000   4874.000  4445.000
+6   4360.000   2755.000  3084.000
+7   6292.000   9492.000  4606.000
+8   2737.000   9688.000 10204.000
+9  14196.000   8428.000   500.000
+10 18116.000   1659.000 23926.000
+11     0.000 108246.000     0.000
+12     0.000  17239.000 16039.000
+13 13646.000  15739.000 17324.000
+14 20041.000  14301.000 16110.000
+15 20549.000      0.000 48373.000
+16 23253.000      0.000 31202.000
+-- T05d_fine
+          s0         s1        s2
+p                                
+1   1366.000   1303.000  1183.000
+2   1893.000   2438.000  2041.000
+3   2790.000   2890.000  3026.000
+4   4764.000   5857.000  3772.000
+5   5357.000   4825.000  4429.000
+6   4316.000   2739.000  3035.000
+7   6301.000   9487.000  4569.000
+8   2708.000   9688.000 10211.000
+9  14161.000   8399.000   183.000
+10 18165.000   1444.000 23967.000
+11     0.000 108246.000     0.000
+12     0.000  17228.000 16051.000
+13 13568.000  15750.000 17322.000
+14 20032.000  14323.000 16092.000
+15 20523.000      0.000 48373.000
+16 23244.000      0.000 31202.000
+-- m0
+      s0    s1    s2
+p                   
+1  0.416 0.425 0.472
+2  0.469 0.382 0.439
+3  0.393 0.421 0.438
+4  0.365 0.423 0.409
+5  0.361 0.479 0.501
+6  0.411 0.545 0.464
+7  0.500 0.422 0.427
+8  0.472 0.462 0.404
+9  0.409 0.441 0.538
+10 0.459 0.537 0.486
+11 0.492 0.440 0.465
+12 0.471 0.377 0.366
+13 0.439 0.398 0.431
+14 0.395 0.470 0.428
+15 0.489 0.460 0.463
+16 0.395 0.474 0.386
+
+INVARIANT CHECK (neuron j_end that ends on skill p; m0 = its initial |alignment| with v_p), learned skills pooled over seeds:
+  T eta a_p m0best^2       [1000-grid] learned      : median 0.04043, IQR 0.0357-0.05734, CV 0.31, slope of log K vs log p 0.14 ± 0.08 (n=27)
+  T eta a_p m0best^2       [1000-grid] learned p<=8 : median 0.03953, IQR 0.0354-0.05065, CV 0.29, slope of log K vs log p 0.02 ± 0.09 (n=23)
+  T eta a_p                [1000-grid] learned      : median 0.2257, IQR 0.204-0.2772, CV 0.33, slope of log K vs log p 0.12 ± 0.09 (n=27)
+  T eta a_p                [1000-grid] learned p<=8 : median 0.2223, IQR 0.1969-0.2448, CV 0.28, slope of log K vs log p -0.03 ± 0.10 (n=23)
+  T eta a_p                [fine grid] learned      : median 0.2236, IQR 0.2009-0.2767, CV 0.33, slope of log K vs log p 0.13 ± 0.09 (n=27)
+  T eta a_p                [fine grid] learned p<=8 : median 0.2221, IQR 0.1936-0.2443, CV 0.29, slope of log K vs log p -0.03 ± 0.10 (n=23)
+  T eta a_p m0             [1000-grid] learned      : median 0.09228, IQR 0.08312-0.1175, CV 0.31, slope of log K vs log p 0.13 ± 0.08 (n=27)
+  T eta a_p m0             [1000-grid] learned p<=8 : median 0.08999, IQR 0.07994-0.1038, CV 0.26, slope of log K vs log p -0.01 ± 0.09 (n=23)
+  T eta a_p m0             [fine grid] learned      : median 0.09089, IQR 0.08284-0.1174, CV 0.31, slope of log K vs log p 0.14 ± 0.08 (n=27)
+  T eta a_p m0             [fine grid] learned p<=8 : median 0.08966, IQR 0.07984-0.1025, CV 0.27, slope of log K vs log p -0.01 ± 0.09 (n=23)
+  T eta a_p m0^2           [1000-grid] learned      : median 0.03779, IQR 0.03212-0.05489, CV 0.33, slope of log K vs log p 0.14 ± 0.08 (n=27)
+  T eta a_p m0^2           [1000-grid] learned p<=8 : median 0.03687, IQR 0.03192-0.04347, CV 0.32, slope of log K vs log p 0.00 ± 0.10 (n=23)
+  T eta a_p m0^2           [fine grid] learned      : median 0.03775, IQR 0.03184-0.05451, CV 0.34, slope of log K vs log p 0.15 ± 0.08 (n=27)
+  T eta a_p m0^2           [fine grid] learned p<=8 : median 0.03689, IQR 0.03168-0.04291, CV 0.32, slope of log K vs log p 0.01 ± 0.10 (n=23)
+  T eta a_p / ln(1/m0)     [1000-grid] learned      : median 0.2523, IQR 0.2283-0.3274, CV 0.30, slope of log K vs log p 0.14 ± 0.08 (n=27)
+  T eta a_p / ln(1/m0)     [1000-grid] learned p<=8 : median 0.2493, IQR 0.2181-0.2933, CV 0.27, slope of log K vs log p -0.00 ± 0.09 (n=23)
+  T eta a_p / ln(1/m0)     [fine grid] learned      : median 0.2494, IQR 0.2275-0.3262, CV 0.31, slope of log K vs log p 0.14 ± 0.08 (n=27)
+  T eta a_p / ln(1/m0)     [fine grid] learned p<=8 : median 0.2473, IQR 0.2174-0.2903, CV 0.27, slope of log K vs log p 0.00 ± 0.09 (n=23)
+
+NEURONS PER SKILL (end): # neurons whose argmax_p |m| is p | # neurons with |m_jp| >= 0.3 | top-neuron share max_j n_j m_jp^2/a_p | pooled q_p = sum_j n_j m_jp^2 / a_p at end (init)
+  seed 0: assigned [20, 12, 9, 7, 3, 2, 2, 4, 0, 0, 0, 0, 1, 2, 1, 1]
+          |m|>=0.3 [29, 26, 24, 20, 20, 14, 12, 12, 11, 13, 8, 6, 7, 9, 4, 6]
+          top share [0.12, 0.11, 0.1, 0.07, 0.07, 0.1, 0.18, 0.1, 0.08, 0.08, 0.09, 0.09, 0.1, 0.12, 0.15, 0.11]
+          q_end [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+          q_0 [0.023, 0.05, 0.06, 0.06, 0.097, 0.099, 0.088, 0.157, 0.205, 0.205, 0.181, 0.252, 0.219, 0.217, 0.235, 0.186]
+          best-neuron final |m| [0.85, 0.8, 0.71, 0.59, 0.61, 0.67, 0.73, 0.59, 0.48, 0.49, 0.43, 0.45, 0.53, 0.52, 0.55, 0.49]
+  seed 1: assigned [20, 9, 8, 6, 3, 3, 3, 5, 3, 1, 0, 1, 1, 1, 0, 0]
+          |m|>=0.3 [33, 25, 24, 18, 15, 17, 11, 11, 10, 10, 10, 7, 8, 3, 6, 8]
+          top share [0.08, 0.12, 0.09, 0.1, 0.1, 0.13, 0.11, 0.11, 0.09, 0.12, 0.07, 0.08, 0.12, 0.15, 0.1, 0.08]
+          q_end [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+          q_0 [0.032, 0.029, 0.061, 0.078, 0.096, 0.144, 0.1, 0.129, 0.189, 0.212, 0.196, 0.132, 0.15, 0.194, 0.254, 0.271]
+          best-neuron final |m| [0.86, 0.89, 0.78, 0.58, 0.67, 0.75, 0.53, 0.64, 0.64, 0.58, 0.45, 0.45, 0.55, 0.61, 0.38, 0.38]
+  seed 2: assigned [18, 12, 9, 6, 2, 3, 3, 2, 1, 2, 1, 0, 2, 1, 1, 1]
+          |m|>=0.3 [33, 31, 25, 20, 15, 14, 11, 13, 13, 9, 9, 7, 7, 7, 6, 8]
+          top share [0.13, 0.09, 0.09, 0.16, 0.15, 0.11, 0.08, 0.08, 0.09, 0.09, 0.11, 0.06, 0.13, 0.09, 0.11, 0.12]
+          q_end [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+          q_0 [0.027, 0.05, 0.064, 0.048, 0.087, 0.124, 0.15, 0.131, 0.202, 0.18, 0.149, 0.17, 0.173, 0.237, 0.173, 0.209]
+          best-neuron final |m| [0.87, 0.69, 0.64, 0.73, 0.85, 0.56, 0.54, 0.54, 0.51, 0.51, 0.46, 0.44, 0.53, 0.5, 0.5, 0.44]
+
+## Btied_eta1   (eta = 0.000976562 = 1/d^2; seeds [0, 1, 2])
+ seed   steps  n_learned  n_learned_first8  n_at_init_ge05  mse_t1000  sum_n_end  L_align_end  L_mse_end  n_neurons_mx_ge09  n_neurons_mx_ge05  max_mx_end  cos_init_end_mean  cos_init_end_min   cpu_s
+    0 3000000          9                 8               1      0.235      3.174        0.415      0.000                  0                 49       0.849              0.651             0.478 246.545
+    1 3000000         11                 8               2      0.249      3.174        0.366      0.000                  0                 51       0.892              0.652             0.469 246.483
+    2 3000000          8                 8               2      0.221      3.174        0.421      0.000                  0                 49       0.871              0.649             0.447 246.622
+
+T_p(m>=0.5) [spec]: slope of log T vs log p over learned skills (T>0)
+  seed 0: 1.315 ± 0.446 (n=8); p<=8: 0.856 ± 0.507
+  seed 1: 1.142 ± 0.301 (n=10); p<=8: 1.040 ± 0.482
+  seed 2: 1.613 ± 0.246 (n=7); p<=8: 1.613 ± 0.246
+  pooled over seeds: 1.300 ± 0.185 (n=25);  mean of per-seed slopes 1.357 ± 0.138;  p<=8: 1.186 ± 0.231 (n=21);  all 16 skills (no learned filter): 1.411 ± 0.161 (n=29)
+
+T_p,0.5 (drop midpoint) [1000-step grid]: slope of log T vs log p over learned skills (T>0)
+  seed 0: 0.708 ± 0.200 (n=9); p<=8: 0.459 ± 0.184
+  seed 1: 0.820 ± 0.137 (n=11); p<=8: 0.701 ± 0.210
+  seed 2: 0.620 ± 0.136 (n=8); p<=8: 0.620 ± 0.136
+  pooled over seeds: 0.748 ± 0.088 (n=28);  mean of per-seed slopes 0.716 ± 0.058;  p<=8: 0.593 ± 0.099 (n=24);  all 16 skills (no learned filter): 1.048 ± 0.128 (n=42)
+
+T_p,0.5 on merged 100-step early grid (supplementary): slope of log T vs log p over learned skills (T>0)
+  seed 0: 0.826 ± 0.201 (n=9); p<=8: 0.605 ± 0.204
+  seed 1: 0.935 ± 0.136 (n=11); p<=8: 0.852 ± 0.216
+  seed 2: 0.849 ± 0.132 (n=8); p<=8: 0.849 ± 0.132
+  pooled over seeds: 0.891 ± 0.087 (n=28);  mean of per-seed slopes 0.870 ± 0.033;  p<=8: 0.769 ± 0.103 (n=24);  all 16 skills (no learned filter): 1.106 ± 0.166 (n=43)
+
+T_p(m>=0.5) on merged 100-step early grid (supplementary): slope of log T vs log p over learned skills (T>0)
+  seed 0: 1.506 ± 0.493 (n=8); p<=8: 1.066 ± 0.592
+  seed 1: 1.288 ± 0.347 (n=10); p<=8: 1.139 ± 0.563
+  seed 2: 1.937 ± 0.302 (n=7); p<=8: 1.937 ± 0.302
+  pooled over seeds: 1.501 ± 0.213 (n=25);  mean of per-seed slopes 1.577 ± 0.191;  p<=8: 1.398 ± 0.272 (n=21);  all 16 skills (no learned filter): 1.612 ± 0.183 (n=29)
+
+sharpness (T_0.9-T_0.1)/T_mid, learned skills: per seed [mid=drop midpoint] [2.045, 2.148, 2.084], pooled median 2.067 (n=28); [mid=T_p(0.5)] pooled 3.861; fine-grid [mid=drop] pooled 1.935
+
+scaling exponent of L_align = sum pi_p (1 - max_j m^2) between 3rd and 8th emergence (T_p(0.5) order statistics, as specified); drop-window = same with T_p,0.5 order statistics
+ seed      t3       t8  win_n  expo_align  expo_mse      d3       d8  win_n_drop  expo_align_dropwin  expo_mse_dropwin
+    0 173.746 1351.319      1         NaN       NaN 684.200 1711.436           1                 NaN               NaN
+    1 156.004  838.754      0         NaN       NaN 705.912 2354.645           2                 NaN               NaN
+    2  62.137 1947.530      1         NaN       NaN 822.667 2535.279           2                 NaN               NaN
+  mean align exponent nan ± nan (SE over seeds); drop-window mean nan; mse-based mean nan
+
+merged-grid (100-step early log) exponents of L_align, log-spaced resampling: spec window (T_p(0.5) order stats) [0.296, 0.272, 0.235] (windows [(90, 1342), (83, 731), (28, 1802)]), mean 0.268 ± 0.018; drop-window [0.208, 0.183, 0.054], mean 0.148; MSE-based (spec window) [0.627, 0.334, 0.789], mean 0.584
+pooled-alignment midpoint q_p>=0.5 (supplementary): per-seed slope log T_q vs log p [0.423, 0.419, 0.474] ± [0.049, 0.055, 0.041]; pooled 0.439 ± 0.027
+
+T_p tables (steps; nan never; 0 = aligned >= 0.5 at init): T05 | T05d | T05d_fine | m0 (best neuron at init)
+-- T05
+         s0       s1       s2
+p                            
+1   174.000  156.000   62.000
+2    90.000  276.000  283.000
+3   410.000  268.000  454.000
+4  1351.000 1430.000  497.000
+5  1267.000  210.000    0.000
+6   714.000    0.000  570.000
+7     0.000 2805.000 1948.000
+8   321.000  839.000 3066.000
+9       NaN  837.000    0.000
+10      NaN    0.000 5747.000
+11      NaN      NaN      NaN
+12      NaN      NaN      NaN
+13 4847.000 4731.000 5437.000
+14 8337.000 2309.000      NaN
+15 3774.000      NaN      NaN
+16      NaN      NaN      NaN
+-- T05d
+         s0        s1        s2
+p                              
+1   500.000   500.000   500.000
+2   561.000   639.000   678.000
+3   684.000   706.000   823.000
+4  1252.000  1495.000   998.000
+5  1290.000  1120.000  1270.000
+6  1170.000   743.000   912.000
+7  1711.000  2355.000  1409.000
+8   696.000  2522.000  2535.000
+9  3629.000  2048.000     0.000
+10 5879.000   967.000  5618.000
+11    0.000 54286.000     0.000
+12    0.000  4914.000  4466.000
+13 3602.000  4078.000  4169.000
+14 4778.000  3622.000  4114.000
+15 4953.000     0.000 19673.000
+16 5937.000     0.000  6674.000
+-- T05d_fine
+         s0        s1        s2
+p                              
+1   348.000   315.000   282.000
+2   490.000   650.000   540.000
+3   683.000   665.000   835.000
+4  1199.000  1450.000  1001.000
+5  1375.000  1099.000  1215.000
+6  1149.000   670.000   931.000
+7  1684.000  2250.000  1197.000
+8   645.000  2492.000  2520.000
+9  3594.000  2043.000    98.000
+10 5817.000   544.000  5570.000
+11    0.000 54286.000     0.000
+12    0.000  4909.000  4372.000
+13 3569.000  4068.000  4130.000
+14 4764.000  3592.000  4165.000
+15 4939.000     0.000 19700.000
+16 5917.000     0.000  6632.000
+-- m0
+      s0    s1    s2
+p                   
+1  0.416 0.425 0.472
+2  0.469 0.382 0.439
+3  0.393 0.421 0.438
+4  0.365 0.423 0.409
+5  0.361 0.479 0.501
+6  0.411 0.545 0.464
+7  0.500 0.422 0.427
+8  0.472 0.462 0.404
+9  0.409 0.441 0.538
+10 0.459 0.537 0.486
+11 0.492 0.440 0.465
+12 0.471 0.377 0.366
+13 0.439 0.398 0.431
+14 0.395 0.470 0.428
+15 0.489 0.460 0.463
+16 0.395 0.474 0.386
+
+INVARIANT CHECK (neuron j_end that ends on skill p; m0 = its initial |alignment| with v_p), learned skills pooled over seeds:
+  T eta a_p m0best^2       [1000-grid] learned      : median 0.05143, IQR 0.03821-0.06363, CV 0.29, slope of log K vs log p 0.02 ± 0.08 (n=28)
+  T eta a_p m0best^2       [1000-grid] learned p<=8 : median 0.0478, IQR 0.03714-0.06141, CV 0.30, slope of log K vs log p -0.11 ± 0.10 (n=24)
+  T eta a_p                [1000-grid] learned      : median 0.2615, IQR 0.2228-0.3354, CV 0.29, slope of log K vs log p -0.00 ± 0.09 (n=28)
+  T eta a_p                [1000-grid] learned p<=8 : median 0.2547, IQR 0.2167-0.3353, CV 0.28, slope of log K vs log p -0.16 ± 0.10 (n=24)
+  T eta a_p                [fine grid] learned      : median 0.2405, IQR 0.1997-0.2964, CV 0.32, slope of log K vs log p 0.14 ± 0.09 (n=28)
+  T eta a_p                [fine grid] learned p<=8 : median 0.227, IQR 0.1957-0.2658, CV 0.29, slope of log K vs log p 0.02 ± 0.10 (n=24)
+  T eta a_p m0             [1000-grid] learned      : median 0.1099, IQR 0.08724-0.1345, CV 0.28, slope of log K vs log p 0.02 ± 0.08 (n=28)
+  T eta a_p m0             [1000-grid] learned p<=8 : median 0.1012, IQR 0.08624-0.1317, CV 0.27, slope of log K vs log p -0.12 ± 0.09 (n=24)
+  T eta a_p m0             [fine grid] learned      : median 0.09336, IQR 0.08266-0.1244, CV 0.30, slope of log K vs log p 0.16 ± 0.07 (n=28)
+  T eta a_p m0             [fine grid] learned p<=8 : median 0.0916, IQR 0.08165-0.106, CV 0.27, slope of log K vs log p 0.05 ± 0.09 (n=24)
+  T eta a_p m0^2           [1000-grid] learned      : median 0.04935, IQR 0.03614-0.05888, CV 0.31, slope of log K vs log p 0.04 ± 0.08 (n=28)
+  T eta a_p m0^2           [1000-grid] learned p<=8 : median 0.03928, IQR 0.03458-0.05229, CV 0.31, slope of log K vs log p -0.09 ± 0.10 (n=24)
+  T eta a_p m0^2           [fine grid] learned      : median 0.03721, IQR 0.03381-0.0537, CV 0.34, slope of log K vs log p 0.19 ± 0.08 (n=28)
+  T eta a_p m0^2           [fine grid] learned p<=8 : median 0.03612, IQR 0.03263-0.04441, CV 0.32, slope of log K vs log p 0.09 ± 0.10 (n=24)
+  T eta a_p / ln(1/m0)     [1000-grid] learned      : median 0.3053, IQR 0.2392-0.3765, CV 0.27, slope of log K vs log p 0.03 ± 0.08 (n=28)
+  T eta a_p / ln(1/m0)     [1000-grid] learned p<=8 : median 0.2803, IQR 0.2352-0.3636, CV 0.26, slope of log K vs log p -0.11 ± 0.09 (n=24)
+  T eta a_p / ln(1/m0)     [fine grid] learned      : median 0.2602, IQR 0.2265-0.354, CV 0.30, slope of log K vs log p 0.17 ± 0.07 (n=28)
+  T eta a_p / ln(1/m0)     [fine grid] learned p<=8 : median 0.2502, IQR 0.2237-0.2964, CV 0.27, slope of log K vs log p 0.07 ± 0.09 (n=24)
+
+NEURONS PER SKILL (end): # neurons whose argmax_p |m| is p | # neurons with |m_jp| >= 0.3 | top-neuron share max_j n_j m_jp^2/a_p | pooled q_p = sum_j n_j m_jp^2 / a_p at end (init)
+  seed 0: assigned [18, 12, 10, 7, 3, 3, 2, 4, 0, 0, 0, 0, 1, 2, 1, 1]
+          |m|>=0.3 [31, 26, 24, 19, 20, 13, 13, 12, 10, 13, 10, 6, 7, 8, 4, 6]
+          top share [0.11, 0.12, 0.1, 0.07, 0.06, 0.1, 0.18, 0.11, 0.08, 0.08, 0.09, 0.09, 0.1, 0.12, 0.15, 0.11]
+          q_end [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+          q_0 [0.023, 0.05, 0.06, 0.06, 0.097, 0.099, 0.088, 0.157, 0.205, 0.205, 0.181, 0.252, 0.219, 0.217, 0.235, 0.186]
+          best-neuron final |m| [0.85, 0.8, 0.71, 0.59, 0.61, 0.66, 0.72, 0.59, 0.48, 0.48, 0.43, 0.45, 0.53, 0.53, 0.56, 0.49]
+  seed 1: assigned [20, 8, 8, 6, 3, 3, 3, 5, 3, 1, 0, 1, 2, 1, 0, 0]
+          |m|>=0.3 [34, 25, 23, 17, 16, 17, 11, 11, 10, 10, 10, 7, 9, 4, 5, 7]
+          top share [0.08, 0.12, 0.09, 0.1, 0.1, 0.13, 0.11, 0.12, 0.09, 0.12, 0.07, 0.08, 0.12, 0.15, 0.1, 0.09]
+          q_end [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+          q_0 [0.032, 0.029, 0.061, 0.078, 0.096, 0.144, 0.1, 0.129, 0.189, 0.212, 0.196, 0.132, 0.15, 0.194, 0.254, 0.271]
+          best-neuron final |m| [0.86, 0.89, 0.78, 0.58, 0.68, 0.75, 0.53, 0.63, 0.64, 0.58, 0.45, 0.44, 0.55, 0.6, 0.38, 0.39]
+  seed 2: assigned [18, 12, 9, 6, 2, 3, 3, 2, 1, 2, 1, 0, 2, 1, 1, 1]
+          |m|>=0.3 [33, 33, 24, 22, 15, 14, 11, 12, 13, 8, 9, 8, 7, 7, 6, 8]
+          top share [0.13, 0.09, 0.09, 0.16, 0.14, 0.11, 0.08, 0.08, 0.1, 0.09, 0.1, 0.06, 0.13, 0.09, 0.11, 0.12]
+          q_end [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+          q_0 [0.027, 0.05, 0.064, 0.048, 0.087, 0.124, 0.15, 0.131, 0.202, 0.18, 0.149, 0.17, 0.173, 0.237, 0.173, 0.209]
+          best-neuron final |m| [0.87, 0.69, 0.62, 0.73, 0.84, 0.57, 0.54, 0.54, 0.51, 0.51, 0.46, 0.43, 0.53, 0.5, 0.5, 0.43]
+
+## Btied_eta4   (eta = 0.00390625 = 4/d^2; seeds [0, 1, 2])
+ seed   steps  n_learned  n_learned_first8  n_at_init_ge05  mse_t1000  sum_n_end  L_align_end  L_mse_end  n_neurons_mx_ge09  n_neurons_mx_ge05  max_mx_end  cos_init_end_mean  cos_init_end_min   cpu_s
+    0 3000000          9                 8               1      0.008      3.174        0.415      0.000                  0                 48       0.852              0.644             0.464 247.272
+    1 3000000         11                 8               2      0.008      3.174        0.365      0.000                  0                 52       0.891              0.645             0.451 245.962
+    2 3000000          7                 7               2      0.008      3.174        0.419      0.000                  0                 49       0.877              0.643             0.425 246.553
+
+T_p(m>=0.5) [spec]: slope of log T vs log p over learned skills (T>0)
+  seed 0: 0.798 ± 0.315 (n=8); p<=8: 0.463 ± 0.354
+  seed 1: 0.517 ± 0.244 (n=10); p<=8: 0.335 ± 0.334
+  seed 2: 0.970 ± 0.197 (n=6); p<=8: 0.970 ± 0.197
+  pooled over seeds: 0.687 ± 0.148 (n=24);  mean of per-seed slopes 0.761 ± 0.132;  p<=8: 0.574 ± 0.172 (n=20);  all 16 skills (no learned filter): 0.753 ± 0.139 (n=29)
+
+T_p,0.5 (drop midpoint) [1000-step grid]: slope of log T vs log p over learned skills (T>0)
+  seed 0: 0.245 ± 0.116 (n=9); p<=8: 0.043 ± 0.016
+  seed 1: 0.249 ± 0.083 (n=11); p<=8: 0.049 ± 0.037
+  seed 2: 0.081 ± 0.056 (n=7); p<=8: 0.081 ± 0.056
+  pooled over seeds: 0.218 ± 0.051 (n=27);  mean of per-seed slopes 0.192 ± 0.055;  p<=8: 0.056 ± 0.020 (n=23);  all 16 skills (no learned filter): 0.485 ± 0.098 (n=41)
+
+T_p,0.5 on merged 100-step early grid (supplementary): slope of log T vs log p over learned skills (T>0)
+  seed 0: 0.832 ± 0.203 (n=9); p<=8: 0.590 ± 0.194
+  seed 1: 0.935 ± 0.135 (n=11); p<=8: 0.841 ± 0.208
+  seed 2: 0.945 ± 0.116 (n=7); p<=8: 0.945 ± 0.116
+  pooled over seeds: 0.894 ± 0.092 (n=27);  mean of per-seed slopes 0.904 ± 0.036;  p<=8: 0.775 ± 0.113 (n=23);  all 16 skills (no learned filter): 0.992 ± 0.161 (n=42)
+
+T_p(m>=0.5) on merged 100-step early grid (supplementary): slope of log T vs log p over learned skills (T>0)
+  seed 0: 1.468 ± 0.487 (n=8); p<=8: 0.986 ± 0.564
+  seed 1: 1.267 ± 0.371 (n=10); p<=8: 0.998 ± 0.599
+  seed 2: 1.831 ± 0.352 (n=6); p<=8: 1.831 ± 0.352
+  pooled over seeds: 1.429 ± 0.222 (n=24);  mean of per-seed slopes 1.522 ± 0.165;  p<=8: 1.249 ± 0.288 (n=20);  all 16 skills (no learned filter): 1.549 ± 0.189 (n=29)
+
+sharpness (T_0.9-T_0.1)/T_mid, learned skills: per seed [mid=drop midpoint] [1.6, 1.6, 1.6], pooled median 1.600 (n=27); [mid=T_p(0.5)] pooled 3.412; fine-grid [mid=drop] pooled 2.000
+
+scaling exponent of L_align = sum pi_p (1 - max_j m^2) between 3rd and 8th emergence (T_p(0.5) order statistics, as specified); drop-window = same with T_p,0.5 order statistics
+ seed      t3      t8  win_n  expo_align  expo_mse      d3      d8  win_n_drop  expo_align_dropwin  expo_mse_dropwin
+    0 193.774 518.838      0         NaN       NaN 501.995 559.509           0                 NaN               NaN
+    1 106.803 375.177      0         NaN       NaN 501.062 620.613           0                 NaN               NaN
+    2  69.903 806.316      0         NaN       NaN 500.000     NaN           0                 NaN               NaN
+  mean align exponent nan ± nan (SE over seeds); drop-window mean nan; mse-based mean nan
+
+merged-grid (100-step early log) exponents of L_align, log-spaced resampling: spec window (T_p(0.5) order stats) [0.339, 0.47, 0.131] (windows [(24, 309), (23, 195), (8, 798)]), mean 0.313 ± 0.099; drop-window [0.256, 0.175, nan], mean 0.216; MSE-based (spec window) [1.204, 0.951, 1.666], mean 1.274
+pooled-alignment midpoint q_p>=0.5 (supplementary): per-seed slope log T_q vs log p [0.028, 0.039, 0.053] ± [0.033, 0.038, 0.031]; pooled 0.040 ± 0.019
+
+T_p tables (steps; nan never; 0 = aligned >= 0.5 at init): T05 | T05d | T05d_fine | m0 (best neuron at init)
+-- T05
+         s0       s1       s2
+p                            
+1   194.000  175.000   70.000
+2    94.000  238.000  241.000
+3   338.000  206.000  331.000
+4   638.000  474.000  290.000
+5   519.000  107.000    0.000
+6   385.000    0.000  340.000
+7     0.000  620.000  896.000
+8   233.000  304.000  806.000
+9       NaN  398.000    0.000
+10      NaN    0.000 1733.000
+11      NaN      NaN      NaN
+12      NaN      NaN      NaN
+13 1351.000 1438.000 1390.000
+14 2045.000  375.000      NaN
+15  333.000      NaN      NaN
+16      NaN      NaN      NaN
+-- T05d
+         s0       s1       s2
+p                            
+1   504.000  508.000  514.000
+2   500.000  520.000  500.000
+3   502.000  500.000  502.000
+4   500.000  501.000  500.000
+5   519.000  530.000  569.000
+6   525.000  500.000  500.000
+7   560.000  530.000  558.000
+8   539.000  621.000  659.000
+9   810.000  667.000    0.000
+10    0.000  724.000 1709.000
+11    0.000 6118.000    0.000
+12    0.000 1441.000 1430.000
+13  913.000 1137.000  947.000
+14 1303.000  937.000 1142.000
+15 1282.000    0.000 6216.000
+16 1834.000    0.000  934.000
+-- T05d_fine
+         s0       s1       s2
+p                            
+1    77.000   82.000   71.000
+2   125.000  176.000  193.000
+3   155.000  154.000  237.000
+4   256.000  375.000  285.000
+5   259.000  253.000  332.000
+6   309.000  191.000  329.000
+7   376.000  571.000  629.000
+8   143.000  628.000  705.000
+9   892.000  494.000   50.000
+10    0.000   82.000 1262.000
+11    0.000 5881.000    0.000
+12    0.000 1247.000 1187.000
+13  940.000 1067.000  980.000
+14 1155.000  958.000 1056.000
+15 1128.000    0.000 6118.000
+16 1662.000    0.000  167.000
+-- m0
+      s0    s1    s2
+p                   
+1  0.416 0.425 0.472
+2  0.469 0.382 0.439
+3  0.393 0.421 0.438
+4  0.365 0.423 0.409
+5  0.361 0.479 0.501
+6  0.411 0.545 0.464
+7  0.500 0.422 0.427
+8  0.472 0.462 0.404
+9  0.409 0.441 0.538
+10 0.459 0.537 0.486
+11 0.492 0.440 0.465
+12 0.471 0.377 0.366
+13 0.439 0.398 0.431
+14 0.395 0.470 0.428
+15 0.489 0.460 0.463
+16 0.395 0.474 0.386
+
+INVARIANT CHECK (neuron j_end that ends on skill p; m0 = its initial |alignment| with v_p), learned skills pooled over seeds:
+  T eta a_p m0best^2       [1000-grid] learned      : median 0.08511, IQR 0.06919-0.1139, CV 0.58, slope of log K vs log p -0.51 ± 0.06 (n=27)
+  T eta a_p m0best^2       [1000-grid] learned p<=8 : median 0.09135, IQR 0.07132-0.118, CV 0.57, slope of log K vs log p -0.64 ± 0.07 (n=23)
+  T eta a_p                [1000-grid] learned      : median 0.4565, IQR 0.35-0.591, CV 0.55, slope of log K vs log p -0.53 ± 0.05 (n=27)
+  T eta a_p                [1000-grid] learned p<=8 : median 0.4743, IQR 0.3587-0.6944, CV 0.55, slope of log K vs log p -0.69 ± 0.02 (n=23)
+  T eta a_p                [fine grid] learned      : median 0.2427, IQR 0.2055-0.331, CV 0.32, slope of log K vs log p 0.14 ± 0.09 (n=27)
+  T eta a_p                [fine grid] learned p<=8 : median 0.2299, IQR 0.2013-0.2805, CV 0.30, slope of log K vs log p 0.03 ± 0.11 (n=23)
+  T eta a_p m0             [1000-grid] learned      : median 0.1906, IQR 0.1561-0.2402, CV 0.54, slope of log K vs log p -0.51 ± 0.06 (n=27)
+  T eta a_p m0             [1000-grid] learned p<=8 : median 0.1993, IQR 0.1558-0.2827, CV 0.54, slope of log K vs log p -0.66 ± 0.05 (n=23)
+  T eta a_p m0             [fine grid] learned      : median 0.1054, IQR 0.07897-0.1336, CV 0.31, slope of log K vs log p 0.17 ± 0.08 (n=27)
+  T eta a_p m0             [fine grid] learned p<=8 : median 0.09536, IQR 0.07597-0.121, CV 0.29, slope of log K vs log p 0.06 ± 0.10 (n=23)
+  T eta a_p m0^2           [1000-grid] learned      : median 0.07928, IQR 0.06739-0.1096, CV 0.53, slope of log K vs log p -0.49 ± 0.08 (n=27)
+  T eta a_p m0^2           [1000-grid] learned p<=8 : median 0.0873, IQR 0.07069-0.118, CV 0.53, slope of log K vs log p -0.63 ± 0.10 (n=23)
+  T eta a_p m0^2           [fine grid] learned      : median 0.04387, IQR 0.03373-0.05896, CV 0.35, slope of log K vs log p 0.19 ± 0.09 (n=27)
+  T eta a_p m0^2           [fine grid] learned p<=8 : median 0.03972, IQR 0.03207-0.04921, CV 0.35, slope of log K vs log p 0.09 ± 0.12 (n=23)
+  T eta a_p / ln(1/m0)     [1000-grid] learned      : median 0.5303, IQR 0.4344-0.671, CV 0.53, slope of log K vs log p -0.50 ± 0.06 (n=27)
+  T eta a_p / ln(1/m0)     [1000-grid] learned p<=8 : median 0.5614, IQR 0.431-0.7721, CV 0.53, slope of log K vs log p -0.65 ± 0.06 (n=23)
+  T eta a_p / ln(1/m0)     [fine grid] learned      : median 0.2928, IQR 0.221-0.3688, CV 0.31, slope of log K vs log p 0.17 ± 0.08 (n=27)
+  T eta a_p / ln(1/m0)     [fine grid] learned p<=8 : median 0.2685, IQR 0.2153-0.3406, CV 0.30, slope of log K vs log p 0.07 ± 0.10 (n=23)
+
+NEURONS PER SKILL (end): # neurons whose argmax_p |m| is p | # neurons with |m_jp| >= 0.3 | top-neuron share max_j n_j m_jp^2/a_p | pooled q_p = sum_j n_j m_jp^2 / a_p at end (init)
+  seed 0: assigned [17, 12, 9, 6, 4, 3, 3, 4, 1, 0, 0, 0, 1, 2, 2, 0]
+          |m|>=0.3 [33, 28, 24, 20, 20, 13, 11, 12, 11, 13, 8, 6, 7, 8, 3, 6]
+          top share [0.11, 0.12, 0.1, 0.08, 0.06, 0.1, 0.18, 0.11, 0.08, 0.09, 0.09, 0.08, 0.1, 0.11, 0.16, 0.11]
+          q_end [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+          q_0 [0.023, 0.05, 0.06, 0.06, 0.097, 0.099, 0.088, 0.157, 0.205, 0.205, 0.181, 0.252, 0.219, 0.217, 0.235, 0.186]
+          best-neuron final |m| [0.85, 0.79, 0.71, 0.58, 0.64, 0.65, 0.74, 0.6, 0.48, 0.46, 0.44, 0.44, 0.53, 0.53, 0.58, 0.47]
+  seed 1: assigned [19, 9, 8, 5, 3, 3, 3, 6, 3, 1, 0, 1, 2, 1, 0, 0]
+          |m|>=0.3 [35, 27, 24, 19, 16, 15, 10, 11, 10, 10, 12, 8, 8, 4, 6, 7]
+          top share [0.08, 0.12, 0.1, 0.1, 0.1, 0.13, 0.11, 0.11, 0.09, 0.12, 0.06, 0.08, 0.13, 0.15, 0.1, 0.08]
+          q_end [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+          q_0 [0.032, 0.029, 0.061, 0.078, 0.096, 0.144, 0.1, 0.129, 0.189, 0.212, 0.196, 0.132, 0.15, 0.194, 0.254, 0.271]
+          best-neuron final |m| [0.86, 0.89, 0.79, 0.59, 0.69, 0.74, 0.55, 0.61, 0.63, 0.58, 0.46, 0.43, 0.55, 0.61, 0.38, 0.39]
+  seed 2: assigned [18, 11, 9, 6, 3, 3, 2, 3, 1, 2, 1, 0, 2, 1, 1, 1]
+          |m|>=0.3 [32, 33, 25, 23, 14, 14, 11, 11, 13, 7, 9, 8, 7, 7, 6, 8]
+          top share [0.13, 0.09, 0.09, 0.16, 0.13, 0.11, 0.08, 0.09, 0.09, 0.09, 0.1, 0.06, 0.13, 0.09, 0.1, 0.13]
+          q_end [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+          q_0 [0.027, 0.05, 0.064, 0.048, 0.087, 0.124, 0.15, 0.131, 0.202, 0.18, 0.149, 0.17, 0.173, 0.237, 0.173, 0.209]
+          best-neuron final |m| [0.88, 0.69, 0.63, 0.72, 0.82, 0.56, 0.52, 0.56, 0.5, 0.51, 0.44, 0.42, 0.53, 0.48, 0.49, 0.45]
