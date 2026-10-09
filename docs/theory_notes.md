@@ -157,8 +157,9 @@ diffusion on the sphere, so a run started below `m*` escapes with a Kramers-type
 `ΔL = L(m*) − L(m_0)`, `D_eff ∝ η·Var(∂_m-gradient)/B`. At `γ=1, N=128`: `d=16` (`m_0 = 0.25 > m*`): no barrier → escapes (3/3
 observed); `d=32` (`m_0 = 0.177 ≈ m*`): `ΔL ≈ 1.6·10⁻⁶`, on the ridge → coin-flip escapes (1/3); `d=64` (`m_0 = 0.125`):
 `ΔL ≈ 2.7·10⁻⁴` → none (0/3). The ordering and
-the softness are what exp 1b shows; the quantitative Kramers rate needs the gradient-noise variance at `m_0` (to be measured;
-`drift.py` can return it). Increasing `B` lowers `D_eff` and makes the trap *deeper* in SGD terms — the mechanism behind P7
+the softness are what exp 1b shows. Measured gradient noise (MC, `B=32`): per-step s.d. of the `m`-gradient ≈ 0.33–0.37, so
+`D_eff = η·sd²/2 ≈ 1.3·10⁻⁵` (`d=64`) and `6.5·10⁻⁵` (`d=32`); barrier-to-noise ratios `ΔL/D_eff ≈ 20` (`d=64`: trapped, 0/3) and
+`≈ 0.02` (`d=32`: on the ridge — escape is diffusive, slow and partial, 1/3 within `3·10⁵` steps). Consistent with Kramers. Increasing `B` lowers `D_eff` and makes the trap *deeper* in SGD terms — the mechanism behind P7
 (more tasks per step do not help; they hurt).
 
 **Consequence in SGD sample-complexity terms** (heuristic, `κ_eff = 4k*`, free readout only): escape needs
