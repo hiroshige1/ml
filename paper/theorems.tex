@@ -114,7 +114,7 @@ noise term. As $V'(m)/m=\sum_{i\ge1}2i\beta_{2i}^2m^{2i-2}$ is increasing from $
 \begin{equation}\label{eq:qbounds}
 \rho\Big[\tfrac12(1-\tfrac1N)+\frac{k}{Nm^{2k-2}}\Big]\le q\le\rho\Big[\tfrac12(1-\tfrac1N)+\bar v_k\frac{k}{Nm^{2k-2}}\Big],\qquad\text{and}\quad \rho^*<\frac2{1-1/N}.
 \end{equation}
-\emph{Bootstrap.} Let $T=\sup\{t\le\tau_{\rm tied}:q<\frac13\text{ on }[0,t]\}$; $T>0$ as $q(0)\le\frac14$. On $[0,T)$, $\dot m>0$, so $m\ge m_0$, and $\dot m\ge
+\emph{Bootstrap.} Let $T=\sup\{t\le\tau_{\rm tied}:q<\frac13\text{ on }[0,t]\}$ (with $\tau_{\rm tied}=\infty$ allowed a priori); $T>0$ as $q(0)\le\frac14$. On $[0,T)$, $\dot m>0$, so $m\ge m_0$, and $\dot m\ge
 2ks^2m_0^{2k-1}>0$ while $m\le\frac12$, so $\tau_{\rm tied}<\infty$ if $T=\tau_{\rm tied}$. With $m$ as the variable on $[0,T)$,
 \[
 \frac{d\ln\rho}{dm}=\frac{\dot\rho}{\rho\dot m}=\frac{2(G-\rho D)}{k(1-m^2)m^{2k-1}(1-q)}\le\frac{2m}{k(1-m^2)(1-q)}\le\frac{3m}{k(1-m^2)} ,
@@ -125,7 +125,7 @@ upper bound. \emph{Lower bound.} Similarly
 \[
 \frac{d}{dm}\frac1\rho=\frac{2(D-G/\rho)}{k(1-m^2)m^{2k-1}(1-q)},\qquad D-\frac G\rho=\frac VN-m^{2k}\Big(\frac1\rho-1+\frac1N\Big)\le\frac VN ,
 \]
-because $\rho\le0.32\rho^*(m_0)<0.64/(1-\frac1N)$ by \eqref{eq:qbounds}. With $1/(1-q)\le\frac32$ and $V/(1-m^2)\le\frac43V(\frac12)$ (both increasing),
+because $\rho\le0.32\rho^*(m_0)<0.64/(1-\frac1N)$ by \eqref{eq:qbounds}. With $1/(1-q)\le\frac32$ (from $q<\frac13$) and $V/(1-m^2)\le\frac43V(\frac12)$ (increasing in $m$),
 $\frac{d}{dm}\frac1\rho\le\frac{4V(1/2)}{kNm^{2k-1}}$, and integrating from $m_0$, $\frac1\rho\le\frac1{\rho_0}+\frac{4V(1/2)}{k(2k-2)Nm_0^{2k-2}}=\frac1{\rho_0}+\frac{c_1}{Nm_0^{2k-2}}$.
 (The ratio $\rho/\rho_0$ is not $1+O(\rho_0)$: as $\rho_0\to0$, $d\ln\rho/dm\to2m/(k(1-m^2))$, so $\rho(\tau_{\rm tied})/\rho_0\to(\frac43(1-m_0^2))^{1/k}$; the exponent in
 \eqref{eq:rhosandwich} is $1/(k(1-\sup q))$ with $\sup q\le\frac13$. This growth affects $\tau_{\rm tied}$ only through $q$.)
