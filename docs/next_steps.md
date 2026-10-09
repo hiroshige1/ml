@@ -58,5 +58,5 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
   N=1024. Before any ablation can use it: find by ODE/MC drift (`icl_additive/drift.py` style) a temperature or logit normalisation at which the
   population drift at m_0=1/8, N=1024 is positive; pre-register and re-run P25c/d with it. Only then can softmax be excluded or implicated.
 
-- [~] (pre-registered; running) **N20 (2026-10-09, from exp 13). B-dependence of the softmax+Adam escape at N=16 (exp 14, P27)**: noise-driven
+- [x] (d984c95 prereg; d957200 results; P27 held: noise-driven; paper v0.20) **N20 (2026-10-09, from exp 13). B-dependence of the softmax+Adam escape at N=16 (exp 14, P27)**: noise-driven
   (escape fraction non-increasing in B) vs drift-driven (increasing, transformer-like).

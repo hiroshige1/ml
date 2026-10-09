@@ -511,6 +511,16 @@ If P27 holds, the paper states that the single-feature softmax + Adam escape is 
 `B`-rescue; if the default holds, the single-feature softmax + Adam model *does* reproduce the transformer's rescue and the paper says so (and the
 "not a `B`-rescue" sentence of v0.19 is withdrawn).
 
+## Exp 14 outcome (recorded 2026-10-09 after the run; `results/exp14/README.md`, commit d957200)
+
+8 fresh runs + 4 reused, 0.15 CPU-h. rbf softmax + Adam, `N=16`: `T_0.5` (seeds 0/1/2) `B=16`: 5464 / 35024 / 8010; `B=64`: 26348 / 24709 / 10046;
+`B=256`: 39189 / 18095 / 62631; `B=1024`: 3561 / censored / 60240. Escape fraction 3/3, 3/3, 3/3, 2/3; median `T_0.5` 8010 → 24709 → 39189 → 60240,
+**rising at every step** (≈7.5× from `B=16` to `B=1024`). **P27 holds on the literal reading** (fraction non-increasing, median non-decreasing, both end-point
+conditions met); the runner notes that "up to one tie" could be read strictly (the fraction is tied at 3/3 twice through saturation), on which reading
+the fraction leg would fail through saturation, not reversal — the intended reading was the literal one and the verdict is recorded as held, with
+this ambiguity disclosed. The default (escape fraction increasing with `B`, transformer-like) is rejected. Reading: the softmax + Adam escape at
+`N=16` is noise-driven (slower with less gradient noise), the opposite of the transformer's `B`-rescue; the v0.19 sentence stands and is sharpened.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
