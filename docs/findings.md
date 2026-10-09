@@ -82,6 +82,13 @@ Evidence level S (SGD vs pre-fixed ODE, 27 + 6 runs). Tied `ρ₀=0.01`, `N=128`
 with `ρ_trap ∝ m₀^{2k−2}` the "small readout" window is narrow at `k*=3` and SGD noise in `(m, ρ)` decides. Consequence for the paper:
 Prop. 3(c) states `N`-flatness only for `ρ₀ ≪ ρ_trap(m₀, N)`; pre-registered P22a/b failed as worded (recorded), P22c held.
 
+## F8. The mechanism does not transfer through the transformer's final readout (exp 8, pre-registered kill met) [X]
+
+Freezing the final linear readout at O(1) norm did not create a trap (`N=16, B=1024` emerged at 5.8k/8.4k steps, no later than trainable) and
+freezing it at 0.1× did not rescue `N=16, B=64` (stuck 2/2 at 30k); the free protocol reproduced exp 5 (3.7×, 3.8× later than `N=256`). Both
+P21a and P21b failed → kill criterion met: Sec. 5 of the paper stays observational and states the negative result. The likely reason is that the
+final readout multiplies the residual stream, not the context statistic; the Γ-analogue sits in the attention value/output path (untested).
+
 ## What would make this a paper (current best framing, subject to exp 3/5)
 *"The exponent of in-context skill emergence is set by the readout and the context, not by the skill alone"*: F1 as the known
 mechanism, F3 (parameterisation × context length, ODE-exact) as the main theorem-level claim in the solvable model, F2+P7 as the

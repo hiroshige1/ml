@@ -5,7 +5,7 @@ Imports the exp-5 model/data/eval/alignment code unchanged (icl_additive/transfo
   pinned_small  initial readout weight x0.1, then frozen (bias frozen at its init value)
 One run : python3 -I icl_additive/transformer_exp8.py --run PROTO N B SEED [--stop-at 0.25]
 Queue   : python3 -I icl_additive/transformer_exp8.py --queue   (priority-ordered job list; claim files make 2 workers safe)
-Graceful stop of all runs: touch results/exp8/STOP  (runs end as censored at the next eval).
+Graceful stop of all runs: touch results/exp8/STOP; of one run: touch results/exp8/STOP_<name> (runs end as censored at the next eval).
 """
 import argparse, csv, math, os, sys, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -64,7 +64,7 @@ def run(proto, N, B, seed, max_steps, out, stop_at, threads=1, stop_file=None):
                 if step >= max_steps and m >= stop_at:
                     censored = "max_steps" if te[0.25] is None else ""
                 break
-            if stop_file and os.path.exists(stop_file):
+            if stop_file and (os.path.exists(stop_file) or os.path.exists(f"{stop_file}_{name}")):
                 censored = "STOP_file"; break
         tok, y = make_batch(D, N, B, v, K, gen, False)
         loss = ((model(tok) - y) ** 2).mean()

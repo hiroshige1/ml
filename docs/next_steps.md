@@ -2,7 +2,7 @@
 
 Order is priority. Mark items `[x]` when done with the commit hash. Never delete items; add new ones at the bottom with a date.
 
-- [~] (P21 pre-registered 7a9a670; running) **N1. Transformer trap-vs-tradeoff test (exp 8).** The three-regime statement predicts, for a transformer: readout *frozen at an O(1)
+- [x] (P21 pre-registered 7a9a670; P21a/b failed, P21c held, kill met; results/exp8; paper v0.12) **N1. Transformer trap-vs-tradeoff test (exp 8).** The three-regime statement predicts, for a transformer: readout *frozen at an O(1)
   norm* (pinned) ⇒ `N=16` stays stuck even with `B=1024` (no tradeoff); trainable readout (free) ⇒ emerges with a tradeoff (= exp 5's result);
   readout frozen *small* ⇒ `N`-flat. Design: `d=256`, width 32 as exp 5, cells `N∈{16,256}`, `B∈{64,1024}` for `N=16`, three readout
   protocols (frozen at init-norm×10, trainable, frozen at init-norm/10), 2–3 seeds, 30k steps, cap 6 CPU-h. Pre-register as P21 first.
@@ -26,3 +26,7 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
   limit, corner exponents 4k/2k/2k+1. Proof drafts with sympy checks → appendix.
 - [x] (scripts/ode_lsoda.py, results/README_ode.md; paper v0.9) **N10 (2026-10-09). Accurate ODE integration.** Recompute all quoted ODE predictions with LSODA (rtol 1e-10); the Euler integrator may
   overestimate by 1–4%; update figures/tables where the change exceeds 1%.
+
+- [ ] **N11 (2026-10-09, from exp 8). Transformer: control the value/output projection instead of the final readout.** Freeze the norm of the
+  attention output projection (and separately the MLP output) at O(1) and at 0.1×, same cells as exp 8; pre-register as P24 with the same
+  trap/rescue predictions. Only if budget allows (≈6 CPU-h); otherwise leave as a stated open test in the paper.

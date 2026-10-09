@@ -362,6 +362,24 @@ Honest caveats fixed now: the SGD trap is soft, so P23b's `N=16` (`m_0/m* = 0.76
 and the same caveat. The free cell is long (`5·10⁶` steps at `η = 6·10⁻⁵`); if the 5 CPU-h cap is hit the second free seed is dropped and
 reported as such. Kill for the "trap for `d > d*(N)`" statement: P23b `N=16` escapes 3/3 **and** P23a `N=256` escapes 2/2.
 
+## Exp 8 outcome (recorded 2026-10-09 after the run; `results/exp8/README.md`)
+
+18 cells × seeds (14 fresh runs, 4 free cells reused from exp 5 with identical seeds and code), 5.47 CPU-h (cap 6). `T_e(0.5)` per seed:
+pinned O(1) (`‖readout‖ = 0.56–0.58`, frozen): `N=16,B=64` not reached 2/2 (30k); `N=16,B=1024` **8400, 5800**; `N=256,B=64` 6200, 2400.
+Pinned small (`0.056–0.058`, frozen): `N=16,B=64` **not reached 2/2**; `N=16,B=1024` 6600, 14600; `N=256,B=64` 4600 and one seed censored at 17k
+(killed for budget while still on the plateau). Free: `N=16,B=64` not reached 2/2 (re-run; reproduces exp 5); `N=16,B=1024` 14800, 10600;
+`N=256,B=64` 4000, 2800 (exp 5).
+
+**P21a failed**: a readout frozen at O(1) norm is rescued by `B=1024` exactly as the free readout is (and slightly earlier). **P21b failed**: a
+readout frozen at 0.1× its initial norm does not rescue `N=16, B=64`. **P21c held**: the free protocol reproduces exp 5 (`3.7×`, `3.8×` later
+than `N=256` for the two paired seeds). **Kill criterion met** (P21a and P21b both fail): the readout–context mechanism of Prop. 3 does not
+transfer to this transformer even qualitatively through the final linear readout. Reading: in the transformer the final readout multiplies the
+residual stream, not the context statistic; the quantity playing Γ's role (if any) sits inside the attention value/output path, which these
+protocols did not control. As pre-registered, the paper keeps Sec. 5 as observations only and states the negative result.
+
+Deviations (recorded by the runner): free cells reused from exp 5 rather than re-run (except `N=16,B=64`, re-run); one `pinned_small N=256` seed
+killed at 17k steps to afford a lower-priority cell (censored, not a failure); early stop at MSE < 0.25, so `T_e(0.1)` is not recorded.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional

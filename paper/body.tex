@@ -331,6 +331,16 @@ the Adam step was not rescaled with $B$, and the readout collapse is identical i
 so it is plateau behaviour rather than a signature of Prop.~\ref{prop:shrink}. We state the result as an observation consistent
 with---not a test of---the mechanism of Sec.~\ref{sec:single}; $k^*=1$ and in-weight controls emerge within $1.4$k and $0.4$k steps.
 
+\paragraph{The readout is not the transformer's knob (Exp.~8, pre-registered P21).}
+If Prop.~\ref{prop:shrink} transferred through the final linear readout, freezing that readout at its O(1) initial norm (pinned) should turn the
+$N=16$ handicap into a trap that $B=1024$ cannot lift, and freezing it at $0.1\times$ (pinned small) should rescue $N=16$, $B=64$. Neither happened
+(two seeds per cell, same seeds and code as above): the O(1)-frozen readout emerged at $5.8$k and $8.4$k steps with $B=1024$---no later than the
+trainable one---and the small frozen readout stayed on the plateau for $30$k steps at $B=64$ in both seeds, while $N=256$ emerged under every protocol.
+The pre-registered kill criterion was met, so we state the negative result: in this architecture the final readout multiplies the residual stream rather
+than the context statistic, and whatever plays the role of $\Gamma$ sits inside the attention value/output path, which these protocols did not control.
+The three-regime picture is therefore established for the solvable model only; Sec.~\ref{sec:transformer} reports the transformer's $N$--$B$ behaviour
+as an observation.
+
 \section{Related work}
 \label{sec:related}
 \citet{oko2024pretrained} analyse the architecture~\eqref{eq:modelA} with one gradient step; the product of two correlations

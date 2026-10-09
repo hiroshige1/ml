@@ -1,0 +1,21 @@
+[pinned_small_N16_B1024_s1] INIT align 0.1515 mse 1.0565 head_norm 0.0576
+[pinned_small_N16_B1024_s1] step 0 mse 1.0565 align 0.152 head 0.058 t=0s
+[pinned_small_N16_B1024_s1] step 1000 mse 1.0553 align 0.172 head 0.058 t=197s
+[pinned_small_N16_B1024_s1] step 2000 mse 1.0575 align 0.166 head 0.058 t=389s
+[pinned_small_N16_B1024_s1] step 3000 mse 1.0573 align 0.131 head 0.058 t=582s
+[pinned_small_N16_B1024_s1] step 4000 mse 1.0563 align 0.222 head 0.058 t=770s
+[pinned_small_N16_B1024_s1] step 5000 mse 1.0584 align 0.186 head 0.058 t=964s
+[pinned_small_N16_B1024_s1] step 6000 mse 1.0566 align 0.195 head 0.058 t=1162s
+[pinned_small_N16_B1024_s1] step 7000 mse 1.0568 align 0.177 head 0.058 t=1359s
+[pinned_small_N16_B1024_s1] step 8000 mse 1.0558 align 0.168 head 0.058 t=1552s
+[pinned_small_N16_B1024_s1] step 9000 mse 1.0573 align 0.124 head 0.058 t=1746s
+[pinned_small_N16_B1024_s1] step 10000 mse 1.0575 align 0.181 head 0.058 t=1940s
+[pinned_small_N16_B1024_s1] step 11000 mse 1.0566 align 0.288 head 0.058 t=2149s
+[pinned_small_N16_B1024_s1] step 12000 mse 1.0565 align 0.321 head 0.058 t=2348s
+[pinned_small_N16_B1024_s1] step 13000 mse 1.0576 align 0.290 head 0.058 t=2547s
+[pinned_small_N16_B1024_s1] step 14000 mse 0.6707 align 0.955 head 0.058 t=2744s
+[pinned_small_N16_B1024_s1] step 15000 mse 0.4283 align 0.994 head 0.058 t=2938s
+[pinned_small_N16_B1024_s1] step 16000 mse 0.3489 align 0.996 head 0.058 t=3132s
+[pinned_small_N16_B1024_s1] step 17000 mse 0.2989 align 0.997 head 0.058 t=3326s
+[pinned_small_N16_B1024_s1] step 18000 mse 0.2602 align 0.998 head 0.058 t=3517s
+DONE {'proto': 'pinned_small', 'N': 16, 'B': 1024, 'seed': 1, 'steps_run': 18400, 'Te05': 14600, 'Te025': 18400, 'reached05': 1, 'reached025': 1, 'final_mse': 0.24581980239599943, 'min_mse': 0.24581980239599943, 'init_mse': 1.0564684942364693, 'init_align': 0.15154877305030823, 'final_align': 0.9981322884559631, 'max_align': 0.9981637001037598, 'head_norm_init': 0.05763530731201172, 'head_norm_final': 0.05763530731201172, 'censored_by': '', 'wall_s': 3592.0, 'cpu_s': 3589.4, 'threads': 1}
