@@ -1,0 +1,69 @@
+{
+ "table": {
+  "16": {
+   "T05": [
+    5464.0,
+    35024.0,
+    8010.0
+   ],
+   "escapes": 3,
+   "n": 3,
+   "escape_fraction": 1.0,
+   "median_T05": 8010.0
+  },
+  "64": {
+   "T05": [
+    26348.0,
+    24709.0,
+    10046.0
+   ],
+   "escapes": 3,
+   "n": 3,
+   "escape_fraction": 1.0,
+   "median_T05": 24709.0
+  },
+  "256": {
+   "T05": [
+    39189.0,
+    18095.0,
+    62631.0
+   ],
+   "escapes": 3,
+   "n": 3,
+   "escape_fraction": 1.0,
+   "median_T05": 39189.0
+  },
+  "1024": {
+   "T05": [
+    3561.0,
+    null,
+    60240.0
+   ],
+   "escapes": 2,
+   "n": 3,
+   "escape_fraction": 0.6666666666666666,
+   "median_T05": 60240.0
+  }
+ },
+ "frac_increases_pairs": [],
+ "frac_tie_pairs": [
+  [
+   16,
+   64
+  ],
+  [
+   64,
+   256
+  ]
+ ],
+ "med_decreases_pairs": [],
+ "med_tie_pairs": [],
+ "mono_escape_fraction_nonincreasing_up_to_one_tie": false,
+ "mono_median_T05_nondecreasing_up_to_one_tie": true,
+ "literal_escape_fraction_nonincreasing": true,
+ "literal_median_nondecreasing": true,
+ "B16_escapes_ge_2of3": true,
+ "B1024_escapes_le_2of3": true,
+ "P27_held": false,
+ "default_escape_fraction_increases_with_B": false
+}

@@ -1,0 +1,1 @@
+{"model": "rbf", "opt": "adam", "N": 16, "B": 16, "seed": 1, "steps": 35024, "T05": 35024, "reached05": 1, "final_abs_m": 0.5010452270507812, "max_abs_m": 0.5010452270507812, "max_dm_step": 0.004607494920492172, "cpu_s": 24.068572136999997, "censored_by": "", "lr_adam": 0.001, "name": "rbf_adam_N16_B16_s1"}

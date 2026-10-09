@@ -1,0 +1,5 @@
+[w3] start rbf_adam_N16_B256_s0
+    rbf_adam_N16_B256_s0 step=10000 m=+0.009 max|m|=0.145 cpu=21s
+    rbf_adam_N16_B256_s0 step=20000 m=+0.001 max|m|=0.145 cpu=41s
+    rbf_adam_N16_B256_s0 step=30000 m=+0.083 max|m|=0.147 cpu=61s
+[w3] done rbf_adam_N16_B256_s0 steps=39189 T05=39189 max|m|=0.500 cpu=79s censored_by=

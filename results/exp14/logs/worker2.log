@@ -1,0 +1,15 @@
+[w2] start rbf_adam_N16_B256_s1
+    rbf_adam_N16_B256_s1 step=10000 m=+0.153 max|m|=0.165 cpu=21s
+[w2] done rbf_adam_N16_B256_s1 steps=18095 T05=18095 max|m|=0.500 cpu=37s censored_by=
+[w2] start rbf_adam_N16_B64_s2
+    rbf_adam_N16_B64_s2 step=10000 m=-0.455 max|m|=0.455 cpu=10s
+[w2] done rbf_adam_N16_B64_s2 steps=10046 T05=10046 max|m|=0.500 cpu=10s censored_by=
+[w2] start rbf_adam_N16_B16_s0
+[w2] done rbf_adam_N16_B16_s0 steps=5464 T05=5464 max|m|=0.500 cpu=4s censored_by=
+[w2] start rbf_adam_N16_B16_s1
+    rbf_adam_N16_B16_s1 step=10000 m=-0.057 max|m|=0.205 cpu=7s
+    rbf_adam_N16_B16_s1 step=20000 m=-0.015 max|m|=0.205 cpu=14s
+    rbf_adam_N16_B16_s1 step=30000 m=-0.064 max|m|=0.205 cpu=21s
+[w2] done rbf_adam_N16_B16_s1 steps=35024 T05=35024 max|m|=0.501 cpu=24s censored_by=
+[w2] start rbf_adam_N16_B16_s2
+[w2] done rbf_adam_N16_B16_s2 steps=8010 T05=8010 max|m|=0.500 cpu=5s censored_by=
