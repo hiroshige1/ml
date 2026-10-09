@@ -336,6 +336,12 @@ Post-hoc diagnostics, declared here **before** running them (not pre-registered;
 - P22e: cell (a) d=32 at B=256 (4× less gradient noise, η unchanged). If the 0.80 deficit is noise-assisted escape, the median moves toward the
   ODE's 132880 steps (within 10%); if it stays at ≈0.80 the flow itself is off at this m₀ (e.g. an O(m₀²) correction to the m₀=d^{-1/2} picture).
 
+Diagnostics outcome (`results/exp9/diag/runs.csv`, 6 runs, 0.23 CPU-h): **P22d held** — at η=5·10⁻⁵ the d=8 medians are 23277 / 24815 / 30249
+steps, median/ODE = 1.007 (was 1.18 at η=2·10⁻⁴): the excess was discretisation. **P22e: sign flipped** — at B=256 the d=32 medians are 132061 /
+151406 / 164371, median/ODE = 1.14 (was 0.80 at B=64; per-seed 0.99 / 1.14 / 1.24). The deficit at B=64 is therefore noise-assisted escape, as
+hypothesised; the 14% overshoot at B=256 is inside the 3-seed spread (±12%) but outside the declared 10% band, so the flow is confirmed only to
+≈15% at this m₀. Net: with discretisation and noise controlled, the k=3 tied flow reproduces SGD within 15% at all three d.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional

@@ -93,3 +93,12 @@ Held: P22c, the d=8 and d=32 legs of P22b, the 16-32 secant of P22a, and the qua
 Failed as pre-registered: P22a (d=8 and d=32 medians outside 15%; 8-16 secant 0.81 low) and P22b (d=16 ratio 19 vs 1.63). 27 runs, 0.891 CPU-h (cap 2 h).
 
 ![k3](figs/k3.png)
+
+## Post-hoc diagnostics (declared in `docs/preregistration.md` before running; `diag/run_diag.py`, `diag/runs.csv`)
+
+| ID | change vs cell (a) | seeds (steps) | median | ODE | median/ODE | verdict |
+|---|---|---|---|---|---|---|
+| P22d | d=8, eta 2e-4 -> 5e-5 | 23277 / 24815 / 30249 | 24815 | 24632 | 1.007 | held: the 1.18 at eta=2e-4 was discretisation |
+| P22e | d=32, B 64 -> 256 | 132061 / 151406 / 164371 | 151406 | 132880 | 1.14 | direction as hypothesised (0.80 -> 1.14: the B=64 deficit was noise-assisted escape); overshoot 14% is within the 3-seed spread but outside the declared 10% band |
+
+CPU: 0.23 h (2 workers, shared with exp 8).
