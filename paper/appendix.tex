@@ -56,7 +56,9 @@ Skills 1--8 learned in every run; emergence of skills 9--16 partial. In-weight b
 $\sum_j\|u_j\|^2\sg_2(\hat u_j\cdot x)$, $\|u_j\|^2_0=0.01$, $\eta\in\{0.25,1,4\}/d^2$, 3 seeds each: slope $0.75\pm0.09$ (1000-step log),
 $0.87$--$0.89\pm0.09$ (100-step log), $T_p\eta a_p=0.23$--$0.26$; $18.7,10.7,9.0,6.3,2.7,3.0,2.7,3.7$ features on skills 1--8, best single
 alignment $0.86\to0.59$, pooled alignment $1.000$ for all 16 skills, population MSE $3\cdot10^{-8}$: collective fit. Both are collective at
-$M=64>d$; a decoupled in-weight regime would need $M<d$ and was not run. Slopes and exponents as in Sec.~\ref{sec:many}; the $\alpha=1$ slope is $0.88\pm0.09$ (A) vs
+$M=64>d$; a decoupled in-weight regime would need $M<d$ (as in \citet{benarous2025quadratic}, whose plateau length $\log(d/r_s)$ comes from
+the Gram matrix $WW^\top$ having eigenvalues $\approx r_s/d$ at initialisation---at $M\ge d$ that matrix is already full rank, which is our reading
+of why no search plateau and no single-feature emergence appear) and was not run. Slopes and exponents as in Sec.~\ref{sec:many}; the $\alpha=1$ slope is $0.88\pm0.09$ (A) vs
 $0.61\pm0.08$ (B).
 
 \paragraph{Exp.~3 (composition).} $P=2$, $\pi=(0.75,0.25)$, $M=4$, $\Gamma=0.1$, $N=128$, 5 pre-registered seeds + 5 extra + 3 at $\Gamma=0.3$.

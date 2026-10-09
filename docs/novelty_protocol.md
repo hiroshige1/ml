@@ -24,6 +24,11 @@ Search snippets do not count. Until then the claim is tagged `UNVERIFIED` in all
 | C5 escape routes | **PARTIALLY, with a counter-reading** | Nishikawa: softmax's `exp(y/ρ)` helps *inference* context length (`r^{Θ(ge)}`), **not** one-step pretraining (`d^{Θ(ie)}`), and they conjecture pretraining could reach `d^{Θ(ge)}` beyond one step. Task mean: Zhang–Wu–Bartlett 2024 (2402.14951) **PARTIALLY CONTAINS C5-mean** for linear regression: mean `β*` is learned in-weight by the MLP (LSA alone cannot, Thm 4.1), covariance used in-context (Thm 5.2–5.3; risk splits exactly, eq. C.2). Must cite. Ours: the `k*` vs `2k*` exponent split in the nonlinear feature-learning setting. | must specify *which factor* the nonlinearity transforms and when it helps pretraining; otherwise Nishikawa's one-step result reads as a counterexample |
 | C6 same scaling exponent | dropped | Ren et al. Prop. 2.2: exponents depend only on `β`, `k*` only in the time unit `d^{k*/2−1}` | — |
 
+- 2026-10-09: adversarial review (`docs/review_adversarial.md`) and BAEVW25 full text (`docs/fulltext_checks/baevw2025.md`, arXiv 2508.03688):
+  in-weight `k*=2` costs `d polylog d` with a student narrower than `d`; the `k≥3` decoupling does not apply at `k=2`; nothing on ICL.
+  Central claim reframed: the readout parameterisation decides whether the finite-context term is a trap (pinned), a multiplicative
+  N–T trade-off with an exponent crossover (free), or irrelevant (tied). Oko Remark 3 is *recovered* in the free case, not contradicted.
+
 ## Positioning rule
 The paper's claimed contribution is the *set* {C2, C3, C4} with C1 as the mechanism and C5 as the
 bridge to real architectures. If C1 turns out to be explicit in Oko et al., we cite it as the mechanism
