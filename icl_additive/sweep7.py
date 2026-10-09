@@ -97,9 +97,10 @@ def main(argv=None):
         with open(path) as f:
             done = {key_of(r) for r in csv.DictReader(f)}
     J = [c for c in jobs(a.cap_d) if key_of(c) not in done and (a.only is None or c["cell"] in a.only.split(","))]
-    J.sort(key=lambda c: -cost_est(c))
+    # cheap cells first so that the global CPU cap can only ever cut the most expensive tail (pinned g=0.01, N=256)
+    J.sort(key=lambda c: ({'f': 0, 'c': 1, 'd': 2, 'b': 3, 'a': 4, 'e': 5}[c['cell']], c['N'], c['seed']))
     tot = spent(path)
-    print(f"{len(done)} done, {len(J)} to run, est cpu {sum(cost_est(c) for c in J)/3600:.3f} h, so far {tot/3600:.3f} h, cap {a.cpu_cap_h} h", flush=True)
+    print(f"{len(done)} done, {len(J)} to run, so far {tot/3600:.3f} h, cap {a.cpu_cap_h} h", flush=True)
     new = not os.path.exists(path)
     t0 = time.time()
     with open(path, "a", newline="") as f, ProcessPoolExecutor(a.workers, mp_context=mp.get_context("fork")) as ex:

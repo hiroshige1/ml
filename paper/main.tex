@@ -195,7 +195,9 @@ $4.8$--$6.6$ rising as $N$ falls (ODE $4.85$--$7.0$). With a censored (Tobit) fi
 (ordinary least squares on reached runs only: eleven within $0.6$, the free $N=32$, $\eta_\Gamma=\eta$ cell $1.0$ low); the estimator is a
 secant over a factor $2.8$ in $m_0$ and local slopes vary, so these are effective, not asymptotic, exponents, and the prompts per step
 were $32$ for $N\le128$ and $8$ for $N\ge512$ (a $B=8$ control at $N=128$ gives $5.38\pm0.26$ vs $5.59\pm0.20$). The ODE also
-reproduces the absolute escape times (free, $N=128$: $565/113/36/13$ steps$\cdot\eta$ measured vs $473/120/37/13$ predicted). The
+reproduces absolute escape times: over the 45 fully-reached E1 cells the ratio median-SGD/ODE lies in $[0.64,1.34]$ with 24 within
+$10\%$ and 35 within $20\%$ (no trend in $N$ or protocol; the largest deviations are at the smallest $m_0$), and one censored cell
+(free, $10\eta$, $N=128$, smallest $m_0$) is at least $2.3\times$ slower than predicted (Appendix~\ref{app:exp}). The
 in-weight model at the same $k^*$ gives a logarithmic $m_0$-dependence ($\kappa=2$). The pre-registered asymptotes $4\to8$ are the
 $d\to\infty$ limits; at $d=32$ the same ODE predicts $4.85\to7.0$. Two pre-registered predictions in this experiment failed and are
 reported as such: the learned $\Gamma$ at $T_{0.5}$ is $0.18$--$0.25$, below $\Gamma^*(0.5;N)=0.38$--$0.99$ (the readout has not equilibrated at

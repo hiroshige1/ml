@@ -16,7 +16,7 @@ s = pd.read_csv(R + 'exp1b/summary.csv')
 k = s[s.phase.isin(['kappa', 'kappa2']) & (~s.superseded) & s.protocol.isin(['free1', 'free10', 'tied'])].copy()
 assert (k.groupby(['protocol', 'N']).size() == 12).all()
 
-def tobit_fit(x, y, cens, ycap):
+def tobit_fit(x, y, cens, ycap, start=None):
     """y = a + b x + sigma*eps, right-censored at ycap where cens (y then unobserved, >= ycap)."""
     def nll(p):
         a, b, ls = p; sg = np.exp(ls); mu = a + b * x
@@ -26,6 +26,8 @@ def tobit_fit(x, y, cens, ycap):
     obs = ~cens
     b0, a0 = np.polyfit(x[obs], y[obs], 1)
     s0 = np.log(max(np.std(y[obs] - a0 - b0 * x[obs]), 0.05))
+    if start is not None:
+        r = optimize.minimize(nll, start, method='BFGS'); return r, nll
     best = None
     for start in ([a0, b0, s0], [a0, b0 * 1.3, s0], [a0, b0 * 0.8, s0 + 0.5]):
         r = optimize.minimize(nll, start, method='BFGS')
@@ -54,11 +56,11 @@ for (prot, N), g in k.groupby(['protocol', 'N'], sort=False):
     cov = np.linalg.inv(H); se_b = np.sqrt(cov[1, 1])
     # parametric-free bootstrap of runs within the cell (resample the 12 runs)
     bb = []
-    for _ in range(1000):
+    for _ in range(500):
         idx = rng.integers(0, len(x), len(x))
         if len(np.unique(x[idx])) < 2 or (~cens[idx]).sum() < 4: continue
         try:
-            f2, _ = tobit_fit(x[idx], y[idx], cens[idx], ycap[idx]); bb.append(f2.x[1])
+            f2, _ = tobit_fit(x[idx], y[idx], cens[idx], ycap[idx], start=fit.x); bb.append(f2.x[1])
         except Exception: pass
     bb = np.array(bb)
     # OLS on reached only (same runs as README)
