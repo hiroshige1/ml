@@ -465,6 +465,26 @@ Deviations (runner): SGD cells used the distribution-exact projected sampler (bu
 the lr 10⁻⁴ extra was not needed (Adam stable, max |Δm| ≤ 0.011 per step). The runner's hypothesis for the softmax trap (heavy-tailed `σ_2` logits
 make the attention effectively sparse) is post hoc and untested.
 
+## Softmax attention that learns: distance-based logits (exp 13, backlog N19) — pre-registered 2026-10-09 before any run
+
+Exp 12's softmax arm (logits `σ(w·x_i)σ(w·x_q)`) has negative population drift at every `(β, N, m)` checked (`results/exp13/drift_mc.txt`, Monte-Carlo
+via torch autograd), so it cannot learn and was uninformative. The distance-based form `ŷ = Γ Σ_i softmax_i(−β(σ(w·x_i) − σ(w·x_q))²) y_i`
+(a Nadaraya–Watson kernel smoother in feature space, the natural attention analogue) shows the linear model's qualitative pattern at `β = 0.3`,
+`Γ = 1`, `d = 64`: drift at `m_0 = 0.125` is `−5.7·10⁻³ ± 6·10⁻³` (`N=16`), `−7.1·10⁻³ ± 5·10⁻³` (`N=64`), `+2.0·10⁻³ ± 2·10⁻³` (`N=1024`), and positive
+for all `N` at `m ≥ 0.25` (`β=1` is negative at `m_0` for every `N` and is not used). The signs at `m_0` are 1σ, so the SGD runs are the test.
+Setting as exp 12 (`σ_2`, `d=64`, `m_0=d^{-1/2}` exactly, pinned `Γ=1`, `w` renormalised each step, torch fp32, 2 seeds): rbf softmax with `β=0.3`,
+optimiser ∈ {SGD `η=1/d²` (full data), Adam `10⁻³`}, cells (`N=16,B=64`), (`N=16,B=1024`), (`N=1024,B=64`); caps `5·10⁵` (SGD; the drift at `N=1024`
+is ≈3× smaller than the linear model's, whose escape took 3.5·10⁴ steps) and `10⁵` (Adam). 12 runs, cap 3 CPU-h.
+
+| ID | cell | prediction | default |
+|---|---|---|---|
+| P26a | rbf + SGD | `N=1024` escapes 2/2 within `5·10⁵`; `N=16` stuck at `B=64` **and** `B=1024` (0/4) | `N=1024` stuck (variant still uninformative) or `N=16` rescued by `B=1024` (softmax is the ingredient) |
+| P26b | rbf + Adam | same pattern within `10⁵` | same |
+
+Reading rule as exp 12 (≥1 of 2 escapes counts as "escapes"). If `N=1024` fails to escape under both optimisers the softmax question stays open and
+is reported as such; if `N=16` is rescued by `B=1024` with the softmax but not with the linear statistic (exp 12), softmax is implicated and the paper
+says so; if the pattern holds, softmax is excluded along with Adam.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
