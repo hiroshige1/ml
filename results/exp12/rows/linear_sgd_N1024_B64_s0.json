@@ -1,0 +1,1 @@
+{"model": "linear", "opt": "sgd", "N": 1024, "B": 64, "seed": 0, "steps": 34517, "T05": 34517, "reached05": 1, "final_abs_m": 0.5002073049545288, "max_abs_m": 0.5002073049545288, "max_dm_step": 0.0030897557735443115, "cpu_s": 55.344863197999985, "name": "linear_sgd_N1024_B64_s0", "lr_adam": NaN}

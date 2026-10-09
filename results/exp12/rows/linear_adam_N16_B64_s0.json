@@ -1,0 +1,1 @@
+{"model": "linear", "opt": "adam", "N": 16, "B": 64, "seed": 0, "steps": 100000, "T05": -1, "reached05": 0, "final_abs_m": 0.08325657248497009, "max_abs_m": 0.12749987840652466, "max_dm_step": 0.006188780069351196, "cpu_s": 86.64189860100001, "name": "linear_adam_N16_B64_s0", "lr_adam": 0.001}

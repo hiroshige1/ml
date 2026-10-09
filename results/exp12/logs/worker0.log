@@ -1,0 +1,14 @@
+[w0] start linear_sgd_N16_B64_s0
+[w0] done linear_sgd_N16_B64_s0 steps=300000 T05=-1 max|m|=0.125 max_dm=0.037 cpu=104s
+[w0] start softmax_sgd_N16_B64_s0
+[w0] done softmax_sgd_N16_B64_s0 steps=300000 T05=-1 max|m|=0.126 max_dm=0.025 cpu=111s
+[w0] start softmax_adam_N16_B64_s1
+[w0] done softmax_adam_N16_B64_s1 steps=100000 T05=-1 max|m|=0.126 max_dm=0.007 cpu=91s
+[w0] start linear_adam_N16_B1024_s0
+[w0] done linear_adam_N16_B1024_s0 steps=100000 T05=-1 max|m|=0.126 max_dm=0.009 cpu=726s
+[w0] start linear_sgd_N1024_B64_s0
+[w0] done linear_sgd_N1024_B64_s0 steps=34517 T05=34517 max|m|=0.500 max_dm=0.003 cpu=55s
+[w0] start linear_sgd_N1024_B64_s1
+[w0] done linear_sgd_N1024_B64_s1 steps=37356 T05=37356 max|m|=0.500 max_dm=0.003 cpu=58s
+[w0] start softmax_sgd_N1024_B64_s0
+[w0] done softmax_sgd_N1024_B64_s0 steps=300000 T05=-1 max|m|=0.125 max_dm=0.068 cpu=520s

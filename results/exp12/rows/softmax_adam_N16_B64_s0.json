@@ -1,0 +1,1 @@
+{"model": "softmax", "opt": "adam", "N": 16, "B": 64, "seed": 0, "steps": 100000, "T05": -1, "reached05": 0, "final_abs_m": 0.018420450389385223, "max_abs_m": 0.1250000149011612, "max_dm_step": 0.007533431053161621, "cpu_s": 89.18953508599998, "name": "softmax_adam_N16_B64_s0", "lr_adam": 0.001}

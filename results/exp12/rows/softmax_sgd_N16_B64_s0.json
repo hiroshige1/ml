@@ -1,0 +1,1 @@
+{"model": "softmax", "opt": "sgd", "N": 16, "B": 64, "seed": 0, "steps": 300000, "T05": -1, "reached05": 0, "final_abs_m": 0.006797783076763153, "max_abs_m": 0.1257312148809433, "max_dm_step": 0.024718597531318665, "cpu_s": 110.952307055, "name": "softmax_sgd_N16_B64_s0", "lr_adam": NaN}
