@@ -371,7 +371,7 @@ whereas in~\eqref{eq:modelA} linearity in the labels is built in.
 
 \section{Limitations}
 \label{sec:limits}
-The theory is for one feature per skill (Theorems~\ref{thm:A}--\ref{thm:B} hold for any $k^*\ge2$; SGD checks are at $k^*=2$ and $3$); the SGD threshold is soft, and at $k^*=3$ noise decides between escape and delay near the tied trap boundary; the many-skill statements rest on decoupling,
+The theory is for one feature per skill (Theorems~\ref{thm:A}--\ref{thm:B} hold for any $k^*\ge2$; SGD checks are at $k^*=2$ and $3$); the SGD threshold is soft, and at $k^*=3$ noise decides between escape and delay near the tied trap boundary; the adiabatic $1/N$ law of Theorem~\ref{thm:B} needs $N\ll d^{k^*}$ and a fast readout, so it is out of reach of online SGD at feasible sizes (at $d=64$ the flow itself caps $\tau(16)/\tau(256)$ at $12.8$ as $r\to\infty$, against $4.4$ at $r=1$ and $8.9$ at $r=10$, the values SGD reproduced; at $d=256$ the law would need $\sim10^9$ steps); the many-skill statements rest on decoupling,
 which fails for rare skills when no feature starts closest to them (2/10 seeds in Exp.~3); the Gaussian closed form for
 compositional accuracy is wrong; the transformer results are observational: the pre-registered $N$--$B$ predictions failed in both directions, and both readout-protocol tests met their kill criteria, so no transfer claim is made. All predictions, outcomes and deviations (including two algebra slips corrected after pre-registration, one wrong pre-registered baseline, and two
 ill-posed estimators) are listed verbatim in the appendix.
