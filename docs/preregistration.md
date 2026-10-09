@@ -212,6 +212,25 @@ Kill: P16 slope for A < 1.0 ⇒ the "`π_p` vs `√π_p` ordering" claim is wron
 **Scope consequence:** claim `T_p ∝ 1/π_p` (decoupling with frequency-proportional rate) for the in-context model, and the ≈2×
 steeper ordering than in-weight *at matched readout capacity*; do not claim a scaling-exponent ratio.
 
+## N–T exchange by readout protocol (exp 6) — pre-registered 2026-10-09 before any run (reviewer change #3)
+
+Setting: Model A, `σ_2`, `d=64`, `m_0 = d^{−1/2}` fixed, `N ∈ {16, 64, 256}`, prompts per step `B` chosen so that **tokens per step `N·B = 4096`**
+(`B = 256, 64, 16`), `η = 1/d²` fixed (the population drift does not depend on `B`; only the noise does); *also* run the `B`-matched control `B=64` for all `N`. Three protocols: pinned `Γ=1`; pinned `Γ=0.1`; free
+`Γ_0=0.01, η_Γ=η`; tied `ρ_0=0.01`. 3 seeds, `max_steps 10⁶`.
+
+| ID | protocol | prediction (population ODE at these parameters, computed before the run) |
+|---|---|---|
+| P19a | pinned `Γ=1` | ODE: trapped at **all** three `N` (`d*(256) ≈ 63 < 64`, marginal) — SGD noise may let `N=256` escape; no `B` compensates at `N ≤ 64` |
+| P19b | free | ODE flow times `448 / 153 / 101` at `N = 16/64/256` (steps ×4096): `T(16)/T(256) ≈ 4.4` at fixed `B` — a strong but sub-linear trade-off (partially noise-dominated at `d=64`); with `N·B = 4096` fixed, the step counts should still differ by ≈4 (the population drift does not see `B`), i.e. **not** interchangeable one-for-one at this `d`, but far from a trap |
+| P19c | tied | ODE `4.21 / 4.07 / 4.03`: `T` independent of `N` within 5% |
+| P19d | pinned `Γ=0.1` | ODE `101 / 48 / 43`: escapes at all `N`, `T(16)/T(256) ≈ 2.3` |
+
+Kill: P19b fails (free readout `T` independent of `N` at fixed `B`, or a trap appears) or P19c fails (tied readout shows the free
+readout's `N`-dependence) ⇒ the reframed central claim is wrong. ODE numbers computed with `scripts/ode_kappa_exp1b.py` functions
+before any SGD run (see git log).
+
+Kill: P19b fails (free readout `T` independent of `N` at fixed `B`, or the trap appears) ⇒ the reframed central claim is wrong.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
@@ -264,6 +283,7 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-09 v0.14: P19 (exp 6: N–T exchange by readout protocol) pre-registered.
 - 2026-10-09 v0.13: adversarial review (`docs/review_adversarial.md`, score 5/10) acted on: (a) "12/12 within 0.5" corrected to 11/12 within
   0.6 and one censored cell at 1.0; post-hoc ODE evaluation now disclosed in the paper; (b) the N–T non-substitutability claim restricted
   to pinned readouts — with a free readout the ODE gives `T·N ≈ const` in the noise-dominated regime (Oko Remark 3 recovered); (c) omitted
