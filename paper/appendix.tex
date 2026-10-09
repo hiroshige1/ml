@@ -84,12 +84,13 @@ seeds range $0.50$--$2.08\times$. One censored E1 cell (free $10\eta$, $N=128$, 
 
 \paragraph{Exp.~6 (three regimes).} $d=64$, $m_0=d^{-1/2}$, $\eta=1/d^2$, $N\in\{16,64,256\}$, schemes $NB=4096$ and $B=64$, protocols pinned
 $\gamma\in\{1,0.1\}$, free ($\Gamma_0=0.01$, $\eta_\Gamma=\eta$), tied ($\rho_0=0.01$), 3 seeds, $10^6$ steps ($2.5\cdot10^6$ for the free $N=16$ rerun). ODE
-predictions were computed and committed before the run. $12$ of $72$ runs are duplicates ($N=64$ has $B=64$ in both schemes). Compute $2.4$ CPU-h. Medians of three seeds resolve escape times to roughly $5\%$.
+predictions were computed and committed before the run. $12$ of $72$ runs are duplicates ($N=64$ has $B=64$ in both schemes). Compute $2.4$ CPU-h. Medians of three seeds resolve escape times to roughly $5\%$. All ODE values in this appendix are LSODA
+(`scripts/ode\_lsoda.py`); the SGD/ODE ratio statistics above were computed with the earlier Euler values and would rise by $0.6$--$3.6\%$.
 
 \paragraph{Exp.~7 (controls, E5).} As Exp.~6 with $B=64$, 3 seeds, cap $2.5\cdot10^6$ ($10^6$ for the tied $\rho_0=0.3$ cell): free $\Gamma_0=0.01$,
-$\eta_\Gamma=10\eta$: $2.26$M$/498$k$/212$k (ODE $1.83$M$/500$k$/205$k); free $\Gamma_0=0.1$, $\eta_\Gamma=\eta$: $1.52$M$/271$k$/166$k (ODE $1.49$M$/274$k$/164$k);
-tied $\rho_0=0.1$: $37$k$/18$k$/17$k (ODE $33$k$/20$k$/18$k; one $N=16$ seed at $567$k); tied $\rho_0=0.3$: $716$k$/27$k$/21$k (ODE: trap$/31$k$/21$k);
-pinned $\gamma=0.01$: $1.71$M$/1.64$M$/1.62$M (ODE $1.72$M$/1.67$M$/1.65$M); $\eta\propto B$ at pinned $\gamma=0.1$, $N=64$: $773$k$/192$k$/48$k steps for
+$\eta_\Gamma=10\eta$: $2.26$M$/498$k$/212$k (ODE $1.81$M$/500$k$/205$k); free $\Gamma_0=0.1$, $\eta_\Gamma=\eta$: $1.52$M$/271$k$/166$k (ODE $1.49$M$/270$k$/161$k);
+tied $\rho_0=0.1$: $37$k$/18$k$/17$k (ODE $33$k$/19$k$/17$k; one $N=16$ seed at $567$k); tied $\rho_0=0.3$: $716$k$/27$k$/21$k (ODE: trap$/31$k$/21$k);
+pinned $\gamma=0.01$: $1.71$M$/1.64$M$/1.62$M (ODE $1.70$M$/1.64$M$/1.63$M); $\eta\propto B$ at pinned $\gamma=0.1$, $N=64$: $773$k$/192$k$/48$k steps for
 $B=16/64/256$, flow time $47.2/47.0/46.9$. Compute $2.2$ CPU-h.
 
 \paragraph{Exp.~2 (many skills).} $P=16$, $\pi_p\propto p^{-1.5}$, $M=64$, $\Gamma=0.1$, $N=128$, 3 seeds (plus 2 extra and $\alpha=1$).

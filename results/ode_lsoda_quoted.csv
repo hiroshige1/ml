@@ -1,0 +1,102 @@
+source,quantity,quoted,euler_value,lsoda_value,rel_diff_lsoda_vs_euler,euler_rounds_to_quote,lsoda_at_quoted_precision,lsoda_vs_quoted,changed_gt_1pct
+prereg P4 / paper E1 + App. (kappa_eff ODE),"kappa_eff free eta_G=eta, N=32",6.47,6.4665,6.46436,-0.0003308,True,6.46,-0.0008719,False
+prereg P4 / paper E1 + App. (kappa_eff ODE),"kappa_eff free eta_G=eta, N=128",5.46,5.46339,5.45955,-0.0007035,True,5.46,-8.295e-05,False
+prereg P4 / paper E1 + App. (kappa_eff ODE),"kappa_eff free eta_G=eta, N=512",4.99,4.98912,4.98767,-0.0002901,True,4.99,-0.0004665,False
+prereg P4 / paper E1 + App. (kappa_eff ODE),"kappa_eff free eta_G=eta, N=4096",4.85,4.85097,4.84932,-0.00034,True,4.85,-0.0001393,False
+prereg P4 / paper E1 + App. (kappa_eff ODE),"kappa_eff free eta_G=10eta, N=32",7.02,7.0231,7.02,-0.0004418,True,7.02,-1.217e-07,False
+prereg P4 / paper E1 + App. (kappa_eff ODE),"kappa_eff free eta_G=10eta, N=128",6.18,6.17821,6.17662,-0.0002568,True,6.18,-0.0005468,False
+prereg P4 / paper E1 + App. (kappa_eff ODE),"kappa_eff free eta_G=10eta, N=512",5.32,5.31576,5.3144,-0.0002554,True,5.31,-0.001053,False
+prereg P4 / paper E1 + App. (kappa_eff ODE),"kappa_eff free eta_G=10eta, N=4096",4.92,4.91873,4.91833,-8.199e-05,True,4.92,-0.0003404,False
+prereg P4 / paper E1 + App. (kappa_eff ODE),"kappa_eff tied rho0=0.01, N=32",4.18,4.17952,4.17991,9.208e-05,True,4.18,-2.201e-05,False
+prereg P4 / paper E1 + App. (kappa_eff ODE),"kappa_eff tied rho0=0.01, N=128",4.15,4.15352,4.15416,0.0001558,True,4.15,0.001004,False
+prereg P4 / paper E1 + App. (kappa_eff ODE),"kappa_eff tied rho0=0.01, N=512",4.15,4.1472,4.14791,0.0001707,True,4.15,-0.0005039,False
+prereg P4 / paper E1 + App. (kappa_eff ODE),"kappa_eff tied rho0=0.01, N=4096",4.15,4.14537,4.1461,0.000175,True,4.15,-0.0009404,False
+prereg P19 (exp6 table),"free G0=0.01 r=1 flow T, N=16",448,448.14,444.208,-0.008773,True,444,-0.008464,False
+prereg P19 (exp6 table),"free G0=0.01 r=1 flow T, N=64",153,153.435,152.015,-0.009253,True,152,-0.006438,False
+prereg P19 (exp6 table),"free G0=0.01 r=1 flow T, N=256",101,100.747,99.9225,-0.008179,True,100,-0.01067,False
+prereg P19 (exp6 table),"tied rho0=0.01 flow T, N=16",4.21,4.20872,4.14222,-0.0158,True,4.14,-0.0161,True
+prereg P19 (exp6 table),"tied rho0=0.01 flow T, N=64",4.07,4.06729,4.00428,-0.01549,True,4.00,-0.01615,True
+prereg P19 (exp6 table),"tied rho0=0.01 flow T, N=256",4.03,4.03351,3.9713,-0.01542,True,3.97,-0.01457,True
+prereg P19 (exp6 table),"pinned 0.1 flow T, N=16",101,101.148,97.5539,-0.03553,True,98,-0.03412,True
+prereg P19 (exp6 table),"pinned 0.1 flow T, N=64",48,47.7988,47.0045,-0.01662,True,47,-0.02074,True
+prereg P19 (exp6 table),"pinned 0.1 flow T, N=256",43,43.3804,42.7011,-0.01566,True,43,-0.006952,True
+prereg P19 (exp6 table),free ratio T(16)/T(256) (4.4),4.4,4.44819,4.44553,-0.000599,True,4.4,0.01035,False
+prereg exp6 outcome / paper E2 / App. Exp.6,free ratio T(16)/T(256) ODE (4.44),4.44,4.44819,4.44553,-0.000599,False,4.45,0.001245,False
+prereg P19 (exp6 table),pinned 0.1 ratio T(16)/T(256) (2.3),2.3,2.33165,2.28458,-0.02019,True,2.3,-0.006706,True
+results/exp6/README.md,pinned 0.1 ratio T(16)/T(256) ODE (2.35),2.35,2.33165,2.28458,-0.02019,False,2.28,-0.02784,True
+results/exp6/README.md,tied ratio T(16)/T(256) ODE (1.04),1.04,1.04344,1.04304,-0.0003826,True,1.04,0.002922,False
+prereg exp6 outcome / paper E2 / App. Exp.6,"free ODE steps, N=16",1.835,1.83558,1.81948,-0.008773,False,1.819,-0.00846,False
+prereg exp6 outcome / paper E2 / App. Exp.6,"free ODE steps, N=64",627,628.469,622.654,-0.009253,False,623,-0.006932,False
+prereg exp6 outcome / paper E2 / App. Exp.6,"free ODE steps, N=256",414,412.658,409.282,-0.008179,False,409,-0.0114,False
+prereg exp6 outcome / paper E2 / App. Exp.6,"tied ODE steps, N=16",17.2,17.2389,16.9665,-0.0158,True,17.0,-0.01357,True
+prereg exp6 outcome / paper E2 / App. Exp.6,"tied ODE steps, N=64",16.7,16.6596,16.4015,-0.01549,True,16.4,-0.01787,True
+prereg exp6 outcome / paper E2 / App. Exp.6,"tied ODE steps, N=256",16.5,16.5212,16.2665,-0.01542,True,16.3,-0.01415,True
+prereg exp6 outcome / paper E2 / App. Exp.6,"pinned 0.1 ODE steps, N=16",414,414.301,399.581,-0.03553,True,400,-0.03483,True
+prereg exp6 outcome / paper E2 / App. Exp.6,"pinned 0.1 ODE steps, N=64",197,195.784,192.531,-0.01662,False,193,-0.02269,True
+prereg exp6 outcome / paper E2 / App. Exp.6,"pinned 0.1 ODE steps, N=256",176,177.686,174.904,-0.01566,False,175,-0.00623,True
+prereg P20 (exp7 table),"free G0=0.01 r=10 flow T, N=16",447,447.092,441.161,-0.01327,True,441,-0.01306,True
+prereg P20 (exp7 table),"free G0=0.01 r=10 flow T, N=64",122,122.018,120.94,-0.008834,True,121,-0.008687,False
+prereg P20 (exp7 table),"free G0=0.01 r=10 flow T, N=256",50.1,50.0781,49.6886,-0.007777,True,49.7,-0.008211,False
+prereg P20 (exp7 table),free r=10 ratio T(16)/T(256),8.9,8.9279,8.87851,-0.005532,True,8.9,-0.002414,False
+prereg P20 (exp7 table),"free G0=0.1 r=1 flow T, N=16",363,362.796,359.251,-0.009772,True,359,-0.01033,False
+prereg P20 (exp7 table),"free G0=0.1 r=1 flow T, N=64",66.9,66.9499,65.9154,-0.01545,True,65.9,-0.01472,True
+prereg P20 (exp7 table),"free G0=0.1 r=1 flow T, N=256",40.1,40.0641,39.3377,-0.01813,True,39.3,-0.01901,True
+prereg P20 (exp7 table),free G0=0.1 ratio T(16)/T(256) (9.1),9.1,9.05541,9.1325,0.008513,True,9.1,0.003572,False
+prereg exp7 outcome,free G0=0.1 ratio ODE (9.05),9.05,9.05541,9.1325,0.008513,False,9.13,0.009116,False
+prereg P20 (exp7 table),"tied rho0=0.1 flow T, N=16",8.13,8.13001,7.94182,-0.02315,True,7.94,-0.02315,True
+prereg P20 (exp7 table),"tied rho0=0.1 flow T, N=64",4.76,4.76406,4.68511,-0.01657,True,4.69,-0.01573,True
+prereg P20 (exp7 table),"tied rho0=0.1 flow T, N=256",4.34,4.3402,4.27231,-0.01564,True,4.27,-0.0156,True
+prereg P20 (exp7 table),tied rho0=0.1 ratio (1.9),1.9,1.87319,1.8589,-0.007625,True,1.9,-0.02163,False
+prereg exp7 outcome,tied rho0=0.1 ratio ODE (1.87),1.87,1.87319,1.8589,-0.007625,True,1.86,-0.005933,False
+prereg P20 (exp7 table),"tied rho0=0.3 flow T, N=64 (N=16: inf)",7.67,7.66518,7.48795,-0.02312,True,7.49,-0.02374,True
+prereg P20 (exp7 table),"tied rho0=0.3 flow T, N=256 (N=16: inf)",5.2,5.20286,5.118,-0.01631,True,5.1,-0.01577,True
+prereg P20 (exp7 table),"pinned 0.01 flow T, N=16",421,420.88,414.227,-0.01581,True,414,-0.01609,True
+prereg P20 (exp7 table),"pinned 0.01 flow T, N=64",407,406.674,400.372,-0.0155,True,400,-0.01628,True
+prereg P20 (exp7 table),"pinned 0.01 flow T, N=256",403,403.309,397.088,-0.01542,True,397,-0.01467,True
+prereg P20 (exp7 table),pinned 0.01 ratio T(16)/T(256) (1.04),1.04,1.04357,1.04316,-0.0003891,True,1.04,0.003041,False
+paper App. Exp.7 / E5,"pinned 0.01 ratio ODE (1.05, E5)",1.05,1.04357,1.04316,-0.0003891,False,1.04,-0.006512,False
+results/exp7/README.md,"pinned 0.1 N=64 flow T (48), also used for eta ~ B check",48,47.7988,47.0045,-0.01662,True,47,-0.02074,True
+paper App. Exp.7 / E5,"free r=10 ODE steps, N=16",1.83,1.83129,1.807,-0.01327,True,1.81,-0.01257,True
+paper App. Exp.7 / E5,"free r=10 ODE steps, N=64",500,499.786,495.371,-0.008834,True,495,-0.009258,False
+paper App. Exp.7 / E5,"free r=10 ODE steps, N=256",205,205.12,203.525,-0.007777,True,204,-0.007197,False
+paper App. Exp.7 / E5,"free G0=0.1 ODE steps, N=16",1.49,1.48601,1.47149,-0.009772,True,1.47,-0.01242,False
+paper App. Exp.7 / E5,"free G0=0.1 ODE steps, N=64",274,274.227,269.989,-0.01545,True,270,-0.01464,True
+paper App. Exp.7 / E5,"free G0=0.1 ODE steps, N=256",164,164.102,161.127,-0.01813,True,161,-0.01752,True
+paper App. Exp.7 / E5,"tied rho0=0.1 ODE steps, N=16",33,33.3005,32.5297,-0.02315,True,33,-0.01425,True
+paper App. Exp.7 / E5,"tied rho0=0.1 ODE steps, N=64",20,19.5136,19.1902,-0.01657,True,19,-0.04049,True
+paper App. Exp.7 / E5,"tied rho0=0.1 ODE steps, N=256",18,17.7775,17.4994,-0.01564,True,17,-0.02781,True
+paper App. Exp.7 / E5,"tied rho0=0.3 ODE steps, N=64",31,31.3966,30.6706,-0.02312,True,31,-0.01062,True
+paper App. Exp.7 / E5,"tied rho0=0.3 ODE steps, N=256",21,21.3109,20.9633,-0.01631,True,21,-0.001747,True
+paper App. Exp.7 / E5,"pinned 0.01 ODE steps, N=16",1.72,1.72393,1.69668,-0.01581,True,1.70,-0.01356,True
+paper App. Exp.7 / E5,"pinned 0.01 ODE steps, N=64",1.67,1.66574,1.63993,-0.0155,True,1.64,-0.01801,True
+paper App. Exp.7 / E5,"pinned 0.01 ODE steps, N=256",1.65,1.65195,1.62647,-0.01542,True,1.63,-0.01426,True
+paper Prop.3 discussion (after Prop. 3),"d=512 pinned 0.1 tau, N=128 (N=32: inf)",771,770.53,744.719,-0.0335,True,745,-0.03409,True
+paper Prop.3 discussion (after Prop. 3),"d=512 pinned 0.1 tau, N=512 (N=32: inf)",386,385.512,379.344,-0.016,True,379,-0.01724,True
+paper Prop.3 discussion (after Prop. 3),"d=512 free tau, N=32 (x1e4 / x1e4 / x1e3)",9.0,9.02784,8.92763,-0.0111,True,8.9,-0.008041,True
+paper Prop.3 discussion (after Prop. 3),"d=512 free tau, N=128 (x1e4 / x1e4 / x1e3)",2.2,2.20221,2.16847,-0.01532,True,2.2,-0.01433,True
+paper Prop.3 discussion (after Prop. 3),"d=512 free tau, N=512 (x1e4 / x1e4 / x1e3)",5.4,5.37135,5.32035,-0.009495,True,5.3,-0.01475,False
+paper Prop.3 discussion (after Prop. 3),"d=512 free tau*N, N=32 (x1e6)",2.9,2.88891,2.85684,-0.0111,True,2.9,-0.01488,True
+paper Prop.3 discussion (after Prop. 3),"d=512 free tau*N, N=128 (x1e6)",2.8,2.81883,2.77564,-0.01532,True,2.8,-0.0087,True
+paper Prop.3 discussion (after Prop. 3),"d=512 free tau*N, N=512 (x1e6)",2.75,2.75013,2.72402,-0.009495,True,2.72,-0.009448,False
+paper Prop.3 discussion (after Prop. 3),"d=512 tied tau, N=32",39,39.3345,38.6709,-0.01687,True,39,-0.008439,True
+paper Prop.3 discussion (after Prop. 3),"d=512 tied tau, N=128",34,34.1181,33.601,-0.01516,True,34,-0.01174,True
+paper Prop.3 discussion (after Prop. 3),"d=512 tied tau, N=512",33,33.0532,32.5628,-0.01484,True,33,-0.01325,True
+paper Prop.3 discussion (after Prop. 3),"d=32 free tau, N=32",53,52.7868,52.3434,-0.0084,True,52,-0.01239,False
+paper Prop.3 discussion (after Prop. 3),"d=32 free tau, N=128",37,37.07,36.7729,-0.008016,True,37,-0.006138,False
+paper Prop.3 discussion (after Prop. 3),"d=32 free tau, N=512",34,33.9552,33.6852,-0.007951,True,34,-0.009258,False
+paper Prop.3 discussion (after Prop. 3),"d=32 free tau, N=2048",33,33.2142,32.9642,-0.007529,True,33,-0.001086,False
+docs/theory_notes.md 2.3-2.4,"slope fixed G=0.1, N=1e+18",1.03,1.03155,1.03189,0.0003303,True,1.03,0.001833,False
+docs/theory_notes.md 2.3-2.4,"slope fixed G=0.1, N=1024",1.06,1.05577,1.05585,7.479e-05,True,1.06,-0.003919,False
+docs/theory_notes.md 2.3-2.4,"slope fixed G=0.1, N=128",1.24,1.23567,1.23175,-0.003174,True,1.23,-0.006654,False
+docs/theory_notes.md 2.3-2.4,"slope fixed G=1, N=inf",1.03,1.03155,1.03189,0.0003303,True,1.03,0.001833,False
+docs/theory_notes.md 2.3-2.4,"slope trainable G0=0.01, N=1e+18",1.37,1.36893,1.36747,-0.001062,True,1.37,-0.001845,False
+docs/theory_notes.md 2.3-2.4,"slope trainable G0=0.01, N=1024",1.72,1.71519,1.71419,-0.0005826,True,1.71,-0.003378,False
+docs/theory_notes.md 2.3-2.4,"slope trainable G0=0.01, N=128",2.30,2.29716,2.29564,-0.0006643,True,2.30,-0.001898,False
+docs/theory_notes.md 2.3-2.4,"slope trainable, N=128, d=256..1024 (3.0)",3.0,2.96398,2.96266,-0.0004435,True,3.0,-0.01245,False
+docs/theory_notes.md 2.3-2.4,"successive T ratio N=128, d 256->512 (7.6)",7.6,7.64834,7.60335,-0.005883,True,7.6,0.0004403,False
+docs/theory_notes.md 2.3-2.4,"successive T ratio N=128, d 512->1024 (8.0)",8.0,7.96023,7.99275,0.004086,True,8.0,-0.0009059,False
+docs/theory_notes.md 2.3-2.4,"Gamma at T_0.5, N=128, d=1024 (0.23)",0.23,0.226763,0.225039,-0.007603,True,0.23,-0.02157,False
+"docs/theory_notes.md 2.3-2.4 (2.4: ""1.03-1.05"")","slope tied rho0=0.01, N=128",1.05,1.04935,1.0495,0.0001429,True,1.05,-0.0004735,False
+"docs/theory_notes.md 2.3-2.4 (2.4: ""1.03-1.05"")","slope tied rho0=0.01, N=1024",1.03,1.03365,1.03396,0.0003082,True,1.03,0.003849,False
+"docs/theory_notes.md 2.3-2.4 (2.4: ""1.03-1.05"")","slope tied rho0=0.01, N=1e+18",1.03,1.03151,1.03185,0.0003296,True,1.03,0.001797,False
+"prereg Priority 3 (""<15% in T for d<=48"")","T(N=128)/T(N=2048)-1, d=48 free",0.15,0.197694,0.197543,-0.0007646,False,0.20,0.317,False

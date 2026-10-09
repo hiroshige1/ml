@@ -351,6 +351,9 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-09 v0.20: all ODE predictions recomputed with LSODA (`scripts/ode_lsoda.py`, `results/README_ode.md`): Euler overestimated times by
+  0.6–3.6%; 46 of 101 quoted numbers change by >1% (none of the exponents, ratios or trap verdicts); paper updated. Also corrected: the exp-1b
+  'd-scan within 15% for d ≤ 48' claim holds only to d=32 (20% at d=48).
 - 2026-10-09 v0.19: review 3 (`docs/review_adversarial_3.md`, 5/10 theory persona) acted on: Prop. 3(c) corrected (flow traps permanently above
   `ρ* = 2Nm²/(4+(N+5)m²) ≈ Nm²/2`; the E5 "delay" is an SGD-noise effect) — all `Nm²/4` constants were leftovers of the factor-2 slip; tied =
   pinned/ρ identity added; `L_A = L_B[g→g²]` replaced by the correct statement (dependence through `g²`; drift coefficient `2Γ(2−Γg(1))`);

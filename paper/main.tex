@@ -15,7 +15,7 @@
 
 \title{Context length and readout parameterisation select the emergence exponent\\ of in-context skills in an additive model}
 \author{\todo{authors}}
-\date{Draft v0.8 --- \today}
+\date{Draft v0.9 --- \today}
 
 \begin{document}
 \maketitle
@@ -177,7 +177,7 @@ noise keeps $m$ at the noise floor while $\rho$ decays, and the feature is event
 \end{proposition}
 Integrating the population flow confirms the three regimes quantitatively (Appendix~\ref{app:deriv}): for $\sg_2$ at $d=512$ and
 $N=32,128,512$ the escape times are $\infty,771,386$ (pinned $\gamma=0.1$), $9.0\cdot10^4,2.2\cdot10^4,5.4\cdot10^3$ with $\tau N=2.9,2.8,2.75\times10^6$
-(free), and $39,34,33$ (tied); at $d=32$ the statistic is signal-dominated for $N\gtrsim d^{k^*}=1024$ and $\tau=53,37,34,33$ for $N=32$--$2048$.
+(free), and $39,34,33$ (tied); at $d=32$ the statistic is signal-dominated for $N\gtrsim d^{k^*}=1024$ and $\tau=52,37,34,33$ for $N=32$--$2048$.
 The static value $\Gamma^*$ is the ridge/Wiener optimum that appears in replica analyses of trained
 models~\citep[eqs.~(297)--(298)]{gu2026incontext}; our point is its \emph{dynamical} effect: the same loss yields a trap, a multiplicative $N$--$T$ trade-off (that of
 \citet[Remark~3]{oko2024pretrained}) with an exponent crossover, or no $N$-dependence, according to the readout. That a fast readout doubles the exponent of an in-weight problem is
@@ -191,7 +191,8 @@ Online SGD, $\sg_2$, $d=32$, $\eta=1/d^2$, initial overlap $m_0=c\,d^{-1/2}$, $c
 time from $m_0$ scales as $m_0^{-(\kappa-2)}$ for $\kappa>2$, so the slope of $\log T_{0.5}$ against $\log m_0$ estimates $\kappa_{\rm eff}=2-\text{slope}$
 (12 runs per cell; the estimator is coarse and the censored cells are biased low). Fig.~\ref{fig:kappa} shows $\kappa_{\rm eff}$ for free
 ($\eta_\Gamma=\eta$ and $10\eta$) and tied readouts at $N\in\{32,128,512,4096\}$ against the population ODE of
-Props.~\ref{prop:loss}--\ref{prop:shrink} evaluated \emph{after the run} at the same $d$, $m_0$-grid, $\Gamma_0$ and $\eta_\Gamma/\eta$ (the ODE
+Props.~\ref{prop:loss}--\ref{prop:shrink} (integrated with LSODA, rtol $10^{-10}$; an earlier Euler integrator overestimated times by
+$0.6$--$3.6\%$ without changing any exponent or trap verdict) evaluated \emph{after the run} at the same $d$, $m_0$-grid, $\Gamma_0$ and $\eta_\Gamma/\eta$ (the ODE
 itself was fixed before the run; its evaluation at these parameters was not pre-registered): tied $4.10$--$4.44$ (ODE $4.15$--$4.18$); free
 $4.8$--$6.6$ rising as $N$ falls (ODE $4.85$--$7.0$). With a censored (Tobit) fit for the three cells that contain censored runs, all twelve cells agree with the ODE within $0.5$
 (ordinary least squares on reached runs only: eleven within $0.6$, the free $N=32$, $\eta_\Gamma=\eta$ cell $1.0$ low); the estimator is a
@@ -215,9 +216,9 @@ version of Prop.~\ref{prop:repulsion}, $d=32$ escaped ($3/3$) while $d=64$ was t
 To test Prop.~\ref{prop:shrink} directly (Fig.~\ref{fig:regimes}) we fix $d=64$, $m_0=d^{-1/2}$, $\eta=1/d^2$, vary $N\in\{16,64,256\}$ under two schemes---tokens per
 step fixed ($NB=4096$) and prompts per step fixed ($B=64$)---and run the four protocols, three seeds each, with the population
 escape times computed before the run. Pinned $\gamma=1$: no escape at $N\le64$ in $10^6$ steps ($0/9$, including $B=256$), $3/6$ at $N=256$
-($d^*\approx63$); pinned $\gamma=0.1$: median $396$k$/192$k$/179$k steps against $414$k$/197$k$/176$k predicted; free: $1.78$M$/614$k$/402$k
+($d^*\approx63$); pinned $\gamma=0.1$: median $396$k$/192$k$/179$k steps against $400$k$/193$k$/175$k predicted; free: $1.78$M$/614$k$/402$k
 against $1.84$M$/627$k$/414$k, ratio $T(16)/T(256)=4.4$ ($3.6$--$5.0$ over seed pairings) as predicted ($4.44$)---the growth-limited value of
-Prop.~\ref{prop:shrink}(b), not the adiabatic $1/N$ law; tied: $17.0$k$/15.1$k$/14.0$k against $17.2$k$/16.7$k$/16.5$k (flat within $\times1.25$,
+Prop.~\ref{prop:shrink}(b), not the adiabatic $1/N$ law; tied: $17.0$k$/15.1$k$/14.0$k against $17.0$k$/16.4$k$/16.3$k (flat within $\times1.25$,
 seed pairings $0.9$--$1.45$). Three seeds resolve medians to roughly $5\%$. In every protocol the two batch schemes give the same step counts,
 as they must at fixed step size (the population drift does not contain $B$); the trade-off is between context length and the number of
 SGD steps, and a step size scaled with $B$ is tested in Appendix~\ref{app:exp}. (The free-readout $N=16$ cells exceeded the pre-registered
@@ -229,7 +230,7 @@ $10^6$-step cap, as the ODE had predicted, and were rerun to $2.5\cdot10^6$ step
 Varying the readout's initial value and learning rate (free: $\Gamma_0=0.1$ or $\eta_\Gamma=10\eta$ at $d=64$) changes the $N$-ratio from $4.4$ to
 $9.2$ and $10.7$ (ODE $9.1$ and $8.9$; medians within $2\%$ except the $\eta_\Gamma=10\eta$, $N=16$ cell, $24\%$ slow), confirming that the
 free-readout exponent is a function of $(N,\Gamma_0,\eta_\Gamma/\eta)$, as Prop.~\ref{prop:shrink}(b) states. A pinned $\gamma=0.01$ readout is as
-$N$-flat as the tied one (ratio $1.06$, ODE $1.05$). A tied readout started at $\rho_0=0.3>\rho^*(m_0)=0.12$ at $N=16$ was pre-registered to trap
+$N$-flat as the tied one (ratio $1.06$, ODE $1.04$). A tied readout started at $\rho_0=0.3>\rho^*(m_0)=0.12$ at $N=16$ was pre-registered to trap
 (the deterministic flow does trap: $m\propto t^{-2}$, $\rho\propto t^{-1}$); under SGD all three seeds escaped after a $\approx30\times$ delay, once $\rho$ had
 decayed to $0.012$---so under SGD tying converts the pinned trap into a delay, and the pre-registered wording "the repulsion survives tying" is
 withdrawn in favour of "is delayed by tying". Finally, scaling the step size with the batch ($\eta\propto B$, pinned $\gamma=0.1$, $N=64$)
