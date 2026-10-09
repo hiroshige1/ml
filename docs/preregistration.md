@@ -170,6 +170,19 @@ Kill: P12 or P13 fails ⇒ §4 is wrong as stated (the exact additivity argument
 the slower skill (observed), is approximately multiplicative in thresholded accuracy (observed), and non-additive composition is
 not free (observed)"; the quantitative multiplicative law is *not* derived.
 
+## Many-skill scaling (exp 2) — pre-registered 2026-10-09 before any run; spec in `docs/spec_exp2.md`
+
+Setting: `d=32`, `σ_2`, `P=16` skills, `π_p ∝ p^{−1.5}`, single-skill prompts, `M=64`, fixed `Γ=0.1`; in-weight baseline with
+`a_p² ∝ π_p`.
+
+| ID | quantity | prediction |
+|---|---|---|
+| P16 | slope of `log T_p` vs `log p` | A: `1.5 ± 0.2` (`T_p ∝ 1/π_p`); B: `0.75 ± 0.2` (`T_p ∝ 1/a_p`) — in-context orders skills by frequency twice as steeply |
+| P17 | relative step sharpness `(T_{0.9}−T_{0.1})/T_{0.5}` | A's median < B's median / 2 |
+| P18 | power-law exponent of the alignment-based frequency-weighted loss | A ≈ 0.33, B ≈ 0.67 (ratio ≈ 1/2), ±0.15 |
+
+Kill: P16 slope for A < 1.0 ⇒ the "`π_p` vs `√π_p` ordering" claim is wrong.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
@@ -222,6 +235,7 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-09 v0.11: P16–P18 (exp 2, many-skill scaling) pre-registered before the run.
 - 2026-10-09 v0.10: exp 5 outcome recorded — P11b: both rival and default failed; intermediate (≈3× handicap, not a trap); scope fixed.
 - 2026-10-08 v0.9: exp 3 outcome recorded; two pre-registration design errors acknowledged (floor, estimator); C4 scope narrowed.
 - 2026-10-08 v0.8: **algebra correction** — the stability threshold used in P2/P3 (`m² < 16γ/(N(4−2γ))`, `d* = N(4−2γ)/(16γ)`) had a
