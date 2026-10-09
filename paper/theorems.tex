@@ -30,7 +30,7 @@ $m(t)\downarrow0$ (exponentially, at rate $\to4k^2s^2\gamma^2/N$) if $m_0<m^*$, 
 $\gamma\ge\gamma_1$, $m(t)\to0$ from every $m_0\in(0,1)$. As $N\to\infty$ at fixed $\gamma\in(0,2)$,
 $m^{*\,2(k-1)}=\frac{2k\gamma}{(2-\gamma)N}\big(1+O(N^{-1/(k-1)})\big)$. For $k=2$: $\gamma_1=\frac{2N}{N+9}$ and $m^{*2}=\frac{4\gamma}{2N-(N+5)\gamma}$.
 
-\textup{(ii) Exact escape time, $k=2$.} Let $C=\gamma(8-4\gamma-20\gamma/N)$, $B=16\gamma^2/N$ $(C>B\iff\gamma<\gamma_1)$ and $m^{*2}<m_0^2<\frac14$. Then
+\textup{(ii) Exact escape time, $k=2$.} Let $C=\gamma(8-4\gamma-20\gamma/N)$, $B=16\gamma^2/N$ $(C>B\iff\gamma<\gamma_1$; the constants in the $O(\cdot)$ terms below are uniform for $\gamma\le(1-\delta)\gamma_1$, $\delta>0)$ and $m^{*2}<m_0^2<\frac14$. Then
 \[
 \tau_{\rm esc}=\frac{F(\tfrac14)-F(m_0^2)}{2s^2},\qquad F(u)=-\frac{\ln u}{B}-\frac{\ln(1-u)}{C-B}+\frac{C\ln(Cu-B)}{B(C-B)} .
 \]
@@ -146,7 +146,7 @@ Phases 1, 2 and 4 last $O(N\ln d/r)+T_\delta=o(\tau_B)$, as $\tau_B\asymp d^{2k-
 \end{proof}
 
 \begin{proposition}[Joint scaling; proof sketch]\label{prop:joint}
-Let $N=\lambda d^k$, $r=\tilde r d$, $m_0=\mu_0d^{-1/2}$, $\Gamma_0\in(0,2)$, $s=1$, and put $\mu=\sqrt d\,m$, $\theta=t\,d^{1-k}$. As $d\to\infty$ the flow
+Let $N=\lambda d^k$, $r=\tilde r d$, $m_0=\mu_0d^{-1/2}$, $\Gamma_0\in[0,2)$, $s=1$, and put $\mu=\sqrt d\,m$, $\theta=t\,d^{1-k}$. As $d\to\infty$ the flow
 converges, uniformly on compacts of $\{\mu>0\}$ with an $O(1/d)$ error, to the $d$-free system
 \begin{equation}\label{eq:limit}
 \frac{d\mu}{d\theta}=4k\,\Gamma\big(1-\tfrac\Gamma2\big)\mu^{2k-1},\qquad \frac{d\Gamma}{d\theta}=2\tilde r\Big[\mu^{2k}-\Gamma\Big(\mu^{2k}+\frac1\lambda\Big)\Big],
@@ -161,7 +161,7 @@ $O(1/d)$ in this scaling.) With $\kappa:=2-\partial\ln T/\partial\ln\mu_0$ (the 
 Substituting, $d^{k-\frac12}\dot m=(1-\frac{\mu^2}d)\big[2k\Gamma(2-\Gamma(1-\frac1N))\mu^{2k-1}-\frac{\Gamma^2}\lambda\sum_i2i\beta_{2i}^2\mu^{2i-1}d^{-i}\big]$ and
 $d^{k-1}\dot\Gamma=2\tilde r[\mu^{2k}-\Gamma((1-\frac1N)\mu^{2k}+V(\mu d^{-1/2})/\lambda)]$, which is \eqref{eq:limit} up to $O((1+\mu^{2k+2})/d)$.
 In \eqref{eq:limit}, $\Gamma\le\max(\Gamma_0,1)<2$ (at $\Gamma\ge1$, $\dot\Gamma<0$) and $\Gamma\ge c:=\min(\Gamma_0,\Gamma^*_\infty(\mu_0))$ with
-$\Gamma^*_\infty=\mu^{2k}/(\mu^{2k}+\lambda^{-1})$ increasing along the (increasing) $\mu$; so $\dot\mu\ge c'\mu^{2k-1}$ and $\mu$ blows up in finite time. Split at
+$\Gamma^*_\infty=\mu^{2k}/(\mu^{2k}+\lambda^{-1})$ increasing along the (increasing) $\mu$ (for $\Gamma_0=0$, $\Gamma>0$ for all $\theta>0$ since $\dot\Gamma=2\tilde r\mu^{2k}>0$ there); so $\dot\mu\ge c'\mu^{2k-1}$ and $\mu$ blows up in finite time. Split at
 $\mu=M$: up to $M$, continuous dependence gives convergence of the hitting time; after $M$ both the limit and (by the same invariance bounds, the repulsion
 being $O(M^{2-2k}/\lambda d)$) the finite-$d$ flow need time $\le C M^{2-2k}$, which $\to0$ as $M\to\infty$. Corners: (a) $\Gamma$ relaxes at rate
 $2\tilde r/\lambda\to\infty$ onto $\Gamma^*_\infty\approx\lambda\mu^{2k}$, the transient moves $\ln\mu$ by $O(\Gamma_0\lambda/\tilde r)$, and
@@ -180,7 +180,7 @@ $\Gamma\approx\Gamma^*$. (2) \emph{Readout noise.} The SGD readout fluctuates ar
 (relaxation rate and per-prompt variance both $\asymp1/N$), independent of $N$; as $L$ is quadratic in $\Gamma$ this adds $\mathrm{Var}(\Gamma)D'(m)$ to the
 repulsion. Pathwise tracking, $\mathrm{Var}(\Gamma)\ll\Gamma^{*2}\asymp N^2d^{-2k}$ at $m\asymp d^{-1/2}$, needs $\eta_\Gamma\ll BN^2d^{-2k}$; the mean $m$-drift alone needs
 only $\eta_\Gamma\ll BN^2d^{1-2k}/k$. At $\eta_\Gamma=r\eta_0d^{-2}$ and fixed $N$ both fail as $d\to\infty$ ($k\ge2$). In E2 ($k=2$, $d=64$, $\eta_0=r=1$) $d^2=4096$ against $BN^2\ge16384$; the E5 cell
-$\eta_\Gamma=10\eta$, $N=16$ violates it ($BN^2/r=1638<d^2$, constants aside), consistent with SGD being $24\%$ slower than the flow there ($2.26$M vs $1.83$M steps).
+$\eta_\Gamma=10\eta$, $N=16$ violates it ($BN^2/r=1638<d^2$, constants aside), consistent with SGD being $24\%$ slower than the flow there ($2.26$M vs $1.81$M steps).
 \end{remark}
 
 \begin{conjecture}[SGD transfer]\label{conj:sgd}

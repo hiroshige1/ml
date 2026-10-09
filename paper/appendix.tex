@@ -36,7 +36,7 @@ regime at the initial overlap is $m_0^{2k^*}\ll V/N$, i.e.\ $d^{k^*}\gg N$; for 
 $\tau_{\rm esc}\asymp m_0^{-(2k^*-2)}$ is $N$-independent. (c)~For the tied readout the attraction term $4gg'$ carries no $\rho$, so
 $\tau_{\rm esc}\asymp m_0^{-(2k^*-2)}/(4k^*\alpha_{k^*}^4)$ independently of $N$ as long as $\rho\,V'/N\ll 4gg'$ along the trajectory, which holds
 from $\rho_0\ll\rho_{\rm trap}(m_0,N)$ (Theorem~\ref{thm:A}(iii)), which for $k^*=2$ reads $\rho_0\ll Nm_0^2/2$; for $k^*=3$, $\rho_{\rm trap}\propto m_0^4$ and $\rho_0=0.01$ already violates it at $N=16$, $d\ge16$ (Exp.~9). At $d=512$, $k^*=2$ the three regimes give $\tau\propto\{\infty\text{ or }N\text{-saturating},\;N^{-1},\;N^0\}$, matching the
-integrated flows ($\infty/771/386$; $9.0\cdot10^4/2.2\cdot10^4/5.4\cdot10^3$; $39/34/33$ for $N=32/128/512$).
+integrated flows ($\infty/745/379$; $8.9\cdot10^4/2.2\cdot10^4/5.3\cdot10^3$; $39/34/33$ for $N=32/128/512$).
 
 \paragraph{Population ODEs (Prop.~\ref{prop:shrink}).} Spherical gradient flow for the overlap and plain flow for the readout:
 free readout $\dot m=-(1-m^2)\partial_mL_A$, $\dot\Gamma=-r\,\partial_\Gamma L_A$ with $r=\eta_\Gamma/\eta$; tied readout
@@ -90,8 +90,8 @@ seeds range $0.50$--$2.08\times$. One censored E1 cell (free $10\eta$, $N=128$, 
 
 \paragraph{Exp.~6 (three regimes).} $d=64$, $m_0=d^{-1/2}$, $\eta=1/d^2$, $N\in\{16,64,256\}$, schemes $NB=4096$ and $B=64$, protocols pinned
 $\gamma\in\{1,0.1\}$, free ($\Gamma_0=0.01$, $\eta_\Gamma=\eta$), tied ($\rho_0=0.01$), 3 seeds, $10^6$ steps ($2.5\cdot10^6$ for the free $N=16$ rerun). ODE
-predictions were computed and committed before the run. $12$ of $72$ runs are duplicates ($N=64$ has $B=64$ in both schemes). Compute $2.4$ CPU-h. Medians of three seeds resolve escape times to roughly $5\%$. All ODE values in this appendix are LSODA
-(`scripts/ode\_lsoda.py`); the SGD/ODE ratio statistics above were computed with the earlier Euler values and would rise by $0.6$--$3.6\%$.
+predictions were computed and committed before the run. $12$ of $72$ runs are duplicates ($N=64$ has $B=64$ in both schemes). Compute $2.4$ CPU-h. Medians of three seeds resolve escape times to roughly $5\%$. ODE values that moved by more than $1\%$ between the Euler and LSODA integrators were updated to LSODA
+(`scripts/ode\_lsoda.py`); values within $1\%$ are quoted as originally computed; the SGD/ODE ratio statistics above were computed with the earlier Euler values and would rise by $0.6$--$3.6\%$.
 
 \paragraph{Exp.~7 (controls, E5).} As Exp.~6 with $B=64$, 3 seeds, cap $2.5\cdot10^6$ ($10^6$ for the tied $\rho_0=0.3$ cell): free $\Gamma_0=0.01$,
 $\eta_\Gamma=10\eta$: $2.26$M$/498$k$/212$k (ODE $1.81$M$/500$k$/205$k); free $\Gamma_0=0.1$, $\eta_\Gamma=\eta$: $1.52$M$/271$k$/166$k (ODE $1.49$M$/270$k$/161$k);

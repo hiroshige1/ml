@@ -93,3 +93,6 @@ Held: P23a, P23b, P23c (and the median leg of P23d, 0.985). Failed as pre-regist
 Across the 10 cell-by-N combinations the ODE trap classification (trapped: a all N, b N=16; escaping: b N=64,256, c, d) is reproduced with no exception. 26 runs, 3.757 CPU-h (cap 5 h).
 
 ![regimes](figs/regimes_d128.png)
+
+
+Note (added after review 4): the like-for-like d=64 baseline 101.0 above is the Euler value; LSODA (`tau_free(1/8, 0.01, 256, r=1)` in `scripts/verify_theorems.py`) gives 99.9, secant 5.43. Same conclusion.

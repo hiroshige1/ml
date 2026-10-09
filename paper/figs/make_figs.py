@@ -324,7 +324,7 @@ def fig_transformer():
 # Fig 5: three regimes by SGD (exp 6): escape steps T_0.5 vs N, one panel per readout protocol
 # ODE steps = pre-registered flow time x d^2 (= x 4096), fixed before the run; cross-checked against summary.csv below.
 ODE6_N = [16, 64, 256]
-ODE6 = {"fixed01": [400e3, 193e3, 175e3], "free": [1.835e6, 627e3, 414e3], "tied": [17.0e3, 16.4e3, 16.3e3]}  # LSODA (rtol 1e-10)
+ODE6 = {"fixed01": [400e3, 193e3, 175e3], "free": [1.819e6, 623e3, 409e3], "tied": [17.0e3, 16.4e3, 16.3e3]}  # LSODA (rtol 1e-10)
 
 
 def fig_regimes():

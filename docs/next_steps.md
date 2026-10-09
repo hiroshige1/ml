@@ -31,5 +31,5 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
   attention output projection (and separately the MLP output) at O(1) and at 0.1×, same cells as exp 8; pre-register as P24 with the same
   trap/rescue predictions. Only if budget allows (≈6 CPU-h); otherwise leave as a stated open test in the paper.
 
-- [ ] **N12 (2026-10-09, from exp 11). Fourth adversarial review** of v0.15 (persona: workshop area chair; 4-page cut plan; is the negative transformer
+- [x] (docs/review_adversarial_4.md 6/10; response docs/review_adversarial_4_response.md; paper v0.16) **N12 (2026-10-09, from exp 11). Fourth adversarial review** of v0.15 (persona: workshop area chair; 4-page cut plan; is the negative transformer
   result stated at the right strength; are E6/E7 and the pre-registration errors presented honestly), then respond in the paper.

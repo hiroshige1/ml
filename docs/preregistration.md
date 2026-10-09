@@ -482,6 +482,9 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-09 v0.22: review 4 (`docs/review_adversarial_4.md`, 6/10) acted on in paper v0.16 (`docs/review_adversarial_4_response.md`): transformer
+  claims cut to the two killed tests; Prop. 3 credits only what Theorems A/B prove (tied N-flatness numerical; trap condition ρ₀ > ρ_trap(m₀));
+  E6 opens with the failed P22a/b bands; remaining Euler-era numbers (d=512 flows, exp-6 free ODE steps) moved to LSODA. No prediction changed.
 - 2026-10-09 v0.21: Theorems A/B, the joint-scaling proposition and the SGD-transfer conjecture (backlog N9) drafted in `paper/theorems.tex`
   with proofs; every closed form checked numerically in `scripts/verify_theorems.py` (61/61: Q_γ polynomial and γ₁ bound, k=2 closed forms,
   exact partial-fraction escape time vs LSODA, tied time change, ρ_trap, B-independence, Theorem B prefactor vs ODE at d=64–512, joint-limit
