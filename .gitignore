@@ -3,3 +3,9 @@ __pycache__/
 .pytest_cache/
 results/**/traj/*.npz
 papers/
+paper/*.aux
+paper/*.log
+paper/*.bbl
+paper/*.blg
+paper/*.out
+paper/build.log
