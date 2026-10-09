@@ -106,6 +106,28 @@ width 256 showed the opposite `N`-dependence at fixed tokens/step.
 Kill/scope: (d) emerges at ≲ 2× the steps of (a) ⇒ C2/C3 claimed for the single-neuron/narrow model only; both transformer
 experiments reported as the boundary.
 
+### Exp 5 outcome (recorded 2026-10-09 after the run; `results/exp5/README.md`)
+
+- Init alignment in the `d=256`, width-32 regime: 0.126 / 0.152 / 0.176 (the small-alignment regime was reached).
+- **P11a: mixed.** (c) `N=16, B=64` stuck 3/3 at 30k steps ✓; (a) `N=256, B=64` emerged 2/3 (third censored at 17k by budget, still on
+  the plateau); (b) `N=64` 0/1 (one seed only — under-powered, no conclusion).
+- **P11b (decisive): the rival prediction FAILED, and so did the default.** (d) `N=16, B=1024` (same tokens/step as (a)) emerged 3/3 at
+  10.6k–14.8k steps — not stuck — but **≈3× later than (a)** (per-seed ratios 3.7, 3.8; median 2.9; in seed 2 (d) emerged while (a)
+  had not by 17k). The default ("(d) at about the same step count as (a), or sooner") failed in both seeds where (a) emerged. The
+  kill rule ("(d) ≲ 2× (a)") is not met; the transfer claim as pre-registered ("stuck") is not met either.
+- **P11c held:** `k*=1` at `N=16`: 1200–1400 steps; in-weight: 200–400.
+- **Unplanned observations (exploratory):** in stuck runs the final-head weight norm **collapses from 0.57 to 0.03–0.16 and regrows
+  after emergence** — the readout-shrinkage signature of §2.3 in a transformer; alignment drifts to 0.3–0.4 in stuck runs without
+  emergence and jumps to 0.9–0.99 at the MSE drop.
+- Budget 5.98 CPU-h (cap 6).
+
+**Scope consequence (binding):** in a softmax transformer in the small-alignment regime, short context is a *quantitative*
+handicap per token (≈3× more steps at equal tokens/step; `N=16` with 16× the prompts emerges while `N=16` with 1× never does within
+budget) and comes with a shrinking readout, but it is **not** a trap. The paper may claim: (i) the solvable-model results in full;
+(ii) for transformers, only "context tokens are worth more than prompt tokens for acquiring an even skill (≈3× at
+`d=256`, width 32, `N` 16→256), with the readout shrinking while the skill is not yet acquired" — stated as an observation
+consistent with, not a confirmation of, the mechanism; (iii) exp 4's opposite result at `d=32`, width 256 as the boundary.
+
 ## Secondary question (C4) — pre-registered 2026-10-08 before any run; spec in `docs/spec_exp3.md`
 
 Setting: `d=32`, `P=2` orthogonal `σ_2` skills with frequencies `0.75/0.25`, `M=4` neurons, fixed `Γ=0.1`, `N=128`, single-skill
@@ -200,6 +222,7 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-09 v0.10: exp 5 outcome recorded — P11b: both rival and default failed; intermediate (≈3× handicap, not a trap); scope fixed.
 - 2026-10-08 v0.9: exp 3 outcome recorded; two pre-registration design errors acknowledged (floor, estimator); C4 scope narrowed.
 - 2026-10-08 v0.8: **algebra correction** — the stability threshold used in P2/P3 (`m² < 16γ/(N(4−2γ))`, `d* = N(4−2γ)/(16γ)`) had a
   factor-2 slip in the hand derivative of (2.1); correct: `m*² = 16γ/(N(8−4γ(1−1/N)−24γ/N))`, `d* ≈ 31` for `γ=1, N=128` (was 16),

@@ -20,9 +20,10 @@ read. Pre-registration status refers to `docs/preregistration.md`.
 - **L**: not in Oko (tiny readout init switches the term off, Lemma 18), Nishikawa (same), Gu–Xu–Zdeborová (drop the aligned
   fourth moment; `k*=1`), Ren (in-weight). Qualitative precursor: Kim–Suzuki 2024 App. C.4 (finite-`n` landscape may have a
   spurious minimum at 0) — must be cited.
-- **X**: in a 2-layer softmax transformer at `d=32`, width 256, the effect is **not** visible (exp 4: `T_e` increases with `N` at
-  fixed tokens/step) — the initial alignment of the best of 256 neurons (0.43–0.55) is far above the barrier. Exp 5 tests the
-  `d ≫ width` regime. **Scope is restricted until exp 5 reports.**
+- **X**: exp 4 (`d=32`, width 256, init alignment 0.43–0.55): `T_e` *increases* with `N` at fixed tokens/step — mechanism invisible.
+  Exp 5 (`d=256`, width 32, init alignment 0.13–0.18): `N=16,B=64` stuck 3/3; `N=16,B=1024` (same tokens as `N=256,B=64`) emerges 3/3
+  but ≈3× later than `N=256,B=64`; readout norm collapses 0.57→0.03–0.16 while stuck and regrows at emergence. **Verdict: in the
+  transformer, short context is a ≈3× per-token handicap with a shrinking readout, not a trap.** Both pre-registered extremes failed.
 
 ## F3. The readout's parameterisation selects the exponent (C3)
 - Free scalar readout relaxes fast to the Wiener value `Γ* = g²/((1−1/N)g² + V/N)` and multiplies the feature gradient ⇒
@@ -35,10 +36,15 @@ read. Pre-registration status refers to `docs/preregistration.md`.
 - **L**: the static shrinkage formula is Gu–Xu–Zdeborová eq. (298) (cite); its dynamical effect, the `N`-crossover and the
   parameterisation dependence are not in print; BBPV §5 argues the opposite direction for in-weight (regularised link estimation
   is sample-cost-free). Gu et al. list "jointly trained readouts" and "beyond `µ_1≠0`" as open — exactly F2/F3's regime.
-- **X**: untested (exp 4 cannot separate it); exp 5 logs readout norms only crudely.
+- **X**: exp 5's readout-norm collapse in stuck runs (0.57→0.03–0.16, regrowth at emergence) is the qualitative signature of the
+  shrinkage mechanism in a transformer; not a quantitative test of the exponent.
 
 ## F4. Additive composition is free in a linear-in-label learner; multiplicative accuracy is derived (C4)
-- **T** (exact additivity of the loss for orthogonal skills, `N→∞`); **S**: exp 3 running (P12–P15).
+- **T** (additivity is an identity of label-linear models; unit-tested to 1e-13). **S** (exp 3): paired residual `≤ 0.009`; pair
+  emerges with the slower skill, never after it (vs Arora–Goyal's extra delay); `acc_12 ≈ 0.85·acc_1acc_2 + 0.09` (approximately
+  multiplicative; the Gaussian-error closed form is wrong in level — heavy tails); product composition stays unlearned (MSE ≈ 1).
+  Exploratory: neuron arrival times `T ≈ 0.60/(η π_p m_0²)` match the single-neuron constant (0.64) — the multi-skill dynamics
+  decouple with rate `∝ π_p`; the rare skill is missed entirely in 2/10 seeds (assignment failure).
 - **L**: Okawa 2023's product accuracy is a *definition*; Arora–Goyal Cor. 13 predicts an *extra delay* for tuples (discriminating
   rival); Wang et al. 2026 supports the non-additive side (`d^{k/2}`); Kobayashi et al. 2024 and He et al. 2024 are about
   compositions that are not output-additive or must be discovered against a memoriser — cite as boundaries.

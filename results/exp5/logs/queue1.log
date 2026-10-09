@@ -8,3 +8,19 @@ DONE {'cell': 'a', 'B': 64, 'seed': 1, 'steps_run': 3000, 'Te05': 2800, 'Te01': 
 [a_s2] INIT align 0.1759 mse 1.0886
 [a_s2] step 0 mse 1.0886 align 0.176 t=5s
 [a_s2] step 1000 mse 0.7872 align 0.197 t=324s
+[a_s2] step 2000 mse 0.8022 align 0.208 t=643s
+[a_s2] step 3000 mse 0.7883 align 0.171 t=961s
+[a_s2] step 4000 mse 0.7889 align 0.152 t=1278s
+[a_s2] step 5000 mse 0.7883 align 0.172 t=1600s
+[a_s2] step 6000 mse 0.7873 align 0.200 t=1920s
+[a_s2] step 7000 mse 0.7870 align 0.230 t=2236s
+[a_s2] step 8000 mse 0.7871 align 0.251 t=2554s
+[a_s2] step 9000 mse 0.7869 align 0.246 t=2873s
+[a_s2] step 10000 mse 0.7873 align 0.342 t=3199s
+[a_s2] step 11000 mse 0.7882 align 0.392 t=3524s
+[a_s2] step 12000 mse 0.7882 align 0.295 t=3847s
+[a_s2] step 13000 mse 0.7871 align 0.314 t=4169s
+[a_s2] step 14000 mse 0.7870 align 0.303 t=4489s
+[a_s2] step 15000 mse 0.7872 align 0.310 t=4811s
+[a_s2] step 16000 mse 0.7871 align 0.302 t=5131s
+[a_s2] step 17000 mse 0.7883 align 0.283 t=5449s

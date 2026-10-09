@@ -1,0 +1,49 @@
+[f_s0] INIT align 0.1261 mse 1.7459
+[f_s0] step 0 mse 1.7459 align 0.126 t=1s
+DONE {'cell': 'f', 'B': 64, 'seed': 0, 'steps_run': 400, 'Te05': 400, 'Te01': None, 'final_mse': 0.1318738954141736, 'init_align': 0.12613952159881592, 'wall_s': 20.9, 'cpu_s': 20.9}
+[f_s1] INIT align 0.1515 mse 1.2264
+[f_s1] step 0 mse 1.2264 align 0.152 t=1s
+DONE {'cell': 'f', 'B': 64, 'seed': 1, 'steps_run': 400, 'Te05': 200, 'Te01': 400, 'final_mse': 0.081240716855973, 'init_align': 0.15154877305030823, 'wall_s': 20.5, 'cpu_s': 20.5}
+[e_s0] INIT align 0.1261 mse 1.6802
+[e_s0] step 0 mse 1.6802 align 0.126 t=0s
+[e_s0] step 1000 mse 0.9366 align 0.109 t=13s
+DONE {'cell': 'e', 'B': 64, 'seed': 0, 'steps_run': 1600, 'Te05': 1400, 'Te01': 1600, 'final_mse': 0.0925060948356986, 'init_align': 0.12613952159881592, 'wall_s': 21.3, 'cpu_s': 21.3}
+[e_s1] INIT align 0.1515 mse 1.3182
+[e_s1] step 0 mse 1.3182 align 0.152 t=0s
+[e_s1] step 1000 mse 0.8370 align 0.381 t=13s
+DONE {'cell': 'e', 'B': 64, 'seed': 1, 'steps_run': 1200, 'Te05': 1200, 'Te01': 1200, 'final_mse': 0.09236095007508993, 'init_align': 0.15154877305030823, 'wall_s': 15.8, 'cpu_s': 15.8}
+[b_s0] INIT align 0.1261 mse 1.7641
+[b_s0] step 0 mse 1.7641 align 0.126 t=1s
+[b_s0] step 1000 mse 1.0016 align 0.190 t=51s
+[b_s0] step 2000 mse 0.9901 align 0.217 t=103s
+[b_s0] step 3000 mse 0.9845 align 0.202 t=155s
+[b_s0] step 4000 mse 0.9842 align 0.165 t=208s
+[b_s0] step 5000 mse 0.9909 align 0.167 t=263s
+[b_s0] step 6000 mse 0.9847 align 0.201 t=317s
+[b_s0] step 7000 mse 0.9850 align 0.229 t=370s
+[b_s0] step 8000 mse 0.9865 align 0.267 t=422s
+[b_s0] step 9000 mse 0.9847 align 0.238 t=475s
+[b_s0] step 10000 mse 0.9857 align 0.221 t=528s
+[b_s0] step 11000 mse 0.9867 align 0.202 t=580s
+[b_s0] step 12000 mse 0.9861 align 0.191 t=633s
+[b_s0] step 13000 mse 0.9848 align 0.224 t=686s
+[b_s0] step 14000 mse 0.9861 align 0.186 t=740s
+[b_s0] step 15000 mse 0.9851 align 0.183 t=793s
+[b_s0] step 16000 mse 0.9858 align 0.193 t=847s
+[b_s0] step 17000 mse 0.9866 align 0.199 t=900s
+[b_s0] step 18000 mse 0.9855 align 0.197 t=952s
+[b_s0] step 19000 mse 0.9864 align 0.234 t=1004s
+[b_s0] step 20000 mse 0.9849 align 0.236 t=1056s
+[b_s0] step 21000 mse 0.9869 align 0.173 t=1107s
+[b_s0] step 22000 mse 0.9859 align 0.148 t=1159s
+[b_s0] step 23000 mse 0.9847 align 0.210 t=1211s
+[b_s0] step 24000 mse 0.9855 align 0.234 t=1263s
+[b_s0] step 25000 mse 0.9846 align 0.188 t=1315s
+[b_s0] step 26000 mse 0.9871 align 0.215 t=1369s
+[b_s0] step 27000 mse 0.9859 align 0.219 t=1422s
+[b_s0] step 28000 mse 0.9865 align 0.200 t=1475s
+[b_s0] step 29000 mse 0.9848 align 0.239 t=1529s
+[b_s0] step 30000 mse 0.9850 align 0.203 t=1582s
+DONE {'cell': 'b', 'B': 64, 'seed': 0, 'steps_run': 30000, 'Te05': None, 'Te01': None, 'final_mse': 0.9850359931588173, 'init_align': 0.12613952159881592, 'wall_s': 1581.6, 'cpu_s': 1581.1}
+[b_s1] INIT align 0.1515 mse 1.3366
+[b_s1] step 0 mse 1.3366 align 0.152 t=1s

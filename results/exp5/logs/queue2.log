@@ -15,3 +15,14 @@ DONE {'cell': 'd', 'B': 1024, 'seed': 1, 'steps_run': 10800, 'Te05': 10600, 'Te0
 [d_s2] INIT align 0.1759 mse 1.0877
 [d_s2] step 0 mse 1.0877 align 0.176 t=0s
 [d_s2] step 1000 mse 0.8508 align 0.149 t=201s
+[d_s2] step 2000 mse 0.8509 align 0.166 t=402s
+[d_s2] step 3000 mse 0.8508 align 0.177 t=603s
+[d_s2] step 4000 mse 0.8504 align 0.180 t=802s
+[d_s2] step 5000 mse 0.8514 align 0.178 t=1002s
+[d_s2] step 6000 mse 0.8510 align 0.207 t=1204s
+[d_s2] step 7000 mse 0.8509 align 0.213 t=1406s
+[d_s2] step 8000 mse 0.8508 align 0.176 t=1609s
+[d_s2] step 9000 mse 0.8509 align 0.191 t=1808s
+[d_s2] step 10000 mse 0.8506 align 0.299 t=2005s
+[d_s2] step 11000 mse 0.8508 align 0.303 t=2204s
+DONE {'cell': 'd', 'B': 1024, 'seed': 2, 'steps_run': 11800, 'Te05': 11600, 'Te01': None, 'final_mse': 0.169670682400465, 'init_align': 0.1758527010679245, 'wall_s': 2364.2, 'cpu_s': 2363.5}
