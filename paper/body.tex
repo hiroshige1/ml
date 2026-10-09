@@ -8,11 +8,11 @@ acquires an \emph{alignment-dependent} variance term $\Gamma^2V(m)/N$, and the w
 this term does: a readout pinned at order one makes the unaligned state drift-stable below $m^*$, so that more prompts cannot
 substitute for context length; a free scalar readout shrinks to a Wiener factor, which raises the effective exponent from $2k^*$
 towards $4k^*$ and restores a multiplicative trade-off between context length and training time; a readout tied to the feature
-norm removes the $N$-dependence altogether. A parameter-free population ODE reproduces the exponents measured by online SGD at
-$d=32$ for three readout protocols and four context lengths (11 of 12 cells within $0.6$, the censored cell within $1.0$). With
+norm removes the $N$-dependence as long as its initial norm is below an explicit trap threshold. A parameter-free population ODE reproduces the exponents measured by online SGD at
+$d=32$ for three readout protocols and four context lengths (11 of 12 cells within $0.6$, the censored cell within $1.0$), the escape times at $d=64$ and $d=128$ including the predicted flip of a context length from escape to trap, and the $k^*=3$ exponent and threshold. With
 many skills the dynamics decouple with emergence times $\propto1/\pi_p$; additive compositions of learned skills follow by linearity.
 In small softmax transformers we find a $\approx3\times$ per-token handicap of short contexts in the small-alignment regime and the
-opposite ordering when the initial alignment is large; these observations are consistent with, but do not test, the mechanism.
+opposite ordering when the initial alignment is large; these observations are consistent with the mechanism, but a pre-registered test that freezes the readout at order one or at a small value reproduces neither the trap nor the rescue, so the mechanism is established for the solvable model only.
 \end{abstract}
 
 \section{Introduction}
@@ -374,10 +374,9 @@ whereas in~\eqref{eq:modelA} linearity in the labels is built in.
 
 \section{Limitations}
 \label{sec:limits}
-The theory is for one feature per skill and $k^*=2$; the SGD threshold is soft; the many-skill statements rest on decoupling,
+The theory is for one feature per skill (Theorems~\ref{thm:A}--\ref{thm:B} hold for any $k^*\ge2$; SGD checks are at $k^*=2$ and $3$); the SGD threshold is soft, and at $k^*=3$ noise decides between escape and delay near the tied trap boundary; the many-skill statements rest on decoupling,
 which fails for rare skills when no feature starts closest to them (2/10 seeds in Exp.~3); the Gaussian closed form for
-compositional accuracy is wrong; the transformer results are observational and were pre-registered with predictions that failed in
-both directions. All predictions, outcomes and deviations (including two algebra slips corrected after pre-registration and two
+compositional accuracy is wrong; the transformer results are observational: the pre-registered $N$--$B$ predictions failed in both directions, and the readout-protocol test met its kill criterion, so no transfer claim is made. All predictions, outcomes and deviations (including two algebra slips corrected after pre-registration, one wrong pre-registered baseline, and two
 ill-posed estimators) are listed verbatim in the appendix.
 
 \paragraph{Reproducibility and disclosure.} Code, pre-registration document and all runs: \todo{repo}. AI assistance was used for
