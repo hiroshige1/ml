@@ -1,4 +1,4 @@
-"""Analysis for exp 7 (controls requested by review 2): writes results/exp7/summary.csv, tables.md, figs/controls.png."""
+"""Analysis for exp 7 (controls requested by review 2): writes results/exp7/summary.csv, ratios.csv, f_invariance.csv, figs/controls.png."""
 import itertools
 import os
 
@@ -21,7 +21,7 @@ def fmt(x, f="%.0f"):
 
 def main():
     r = pd.read_csv(os.path.join(OUT, "runs.csv")).sort_values(["cell", "N", "B", "seed"])
-    r["flow"] = r.steps * r.eta * D2  # flow time in ODE units (= steps/4096 at eta=1/d^2)
+    r["flow"] = r.steps * r.eta  # flow time T*eta (= steps/4096 at eta=1/d^2)
     rows = []
     med = {}
     for (cell, N, B), g in r.groupby(["cell", "N", "B"]):
@@ -35,8 +35,8 @@ def main():
         rows.append(dict(cell=cell, protocol=CELLS[cell][0], N=N, B=B, eta=eta, cap=cap, n=len(g), n_reached=int(reached.sum()),
                          T05_seeds="/".join(fmt(t) for t in np.where(reached, g.T05.values, np.nan)),
                          T05_median=m if np.isfinite(m) else np.nan,
-                         flow_seeds="/".join(fmt(t * eta * D2, "%.1f") for t in np.where(reached, g.T05.values, np.nan)),
-                         flow_median=m * eta * D2 if np.isfinite(m) else np.nan,
+                         flow_seeds="/".join(fmt(t * eta, "%.1f") for t in np.where(reached, g.T05.values, np.nan)),
+                         flow_median=m * eta if np.isfinite(m) else np.nan,
                          T_eta_median=m * eta if np.isfinite(m) else np.nan,
                          reached_flags="/".join("Y" if x else "N" for x in reached),
                          final_abs_m_seeds="/".join("%.3f" % x for x in g.final_abs_m),
@@ -122,7 +122,7 @@ def main():
     ax.set_xticks([16, 64, 256])
     ax.set_xticklabels(["16", "64", "256"])
     ax.set_xlabel("batch size B (N=64, pinned gamma=0.1)")
-    ax.set_ylabel("flow time T*eta*d^2 (= steps/4096 at B=64)")
+    ax.set_ylabel("flow time T*eta (= steps/4096 at B=64)")
     ax.set_title("(f) flow-time invariance across B")
     ax.legend(fontsize=8)
     ax.grid(alpha=0.3, which="both")

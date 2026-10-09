@@ -34,7 +34,10 @@ read. Pre-registration status refers to `docs/preregistration.md`.
   readout the trade-off holds and the exponent crossover is the visible effect. **This is the paper's central statement now.** **S** (exp 6, `d=64`, `N=16/64/256`): pinned `Γ=1` trapped at `N≤64` (0/9) and marginal at
   `N=256` (3/6); pinned `Γ=0.1` `396k/192k/179k` steps vs ODE `414k/197k/176k`; free `1.78M/614k/402k` vs ODE `1.835M/627k/414k` (ratio 4.4 = ODE);
   tied `17.0k/15.1k/14.0k` vs ODE `17.2k/16.7k/16.5k`. Tokens-matched and fixed-`B` schemes give identical step counts in every protocol:
-  **context trades off against training time, never against prompts per step.**
+  **context trades off against training time, never against prompts per step** (and with `η ∝ B` the flow time is invariant to 0.5%,
+  exp 7). **Correction (exp 7):** a tied readout with `ρ_0 ≳ N m_0²/4` is *delayed* (≈30× at `ρ_0=0.3, N=16`), not trapped — `ρ` decays
+  algebraically and releases the feature; only a pinned readout traps permanently. Free-readout `N`-dependence depends on `(Γ_0, η_Γ/η)`
+  as the ODE says (ratios 9.2 and 10.7 at `Γ_0=0.1` / `η_Γ=10η` vs 4.4 at `Γ_0=0.01, η_Γ=η`).
 - Free scalar readout relaxes fast to the Wiener value `Γ* = g²/((1−1/N)g² + V/N)` and multiplies the feature gradient ⇒
   effective exponent `4k*` where the context statistic is noise-dominated (`d ≫ N^{1/k*}`), `2k*` otherwise. Tied readout
   (`Γ = ‖w‖²`, Ren et al.'s 2-homogeneous form) has norm-independent directional dynamics ⇒ `2k*` at every `N` (but the F2

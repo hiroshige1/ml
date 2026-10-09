@@ -31,3 +31,23 @@
 [30/51    515s wall 0.420 h cpu] b N=64 B=64 s=2 T05=288977.0 steps=288977 |m|=0.500 ro@T=0.212 cpu=60s
 [31/51    567s wall 0.446 h cpu] b N=256 B=64 s=0 T05=165761.0 steps=165761 |m|=0.500 ro@T=0.247 cpu=95s
 [32/51    579s wall 0.475 h cpu] b N=256 B=64 s=1 T05=156440.0 steps=156440 |m|=0.500 ro@T=0.248 cpu=105s
+[33/51    607s wall 0.503 h cpu] b N=256 B=64 s=2 T05=170009.0 steps=170009 |m|=0.500 ro@T=0.246 cpu=97s
+[34/51    714s wall 0.532 h cpu] a N=64 B=64 s=0 T05=517368.0 steps=517368 |m|=0.500 ro@T=0.453 cpu=106s
+[35/51    775s wall 0.603 h cpu] a N=16 B=64 s=0 T05=2263467.0 steps=2263467 |m|=0.500 ro@T=0.217 cpu=256s
+[36/51    804s wall 0.669 h cpu] a N=16 B=64 s=1 T05=2100238.0 steps=2100238 |m|=0.500 ro@T=0.193 cpu=236s
+[37/51    815s wall 0.697 h cpu] a N=64 B=64 s=1 T05=498454.0 steps=498454 |m|=0.500 ro@T=0.442 cpu=102s
+[38/51    843s wall 0.770 h cpu] a N=16 B=64 s=2 T05=2311855.0 steps=2311855 |m|=0.500 ro@T=0.192 cpu=262s
+[39/51    874s wall 0.797 h cpu] a N=64 B=64 s=2 T05=468181.0 steps=468181 |m|=0.500 ro@T=0.436 cpu=98s
+[40/51    921s wall 0.826 h cpu] a N=256 B=64 s=1 T05=182887.0 steps=182887 |m|=0.500 ro@T=0.584 cpu=106s
+[41/51    927s wall 0.860 h cpu] a N=256 B=64 s=0 T05=212403.0 steps=212403 |m|=0.500 ro@T=0.596 cpu=122s
+[42/51    986s wall 0.900 h cpu] a N=256 B=64 s=2 T05=226457.0 steps=226457 |m|=0.500 ro@T=0.565 cpu=143s
+[43/51   1068s wall 0.953 h cpu] e N=16 B=64 s=0 T05=1707711.0 steps=1707711 |m|=0.500 ro@T=nan cpu=192s
+[44/51   1114s wall 1.006 h cpu] e N=16 B=64 s=1 T05=1706040.0 steps=1706040 |m|=0.500 ro@T=nan cpu=192s
+[45/51   1121s wall 1.060 h cpu] e N=16 B=64 s=2 T05=1722056.0 steps=1722056 |m|=0.500 ro@T=nan cpu=193s
+[46/51   1330s wall 1.156 h cpu] e N=64 B=64 s=0 T05=1646567.0 steps=1646567 |m|=0.500 ro@T=nan cpu=343s
+[47/51   1420s wall 1.252 h cpu] e N=64 B=64 s=1 T05=1629514.0 steps=1629514 |m|=0.500 ro@T=nan cpu=347s
+[48/51   1459s wall 1.348 h cpu] e N=64 B=64 s=2 T05=1640914.0 steps=1640914 |m|=0.500 ro@T=nan cpu=345s
+[49/51   2170s wall 1.639 h cpu] e N=256 B=64 s=0 T05=1615526.0 steps=1615526 |m|=0.500 ro@T=nan cpu=1048s
+[50/51   2323s wall 1.915 h cpu] e N=256 B=64 s=1 T05=1617713.0 steps=1617713 |m|=0.500 ro@T=nan cpu=992s
+[51/51   2452s wall 2.201 h cpu] e N=256 B=64 s=2 T05=1636738.0 steps=1636738 |m|=0.500 ro@T=nan cpu=1031s
+finished 51 runs, total CPU 2.201 h, wall 2452s

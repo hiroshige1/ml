@@ -263,6 +263,25 @@ computed before the run:
 Kill: none of these changes the three-regime statement; they fix its stated conditions. If P20d does not trap, the claim "the repulsion survives
 tying" is wrong.
 
+### Exp 7 outcome (recorded 2026-10-09 after the run; `results/exp7/README.md`; 2.2 CPU-h, cap 2 overrun by 10%)
+
+- **P20a (free, `η_Γ=10η`): held qualitatively, 24% slow at `N=16`** (`2.26M` vs ODE `1.83M`; `N=64/256` within 4%); ratio 10.7 (ODE 8.9) —
+  the `η_Γ/η` dependence is real and in the predicted direction (exp 6 at `η_Γ=η`: 4.4).
+- **P20b (free, `Γ_0=0.1`): held** (all medians within 2%; ratio 9.16 vs 9.05).
+- **P20c (tied, `ρ_0=0.1`): held on medians** (ratio 2.15 vs 1.87); one `N=16` seed took 15–22× longer than the other two (a tail the ODE
+  does not have).
+- **P20d (tied, `ρ_0=0.3`): FAILED as worded.** `N=16` escaped in 3/3 seeds at `6.1–8.5·10⁵` steps (≈30× slower than `N=64/256`), after `ρ`
+  had decayed from 0.3 to ≈0.012. The deterministic flow predicts a trap because `m` reaches 0 before `ρ` decays; under SGD noise keeps `m`
+  away from 0 and the algebraically decaying `ρ` eventually releases the feature. **By the pre-registered kill rule, "the repulsion
+  survives tying" is wrong as worded: tying converts the trap into a delay** (`ρ ∝ 1/t` release), whereas a pinned readout cannot
+  decay and traps for good. Exp 1b's tied `ρ_0=1, d=64` "stuck at 10⁶ steps" is now read as the same delay, not a trap.
+- **P20e (pinned `γ=0.01`): held** (within 2%; ratio 1.056 vs 1.045).
+- **P20f (`η ∝ B`): held** — steps scale exactly as `1/η` (×4.02, ×0.250), flow time `T·η` invariant to 0.5%, total prompts to escape
+  unchanged (`1.23·10⁷`). So at matched *flow time* the number of prompts per step is irrelevant; "prompts do not substitute for context" is
+  a statement about flow time, and the step-size scaling is a separate choice.
+
+**Scope consequence:** Prop. 3(c) must say "delayed, not trapped" for `ρ_0 ≳ N m_0²/4`; the pinned-readout trap is the only permanent one.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
@@ -315,6 +334,7 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-09 v0.17: exp 7 outcome recorded — P20d failed as worded (tied: delay, not trap); P20a–c,e,f held (a: 24% slow at N=16).
 - 2026-10-09 v0.16: review 2 (`docs/review_adversarial_2.md`, 6/10) received; P20a–f pre-registered with ODE values before the run.
 - 2026-10-09 v0.15: exp 6 outcome recorded — P19a/b/d held (ODE within 1–4%), P19c flat but outside the literal 5% band.
 - 2026-10-09 v0.14: P19 (exp 6: N–T exchange by readout protocol) pre-registered.
