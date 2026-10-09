@@ -1,0 +1,54 @@
+0 done, 26 to run, so far 0.000 h, cap 5.0 h, workers 4
+launch c N=16 s=0 cap=1000000
+launch c N=16 s=1 cap=1000000
+launch c N=16 s=2 cap=1000000
+launch c N=64 s=0 cap=1000000
+[1/26     18s wall 0.005 h cpu] c N=16 s=1 T05=135030.0 steps=135030 |m|=0.500 ro@T=0.0108 cpu=17s
+launch c N=64 s=1 cap=1000000
+[2/26     21s wall 0.010 h cpu] c N=16 s=2 T05=160529.0 steps=160529 |m|=0.500 ro@T=0.011 cpu=20s
+launch c N=64 s=2 cap=1000000
+[3/26     21s wall 0.016 h cpu] c N=16 s=0 T05=162187.0 steps=162187 |m|=0.500 ro@T=0.0106 cpu=20s
+launch c N=256 s=0 cap=1000000
+[4/26     30s wall 0.024 h cpu] c N=64 s=0 T05=131662.0 steps=131662 |m|=0.500 ro@T=0.0114 cpu=29s
+launch c N=256 s=1 cap=1000000
+[5/26     46s wall 0.032 h cpu] c N=64 s=1 T05=127407.0 steps=127407 |m|=0.501 ro@T=0.0114 cpu=29s
+launch c N=256 s=2 cap=1000000
+[6/26     50s wall 0.039 h cpu] c N=64 s=2 T05=130146.0 steps=130146 |m|=0.500 ro@T=0.0114 cpu=28s
+launch b N=64 s=0 cap=2500000
+[7/26    108s wall 0.063 h cpu] c N=256 s=0 T05=137243.0 steps=137243 |m|=0.500 ro@T=0.0115 cpu=86s
+launch b N=64 s=1 cap=2500000
+[8/26    111s wall 0.086 h cpu] c N=256 s=1 T05=134382.0 steps=134382 |m|=0.500 ro@T=0.0115 cpu=81s
+launch b N=64 s=2 cap=2500000
+[9/26    127s wall 0.108 h cpu] c N=256 s=2 T05=128556.0 steps=128556 |m|=0.500 ro@T=0.0115 cpu=80s
+launch b N=256 s=0 cap=2500000
+[10/26    429s wall 0.213 h cpu] b N=64 s=0 T05=1783191.0 steps=1783191 |m|=0.500 ro@T=nan cpu=378s
+launch b N=256 s=1 cap=2500000
+[11/26    471s wall 0.313 h cpu] b N=64 s=2 T05=1722126.0 steps=1722126 |m|=0.500 ro@T=nan cpu=359s
+launch b N=256 s=2 cap=2500000
+[12/26    512s wall 0.424 h cpu] b N=64 s=1 T05=1896305.0 steps=1896305 |m|=0.500 ro@T=nan cpu=399s
+launch a N=16 s=0 cap=1000000
+[13/26    632s wall 0.457 h cpu] a N=16 s=0 T05=nan steps=1000000 |m|=0.014 ro@T=nan cpu=119s
+launch a N=16 s=1 cap=1000000
+[14/26    747s wall 0.488 h cpu] a N=16 s=1 T05=nan steps=1000000 |m|=0.005 ro@T=nan cpu=114s
+launch a N=64 s=0 cap=1000000
+[15/26    957s wall 0.546 h cpu] a N=64 s=0 T05=nan steps=1000000 |m|=0.002 ro@T=nan cpu=208s
+launch a N=64 s=1 cap=1000000
+[16/26   1051s wall 0.802 h cpu] b N=256 s=0 T05=1466097.0 steps=1466097 |m|=0.500 ro@T=nan cpu=922s
+launch a N=256 s=0 cap=1000000
+[17/26   1171s wall 0.861 h cpu] a N=64 s=1 T05=nan steps=1000000 |m|=0.002 ro@T=nan cpu=211s
+launch a N=256 s=1 cap=1000000
+[18/26   1389s wall 1.115 h cpu] b N=256 s=2 T05=1445353.0 steps=1445353 |m|=0.500 ro@T=nan cpu=916s
+launch b N=16 s=0 cap=2500000
+[19/26   1412s wall 1.388 h cpu] b N=256 s=1 T05=1493848.0 steps=1493848 |m|=0.500 ro@T=nan cpu=981s
+launch b N=16 s=1 cap=2500000
+[20/26   1672s wall 1.466 h cpu] b N=16 s=0 T05=nan steps=2500000 |m|=0.029 ro@T=nan cpu=283s
+launch b N=16 s=2 cap=2500000
+[21/26   1682s wall 1.641 h cpu] a N=256 s=0 T05=nan steps=1000000 |m|=0.004 ro@T=nan cpu=629s
+launch d N=256 s=0 cap=12000000
+[22/26   1696s wall 1.720 h cpu] b N=16 s=1 T05=nan steps=2500000 |m|=0.033 ro@T=nan cpu=283s
+launch d N=256 s=1 cap=12000000
+[23/26   1806s wall 1.895 h cpu] a N=256 s=1 T05=nan steps=1000000 |m|=0.006 ro@T=nan cpu=629s
+[24/26   1956s wall 1.973 h cpu] b N=16 s=2 T05=nan steps=2500000 |m|=0.022 ro@T=nan cpu=284s
+[25/26   4792s wall 2.833 h cpu] d N=256 s=1 T05=5121944.0 steps=5121944 |m|=0.500 ro@T=0.238 cpu=3095s
+[26/26   5010s wall 3.757 h cpu] d N=256 s=0 T05=5458606.0 steps=5458606 |m|=0.500 ro@T=0.237 cpu=3327s
+finished 26 runs, total CPU 3.757 h, wall 5010s

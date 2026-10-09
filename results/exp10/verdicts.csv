@@ -1,0 +1,5 @@
+id,passed,default_triggered,detail
+P23a,True,False,N=16 censored 2/2; N=64 censored 2/2; N=256 censored 2/2
+P23b,True,False,N=16 censored 3/3 (need >=2/3); N=64 median/ODE=0.989 ok; N=256 median/ODE=1.006 ok
+P23c,True,False,N=16 median/ODE=1.118 ok; N=64 median/ODE=0.969 ok; N=256 median/ODE=1.017 ok; ratio T(16)/T(256)=1.195 (pre-reg 1.09 +-0.15; ODE 1.086) ok
+P23d,False,False,"n seeds run 2/2, censored 0; median/ODE=0.985 ok; SGD secant (exp 6 d=64 median 100.4 flow) = 5.37 (need 7.4 +-0.5) OUT"

@@ -1,0 +1,8 @@
+k,kappa
+ode_prereg_baseline,7.420746786395706
+ode_exp6_baseline,5.3978012175078085
+sgd_exp6_baseline,5.371303202959541
+sgd_prereg_baseline,7.37634517946148
+exp6_sgd_median_steps_d64,411137.0
+exp6_sgd_median_flow_d64,100.375244140625
+exp6_ode_flow_d64,101.0
