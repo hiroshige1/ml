@@ -1,0 +1,63 @@
+[Os_N16_B64_s0] INIT align 0.1261 mse 1.5008 attn.out norm b0 0.4643 b1 0.4617
+[Os_N16_B64_s0] step 0 mse 1.5008 align 0.126 ao_norm 0.464/0.462 t=0s
+[Os_N16_B64_s0] step 1000 mse 0.8357 align 0.132 ao_norm 0.464/0.462 t=11s
+[Os_N16_B64_s0] step 2000 mse 0.8330 align 0.176 ao_norm 0.464/0.462 t=22s
+[Os_N16_B64_s0] step 3000 mse 0.8318 align 0.166 ao_norm 0.464/0.462 t=33s
+[Os_N16_B64_s0] step 4000 mse 0.8314 align 0.168 ao_norm 0.464/0.462 t=44s
+[Os_N16_B64_s0] step 5000 mse 0.8327 align 0.170 ao_norm 0.464/0.462 t=55s
+[Os_N16_B64_s0] step 6000 mse 0.8316 align 0.202 ao_norm 0.464/0.462 t=67s
+[Os_N16_B64_s0] step 7000 mse 0.8350 align 0.196 ao_norm 0.464/0.462 t=78s
+[Os_N16_B64_s0] step 8000 mse 0.8315 align 0.304 ao_norm 0.464/0.462 t=89s
+[Os_N16_B64_s0] step 9000 mse 0.8309 align 0.267 ao_norm 0.464/0.462 t=100s
+[Os_N16_B64_s0] step 10000 mse 0.8315 align 0.339 ao_norm 0.464/0.462 t=112s
+[Os_N16_B64_s0] step 11000 mse 0.8308 align 0.277 ao_norm 0.464/0.462 t=123s
+[Os_N16_B64_s0] step 12000 mse 0.8328 align 0.278 ao_norm 0.464/0.462 t=135s
+[Os_N16_B64_s0] step 13000 mse 0.8313 align 0.380 ao_norm 0.464/0.462 t=147s
+[Os_N16_B64_s0] step 14000 mse 0.8324 align 0.376 ao_norm 0.464/0.462 t=158s
+[Os_N16_B64_s0] step 15000 mse 0.8317 align 0.354 ao_norm 0.464/0.462 t=170s
+[Os_N16_B64_s0] step 16000 mse 0.8317 align 0.252 ao_norm 0.464/0.462 t=182s
+[Os_N16_B64_s0] step 17000 mse 0.8326 align 0.376 ao_norm 0.464/0.462 t=193s
+[Os_N16_B64_s0] step 18000 mse 0.8312 align 0.345 ao_norm 0.464/0.462 t=205s
+[Os_N16_B64_s0] step 19000 mse 0.8314 align 0.335 ao_norm 0.464/0.462 t=216s
+[Os_N16_B64_s0] step 20000 mse 0.8312 align 0.408 ao_norm 0.464/0.462 t=228s
+[Os_N16_B64_s0] step 21000 mse 0.8311 align 0.394 ao_norm 0.464/0.462 t=239s
+[Os_N16_B64_s0] step 22000 mse 0.8314 align 0.356 ao_norm 0.464/0.462 t=250s
+[Os_N16_B64_s0] step 23000 mse 0.8311 align 0.358 ao_norm 0.464/0.462 t=261s
+[Os_N16_B64_s0] step 24000 mse 0.8316 align 0.329 ao_norm 0.464/0.462 t=273s
+[Os_N16_B64_s0] step 25000 mse 0.8312 align 0.312 ao_norm 0.464/0.462 t=284s
+[Os_N16_B64_s0] step 26000 mse 0.8312 align 0.309 ao_norm 0.464/0.462 t=296s
+[Os_N16_B64_s0] step 27000 mse 0.8312 align 0.327 ao_norm 0.464/0.462 t=307s
+[Os_N16_B64_s0] step 28000 mse 0.8311 align 0.301 ao_norm 0.464/0.462 t=320s
+[Os_N16_B64_s0] step 29000 mse 0.8313 align 0.273 ao_norm 0.464/0.462 t=332s
+[Os_N16_B64_s0] step 30000 mse 0.8312 align 0.309 ao_norm 0.464/0.462 t=344s
+DONE {'proto': 'Os', 'N': 16, 'B': 64, 'seed': 0, 'steps_run': 30000, 'Te05': None, 'Te025': None, 'reached05': 0, 'reached025': 0, 'final_mse': 0.8311823830008507, 'min_mse': 0.8301461264491081, 'init_mse': 1.500847488641739, 'init_align': 0.12613952159881592, 'final_align': 0.3085780143737793, 'max_align': 0.43161606788635254, 'ao0_norm_init': 0.4642781913280487, 'ao0_norm_final': 0.4642781913280487, 'ao1_norm_init': 0.4617418646812439, 'ao1_norm_final': 0.4617418646812439, 'censored_by': 'max_steps', 'wall_s': 344.2, 'cpu_s': 343.0, 'threads': 1}
+[O1_N256_B64_s1] INIT align 0.1515 mse 1.1390 attn.out norm b0 4.5957 b1 4.6149
+[O1_N256_B64_s1] step 0 mse 1.1390 align 0.152 ao_norm 4.596/4.615 t=4s
+[O1_N256_B64_s1] step 1000 mse 0.8471 align 0.218 ao_norm 4.596/4.615 t=301s
+[O1_N256_B64_s1] step 2000 mse 0.8449 align 0.179 ao_norm 4.596/4.615 t=599s
+[O1_N256_B64_s1] step 3000 mse 0.8447 align 0.192 ao_norm 4.596/4.615 t=901s
+[O1_N256_B64_s1] step 4000 mse 0.8451 align 0.254 ao_norm 4.596/4.615 t=1199s
+[O1_N256_B64_s1] step 5000 mse 0.8446 align 0.278 ao_norm 4.596/4.615 t=1497s
+[O1_N256_B64_s1] step 6000 mse 0.8446 align 0.320 ao_norm 4.596/4.615 t=1793s
+[O1_N256_B64_s1] step 7000 mse 0.7962 align 0.761 ao_norm 4.596/4.615 t=2089s
+DONE {'proto': 'O1', 'N': 256, 'B': 64, 'seed': 1, 'steps_run': 7400, 'Te05': 7200, 'Te025': 7400, 'reached05': 1, 'reached025': 1, 'final_mse': 0.21076930221170187, 'min_mse': 0.21076930221170187, 'init_mse': 1.1390095502138138, 'init_align': 0.15154877305030823, 'final_align': 0.9457299113273621, 'max_align': 0.9457299113273621, 'ao0_norm_init': 4.595668315887451, 'ao0_norm_final': 4.595668315887451, 'ao1_norm_init': 4.614940643310547, 'ao1_norm_final': 4.614940643310547, 'censored_by': '', 'wall_s': 2207.9, 'cpu_s': 2197.8, 'threads': 1}
+[Os_N256_B64_s0] INIT align 0.1261 mse 1.8157 attn.out norm b0 0.4643 b1 0.4617
+[Os_N256_B64_s0] step 0 mse 1.8157 align 0.126 ao_norm 0.464/0.462 t=4s
+[Os_N256_B64_s0] step 1000 mse 1.1356 align 0.205 ao_norm 0.464/0.462 t=301s
+[Os_N256_B64_s0] step 2000 mse 1.1416 align 0.192 ao_norm 0.464/0.462 t=594s
+[Os_N256_B64_s0] step 3000 mse 1.1376 align 0.206 ao_norm 0.464/0.462 t=887s
+[Os_N256_B64_s0] step 4000 mse 1.1375 align 0.254 ao_norm 0.464/0.462 t=1178s
+[Os_N256_B64_s0] step 5000 mse 1.1220 align 0.396 ao_norm 0.464/0.462 t=1470s
+[Os_N256_B64_s0] step 6000 mse 0.2140 align 0.932 ao_norm 0.464/0.462 t=1766s
+DONE {'proto': 'Os', 'N': 256, 'B': 64, 'seed': 0, 'steps_run': 6000, 'Te05': 5400, 'Te025': 6000, 'reached05': 1, 'reached025': 1, 'final_mse': 0.21402697823941708, 'min_mse': 0.21402697823941708, 'init_mse': 1.8156575113534927, 'init_align': 0.12613952159881592, 'final_align': 0.9322215914726257, 'max_align': 0.9322215914726257, 'ao0_norm_init': 0.4642781913280487, 'ao0_norm_final': 0.4642781913280487, 'ao1_norm_init': 0.4617418646812439, 'ao1_norm_final': 0.4617418646812439, 'censored_by': '', 'wall_s': 1766.4, 'cpu_s': 1761.4, 'threads': 1}
+[Os_N16_B1024_s0] INIT align 0.1261 mse 1.5008 attn.out norm b0 0.4643 b1 0.4617
+[Os_N16_B1024_s0] step 0 mse 1.5008 align 0.126 ao_norm 0.464/0.462 t=0s
+[Os_N16_B1024_s0] step 1000 mse 0.8342 align 0.215 ao_norm 0.464/0.462 t=192s
+[Os_N16_B1024_s0] step 2000 mse 0.8320 align 0.164 ao_norm 0.464/0.462 t=385s
+[Os_N16_B1024_s0] step 3000 mse 0.8327 align 0.154 ao_norm 0.464/0.462 t=579s
+[Os_N16_B1024_s0] step 4000 mse 0.8311 align 0.173 ao_norm 0.464/0.462 t=767s
+[Os_N16_B1024_s0] step 5000 mse 0.8316 align 0.166 ao_norm 0.464/0.462 t=963s
+[Os_N16_B1024_s0] step 6000 mse 0.8316 align 0.198 ao_norm 0.464/0.462 t=1165s
+[Os_N16_B1024_s0] step 7000 mse 0.8315 align 0.254 ao_norm 0.464/0.462 t=1359s
+[Os_N16_B1024_s0] step 8000 mse 0.8311 align 0.230 ao_norm 0.464/0.462 t=1543s
+DONE {'proto': 'Os', 'N': 16, 'B': 1024, 'seed': 0, 'steps_run': 8000, 'Te05': None, 'Te025': None, 'reached05': 0, 'reached025': 0, 'final_mse': 0.8310775682330132, 'min_mse': 0.8306933343410492, 'init_mse': 1.500847488641739, 'init_align': 0.12613952159881592, 'final_align': 0.22988930344581604, 'max_align': 0.3020460903644562, 'ao0_norm_init': 0.4642781913280487, 'ao0_norm_final': 0.4642781913280487, 'ao1_norm_init': 0.4617418646812439, 'ao1_norm_final': 0.4617418646812439, 'censored_by': 'killed_8000_cpu_budget', 'wall_s': 1543.2, 'cpu_s': 1541.3, 'threads': 1}
