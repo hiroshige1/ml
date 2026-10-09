@@ -94,7 +94,9 @@ transformer's Γ. **Exp 12** (single-feature model + one ingredient at a time): 
 optimiser is excluded; the softmax arm did not learn at any `N` (inconclusive, P25c/d failed as worded). **Exp 13** (distance-based softmax, β=0.3): SGD reproduces the linear pattern (`N=16` stuck 0/4, `N=1024` escapes 2/2, P26a held) but Adam
 escapes `N=16` in 3/4 runs already at `B=64` (P26b failed): softmax and Adam jointly remove the trap in the single-feature model, neither alone;
 **Exp 14** then showed the escape is noise-driven: at `N=16` the median escape time rises monotonically with `B` (8.0k → 25k → 39k → 60k for
-`B=16…1024`, P27 held), the opposite of the transformer's `B`-rescue. Remaining
+`B=16…1024`, P27 held), the opposite of the transformer's `B`-rescue. **Exp 15**: where the drift is positive (linear, `N=1024`), Adam's escape time falls 17× from
+`B=16` to `B=1024` (slope −0.75 ± 0.14) while SGD's flow time is `B`-invariant (−0.015 ± 0.028): prompts per step enter through the optimiser,
+not the loss — the candidate mechanism for the transformer's `N`–`B` interchange (P28a/b failed as worded on the band/spread; the effect is strong). Remaining
 candidates for the `B`-rescue: depth, LayerNorm, residual stream.
 
 ## What would make this a paper (current best framing, subject to exp 3/5)

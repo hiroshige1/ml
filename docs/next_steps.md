@@ -61,5 +61,5 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
 - [x] (d984c95 prereg; d957200 results; P27 held: noise-driven; paper v0.20) **N20 (2026-10-09, from exp 13). B-dependence of the softmax+Adam escape at N=16 (exp 14, P27)**: noise-driven
   (escape fraction non-increasing in B) vs drift-driven (increasing, transformer-like).
 
-- [~] (pre-registered; running) **N21 (2026-10-09, from exps 12-14). Adam makes B matter when the drift is positive? (exp 15, P28a/b)**: linear
+- [x] (727a72b prereg; 7505ffb results; Adam slope −0.75, SGD flat; P28 failed as worded; paper v0.21) **N21 (2026-10-09, from exps 12-14). Adam makes B matter when the drift is positive? (exp 15, P28a/b)**: linear
   pinned Γ=1, N=1024, B∈{16,…,1024}: Adam slope of log T vs log B in [−0.75,−0.25] vs SGD flat. If it holds, exp 16 = transformer B-scan at N=16.

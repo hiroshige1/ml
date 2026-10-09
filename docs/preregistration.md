@@ -540,6 +540,18 @@ one mechanism by which a transformer trained with Adam can trade `B` for `N` eve
 (`B ∈ {256, 512, 1024}`) is then pre-registered as exp 16 to test the same scaling there. If P28a fails, Adam is not the mechanism and the paper
 keeps the ablation as is.
 
+## Exp 15 outcome (recorded 2026-10-09 after the run; `results/exp15/README.md`, commit 7505ffb; the container restarted mid-run, 2 rows reused)
+
+24/24 runs escaped, 1.39 CPU-h. Median `T_0.5` at `B = 16/64/256/1024`: **Adam 2537 / 1421 / 216 / 146 steps** (`T(16)/T(1024) = 17.4`); SGD flow time
+`T·η = 10.11 / 8.43 / 9.05 / 9.23` (ratio 1.095). OLS slopes of `log T` vs `log B`: **Adam −0.754 ± 0.144**, SGD −0.015 ± 0.028.
+**P28a failed as worded** (the slope is 0.004 outside the band `[−0.75, −0.25]`, i.e. the `B`-dependence is *stronger* than the `√B` SNR estimate;
+the ratio clause holds; the `B`-invariance default is rejected at 3.5 s.e.). **P28b failed on its second clause** (slope flat as predicted; the
+four medians span 1.20 against the 15% limit, driven by the `B=16` cell's seed spread 32582–48188). Reading: with the same loss and the same
+positive drift, Adam's escape time falls ≈17× from `B=16` to `B=1024` while SGD's flow time is `B`-invariant within 20% (and within 0.5% in E5 at
+`N=64`). Prompts per step enter the escape time through the optimiser, not through the loss: this is a candidate mechanism for the transformer's
+`N`–`B` interchange (exps 5, 8, 11) and is tested on the transformer itself in exp 16. The `√B` prediction was quantitatively wrong (the measured
+exponent is ≈0.75); the paper quotes the measured slope and does not claim the SNR exponent.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
