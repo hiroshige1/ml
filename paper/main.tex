@@ -15,7 +15,7 @@
 
 \title{Context length and readout parameterisation select the emergence exponent\\ of in-context skills in an additive model}
 \author{\todo{authors}}
-\date{Draft v0.3 --- \today}
+\date{Draft v0.4 --- \today}
 
 \begin{document}
 \maketitle
@@ -145,22 +145,30 @@ $d=32$ sits on the ridge ($\Delta L/D_{\rm eff}\approx0.02$), $d=64$ is trapped 
 Larger batches lower $D_{\rm eff}$ and \emph{deepen} the trap.
 \end{remark}
 
-\begin{proposition}[Readout parameterisation]
+\begin{proposition}[Readout parameterisation: three regimes]
 \label{prop:shrink}
-(a) \emph{Free readout.} At fixed $m$ the scalar $\Gamma$ relaxes at rate $\approx2V/N$ to
-$\Gamma^*(m)=g^2/\big(g(1)[(1-\tfrac1N)g^2+V/N]\big)$, and $L_A(m,\Gamma^*)\approx s^2[1-Ng^4/(g(1)V)]$ for $g^2\ll V/N$, i.e.\ the effective
-exponent is $4k^*$ while $m\ll N^{-1/(2k^*)}$ and $2k^*$ beyond. (b) \emph{Tied readout} $\Gamma=\rho=\|u\|^2$: the directional
-drift is $(1-m^2)\big[4gg'-\rho(2(1-\tfrac1N)gg'+V'/N)\big]$---the attraction does not carry $\rho$---and $\dot\rho=-4\rho\,\partial_\rho L$ keeps
-$\rho$ small; the effective exponent is $2k^*$ for every $N$, while the repulsion of Prop.~\ref{prop:repulsion} survives.
+Let $k^*\ge2$, $m_0=d^{-1/2}$, and write $\tau_{\rm esc}$ for the population escape time to $m=\tfrac12$.
+\begin{enumerate}
+\item[(a)] \emph{Pinned readout} $\Gamma=\gamma$ fixed. If $m_0<m^*(\gamma,N)$ of Prop.~\ref{prop:repulsion} the drift is repulsive and
+$\tau_{\rm esc}=\infty$ (escape only by noise activation); otherwise $\tau_{\rm esc}\asymp m_0^{-(2k^*-2)}$ with a prefactor that saturates in $N$.
+Neither more prompts per step nor more steps change the condition, which involves $N$ alone.
+\item[(b)] \emph{Free scalar readout} trained at rate $\eta_\Gamma$. $\Gamma$ relaxes at rate $\approx2\eta_\Gamma g(1)V(m)/N$---fast relative to the overlap
+dynamics as soon as $N<\infty$---to $\Gamma^*(m)=g^2/\big(g(1)[(1-\tfrac1N)g^2+V/N]\big)$. Along $\Gamma^*$ the overlap sees the effective loss
+$L_A(m,\Gamma^*)=s^2\big[1-g^4/\big(g(1)[(1-\tfrac1N)g^2+V/N]\big)\big]$, whose exponent is $4k^*$ while $g(m)^2\ll V(m)/N$ (noise-dominated
+statistic, $m\ll N^{-1/(2k^*)}$) and $2k^*$ beyond. In the noise-dominated regime the drift is $\propto N$, so $\tau_{\rm esc}\propto 1/N$: context
+length and training time trade off multiplicatively; in the signal-dominated regime $\tau_{\rm esc}$ is independent of $N$.
+\item[(c)] \emph{Tied readout} $\Gamma=\rho=\|u\|^2$, features $\sg(\langle u/\|u\|,x\rangle)$. The directional velocity is
+$(1-m^2)\big[4gg'-\rho\,(2(1-\tfrac1N)gg'+V'/N)\big]$: the attraction does not carry $\rho$ (norm-independence of the directional dynamics,
+\citealp[Lemma~B.1]{ren2025emergence}) while the repulsion does, and $\dot\rho=-4\rho\,\partial_\rho L_A$ keeps $\rho$ at $\Gamma^*\ll1$ from a small
+initialisation. Hence $\tau_{\rm esc}\asymp m_0^{-(2k^*-2)}$ independently of $N$; from $\rho_0=O(1)$ the repulsion of (a) applies until $\rho$ has decayed.
+\end{enumerate}
 \end{proposition}
+Integrating the population flow confirms the three regimes quantitatively (Appendix~\ref{app:deriv}): for $\sg_2$ at $d=512$ and
+$N=32,128,512$ the escape times are $\infty,771,386$ (pinned $\gamma=0.1$), $9.0\cdot10^4,2.2\cdot10^4,5.4\cdot10^3$ with $\tau N=2.9,2.8,2.75\times10^6$
+(free), and $39,34,33$ (tied); at $d=32$ the free readout is signal-dominated and $\tau=53,37,34,33$ for $N=32$--$2048$.
 The static value $\Gamma^*$ is the ridge/Wiener optimum that appears in replica analyses of trained
-models~\citep[eqs.~(297)--(298)]{gu2026incontext}; our point is its \emph{dynamical} effect. Integrating the population flow from
-$m_0=d^{-1/2}$ gives three different $N$-dependences of the escape time for the same loss: (i)~\emph{pinned} readout ($\Gamma=0.1$):
-$T$ saturates in $N$ and diverges (trap) when $d$ exceeds $d^*(N)$---$T=197,96,88,86$ at $d=128$ and $\infty,771,386,352$ at $d=512$
-for $N=32,128,512,2048$; (ii)~\emph{free} readout: in the noise-dominated regime $T\cdot N\approx\mathrm{const}$ ($2.9,2.8,2.75\times10^6$ at
-$d=512$, $N=32,128,512$), i.e.\ exactly the multiplicative $N$--$T$ trade-off of \citet[Remark~3]{oko2024pretrained}, crossing over to
-$N$-independence where the statistic is signal-dominated ($d=32$: $53,37,34,33$); (iii)~\emph{tied} readout: $T$ independent of $N$
-($1.96,1.94,1.94,1.94$ at $d=32$; $39,34,33,33$ at $d=512$). That a fast readout doubles the exponent of an in-weight problem is
+models~\citep[eqs.~(297)--(298)]{gu2026incontext}; our point is its \emph{dynamical} effect: the same loss yields a trap, a multiplicative $N$--$T$ trade-off (that of
+\citet[Remark~3]{oko2024pretrained}) with an exponent crossover, or no $N$-dependence, according to the readout. That a fast readout doubles the exponent of an in-weight problem is
 known~\citep[\S5]{bietti2023learning}; what is specific to the in-context problem is that the finite-context noise makes the
 readout fast and pins it at $\Gamma^*$, so that \emph{whether context length trades off against training time, is irrelevant, or is a
 hard requirement is decided by how the readout is parameterised}. One-step analyses sit in case (ii) by construction: the readout
