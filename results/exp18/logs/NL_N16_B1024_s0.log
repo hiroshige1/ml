@@ -1,0 +1,33 @@
+[free_N16_B1024_s0] INIT align 0.1261 mse 1.1064 head_norm 0.5550
+[free_N16_B1024_s0] step 0 mse 1.1064 align 0.126 head 0.555 t=0s
+[free_N16_B1024_s0] step 1000 mse 0.8352 align 0.189 head 0.248 t=162s
+[free_N16_B1024_s0] step 2000 mse 0.8308 align 0.166 head 0.158 t=329s
+[free_N16_B1024_s0] step 3000 mse 0.8308 align 0.131 head 0.103 t=495s
+[free_N16_B1024_s0] step 4000 mse 0.8322 align 0.195 head 0.063 t=662s
+[free_N16_B1024_s0] step 5000 mse 0.8330 align 0.278 head 0.043 t=828s
+[free_N16_B1024_s0] step 6000 mse 0.8330 align 0.257 head 0.037 t=994s
+[free_N16_B1024_s0] step 7000 mse 0.8300 align 0.267 head 0.032 t=1163s
+[free_N16_B1024_s0] step 8000 mse 0.8298 align 0.295 head 0.036 t=1332s
+[free_N16_B1024_s0] step 9000 mse 0.8343 align 0.237 head 0.033 t=1500s
+[free_N16_B1024_s0] step 10000 mse 0.8327 align 0.151 head 0.035 t=1668s
+[free_N16_B1024_s0] step 11000 mse 0.8309 align 0.145 head 0.030 t=1830s
+[free_N16_B1024_s0] step 12000 mse 0.8286 align 0.230 head 0.032 t=1995s
+[free_N16_B1024_s0] step 13000 mse 0.8336 align 0.254 head 0.030 t=2164s
+[free_N16_B1024_s0] step 14000 mse 0.8328 align 0.171 head 0.034 t=2327s
+[free_N16_B1024_s0] step 15000 mse 0.8352 align 0.200 head 0.034 t=2487s
+[free_N16_B1024_s0] step 16000 mse 0.8328 align 0.178 head 0.032 t=2651s
+[free_N16_B1024_s0] step 17000 mse 0.8311 align 0.181 head 0.027 t=2816s
+[free_N16_B1024_s0] step 18000 mse 0.8328 align 0.207 head 0.030 t=2978s
+[free_N16_B1024_s0] step 19000 mse 0.8328 align 0.265 head 0.031 t=3140s
+[free_N16_B1024_s0] step 20000 mse 0.8307 align 0.274 head 0.026 t=3303s
+[free_N16_B1024_s0] step 21000 mse 0.8325 align 0.301 head 0.031 t=3467s
+[free_N16_B1024_s0] step 22000 mse 0.8319 align 0.309 head 0.031 t=3632s
+[free_N16_B1024_s0] step 23000 mse 0.8290 align 0.362 head 0.028 t=3793s
+[free_N16_B1024_s0] step 24000 mse 0.8343 align 0.401 head 0.031 t=3969s
+[free_N16_B1024_s0] step 25000 mse 0.8329 align 0.303 head 0.027 t=4144s
+[free_N16_B1024_s0] step 26000 mse 0.8330 align 0.313 head 0.030 t=4325s
+[free_N16_B1024_s0] step 27000 mse 0.8314 align 0.217 head 0.029 t=4519s
+[free_N16_B1024_s0] step 28000 mse 0.8353 align 0.178 head 0.028 t=4721s
+[free_N16_B1024_s0] step 29000 mse 0.8323 align 0.174 head 0.029 t=4948s
+[free_N16_B1024_s0] step 30000 mse 0.8334 align 0.195 head 0.026 t=5195s
+DONE {'proto': 'free', 'N': 16, 'B': 1024, 'seed': 0, 'steps_run': 30000, 'Te05': None, 'Te025': None, 'reached05': 0, 'reached025': 0, 'final_mse': 0.833356648683548, 'min_mse': 0.8286383897066116, 'init_mse': 1.1064166873693466, 'init_align': 0.12613952159881592, 'final_align': 0.19481585919857025, 'max_align': 0.4065188765525818, 'head_norm_init': 0.5550353527069092, 'head_norm_final': 0.026471927762031555, 'censored_by': 'max_steps', 'wall_s': 5195.4, 'cpu_s': 5145.7, 'threads': 1, 'variant': 'NL'}

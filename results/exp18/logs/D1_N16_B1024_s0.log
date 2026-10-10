@@ -1,0 +1,28 @@
+[free_N16_B1024_s0] INIT align 0.1261 mse 1.3174 head_norm 0.5550
+[free_N16_B1024_s0] step 0 mse 1.3174 align 0.126 head 0.555 t=0s
+[free_N16_B1024_s0] step 1000 mse 0.8354 align 0.178 head 0.294 t=111s
+[free_N16_B1024_s0] step 2000 mse 0.8324 align 0.163 head 0.244 t=225s
+[free_N16_B1024_s0] step 3000 mse 0.8322 align 0.152 head 0.195 t=335s
+[free_N16_B1024_s0] step 4000 mse 0.8310 align 0.185 head 0.135 t=444s
+[free_N16_B1024_s0] step 5000 mse 0.8316 align 0.165 head 0.097 t=551s
+[free_N16_B1024_s0] step 6000 mse 0.8319 align 0.205 head 0.079 t=660s
+[free_N16_B1024_s0] step 7000 mse 0.8314 align 0.216 head 0.081 t=768s
+[free_N16_B1024_s0] step 8000 mse 0.8311 align 0.201 head 0.061 t=873s
+[free_N16_B1024_s0] step 9000 mse 0.8312 align 0.266 head 0.056 t=980s
+[free_N16_B1024_s0] step 10000 mse 0.8323 align 0.170 head 0.059 t=1086s
+[free_N16_B1024_s0] step 11000 mse 0.8317 align 0.257 head 0.051 t=1191s
+[free_N16_B1024_s0] step 12000 mse 0.8314 align 0.255 head 0.044 t=1297s
+[free_N16_B1024_s0] step 13000 mse 0.8310 align 0.267 head 0.039 t=1404s
+[free_N16_B1024_s0] step 14000 mse 0.8311 align 0.264 head 0.041 t=1511s
+[free_N16_B1024_s0] step 15000 mse 0.8312 align 0.253 head 0.043 t=1618s
+[free_N16_B1024_s0] step 16000 mse 0.8320 align 0.251 head 0.038 t=1727s
+[free_N16_B1024_s0] step 17000 mse 0.8312 align 0.265 head 0.037 t=1834s
+[free_N16_B1024_s0] step 18000 mse 0.8314 align 0.267 head 0.047 t=1941s
+[free_N16_B1024_s0] step 19000 mse 0.8311 align 0.257 head 0.041 t=2049s
+[free_N16_B1024_s0] step 20000 mse 0.8312 align 0.276 head 0.040 t=2158s
+[free_N16_B1024_s0] step 21000 mse 0.8312 align 0.286 head 0.051 t=2266s
+[free_N16_B1024_s0] step 22000 mse 0.8314 align 0.324 head 0.050 t=2374s
+[free_N16_B1024_s0] step 23000 mse 0.8312 align 0.363 head 0.048 t=2483s
+[free_N16_B1024_s0] step 24000 mse 0.8291 align 0.485 head 0.107 t=2593s
+[free_N16_B1024_s0] step 25000 mse 0.2019 align 0.996 head 2.415 t=2719s
+DONE {'proto': 'free', 'N': 16, 'B': 1024, 'seed': 0, 'steps_run': 25000, 'Te05': 24600, 'Te025': 25000, 'reached05': 1, 'reached025': 1, 'final_mse': 0.20191116444766521, 'min_mse': 0.20191116444766521, 'init_mse': 1.3174253404140472, 'init_align': 0.12613952159881592, 'final_align': 0.9959742426872253, 'max_align': 0.9959742426872253, 'head_norm_init': 0.5550353527069092, 'head_norm_final': 2.4146153926849365, 'censored_by': '', 'wall_s': 2719.1, 'cpu_s': 2684.5, 'threads': 1, 'variant': 'D1'}

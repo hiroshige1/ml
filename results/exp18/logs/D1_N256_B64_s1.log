@@ -1,0 +1,6 @@
+[free_N256_B64_s1] INIT align 0.1515 mse 1.1241 head_norm 0.5764
+[free_N256_B64_s1] step 0 mse 1.1241 align 0.152 head 0.576 t=3s
+[free_N256_B64_s1] step 1000 mse 0.8457 align 0.164 head 0.351 t=166s
+[free_N256_B64_s1] step 2000 mse 0.7723 align 0.654 head 0.326 t=333s
+[free_N256_B64_s1] step 3000 mse 0.2733 align 0.910 head 0.884 t=496s
+DONE {'proto': 'free', 'N': 256, 'B': 64, 'seed': 1, 'steps_run': 3200, 'Te05': 2400, 'Te025': 3200, 'reached05': 1, 'reached025': 1, 'final_mse': 0.24138837587088346, 'min_mse': 0.24138837587088346, 'init_mse': 1.124100536108017, 'init_align': 0.15154877305030823, 'final_align': 0.9353374242782593, 'max_align': 0.9353374242782593, 'head_norm_init': 0.5763530731201172, 'head_norm_final': 0.9477502703666687, 'censored_by': '', 'wall_s': 529.0, 'cpu_s': 519.7, 'threads': 1, 'variant': 'D1'}
