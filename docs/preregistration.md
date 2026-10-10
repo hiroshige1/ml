@@ -591,6 +591,29 @@ Reading: the optimiser effect of exp 15 is real in the solvable model but does n
 remains open (n=2 per cell; the plateau shows no drift toward emergence). The paper reports exps 15–17 as: Adam makes `B` matter in the model
 (graded), the transformer's `B`-rescue is threshold-like, so the two are not the same effect.
 
+## Locating the ingredient of the transformer's B-rescue: depth and LayerNorm (exp 18, backlog N26 part 1) — pre-registered 2026-10-10 before any run
+
+Exps 8–17 excluded the population loss, the final readout, the attention-output scale and Adam's graded batch-size effect as the mechanism by which
+`B=1024` rescues `N=16` while `B=64` leaves it stuck. Remaining candidates: depth (two blocks), LayerNorm, the residual stream. This experiment removes
+two of them one at a time from the exp-5 model (`d=256`, width 32, Adam `10⁻³`, 30k steps, eval every 200, `T_e` = first eval MSE/E[y²] < 0.5, early stop
+at 0.25, seeds 0 and 1): (D1) **one block** instead of two; (NL) **no LayerNorm** (all `ln1`, `ln2`, `lnf` replaced by the identity; everything else as
+exp 5). Cells per variant: `N=16, B=64`; `N=16, B=1024`; `N=256, B=64` (control that the variant learns at all). 12 runs, cap 6 CPU-h, launch
+order: `N=256,B=64` controls first, then `N=16,B=1024`, then `N=16,B=64`.
+
+Readings fixed now (per variant; "escapes" = ≥1 of 2 seeds reaches `T_e(0.5)` within 30k):
+- **Pattern A** (`N=256` escapes; `N=16,B=64` stuck; `N=16,B=1024` escapes) = the full model's pattern ⇒ the removed ingredient is **not** required for
+  the `B`-rescue.
+- **Pattern B** (`N=256` escapes; `N=16` stuck at both `B`) ⇒ the removed ingredient is **required** for the rescue (it is the leading candidate).
+- **Pattern C** (`N=16` escapes at both `B`) ⇒ the removed ingredient **causes** the short-context handicap itself.
+- **Pattern 0** (`N=256` stuck) ⇒ the variant does not learn the task in 30k steps; uninformative.
+
+| ID | variant | weak prior (not a prediction with a pass criterion; all four patterns are pre-interpreted above) |
+|---|---|---|
+| P31a | D1 (one block) | Pattern B or 0: one attention block can form the context statistic but not multiply it by the query feature as well |
+| P31b | NL (no LayerNorm) | Pattern A: LayerNorm is not what makes prompts per step matter |
+
+Whatever the patterns, the paper reports them with the pre-stated reading and n=2; no new transfer claim follows.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
