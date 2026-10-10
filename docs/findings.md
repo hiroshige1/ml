@@ -96,7 +96,10 @@ escapes `N=16` in 3/4 runs already at `B=64` (P26b failed): softmax and Adam joi
 **Exp 14** then showed the escape is noise-driven: at `N=16` the median escape time rises monotonically with `B` (8.0k → 25k → 39k → 60k for
 `B=16…1024`, P27 held), the opposite of the transformer's `B`-rescue. **Exp 15**: where the drift is positive (linear, `N=1024`), Adam's escape time falls 17× from
 `B=16` to `B=1024` (slope −0.75 ± 0.14) while SGD's flow time is `B`-invariant (−0.015 ± 0.028): prompts per step enter through the optimiser,
-not the loss — the candidate mechanism for the transformer's `N`–`B` interchange (P28a/b failed as worded on the band/spread; the effect is strong). Remaining
+not the loss — a candidate mechanism for the transformer's `N`–`B` interchange (P28a/b failed as worded on the band/spread; the effect is strong). **Exps 16–17**
+rejected it for the transformer: at `N=16`, `B=256` stays stuck through 80k steps (graded law predicted ≈36k), `B=512` 1/2, `B≥1024` 2/2 — a
+threshold between 256 and 512, not a power law. The transformer's interchange mechanism is open; excluded: the loss, the final readout, the
+attention-output scale, Adam's graded `B`-dependence alone. Remaining
 candidates for the `B`-rescue: depth, LayerNorm, residual stream.
 
 ## What would make this a paper (current best framing, subject to exp 3/5)

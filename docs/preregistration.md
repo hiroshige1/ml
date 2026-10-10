@@ -582,6 +582,15 @@ does not decide between graded and threshold. Follow-up exp 17 (below) raises th
 
 Same protocol, `B=256`, seeds 0 and 1, cap **80k** steps (≈2 CPU-h). | P30 | the graded law holds: ≥1/2 seeds emerge with `T_e(0.5) ∈ [30k, 80k]` | default: still stuck 2/2 at 80k ⇒ the rescue is threshold-like between `B=256` and `B=512` and the Adam mechanism's graded law is not supported in the transformer |
 
+## Exp 17 outcome (recorded 2026-10-10 after the run; `results/exp17/README.md`, commit a2413bb)
+
+`B=256`, `N=16`, 80k cap: seed 0 stuck through 80000 steps (final MSE 0.83, max alignment 0.28), seed 1 stuck through 77000 (budget-censored,
+2.49 CPU-h). **P30 failed; the default holds**: the transformer's rescue is threshold-like between `B=256` (stuck to 80k) and `B=512` (1/2 at 13.4k) /
+`B=1024` (2/2 at ≈13k), not the graded `B^{−0.75}` law that Adam produces in the single-feature model (exp 15; that law predicted ≈36k here).
+Reading: the optimiser effect of exp 15 is real in the solvable model but does not account for the transformer's `N`–`B` interchange; its mechanism
+remains open (n=2 per cell; the plateau shows no drift toward emergence). The paper reports exps 15–17 as: Adam makes `B` matter in the model
+(graded), the transformer's `B`-rescue is threshold-like, so the two are not the same effect.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional

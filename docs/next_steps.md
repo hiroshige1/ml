@@ -67,4 +67,4 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
 - [x] (89391b3 prereg; 9543b7c results; P29 failed on clause 1, B=256 censored at 30k) **N22 (2026-10-09, from exp 15). Transformer B-scan at N=16 (exp 16, P29)**: graded power-law B-dependence (Adam
   mechanism) vs threshold.
 
-- [~] (pre-registered; running) **N23 (2026-10-09, from exp 16). Transformer B=256, N=16, 80k-step cap (exp 17, P30)**: graded law predicts T_e ≈ 36k.
+- [x] (eed5c94 prereg; a2413bb results; P30 failed: threshold-like; paper v0.22) **N23 (2026-10-09, from exp 16). Transformer B=256, N=16, 80k-step cap (exp 17, P30)**: graded law predicts T_e ≈ 36k.
