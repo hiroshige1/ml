@@ -68,3 +68,8 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
   mechanism) vs threshold.
 
 - [x] (eed5c94 prereg; a2413bb results; P30 failed: threshold-like; paper v0.22) **N23 (2026-10-09, from exp 16). Transformer B=256, N=16, 80k-step cap (exp 17, P30)**: graded law predicts T_e ≈ 36k.
+
+- [ ] **N24 (2026-10-10). Refresh the four-page variant** (`paper/body_4p.tex` is based on v0.16; Sec. 5 has since gained Exps. 12–17) once the main text
+  is frozen; cuts and moves only.
+- [ ] **N25 (2026-10-10). Fifth adversarial review of v0.22** focused on Sec. 5 (is the ablation ladder Exps. 8–17 coherent, honestly framed and worth its
+  length; what should move to the appendix), then respond.

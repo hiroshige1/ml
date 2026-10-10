@@ -10,7 +10,7 @@ substitute for context length; a free scalar readout shrinks to a Wiener factor:
 norm removes the $N$-dependence as long as its initial norm is below an explicit threshold (proved, with the $N$-dependence bounded by $k^*\rho_0/(Nm_0^{2k^*-2})$). A parameter-free population ODE reproduces the exponents measured by online SGD at
 $d=32$ for three readout protocols and four context lengths (all 12 cells within $0.5$ by a censored fit), the escape times at $d=64$ and $d=128$ including the predicted flip of a context length from escape to trap, and, at $k^*=3$, the trap threshold and an exponent near $6$ (two pre-registered precision bands were missed and are reported). With
 many skills the dynamics decouple with emergence times $\propto1/\pi_p$; additive compositions of learned skills follow by linearity.
-In small softmax transformers no parameter whose scale we froze reproduces the trap or the rescue (two pre-registered tests, both killed), and, unlike in the solvable model, prompts per step partly substitute for context length.
+In small softmax transformers no parameter whose scale we froze reproduces the trap or the rescue (two pre-registered tests, both killed), and, unlike in the solvable model, prompts per step partly substitute for context length---with a threshold-like dependence that neither the loss nor Adam's graded batch-size effect in the model accounts for.
 \end{abstract}
 
 \section{Introduction}
