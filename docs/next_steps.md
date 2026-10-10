@@ -74,5 +74,5 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
 - [x] (docs/review_adversarial_5.md 6/10; response docs/review_adversarial_5_response.md; paper v0.23) **N25 (2026-10-10). Fifth adversarial review of v0.22** focused on Sec. 5 (is the ablation ladder Exps. 8–17 coherent, honestly framed and worth its
   length; what should move to the appendix), then respond.
 
-- [~] (part 1 = exp 18 pre-registered, running; part 2 (4-seed B-scan) deferred) **N26 (2026-10-10, open research). Transformer N–B mechanism**: B-scan at N=16 with 4 seeds and a
+- [~] (part 1 = exp 18 done f041542: Pattern A for D1 and NL; part 2 (4-seed B-scan, ≈10 CPU-h) left to the author) **N26 (2026-10-10, open research). Transformer N–B mechanism**: B-scan at N=16 with 4 seeds and a
   60k cap for B∈{256,384,512,768}; separately a 1-block and a no-LayerNorm variant at N=16, B∈{64,1024} to locate the ingredient (depth / LN / residual).

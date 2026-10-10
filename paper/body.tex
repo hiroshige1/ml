@@ -348,7 +348,7 @@ against $\log B$; the pre-registered $\sqrt B$ band $[-0.75,-0.25]$ of P28a was 
 adaptive methods~\citep{malladi2022sdes}. The transformer's $B$-dependence at $N=16$ is steeper still: $B=256$ stays stuck through $77$--$80$k steps in
 two seeds where that slope, anchored at $B=1024$, predicts $\approx36$k; $B=512$ emerges in one of two; $B\ge1024$ in all (Exps.~16--17; P29--P30 failed).
 With two seeds per cell a threshold cannot be told from a steep power law. The mechanism of the transformer's $N$--$B$ interchange is therefore open;
-what is excluded is that it is the population loss, the final readout, or the attention-output scale. Single-feature ablations with product- and
+what is excluded is that it is the population loss, the final readout, or the attention-output scale; removing the second block or all LayerNorms leaves the pattern in place (stuck at $B=64$, rescued at $B=1024$ in one of two seeds; Exp.~18, pre-registered P31), so neither depth nor LayerNorm is required for it. Single-feature ablations with product- and
 distance-based softmax statistics under SGD and Adam (Exps.~12--14) are reported in Appendix~\ref{app:ladder}.
 
 \section{Related work}

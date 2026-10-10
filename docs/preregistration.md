@@ -614,6 +614,17 @@ Readings fixed now (per variant; "escapes" = ≥1 of 2 seeds reaches `T_e(0.5)` 
 
 Whatever the patterns, the paper reports them with the pre-stated reading and n=2; no new transfer claim follows.
 
+## Exp 18 outcome (recorded 2026-10-10 after the run; `results/exp18/README.md`, commit f041542)
+
+11/12 runs (NL `N=16,B=64` seed 1 dropped for budget), 5.98 CPU-h. `T_e(0.5)` (seeds 0/1): D1 (one block): `N=256,B=64` censored at 18600 (budget,
+plateau) / 2400; `N=16,B=1024` 24600 / stuck; `N=16,B=64` stuck / stuck. NL (no LayerNorm): `N=256,B=64` censored at 10800 / 1600; `N=16,B=1024`
+stuck / 13200; `N=16,B=64` stuck / —. **Both variants show Pattern A** (control escapes; `N=16,B=64` stuck; `N=16,B=1024` escapes in 1/2): neither the
+second block nor LayerNorm is required for the `B`-rescue, with the caveat that each rescue rests on one seed of two and the variants learn more slowly
+than the full model (the full model's `N=256` escaped 2/2 within 4000 steps). P31a's weak prior (D1 → Pattern B or 0) did not match; P31b's (NL → A)
+matched. Deviations: two `N=256` seed-0 controls stopped for budget on the plateau after the other seed had escaped (pattern unaffected); jobs ran
+through an uncommitted bash claim queue (described in the README). Remaining candidates for the mechanism: the residual stream / embedding, and the
+plateau's stochastic dynamics itself; part 2 of N26 (a 4-seed `B`-scan) is left to the author.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
