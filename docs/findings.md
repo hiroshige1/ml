@@ -92,7 +92,7 @@ of the context statistic) at O(1) and at 0.1×: `B=1024` still rescued `N=16` (1
 (stuck 2/2); freezing slowed emergence ≈3× at `N=256`. Kill met again. Neither the readout nor the attention-output scale is the
 transformer's Γ. **Exp 12** (single-feature model + one ingredient at a time): Adam does not let `B=1024` rescue `N=16` (0/4, P25b held), so the
 optimiser is excluded; the softmax arm did not learn at any `N` (inconclusive, P25c/d failed as worded). **Exp 13** (distance-based softmax, β=0.3): SGD reproduces the linear pattern (`N=16` stuck 0/4, `N=1024` escapes 2/2, P26a held) but Adam
-escapes `N=16` in 3/4 runs already at `B=64` (P26b failed): softmax and Adam jointly remove the trap in the single-feature model, neither alone;
+escapes `N=16` in 3/4 runs already at `B=64` (P26b failed): read as barrier depth, not an interaction: the rbf drift at `N=16`, `m₀` is −6e-3 ± 6e-3 (indistinguishable from zero), so Adam crosses a barrier that may not exist while it does not cross the linear model's deep one;
 **Exp 14** then showed the escape is noise-driven: at `N=16` the median escape time rises monotonically with `B` (8.0k → 25k → 39k → 60k for
 `B=16…1024`, P27 held), the opposite of the transformer's `B`-rescue. **Exp 15**: where the drift is positive (linear, `N=1024`), Adam's escape time falls 17× from
 `B=16` to `B=1024` (slope −0.75 ± 0.14) while SGD's flow time is `B`-invariant (−0.015 ± 0.028): prompts per step enter through the optimiser,

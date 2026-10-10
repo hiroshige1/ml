@@ -643,6 +643,11 @@ are confirmed.
 
 ## Changelog
 - 2026-10-08 v0: written before any exp 1 result was inspected (drift check and sweep running).
+- 2026-10-10 v0.23: review 5 (`docs/review_adversarial_5.md`, 6/10; Sec. 5 ≈ 4/10) acted on in paper v0.23 (`docs/review_adversarial_5_response.md`): Sec. 5
+  cut to three paragraphs (observation with the third-seed reversal, two null knob tests, what prompts per step do); Exps. 12–14 and the readout collapse
+  moved to Appendix "Ablation ladder"; "softmax+Adam, neither alone" withdrawn (barrier-depth reading); "threshold-like" withdrawn (n=2 cannot separate a
+  threshold from a steep power law); P28b's failure and P27's two readings stated; abstract clause replaced; Malladi et al. (2022) cited after abstract
+  verification. No prediction or outcome changed.
 - 2026-10-09 v0.22: review 4 (`docs/review_adversarial_4.md`, 6/10) acted on in paper v0.16 (`docs/review_adversarial_4_response.md`): transformer
   claims cut to the two killed tests; Prop. 3 credits only what Theorems A/B prove (tied N-flatness numerical; trap condition ρ₀ > ρ_trap(m₀));
   E6 opens with the failed P22a/b bands; remaining Euler-era numbers (d=512 flows, exp-6 free ODE steps) moved to LSODA. No prediction changed.
