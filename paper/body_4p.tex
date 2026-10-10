@@ -10,7 +10,7 @@ substitute for context length; a free scalar readout shrinks to a Wiener factor:
 norm removes the $N$-dependence as long as its initial norm is below an explicit threshold (proved, with the $N$-dependence bounded by $k^*\rho_0/(Nm_0^{2k^*-2})$). A parameter-free population ODE reproduces the exponents measured by online SGD at
 $d=32$ for three readout protocols and four context lengths (all 12 cells within $0.5$ by a censored fit), the escape times at $d=64$ and $d=128$ including the predicted flip of a context length from escape to trap, and, at $k^*=3$, the trap threshold and an exponent near $6$ (two pre-registered precision bands were missed and are reported). With
 many skills the dynamics decouple with emergence times $\propto1/\pi_p$; additive compositions of learned skills follow by linearity.
-In small softmax transformers no parameter whose scale we froze reproduces the trap or the rescue (two pre-registered tests, both killed), and, unlike in the solvable model, prompts per step partly substitute for context length.
+In small softmax transformers no parameter whose scale we froze reproduces the trap or the rescue (two pre-registered tests, both killed), and prompts per step partly substitute for context length, which the population loss cannot produce; the mechanism is open.
 \end{abstract}
 \section{Introduction}
 \label{sec:intro}
@@ -33,7 +33,8 @@ and a linear-in-label readout, online SGD---and then test the predictions outsid
 Inputs $x\sim\mathcal N(0,I_d)$. A \emph{skill} is a unit vector $v_p\in S^{d-1}$ with link $\sg$; we use the normalised Hermite
 polynomials $\sg_k=\mathrm{He}_k/\sqrt{k!}$, so $\E[\sg_j(\langle u,x\rangle)\sg_k(\langle w,x\rangle)]=\delta_{jk}\langle u,w\rangle^k$ for unit
 $u,w$ and $k^*=k$. A \emph{task} is a coefficient vector $c$ with independent mean-zero entries, $\E c_p^2=s_p^2$; a \emph{prompt}
-consists of $N$ pairs $(x_i,y_i)$ with $y=\sum_p c_p\sg(\langle v_p,x\rangle)$ and a query $(x_q,y_q)$ from the same task.
+consists of $N$ pairs $(x_i,y_i)$ with $y=\sum_p c_p\sg(\langle v_p,x\rangle)$ and a query $(x_q,y_q)$ from the same task. With a
+dictionary of $P$ skills and single-skill prompts, skill $p$ appears with frequency $\pi_p$.
 
 \paragraph{Model A (in-context).} Features $\phi_j(x)=\sg(\langle w_j,x\rangle)$, $w_j\in S^{d-1}$, and a linear-in-label readout
 \begin{equation}
@@ -44,7 +45,7 @@ the MLP-plus-linear-attention architecture of \citet{oko2024pretrained}. We cons
 $\Gamma_j=\gamma$; \emph{free}, a trainable scalar; and \emph{tied}, $\Gamma_j=\|u_j\|^2$ with $w_j=u_j/\|u_j\|$ (the 2-homogeneous
 student of \citet{ren2025emergence}). \textbf{Model B (in-weight)} is ordinary regression $\hat y=\sum_j a_j\phi_j(x)$ on the fixed
 task $c\equiv a$. Both are trained by online spherical SGD on the square loss with fresh data at every step: $B$ prompts per step, step size
-$\eta$ on the features (renormalised to the sphere after each step), step size $\eta_\Gamma$ on a free readout initialised at $\Gamma_0$,
+$\eta$ on the features, step size $\eta_\Gamma$ on a free readout initialised at $\Gamma_0$,
 and for the tied readout an unnormalised $u$ with $\|u_0\|^2=\rho_0$. We report escape times $T_{0.5}$ (steps until $|m|\ge\tfrac12$) and
 their \emph{flow-time} version $T_{0.5}\,\eta$, which is what the population ODEs predict; the single-feature experiments initialise
 at $m_0=c\,d^{-1/2}$ exactly.
@@ -70,8 +71,7 @@ L_B(m)&=1-2a\,g(m)+a^2g(1).
 
 \paragraph{The link is squared.} As $N\to\infty$, $L_A=s^2[1-2\Gamma g^2+\Gamma^2g(1)g^2]$ depends on $m$ only through $g(m)^2$, whereas
 $L_B$ depends on it through $g(m)$. Near $m=0$ the drift is $2\Gamma s^2(2-\Gamma g(1))\,k^*\alpha_{k^*}^4m^{2k^*-1}$ against
-$2ak^*\alpha_{k^*}^2m^{k^*-1}$ for Model B: the label enters the prediction twice---through the context statistic and through the
-comparison with $y_q$---and the mean-zero task prior removes the cross terms that would provide a degree-$k^*$ path.
+$2ak^*\alpha_{k^*}^2m^{k^*-1}$ for Model B.
 
 \begin{proposition}[Finite context: a drift-stable unaligned state]
 \label{prop:repulsion}
@@ -112,87 +112,94 @@ readout towards $\Gamma^*$, so that \emph{whether context length trades off agai
 hard requirement is decided by how the readout is parameterised}.
 
 \paragraph{E1: exponents by SGD.}
-Fig.~\ref{fig:kappa} (Appendix) shows $\kappa_{\rm eff}$ for free
+Here ($d=32$) the slope of $\log T_{0.5}$ against $\log m_0$ estimates $\kappa_{\rm eff}=2-\text{slope}$. Fig.~\ref{fig:kappa} (Appendix) shows $\kappa_{\rm eff}$ for free
 ($\eta_\Gamma=\eta$ and $10\eta$) and tied readouts at $N\in\{32,128,512,4096\}$ against the population ODE of
 Props.~\ref{prop:loss}--\ref{prop:shrink} evaluated \emph{after the run} at the same $d$, $m_0$-grid, $\Gamma_0$ and $\eta_\Gamma/\eta$ (the ODE
 itself was fixed before the run; its evaluation at these parameters was not pre-registered): tied $4.10$--$4.44$ (ODE $4.15$--$4.18$); free
 $4.8$--$6.6$ rising as $N$ falls (ODE $4.85$--$7.0$).
 With a censored (Tobit) fit for the three cells that contain censored runs, all twelve cells agree with the ODE within $0.5$
-(ordinary least squares on reached runs only: eleven within $0.6$, the free $N=32$, $\eta_\Gamma=\eta$ cell $1.0$ low); the estimator is a
+the estimator is a
 secant over a factor $2.8$ in $m_0$ and local slopes vary, so these are effective, not asymptotic, exponents.
+Two pre-registered predictions in this experiment failed and are
+reported as such: the learned $\Gamma$ at $T_{0.5}$ is $0.18$--$0.25$, below $\Gamma^*(0.5;N)=0.38$--$0.99$, and a scan of $T_{0.5}$ against $d\le48$ at $N=128$ versus $2048$ showed
+no $N$-dependence, which is what the ODE predicts for $d\le48$ but means the $N$-dependence is
+established only through $\kappa_{\rm eff}(N)$ at fixed $d$.
 
-\paragraph{E2 and E7: the three regimes by SGD at $d=64$ and $128$ (Exps.~6 and 10, P23).}
+\paragraph{E2 and E7: the three regimes by SGD (Exps.~6 and 10, pre-registered P23).}
 To test Prop.~\ref{prop:shrink} directly (Fig.~\ref{fig:regimes}) we fix $d=64$, $m_0=d^{-1/2}$, $\eta=1/d^2$, vary $N\in\{16,64,256\}$ under two schemes---tokens per
 step fixed ($NB=4096$) and prompts per step fixed ($B=64$)---and run the four protocols, three seeds each, with the population
-escape times computed before the run. Pinned $\gamma=1$: no escape at $N\le64$ in $10^6$ steps ($0/9$, including $B=256$), $3/6$ at $N=256$
+escape times computed before the run. Pinned $\gamma=1$: no escape at $N\le64$ in $10^6$ steps ($0/9$), $3/6$ at $N=256$
 ($d^*\approx63$); pinned $\gamma=0.1$: median $396$k$/192$k$/179$k steps against $400$k$/193$k$/175$k predicted; free: $1.78$M$/614$k$/402$k
-against $1.82$M$/623$k$/409$k, ratio $T(16)/T(256)=4.4$ ($3.6$--$5.0$ over seed pairings) as predicted ($4.44$)---the growth-limited value of
-Prop.~\ref{prop:shrink}(b), not the adiabatic $1/N$ law; tied: $17.0$k$/15.1$k$/14.0$k against $17.0$k$/16.4$k$/16.3$k (flat within $\times1.25$,
-seed pairings $0.9$--$1.45$).
+against $1.82$M$/623$k$/409$k, ratio $T(16)/T(256)=4.4$ as predicted ($4.44$)---the growth-limited value of
+Prop.~\ref{prop:shrink}(b), not the adiabatic $1/N$ law; tied: $17.0$k$/15.1$k$/14.0$k against $17.0$k$/16.4$k$/16.3$k.
 Repeating E2's protocols at $d=128$ ($\eta=1/d^2$, three seeds): the pinned $\gamma=0.1$ cell at $N=16$, which escaped at $d=64$, is now censored
 $3/3$ at $2.5\cdot10^6$ steps---the flip across $d^*(16)=76$ of Prop.~\ref{prop:shrink}(a)---while $N=64,256$ escape at $0.99$ and $1.01$ of the flow
-time ($1.78$ and $1.47\cdot10^6$ steps; ratio $1.22$, $N$-saturating); pinned $\gamma=1$ is censored at every $N$ ($d^*(256)=63$); the tied readout stays
+time ($N$-saturating); the tied readout stays
 $N$-flat (medians/flow $1.12,0.97,1.02$; $T(16)/T(256)=1.20$, flow $1.09$); the free readout at $N=256$ takes $5.29\cdot10^6$ steps ($0.985$ of the
-flow) and its secant exponent across $d=64\to128$ is $5.4$ (flow $5.4$), between the signal-dominated $4$ and the adiabatic $8$, and close to the large-$\lambda$, small-$\Gamma_0$ corner $2k^*+1=5$ of Prop.~\ref{prop:joint}.
+flow) and its secant exponent across $d=64\to128$ is $5.4$ (flow $5.4$), between the signal-dominated $4$ and the adiabatic $8$.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=.62\textwidth]{figs/fig_regimes.pdf}
+\caption{Escape steps $T_{0.5}$ against context length $N$ for the four readout protocols ($d=64$, $\eta=1/d^2$,
+$m_0=d^{-1/2}$). Light markers are single seeds (three per cell), solid markers and lines the median over seeds, for
+tokens per step fixed ($NB=4096$, circles) and prompts per step fixed ($B=64$, squares). Open triangles are runs that had not escaped at the
+step cap ($10^6$) and are drawn at the cap; the counts under the pinned-$\gamma=1$ panel are runs escaped out of $3$. Dashed lines are the
+population-ODE escape times (flow time $\times d^2$), \emph{fixed before the run}.}
+\label{fig:regimes}
+\end{figure*}
 
 \paragraph{E5: controls.}
 Varying the readout's initial value and learning rate (free: $\Gamma_0=0.1$ or $\eta_\Gamma=10\eta$ at $d=64$) changes the $N$-ratio from $4.4$ to
 $9.2$ and $10.7$ (ODE $9.1$ and $8.9$; medians within $2\%$ except the $\eta_\Gamma=10\eta$, $N=16$ cell, $24\%$ slow), confirming that the
-free-readout exponent is a function of $(N,\Gamma_0,\eta_\Gamma/\eta)$, as Prop.~\ref{prop:shrink}(b) states. A tied readout started at $\rho_0=0.3>\rho_{\rm trap}(m_0)=0.18$ at $N=16$ was pre-registered to trap
-(the deterministic flow provably does, Theorem~\ref{thm:A}(iii): $m\propto t^{-2}$, $\rho\propto t^{-1}$); under SGD all three seeds escaped after a $\approx30\times$ delay, once $\rho$ had
+free-readout exponent is a function of $(N,\Gamma_0,\eta_\Gamma/\eta)$, as Prop.~\ref{prop:shrink}(b) states. A tied readout started at $\rho_0=0.3>\rho_{\rm trap}(m_0)=0.18$ at $N=16$ was pre-registered to trap (the deterministic flow provably does, Theorem~\ref{thm:A}(iii)); under SGD all three seeds escaped after a $\approx30\times$ delay, once $\rho$ had
 decayed to $0.012$---so under SGD tying converts the pinned trap into a delay, and the pre-registered wording "the repulsion survives tying" is
-withdrawn in favour of "is delayed by tying".
+withdrawn in favour of "is delayed by tying". Finally, scaling the step size with the batch ($\eta\propto B$, pinned $\gamma=0.1$, $N=64$)
+leaves the escape \emph{flow time} invariant to $0.5\%$ while steps scale as $1/\eta$: the irrelevance of prompts per step in E2 is a
+statement about flow time, independent of how $\eta$ is chosen.
 
 \paragraph{E6: a $k^*=3$ check (Exp.~9, pre-registered P22).}
-With $\sg=\sg_3$ ($g=m^3$, $V=1+18m^2+54m^4+20m^6$), $\eta=2\cdot10^{-4}$, $B=64$, $d\in\{8,16,32\}$, three seeds: the tied readout ($\rho_0=0.01$, $N=128$)
-gives medians $1.18/0.89/0.80$ of the flow ($d=8/16/32$; the pre-registered band was $15\%$, so P22a failed) and secant exponents $5.7$ and $6.0$ (ODE $6.5$, $6.4$; the $8\to16$ secant misses its $\pm0.5$ band)---an exponent near $6$, against $\approx4$ at $k^*=2$.
+With $\sg=\sg_3$, $\eta=2\cdot10^{-4}$, $B=64$, $d\in\{8,16,32\}$, three seeds: the tied readout ($\rho_0=0.01$, $N=128$)
+gives medians $1.18/0.89/0.80$ of the flow ($d=8/16/32$; the pre-registered band was $15\%$, so P22a failed) and secant exponents $5.7$ and $6.0$ (ODE $6.5$, $6.4$; the $8\to16$ secant misses its $\pm0.5$ band)---an exponent near $6$, against $\approx4$ at $k^*=2$. Two post-hoc controls, declared before running: at $\eta/4$ the $d=8$ ratio becomes $1.007$ (discretisation); at $B=256$ the $d=32$ ratio becomes $1.14$, outside the $10\%$ band we had declared for it, so the flow is confirmed only to $\approx15\%$ there.
 The pre-registered $N$-flatness of the tied readout (P22b) \emph{failed} at $N=16$, $d=16$: the flow predicts $1.6\times$ the $N=128$ time,
-the seeds gave $47$k, $500$k and censored, and at $d=32$ all three seeds trapped (predicted: $\rho_0=0.01>\rho_{\rm trap}=0.006$). The statement that survives is the conditional one in
+the seeds gave $47$k, $500$k and censored, and at $d=32$ all three seeds trapped (predicted: $\rho_0=0.01>\rho_{\rm trap}=0.006$); the statement that survives is the conditional one in
 Prop.~\ref{prop:shrink}(c): $N$-flat for $\rho_0\ll\rho_{\rm trap}(m_0,N)$.
-
-\begin{figure*}[t]
-\centering
-\includegraphics[width=.8\textwidth]{figs/fig_regimes.pdf}
-\caption{Escape steps $T_{0.5}$ (first step with $|m|\ge0.5$) against context length $N$ for the four readout protocols ($d=64$, $\eta=1/d^2$,
-$m_0=d^{-1/2}$; shared log--log axes). Light markers are single seeds (three per cell), solid markers and lines the median over seeds, for
-tokens per step fixed ($NB=4096$, circles) and prompts per step fixed ($B=64$, squares). Open triangles are runs that had not escaped at the
-step cap ($10^6$) and are drawn at the cap; the counts under the pinned-$\gamma=1$ panel are runs escaped out of $3$. Dashed lines are the
-population-ODE escape times (flow time $\times d^2$), \emph{fixed before the run}; pinned $\gamma=1$ has no finite ODE escape time
-(trapped, shaded beyond the cap).}
-\label{fig:regimes}
-\end{figure*}
 
 \section{Many skills and composition}
 \label{sec:many}
 \textbf{E3} ($d=32$, $P=16$, $\pi_p\propto p^{-1.5}$, $M=64$, fixed $\Gamma=0.1$, three seeds) gives slopes of $\log T_p$ versus $\log p$ of
 $1.44\pm0.08$ for the in-context model, against $0.75\pm0.08$ for a capacity-matched in-weight baseline and $0.75$--$0.89$ for the
-2-homogeneous in-weight student of \citet{ren2025emergence}. (Appendix)
+2-homogeneous in-weight student of \citet{ren2025emergence} (Appendix).
 
-\section{Transformers: where the effect shows and where it does not}
+\section{Transformers: an observation and what it excludes}
 \label{sec:transformer}
-We train two-layer softmax transformers (4 heads, pre-LN, Adam, online data; Appendix, Fig.~\ref{fig:transformer}) on the same in-context task with $k^*=2$ and ask
-whether a short context can be compensated by more prompts per step. \textbf{Large initial alignment} ($d=32$, MLP width 256): at a fixed $8192$ tokens per step the emergence step
-\emph{increases} with $N$ ($1000/1400/2800$ for $N=16/64/256$)---fewer prompts per step dominate and the mechanism is invisible, as it
-must be when $m_0\gg m^*$. \textbf{Small initial alignment} ($d=256$, width 32; $|\cos|_0=0.13$--$0.18$): $N=16$ with $B=64$ prompts never
-emerges in $30$k steps ($3/3$); $N=16$ with $B=1024$ (the same tokens per step as $N=256$, $B=64$) emerges in all seeds but at
-$10.6$--$14.8$k steps, $\approx3\times$ later than $N=256$ ($2.8$--$4.0$k). Neither pre-registered extreme (a trap, or interchangeability of $N$ and $B$) holds; the $\approx3\times$ ratio rests on two paired seeds,
-the Adam step was not rescaled with $B$. We state the result as an observation; it is not a test of the mechanism of Sec.~\ref{sec:single}, and in one respect---prompts per step rescue the short context under every protocol below---it differs from it. If Prop.~\ref{prop:shrink} transferred through the final linear readout, freezing that readout at its O(1) initial norm (pinned) should turn the
-$N=16$ handicap into a trap that $B=1024$ cannot lift, and freezing it at $0.1\times$ (pinned small) should rescue $N=16$, $B=64$. Neither happened: the O(1)-frozen readout emerged at $5.8$k and $8.4$k steps with $B=1024$---no later than the
-trainable one---and the small frozen readout stayed on the plateau for $30$k steps at $B=64$ in both seeds, while $N=256$ emerged under every protocol. A second pre-registered test (Exp.~11, P24) moved the knob to the attention output projections of both blocks, the path through which the context
-statistic enters the residual stream: frozen at their initial norm, $N=16$ was again stuck at $B=64$ ($2/2$) and rescued by $B=1024$ ($15.0$k, $26.4$k);
-frozen at $0.1\times$, $N=16$, $B=64$ stayed stuck ($2/2$). Both kill criteria were met. The three-regime picture is therefore established for the solvable model only. We make no transfer claim.
+We train two-layer softmax transformers (4 heads, pre-LN, Adam, online data; Fig.~\ref{fig:transformer}, Appendix) on the same in-context task with $k^*=2$.
+\textbf{Large initial alignment} ($d=32$, MLP width 256): at a fixed
+$8192$ tokens per step the emergence step \emph{increases} with $N$ ($1000/1400/2800$ for $N=16/64/256$)---fewer prompts per step dominate. \textbf{Small initial alignment} ($d=256$, width 32): $N=16$ with $B=64$ prompts never emerges in $30$k steps
+($3/3$); $N=16$ with $B=1024$ (the tokens per step of $N=256$, $B=64$) emerges in all three seeds ($10.6$--$14.8$k), $\approx3\times$ later than $N=256$ in two
+paired seeds ($2.8$--$4.0$k) and earlier in the third ($11.6$k against a run censored at $17$k). Neither pre-registered extreme (a trap; interchangeability)
+held. These are observations, not a test of Sec.~\ref{sec:single}: the Adam step was not rescaled with $B$ (Appendix).
+
+\paragraph{Two null knob tests (Exps.~8 and 11; pre-registered P21, P24).}
+If Prop.~\ref{prop:shrink} acted through a scalar readout, freezing the final head, or the attention output projections of both blocks, at their O(1)
+initial norm should trap $N=16$ even at $B=1024$, and freezing them at $0.1\times$ should rescue $N=16$, $B=64$. Neither happened for either knob (two
+seeds per cell; both kill criteria met): $B=1024$ rescued $N=16$ under every frozen protocol that ran ($5.8$k$/8.4$k for the head, $15.0$k$/26.4$k for the
+attention output), and the small scales left $N=16$, $B=64$ stuck. We make no transfer claim.
+
+\paragraph{What prompts per step do.}
+The population drift of the solvable model contains no $B$ (Theorem~\ref{thm:A}(iv)); under SGD its escape time is $B$-invariant to $0.5\%$ at $N=64$ (E5)
+and within $20\%$ at $N=1024$ (Exp.~15, where the pre-registered $15\%$ clause P28b was missed). Under Adam the same model is strongly $B$-dependent where
+the drift is positive: at $N=1024$ the median escape time falls from $2537$ to $146$ steps between $B=16$ and $B=1024$ (slope $-0.75\pm0.14$ of $\log T$
+against $\log B$; the pre-registered $\sqrt B$ band $[-0.75,-0.25]$ of P28a was missed by $0.004$). The transformer's $B$-dependence at $N=16$ is steeper still: $B=256$ stays stuck through $77$--$80$k steps in
+two seeds where that slope, anchored at $B=1024$, predicts $\approx36$k; $B=512$ emerges in one of two; $B\ge1024$ in all (Exps.~16--17; P29--P30 failed).
+With two seeds per cell a threshold cannot be told from a steep power law. The mechanism of the transformer's $N$--$B$ interchange is therefore open;
+what is excluded is that it is the population loss, the final readout, or the attention-output scale. Single-feature ablations (Exps.~12--14) are reported in Appendix~\ref{app:ladder}.
 
 \section{Related work}
 \label{sec:related}
-\citet{oko2024pretrained} analyse the architecture~\eqref{eq:modelA} with one gradient step; the product of two correlations
-($\propto m^{2Q-1}$) is in their Lemma~21 and the exponent $2Q$ in their total sample count $N_1T_1=\tilde\Omega(d^{2Q+1}r)$, framed as a
-consequence of correlational information; their Remark~3 states the $N_1$--$T_1$ trade-off, which Prop.~\ref{prop:shrink} recovers for a shrinking readout; a readout pinned at order one lies outside their $\gamma\propto d^{-Q}$ regime, and there the trade-off is absent (Prop.~\ref{prop:repulsion}, Appendix Fig.~\ref{fig:threshold})---a complement to, not a contradiction of, their Remark~3. \citet{nishikawa2025nonlinear} show that softmax's label
-nonlinearity lowers the \emph{inference-time} context length to the generative exponent while one-step pretraining stays at
-$d^{\Theta(\mathrm{ie})}$. \citet{gu2026incontext} derive, by the replica method for trained models with $k^*=1$, the kernel-vs-feature
-context-length scalings and the static shrinkage $\Gamma^*$ (their eqs.~(297)--(298)); they list jointly trained readouts
+\citet{oko2024pretrained} analyse the architecture~\eqref{eq:modelA} with one gradient step; their Remark~3 states the $N_1$--$T_1$ trade-off, which Prop.~\ref{prop:shrink} recovers for a shrinking readout; a readout pinned at order one lies outside their $\gamma\propto d^{-Q}$ regime, and there the trade-off is absent (Prop.~\ref{prop:repulsion}, Fig.~\ref{fig:threshold})---a complement to, not a contradiction of, their Remark~3. \citet{gu2026incontext} derive, by the replica method for trained models with $k^*=1$, the static shrinkage $\Gamma^*$ (their eqs.~(297)--(298)); they list jointly trained readouts
 and $k^*\ge2$ as open, which is where our results sit. \citet{kim2024transformers} note that at finite sample size the ICL landscape may acquire a spurious minimum at the
 origin (their App.~C.4), a qualitative precursor of Prop.~\ref{prop:repulsion}. \citet{ren2025emergence} treat the additive model
-in-weight for even links with $k^*>2$ with a 2-homogeneous student; our tied protocol is theirs, the norm-independence of the
-directional dynamics is their Lemma~B.1, and $k^*=2$ is outside their assumptions.
+in-weight for even links with $k^*>2$ with a 2-homogeneous student; our tied protocol is theirs, and $k^*=2$ is outside their assumptions.
 
-\paragraph{Limitations.} The theory is for one feature per skill (Theorems~\ref{thm:A}--\ref{thm:B} hold for any $k^*\ge2$; SGD checks are at $k^*=2$ and $3$); the SGD threshold is soft; the transformer results are observational, so no transfer claim is made.
+\paragraph{Limitations.} The theory is for one feature per skill (SGD checks are at $k^*=2$ and $3$); the SGD threshold is soft; the transformer results are observational, so no transfer claim is made.

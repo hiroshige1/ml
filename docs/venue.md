@@ -25,3 +25,8 @@ changed); both transformer kill statements, "we make no transfer claim" and "P22
 learned Γ vs Γ*, B=8 control, OLS note); E6 mechanism sentence and m*=0.30; all of Sec. 4 (composition) and E4; transformer norm-collapse numbers;
 Zhang/He/Bietti-2022 sentences; the Limitations clauses on rare skills and failed N–B predictions; the disclosure paragraph. The full version
 (`main_icml.tex`, 6.3 pp main text) remains the primary one.
+
+
+Refreshed 2026-10-10 from v0.23 (`paper/body_4p.tex` regenerated): main text ends on page 4 with no slack; additionally cut relative to the v0.16
+variant: the LayerNorm and Malladi sentences, the Nishikawa and Bietti-2022 related-work sentences, the limitations list. The author should restore
+the Nishikawa sentence if space allows (it is part of the novelty positioning).
