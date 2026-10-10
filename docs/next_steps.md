@@ -18,7 +18,7 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
   same format, add `LICENSE` (MIT) and `CITATION.cff`, confirm `python3 tests/*.py` pass from a fresh clone.
 - [x] (docs/memo_ja.md) **N7. Japanese research memo** (`docs/memo_ja.md`): the question, the three regimes, what is new vs. known (table), what failed,
   what the transformer results do and do not show — for the human author to decide the framing.
-- [~] (checked 2026-10-09 ×2: icml.cc/Conferences/2027 is 404, HiLD site still on 2026; docs/venue.md) **N8. Monitor ICML 2027 / HiLD CFP.** Check `icml.cc` and the HiLD site once per wake; when a CFP appears, record dates, page limit,
+- [~] (checked 2026-10-09 ×2 and 2026-10-10: icml.cc/Conferences/2027 is 404, HiLD site still on 2026; docs/venue.md) **N8. Monitor ICML 2027 / HiLD CFP.** Check `icml.cc` and the HiLD site once per wake; when a CFP appears, record dates, page limit,
   LLM policy, archival status in `docs/venue.md`.
 
 - [x] (paper/theorems.tex, scripts/verify_theorems.py 61/61; paper v0.10; prereg v0.21) **N9 (2026-10-09, from review 3). Theorems A/B.** Replace Prop. 3 by (A) finite-context trap for σ_k population flow incl. tied=pinned time
@@ -73,3 +73,6 @@ Order is priority. Mark items `[x]` when done with the commit hash. Never delete
   is frozen; cuts and moves only.
 - [x] (docs/review_adversarial_5.md 6/10; response docs/review_adversarial_5_response.md; paper v0.23) **N25 (2026-10-10). Fifth adversarial review of v0.22** focused on Sec. 5 (is the ablation ladder Exps. 8–17 coherent, honestly framed and worth its
   length; what should move to the appendix), then respond.
+
+- [ ] **N26 (2026-10-10, open research, needs author go-ahead on budget ≈10 CPU-h). Transformer N–B mechanism**: B-scan at N=16 with 4 seeds and a
+  60k cap for B∈{256,384,512,768}; separately a 1-block and a no-LayerNorm variant at N=16, B∈{64,1024} to locate the ingredient (depth / LN / residual).
