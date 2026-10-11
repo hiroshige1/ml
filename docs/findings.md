@@ -100,7 +100,9 @@ not the loss — a candidate mechanism for the transformer's `N`–`B` interchan
 rejected it for the transformer: at `N=16`, `B=256` stays stuck through 80k steps (graded law predicted ≈36k), `B=512` 1/2, `B≥1024` 2/2 — a
 threshold between 256 and 512, not a power law. The transformer's interchange mechanism is open; excluded: the loss, the final readout, the
 attention-output scale, Adam's graded `B`-dependence alone; **Exp 18**: neither the second block nor LayerNorm is required (both ablated variants
-keep the stuck-at-64 / rescued-at-1024 pattern, 1/2 seeds each). Remaining
+keep the stuck-at-64 / rescued-at-1024 pattern, 1/2 seeds each). **Exp 19** (3 seeds, `B∈{384,512,768}`): escape fraction rises gradually
+(1/3, 2/3, 2/3, then 3/3 at 1024) while escape times stay 4–18k; one seed stuck at every `B<1024`; neither threshold nor power law — `B` changes
+the probability of leaving the plateau within budget, not a deterministic time. Remaining
 candidates for the `B`-rescue: depth, LayerNorm, residual stream.
 
 ## What would make this a paper (current best framing, subject to exp 3/5)

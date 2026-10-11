@@ -641,6 +641,17 @@ exps 16–17 (`transformer_exp8.py --run free 16 B seed`), `B ∈ {384, 512, 768
 Weak prior: threshold (exp 16's `B=512` 1/2 with one seed at 13.4k, close to `B=1024`'s times, suggests a switch rather than a slide). Whatever the
 outcome the paper's Sec. 5 last paragraph is updated to the pattern that held, with n=3 stated; no transfer claim follows.
 
+## Exp 19 outcome (recorded 2026-10-11 after the run; `results/exp19/README.md`, commit e2bc88c)
+
+9 fresh runs, 5.61 CPU-h, none dropped. `T_e(0.5)` (seeds 0/1/2): `B=384` 17800 / stuck / stuck; `B=512` 13400 / stuck / 12400; `B=768` 11000 / stuck /
+4400; `B=1024` (exp 5) 14800 / 10600 / 11600; `B=256` (exp 17) stuck 2/2 to 80k. Escape fractions 1/3, 2/3, 2/3, 3/3; medians (censored = 40k)
+40000⁺ / 13400 / 11000 / 11600; OLS slope −1.15 ± 0.57. **Neither P32 pattern held**: the threshold reading failed only because `B=768` escaped 2/3 (not
+3/3); the graded reading failed on the slope (−1.15 > −1.3) and on `B=384` (1/3 < 2/3). Seed 1 is stuck at 384, 512 and 768 and escapes only at 1024,
+so seed-to-seed variation is as large as the `B` effect. Reading (post hoc, labelled): at `N=16` prompts per step change the **probability** of
+leaving the plateau within the budget (1/3 → 3/3 from `B=384` to `1024`) more than the time at which runs that do leave do so (4–18k throughout);
+this is a stochastic escape whose likelihood rises with `B`, which is the opposite direction from the noise-driven escape of the single-feature
+softmax+Adam model (exp 14), and neither a clean threshold nor a power law. The paper's Sec. 5 last paragraph is updated accordingly (n=3).
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
