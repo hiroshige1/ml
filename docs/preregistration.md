@@ -625,6 +625,22 @@ matched. Deviations: two `N=256` seed-0 controls stopped for budget on the plate
 through an uncommitted bash claim queue (described in the README). Remaining candidates for the mechanism: the residual stream / embedding, and the
 plateau's stochastic dynamics itself; part 2 of N26 (a 4-seed `B`-scan) is left to the author.
 
+## Transformer B-scan at N=16 with more seeds: threshold or steep power law? (exp 19, N26 part 2) — pre-registered 2026-10-11 before any run
+
+Exps 16–17 left open whether the transformer's `B`-dependence at `N=16` is a threshold between `B=256` and `512` or a steep power law (n=2). Setting as
+exps 16–17 (`transformer_exp8.py --run free 16 B seed`), `B ∈ {384, 512, 768}`, seeds 0, 1, 2, cap **40k** steps; together with the existing `B=256`
+(stuck 2/2 to 77–80k), `B=1024` (14800, 10600, 11600 incl. exp 5 seed 2) and `B=2048` (11000) rows. 9 fresh runs, cap 10 CPU-h, launch order `B=512`
+(all seeds), then `768`, then `384`.
+
+| ID | reading | criterion |
+|---|---|---|
+| P32-threshold | a threshold between `B=256` and `B=512` | `B=384` escapes ≤ 1/3 and `B=512` ≥ 2/3 and `B=768` 3/3, with `T_e(512)` and `T_e(768)` medians within ×1.5 of `T_e(1024)`'s (12.7k) |
+| P32-graded | a steep power law | medians (censored = cap) strictly decrease from `384` to `768` **and** the OLS slope of `log T_e` vs `log B` over `{384, 512, 768, 1024}` is ≤ −1.3 (the value that makes `B=256` > 80k consistent) with `B=384` escaping ≥ 2/3 |
+| neither | — | report as "neither pattern; n=3 insufficient" |
+
+Weak prior: threshold (exp 16's `B=512` 1/2 with one seed at 13.4k, close to `B=1024`'s times, suggests a switch rather than a slide). Whatever the
+outcome the paper's Sec. 5 last paragraph is updated to the pattern that held, with n=3 stated; no transfer claim follows.
+
 ## (superseded) Secondary question (C4) — to be pre-registered after exp 1 passes K1
 
 Additive composition in a linear-in-label ICL model: emergence at `max(T_p, T_q)` with no compositional
